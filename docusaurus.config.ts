@@ -23,6 +23,17 @@ const config: Config = {
     './plugins/docusaurus-plugin-generate-trunks',
   ],
 
+  scripts: [
+    {
+      src: "https://widget.kapa.ai/kapa-widget.bundle.js",
+      "data-website-id": "54bcf336-8574-4f4e-b02d-27916cc99e46",
+      "data-project-name": "NethVoice Documentation",
+      "data-project-color": "#059669",
+      "data-project-logo": "https://docs.nethvoice.com/img/favicon_white.ico",
+      async: true,
+    },
+  ],
+
   // Set the production url of your site here
   // Production: https://docs.nethvoice.com with empty baseUrl
   // Development: GitHub pages deployment
