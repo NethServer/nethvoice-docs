@@ -81,7 +81,7 @@ I backup sono **automatici e trasparenti**:
 | **Infrastruttura** | Gestita da Nethesis | Gestita da Nethesis |
 | **Applicazioni** | Qualsiasi app del Software Center | Solo NethVoice |
 | **Gestione** | Controllo completo tramite Web UI | Solo a livello applicativo |
-| **Multi-istanza** | Multiple app su un nodo | Multiple istanze di NethVoice |
+| **Multi-istanza** | App e istanze di NethVoice multiple | Solo un'istanza di NethVoice |
 | **Caso d'uso** | Controllo infrastruttura, servizi multipli | NethVoice-focused, soluzione chiavi in mano |
 | **Fatturazione** | Annuale | Trimestrale |
 | **Ideale per** | Partner, rivenditori | Provider di servizi, clienti finali |

@@ -23,6 +23,7 @@ This page explains why and how to bypass the SIP proxy for unsupported trunks. I
 
 - Default behaviour: the wizard sets the proxy as the outbound proxy for registered trunks.
 - To bypass for a registered trunk, remove the **Outbound proxy** value in the [FreePBX advanced](/docs/administrator-manual/advanced/freepbx) for that trunk.
+- Change the name of the trunk by adding the suffix `Custom-`: this is important, otherwise the configuration will be overwritten during updates.
 - Then, configure the NAT settings in FreePBX as described in the [audio problems troubleshooting guide](../troubleshooting/audio_problems.md#nat-settings) to ensure proper handling of SIP and RTP traffic.
 
 ## Trunks without registration

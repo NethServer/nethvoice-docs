@@ -80,7 +80,7 @@ Backups are **automatic and transparent**:
 | **Infrastructure** | Managed by Nethesis | Managed by Nethesis |
 | **Applications** | Any Software Center app | NethVoice only |
 | **Management** | Full control via Web UI | Application-level only |
-| **Multi-instance** | Multiple apps on one node | Multiple NethVoice instances |
+| **Multi-instance** | Multiple apps and NethVoice instances | Only one NethVoice instance |
 | **Use case** | Infrastructure control, multiple services | NethVoice-focused, turnkey solution |
 | **Billing** | Annual | Quarterly |
 | **Best for** | Partners, resellers | Service providers, end customers |
