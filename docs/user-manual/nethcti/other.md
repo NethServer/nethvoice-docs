@@ -16,10 +16,11 @@ Communicate your telephone status to your colleagues to let them know if you are
 ![Presence](/img/nethcti/Presence.png)
 
 Your status color will change accordingly:
-- **Available (Green)**: Ready to receive calls
-- **Busy (Red)**: Currently on a call or unavailable
-- **Away (Yellow)**: Away from your desk
-- **Do Not Disturb (Gray)**: Do not want to receive calls
+* **Available (Green)**: You are available to receive calls.
+* **Available with Forwarding (Green with Forward Arrow)**: You are available, but calls are being forwarded.
+* **Available with Voicemail (Green with Voicemail Icon)**: You are available, but calls go directly to voicemail.
+* **Busy (Red)**: You are currently on a call or unavailable.
+* **Do Not Disturb (Black)**: You do not want to receive calls.
 
 ### Main Device {#main-device}
 
