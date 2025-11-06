@@ -5,6 +5,8 @@ sidebar_position: 2
 
 # Configuration
 
+![Nethlinklogin](/img/nethlink/nethlink_login.png)
+
 NethLink configuration is simple and requires only:
 
 1. Enter the NethVoice CTI domain
