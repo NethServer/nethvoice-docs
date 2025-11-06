@@ -5,6 +5,8 @@ sidebar_position: 1
 
 # Installazione
 
+![NethLink](/img/nethlink/NethLink_scaricamento.png)
+
 NethLink è disponibile come applicazione desktop indipendente. Per installarlo:
 
 1. Accedere a NethVoice CTI
