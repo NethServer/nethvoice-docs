@@ -1,6 +1,6 @@
 ---
 title: Applications
-sidebar_position: 20
+sidebar_position: 6
 ---
 
 # Applications
