@@ -28,6 +28,8 @@ Per garantire una qualità ottimale delle chiamate:
 
 ## Configurazione delle scorciatoie da tastiera
 
+![Nethlinkshortcut](/img/nethlink/nethlink_scorciatoia.png)
+
 NethLink permette di personalizzare le scorciatoie da tastiera per le operazioni più comuni:
 
 1. Accedere a **Profilo → Impostazioni → Scorciatoie**
