@@ -47,6 +47,14 @@ View your recent incoming and outgoing calls:
 
 You can quickly redial or check call history from this list.
 
+### Voicemail {#voicemail}
+
+You can access all voicemails left for your extension: 
+
+![Voicemail](/img/nethcti/Casella_Vocale.png)
+
+Each voicemail can be played, downloaded, called back, or deleted.
+
 ## Operator Panel {#operator-panel}
 
 View the real-time status of your colleagues:
