@@ -23,6 +23,8 @@ The **Phone Island** is the dedicated tool for managing your calls.
 
 ### Phone Island Features {#phone-island-features}
 
+![Phone_Island_features](/img/nethcti/Phone_Island_espansione.png)
+
 Through the **Phone Island** you can:
 
 - **Pause the call**: Temporarily put the call on hold
@@ -31,6 +33,8 @@ Through the **Phone Island** you can:
 - **Open numeric keypad**: Use the keypad to enter numbers during a call (useful for IVR systems)
 - **Park the call**: Park the call for later pickup (subject to specific permissions)
 - **Add participants to the call**: You can add multiple participants to the conference (subject to specific permissions)
+
+![Phone_Island_features](/img/nethcti/Phone_Island_espansione_totale.png)
 
 In other actions, you can:
 
