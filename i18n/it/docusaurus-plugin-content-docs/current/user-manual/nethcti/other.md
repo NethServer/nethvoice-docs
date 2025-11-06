@@ -16,10 +16,11 @@ Comunica il tuo stato telefonico ai tuoi colleghi per far sapere se sei disponib
 ![Presence](/img/nethcti/Presence.png)
 
 Il colore del tuo stato cambierà di conseguenza:
-- **Disponibile (Verde)**: Pronto a ricevere chiamate
-- **Occupato (Rosso)**: Attualmente in una chiamata o non disponibile
-- **Assente (Giallo)**: Assente dalla tua scrivania
-- **Non Disturbare (Grigio)**: Non desideri ricevere chiamate
+* **Disponibile (Verde)**: Sei disponibile a ricevere chiamate.
+* **Disponibile con Inoltro (Verde con freccia di inoltro)**: Sei disponibile, ma le chiamate vengono inoltrate.
+* **Disponibile con Casella Vocale (Verde con icona voicemail)**: Sei disponibile, ma le chiamate vanno direttamente in casella vocale.
+* **Occupato (Rosso)**: Sei al telefono o non sei disponibile.
+* **Non Disturbare (Nero)**: Non desideri ricevere chiamate.
 
 ### Dispositivo Principale
 
