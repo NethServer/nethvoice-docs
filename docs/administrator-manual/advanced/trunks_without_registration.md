@@ -1,9 +1,6 @@
 ---
 title: Trunks without registration
-sidebar_position: 1
-tags: 
-  - proxy
-  - trunks
+sidebar_position: 6
 ---
 
 This procedure is only necessary if an unregistered VoIP trunk (e.g., an IP-based trunk without SIP registration credentials).

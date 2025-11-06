@@ -143,6 +143,7 @@ Dopo la configurazione del cluster, puoi:
 
 1. **Installa dominio utente**: [Configura LDAP o Active Directory](#user-domains)
 2. **Installa NethVoice**: Procedi con l'[installazione di NethVoice](nethvoice_install) tramite il Software Center
+3. **Registra NethServer**: Attiva il tuo [abbonamento Enterprise](#register-nethserver)
 
 ## Domini utente {#user-domains}
 
@@ -193,9 +194,45 @@ Argomenti chiave nella documentazione ufficiale:
 - **Repliche del provider LDAP**: Tolleranza ai guasti e ridondanza
 - **Impostazioni di binding LDAP**: Connessione di applicazione esterna a un server LDAP in esecuzione localmente
 
-## Risoluzione dei problemi
+## Registra NethServer {#register-nethserver}
 
-### Nodo non raggiungibile
+NethServer deve avere una subscription Enterprise per sbloccare tutte le funzionalità di NethVoice.
+Consulta la [sezione subscription](../index.md#subscription) per ulteriori informazioni.
+
+### Passaggi di registrazione {#registration-steps}
+
+1. **Ottieni un token per la subscription**:
+   - Accedi al portale [my.nethesis.it](https://my.nethesis.it/)
+   - Segui le procedure del portale per generare un token di subscription univoco per il tuo cluster
+
+   :::warning Importante
+   Il token di subscription è un segreto. Non condividerlo mai con nessuno.
+   :::
+
+2. **Registra il cluster**:
+   - Accedi all'interfaccia web di NethServer 8
+   - Vai a `Impostazioni` → scheda `Subscription`
+   - Incolla il token nel campo **Token di autenticazione**
+   - Fai clic sul pulsante **Registra**
+   - NethVoice erediterà automaticamente la subscription di NethServer e attiverà le sue funzionalità
+
+3. **Verifica la registrazione**:
+   - Dopo la registrazione riuscita, la pagina Subscription visualizza:
+     - **ID di sistema**: Identificatore univoco per il tuo cluster
+     - **Piano**: Tipo di subscription
+     - **Data di scadenza**: Quando scade la tua subscription
+
+### Rimozione di una subscription {#removing-subscription}
+
+Se hai bisogno di rimuovere una subscription:
+
+1. Vai a `Impostazioni` → scheda `Subscription`
+2. Fai clic sul pulsante **Rimuovi subscription**
+3. Conferma l'azione quando richiesto
+
+## Risoluzione dei problemi {#troubleshooting}
+
+### Nodo non raggiungibile {#node-unreachable}
 
 Se il nodo non è raggiungibile dopo l'installazione:
 - Verifica la configurazione dell'indirizzo IP statico
@@ -203,7 +240,7 @@ Se il nodo non è raggiungibile dopo l'installazione:
 - Assicurati che il firewall consenta HTTPS (porta 443)
 - Rivedi la configurazione dell'interfaccia di rete
 
-### Problemi di configurazione della rete
+### Problemi di configurazione della rete {#network-configuration-issues}
 
 Se hai bisogno di riconfigurare le impostazioni di rete:
 - Accedi alla console direttamente o tramite IPMI/KVM

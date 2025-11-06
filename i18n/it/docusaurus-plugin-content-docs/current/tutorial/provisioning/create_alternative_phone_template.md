@@ -1,5 +1,6 @@
 ---
 title: "Template telefono personalizzato"
+sidebar_position: 2
 tags: 
   - provisioning
   - telefoni

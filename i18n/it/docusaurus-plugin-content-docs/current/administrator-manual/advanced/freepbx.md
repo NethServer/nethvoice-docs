@@ -1,6 +1,6 @@
 ---
 title: Interfaccia FreePBX
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 Questa sezione consente l'accesso al pannello di amministrazione FreePBX sottostante e ad altre opzioni di configurazione avanzate.
