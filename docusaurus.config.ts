@@ -30,6 +30,7 @@ const config: Config = {
       "data-project-name": "NethVoice Documentation",
       "data-project-color": "#059669",
       "data-project-logo": "https://docs.nethvoice.com/img/favicon_white.ico",
+      "data-source-group-ids-include": "e92a7b49-112e-479c-8813-0b8562b9e652",
       async: true,
     },
   ],

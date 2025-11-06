@@ -168,8 +168,9 @@ curl -X POST https://nethcti.example.com/api/2fa/verify-otp \
 Generate backup codes that can be used if you lose access to your authenticator device.
 
 ```bash
-curl -X POST https://nethcti.example.com/api/2fa/recovery-codes \
-  -H "Authorization: Bearer <jwt-token>"
+curl -X POST 'https://nethcti.example.com/api/2fa/recovery-codes' \
+  -H 'authorization: Bearer <jwt-token>' \
+  -d '{"password":"NethVoice,1234"}'
 
 # Response
 {

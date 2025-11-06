@@ -42,8 +42,8 @@ Entrambe le piattaforme ricevono aggiornamenti automatici con nuove funzionalit√
 
 Scarica l'app mobile NethVoice dall'app store del tuo dispositivo:
 
-- **iOS**: Cerca "NethCTI" su [Apple App Store](https://apps.apple.com/it/app/nethcti-3/id1490557831)
-- **Android**: Cerca "NethCTI" su [Google Play](https://play.google.com/store/apps/details?id=it.nethesis.nethctiapp)
+- **iOS**: Cerca "NethVoice" su [Apple App Store](https://apps.apple.com/it/app/nethvoice/id6476514784)
+- **Android**: Cerca "NethVoice" su [Google Play](https://play.google.com/store/apps/details?id=com.nethesis.nethvoice.it.android&hl=it)
 
 ### Configurazione
 
