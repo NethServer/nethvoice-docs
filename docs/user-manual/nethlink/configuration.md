@@ -28,6 +28,8 @@ To ensure optimal call quality:
 
 ## Keyboard Shortcut Configuration {#keyboard-shortcut-configuration}
 
+![Nethlinkshortcut](/img/nethlink/nethlink_scorciatoia.png)
+
 NethLink allows you to customize keyboard shortcuts for common operations:
 
 1. Go to **Profile → Settings → Shortcuts**
