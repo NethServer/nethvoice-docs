@@ -47,6 +47,14 @@ Visualizza le tue ultime chiamate in arrivo e in uscita:
 
 Puoi rapidamente richiamare o controllare la cronologia delle chiamate da questo elenco.
 
+### Casella Vocale
+
+Puoi accedere a tutti i messaggi vocali lasciati per il tuo interno:
+
+![Casella_Vocale](/img/nethcti/Casella_Vocale.png)
+
+Ogni messaggio vocale può essere ascoltato, scaricato, è possibile richiamare chi lo ha lasciato oppure eliminarlo.
+
 ## Pannello Operatore
 
 Visualizza lo stato in tempo reale dei tuoi colleghi:
