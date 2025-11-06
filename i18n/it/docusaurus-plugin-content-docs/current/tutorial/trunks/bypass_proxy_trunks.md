@@ -23,11 +23,12 @@ Questa pagina spiega perché e come bypassare il proxy SIP per trunk non support
 
 - Comportamento predefinito: il wizard imposta il proxy come outbound proxy per i trunk registrati.
 - Per bypassare un trunk registrato, rimuovere il valore dell'outbound proxy nella pagina [FreePBX advanced](/docs/administrator-manual/advanced/freepbx) relativa a quel trunk.
+- Poi, configura le impostazioni NAT in FreePBX come descritto nella [guida alla risoluzione dei problemi audio](../troubleshooting/audio_problems.md#nat-settings) per garantire la corretta gestione del traffico SIP e RTP.
 
 ## Trunk senza registrazione
 
 - Per i trunk non registrati, il routing via proxy è configurato tramite la [pagina specifica](/docs/administrator-manual/advanced/trunks_without_registration); è possibile aggiungere route in ingresso basate sui numeri.
-- Alcuni dispositivi/operatore inviano un Request‑URI contenente un dominio non riconosciuto. Sono previste regole basate sul dominio (oltre al numero) per semplificare la gestione di questi casi.
+- Alcuni dispositivi/operatore inviano un Request‑URI contenente un dominio non riconosciuto. Sono previste regole basate sul dominio (oltre al numero) per semplificare la gestione di questi casi. Se hai questo problema, contatta il supporto Nethesis per assistenza.
 
 ## Note sui dispositivi Mediant
 

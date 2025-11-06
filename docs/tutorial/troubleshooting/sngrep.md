@@ -1,6 +1,6 @@
 ---
 title: Debug calls with SNGREP
-sidebar_position: 10
+sidebar_position: 4
 ---
 
 ## SNGREP: what it is and why to use it {#sngrep-what-it-is-and-why-to-use-it}

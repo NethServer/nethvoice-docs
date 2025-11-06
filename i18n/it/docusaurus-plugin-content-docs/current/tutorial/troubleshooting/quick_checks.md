@@ -1,6 +1,6 @@
 ---
 title: Controlli rapidi
-sidebar_position: 4
+sidebar_position: 2
 ---
 
 ## Panoramica {#overview}

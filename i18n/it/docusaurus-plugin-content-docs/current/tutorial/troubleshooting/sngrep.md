@@ -1,6 +1,6 @@
 ---
 title: Debug delle chiamate con SNGREP
-sidebar_position: 10
+sidebar_position: 4
 ---
 
 ## SNGREP: cos'è e perché usarlo {#sngrep-what-it-is-and-why-to-use-it}

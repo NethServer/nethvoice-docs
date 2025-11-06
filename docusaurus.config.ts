@@ -119,15 +119,15 @@ const config: Config = {
         },
         {
           type: 'docSidebar',
-          sidebarId: 'userManualSidebar',
-          position: 'left',
-          label: 'User manual',
-        },
-        {
-          type: 'docSidebar',
           sidebarId: 'tutorialSidebar',
           position: 'left',
           label: 'Tutorial',
+        },
+        {
+          type: 'docSidebar',
+          sidebarId: 'userManualSidebar',
+          position: 'left',
+          label: 'User manual',
         },
         {
           type: 'localeDropdown',
