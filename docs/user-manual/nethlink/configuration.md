@@ -17,6 +17,8 @@ Once configured, the Phone Island of NethVoice CTI will automatically run in Net
 
 ## Audio Configuration {#audio-configuration}
 
+![Nethlinkaudio](/img/nethlink/nethlink_audio_video.png)
+
 To ensure optimal call quality:
 
 1. Select the desired input device (microphone)
