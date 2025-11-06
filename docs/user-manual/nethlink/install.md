@@ -5,6 +5,8 @@ sidebar_position: 1
 
 # Installation
 
+![NethLink](/img/nethlink/NethLink_scaricamento.png)
+
 NethLink is available as a standalone desktop application. To install it:
 
 1. Access NethVoice CTI

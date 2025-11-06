@@ -1,6 +1,6 @@
 ---
 title: Configurazione avanzata
-sidebar_position: 10
+sidebar_position: 6
 ---
 
 # Configurazione Avanzata
@@ -13,3 +13,4 @@ Questa sezione copre:
 
 - [**Funzionalità avanzate di FreePBX**](./freepbx.md) - Accesso alle interfacce di gestione FreePBX, configurazioni personalizzate e instradamento delle chiamate avanzato
 - [**Impostazioni Proxy**](./nethvoice_proxy.md) - Configurazione di server proxy per il traffico SIP e RTP
+- [**Call Query Routing (CQR)**](./cqr.md) - Interrogazione di database per instradamento intelligente delle chiamate basato sui dati del chiamante

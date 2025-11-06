@@ -1,9 +1,6 @@
 ---
 title: "Custom phone template"
-tags: 
-  - provisioning
-  - phones
-  - templates
+sidebar_position: 2
 ---
 
 If you have phones that need to be configured with default parameters different from the standard chosen by provisioning, and these parameters are not exposed by the Tancredi interface in the NethVoice Wizard, you can create an alternative template that will be selectable from the interface.

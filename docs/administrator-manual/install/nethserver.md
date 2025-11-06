@@ -144,6 +144,7 @@ After cluster setup, you can:
 
 1. **Install User Domain**: [Set up LDAP or Active Directory](#user-domains)
 2. **Install NethVoice**: Proceed with [NethVoice installation](nethvoice_install) via the Software Center
+3. **Register NethServer**: Activate your [Enterprise subscription](#register-nethserver)
 
 
 ## User Domains {#user-domains}
@@ -196,6 +197,42 @@ Key topics in the official docs:
 - **User Management Portal**: Self-service password changes
 - **LDAP Provider Replicas**: Fault tolerance and redundancy
 - **LDAP binding settings**: Connect external application to a local-running LDAP server
+
+## Register NethServer {#register-nethserver}
+
+NethServer must have an Enterprise subscription to unlock all NethVoice features.
+See [subscription section](../index.md#subscription) for more info.
+
+### Registration Steps {#registration-steps}
+
+1. **Obtain a subscription token**:
+   - Log in to [my.nethesis.it](https://my.nethesis.it/) portal 
+   - Follow the portal procedures to generate a unique subscription token for your cluster
+
+   :::warning Important
+   The subscription token is a secret. Never share or communicate it with anyone else.
+   :::
+
+2. **Register the cluster**:
+   - Access the NethServer 8 web interface
+   - Go to `Settings` → `Subscription` card
+   - Paste the token in the **Authentication token** field
+   - Click the **Register** button
+   - NethVoice will automatically inherit the NethServer subscription and activate its features
+
+3. **Verify registration**:
+   - After successful registration, the Subscription page displays:
+     - **System ID**: Unique identifier for your cluster
+     - **Plan**: Subscription type
+     - **Expiration date**: When your subscription expires
+
+### Removing a Subscription {#removing-subscription}
+
+If you need to remove a subscription:
+
+1. Go to `Settings` → `Subscription` card
+2. Click the **Remove subscription** button
+3. Confirm the action when prompted
 
 ## Troubleshooting {#troubleshooting}
 

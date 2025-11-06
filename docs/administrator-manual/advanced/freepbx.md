@@ -1,6 +1,6 @@
 ---
 title: FreePBX Interface
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 This section grants access to the underlying FreePBX administration panel and other advanced configuration options.
