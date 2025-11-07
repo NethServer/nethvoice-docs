@@ -25,9 +25,8 @@ The NethVoice mobile app provides a complete phone system experience on your mob
 - **Call History** — View detailed call logs including placed, received, and missed calls
 - **Presence Management** — Set your availability status (available, busy, away) and see colleagues' presence in real time
 - **Call Management** — Transfer calls, record conversations, place calls on hold, and manage conference calls
-- **Queue Integration** — For call center agents: log in/out of queues, view queue status, and manage calls
-- **Advanced Features** — Intrusion, call monitoring, and call pickup capabilities (based on user permissions)
-- **Group Organization** — View colleagues grouped by department and quickly locate team members
+- **Queue Integration** — For call center agents: log in/out of queues by dialing simple feature codes
+- **Speed Dial** — View the colleagues you’ve added to your favorites, see their status, and call them quickly
 
 ## Supported Platforms
 
