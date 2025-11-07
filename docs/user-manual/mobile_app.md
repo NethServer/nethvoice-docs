@@ -47,6 +47,8 @@ Download the NethVoice mobile app from your device's app store:
 
 ### Configuration
 
+![Nethvoiceapp](/img/nethvoiceapp/app_accesso.png)
+
 Configuration is simple and requires only a QR code:
 
 1. Open the NethVoice mobile app
