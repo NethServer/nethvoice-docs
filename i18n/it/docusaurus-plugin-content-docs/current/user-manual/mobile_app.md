@@ -5,6 +5,8 @@ sidebar_position: 3
 
 # App Mobile NethVoice
 
+![Nethvoiceapp](/img/nethvoiceapp/nethvoiceapp_presentazione.png)
+
 L'**app mobile NethVoice** (NethCTI) porta le capacità enterprise VoIP sul tuo smartphone o tablet, permettendoti di effettuare e ricevere chiamate utilizzando il tuo numero aziendale da qualsiasi luogo con una connessione internet.
 
 :::warning È richiesta una subscription Enterprise
