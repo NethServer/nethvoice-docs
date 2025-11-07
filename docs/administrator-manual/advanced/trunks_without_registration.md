@@ -5,7 +5,7 @@ sidebar_position: 6
 
 This procedure is only necessary if an unregistered VoIP trunk (e.g., an IP-based trunk without SIP registration credentials).
 
-The goal is to route calls with a specific root (prefix) directly to a NethVoice instance (the internal PBX) **without passing them through the NethVoice Proxy SIP/RTP engine (Kamalio/RTP Engine).**
+The goal of this procedure is to route calls that start with a designated root prefix to a specific NethVoice PBX instance. When a call—whether outgoing from the PBX or incoming from a gateway or provider—reaches the NethVoice Proxy, the proxy examines the beginning of the dialed number (the **root**). If the dial string matches the configured root (for example, `07214055`), the proxy automatically forwards the call to the selected NethVoice PBX instance (such as `nethvoice1`). This ensures that calls with the specified prefix are consistently routed to the correct internal PBX.
 
 ### 1. Prerequisites {#1-prerequisites}
 
@@ -40,9 +40,3 @@ This rule instructs the NethVoice Proxy to handle calls for a specific prefix an
     * **For Outgoing Calls:** Configure an **Outbound Route** in your NethVoice PBX. The Dial Pattern should include the configured **Root** prefix (e.g., `456`). This route should be directed to the specific unregistered trunk.
         * The PBX should then strip the `456` prefix before sending the number out to the trunk/provider.
     * **For Incoming Calls (from the unregistered trunk):** The provider/gateway sending the call to the NethVoice Proxy must prepend the configured **Root** prefix (`456`) to the destination number (DID). The PBX, upon receiving the call on the unregistered trunk, can then use an **Inbound Route** matching that prefix to direct the call internally.
-
-### How the Route Works {#how-the-route-works}
-
-When a call (outgoing from the PBX or incoming from a gateway/provider) is processed by the NethVoice Proxy, the proxy checks the initial part of the dialing string (the **Root**).
-
-If the call matches the configured prefix (e.g., `456`), the proxy routes the call **directly** to the specified NethVoice PBX system (`nethvoice1`), bypassing its internal SIP and RTP handling (Kamalio/RTP Engine). This ensures that the VoIP traffic from the specific unregistered trunk/gateway, which may have compatibility issues with the proxy, is handled directly by the PBX.
