@@ -25,9 +25,8 @@ L'app mobile NethVoice fornisce un'esperienza completa del sistema telefonico su
 - **Cronologia chiamate** — Visualizza i registri dettagliati delle chiamate includendo chiamate effettuate, ricevute e perse
 - **Gestione della disponibilità** — Imposta il tuo stato di disponibilità (disponibile, occupato, assente) e visualizza la disponibilità dei colleghi in tempo reale
 - **Gestione delle chiamate** — Trasferisci chiamate, registra conversazioni, metti in attesa le chiamate e gestisci conferenze
-- **Integrazione code** — Per gli operatori del call center: accedi/esci dalle code, visualizza lo stato della coda e gestisci le chiamate
-- **Funzionalità avanzate** — Intrusione, monitoraggio delle chiamate e prelevamento di chiamate (in base alle autorizzazioni dell'utente)
-- **Organizzazione per gruppi** — Visualizza i colleghi raggruppati per reparto e localizza rapidamente i membri del team
+- **Integrazione code** — Per gli operatori del call center: accedi/esci dalle code componendo dei semplici feature codes
+- **Chiamata rapida** — Visualizza i colleghi che hai inserito tra i preferiti, visualizza il loro stato e chiama rapidamente
 
 ## Piattaforme supportate
 
