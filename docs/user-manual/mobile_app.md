@@ -60,6 +60,16 @@ Configuration is simple and requires only a QR code:
 3. The app auto-configures itself in seconds — no manual entry required
 4. Once configured, you're ready to make and receive calls
 
+If you’re unable to access the CTI to scan the QR code, you can also configure the app manually.
+Simply enter your username followed by the NethVoice FQDN, and then your password:
+
+| Campo    | Valore                           |
+| -------- | -------------------------------- |
+| Username | `username@hostnamenethvoice.com` |
+| Password | `your-password`                  |
+
+The app will still connect to your account correctly.
+
 ## Supported Operating Systems
 
 - **iOS**: iOS 13.0 and later
