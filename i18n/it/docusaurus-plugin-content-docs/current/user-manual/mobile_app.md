@@ -60,6 +60,16 @@ La configurazione è semplice e richiede solo un codice QR:
 3. L'app si auto-configura in pochi secondi — non è necessaria alcuna immissione manuale
 4. Una volta configurata, sei pronto a effettuare e ricevere chiamate
 
+Se in quel momento non puoi accedere al CTI per scannerizzare il codice QR, è possibile configurare l’app anche manualmente.
+Basta inserire il proprio username seguito dall’FQDN di NethVoice, e poi la propria password:
+
+| Campo    | Valore                           |
+| -------- | -------------------------------- |
+| Username | `username@hostnamenethvoice.com` |
+| Password | `la-tua-password`                |
+
+L’app si collegherà comunque correttamente al tuo account.
+
 ## Sistemi operativi supportati
 
 - **iOS**: iOS 13.0 e successivi
