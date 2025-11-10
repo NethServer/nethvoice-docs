@@ -72,7 +72,7 @@ L’app si collegherà comunque correttamente al tuo account.
 
 ## Sistemi operativi supportati
 
-- **iOS**: iOS 13.0 e successivi
+- **iOS**: iOS 16.0 e successivi
 - **Android**: Android 8.0 (livello API 26) e successivi
 
 ## Compatibilità dei dispositivi
