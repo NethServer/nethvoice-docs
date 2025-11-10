@@ -72,7 +72,7 @@ The app will still connect to your account correctly.
 
 ## Supported Operating Systems
 
-- **iOS**: iOS 13.0 and later
+- **iOS**: iOS 16.0 and later
 - **Android**: Android 8.0 (API level 26) and later
 
 ## Device Compatibility
