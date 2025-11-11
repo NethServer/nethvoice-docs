@@ -82,6 +82,79 @@ L'app funziona su:
 - Smartphone con una connessione internet attiva
 - Tablet (incluso iPad e tablet Android)
 
+## Funzionalità dell'app
+
+### Chiamata rapida
+
+Nella sezione Chiamata Rapida puoi aggiungere o gestire la lista dei contatti preferiti per monitorarne facilmente la disponibilità. Ogni contatto aggiunto mostra uno stato:
+
+* 🟢 Disponibile – quando il contatto non è in chiamata
+* 🔴 Sta squillando – quando il telefono del contatto sta squillando
+* 🔴 In chiamata – quando il contatto è attualmente in chiamata
+
+Per aggiungere un contatto alla lista, tocca “Modifica” e poi premi “+”. Ti verrà richiesto di inserire il Titolo (Nome e Cognome), il Numero di telefono o l’indirizzo SIP (interno) e verificare lo Stato, che monitora l’attività dell’interno. Puoi anche aggiungere una foto o importare il contatto direttamente dalla Rubrica. Una volta salvato, il contatto apparirà nell’elenco.
+
+### Storico
+
+Nella sezione Storico ci sono tre sottosezioni in cui è possibile visualizzare tutte le chiamate gestite, perse e ricevute.
+La sottosezione “Perse” filtra le chiamate in ingresso che non sono state risposte.
+La sottosezione “Registrato” elenca tutte le chiamate registrate; toccando l’icona “i”, puoi accedere alla pagina per ascoltare la registrazione. Toccando nuovamente l’icona “i” puoi eliminare la registrazione, inviarla via email, condividerla con altre app o bloccarla per impedirne la cancellazione.
+Nella sottosezione “Tutti”, usando il pulsante “Modifica”, puoi eliminare tutte le chiamate o selezionare solo quelle da rimuovere. Accanto a “Modifica” è presente un pulsante che permette di esportare tutte le chiamate generando un file di testo con i relativi dati.
+
+### Tastierino
+
+Nella sezione “Tastierino” puoi comporre un numero per effettuare una chiamata, aggiungere un nuovo contatto o aggiungere il numero digitato a un contatto esistente nella Rubrica. In basso a destra compare il pulsante “Cancella” per eliminare l’ultima cifra o l’intero numero inserito.
+
+### Effettuare una chiamata
+
+Effettuare una chiamata con l’app NethVoice è molto semplice e può essere fatto dal Tastierino o dalla sezione Contatti selezionando il contatto desiderato. Dopo aver composto il numero, tocca l’icona verde del telefono per avviare la chiamata.
+
+Durante la chiamata, lo schermo mostra i seguenti pulsanti:
+
+* Tastierino: per digitare numeri durante la chiamata.
+* Metti in attesa: mette in pausa la chiamata in modo che l’interlocutore non possa sentirti (sentirà la musica d’attesa).
+* Registra: permette di registrare la chiamata in corso.
+* Trasferisci: trasferisce la chiamata senza parlare con il destinatario.
+* Aggiungi alla chiamata: aggiunge un altro numero interno o esterno per creare una conferenza. Durante la conferenza compare il pulsante “Split”, che consente di alternare tra le chiamate o chiuderne una delle due.
+* Trasferimento assistito: trasferisce la chiamata dopo aver parlato con il destinatario per ottenere il suo consenso.
+
+Sopra questi pulsanti è presente una barra con i seguenti controlli:
+
+* Microfono: attiva/disattiva il microfono.
+* Altoparlante: attiva la modalità vivavoce.
+* Camera: passa a una videochiamata.
+
+### Contatti
+
+Nella sezione Contatti puoi accedere sia alla tua Rubrica personale sia alla Rubrica NethVoice.
+Nella Rubrica personale puoi aggiungere o modificare i contatti, mentre nella Rubrica NethVoice puoi solo consultarli ed effettuare chiamate.
+Per creare un nuovo contatto, tocca “+” e compila Nome, Cognome, Azienda, numero di telefono ed email.
+Selezionando un contatto esistente puoi modificarlo, effettuare una chiamata o avviare una videochiamata. Puoi anche impostare una suoneria personalizzata per il contatto selezionato.
+
+### Videochiamata
+
+Per avviare una videochiamata, seleziona un utente nella sezione Contatti e tocca l’icona della videocamera. In alternativa, durante una chiamata vocale puoi passare alla videochiamata toccando l’icona della videocamera.
+
+### Impostazioni
+
+Dalla sezione Tastierino, tocca l’icona dell’ingranaggio in alto a destra per aprire le Impostazioni, dove puoi gestire:
+
+* Suonerie: imposta una suoneria diversa da quella predefinita.
+* Audio: gestisci impostazioni di eco, altoparlanti, amplificazione e supporto Bluetooth.
+* Registrazione delle chiamate: abilita la registrazione automatica delle chiamate con opzioni per formato e impostazioni avanzate.
+* Comandi: abilita il controllo dei pulsanti degli auricolari e gestisci il comportamento delle chiamate GSM.
+* Non disturbare: crea regole DND per evitare di ricevere chiamate in determinati periodi.
+* Ordinamento dei contatti: gestisci l’ordine di visualizzazione dei contatti nella Rubrica.
+* Informazioni: informazioni sulla versione e sul dispositivo.
+* Utilizzo: statistiche sulla durata delle chiamate e sul numero totale di chiamate.
+* Registri: accedi ai registri diagnostici per la risoluzione dei problemi e la raccolta dei log, utili anche per richieste di supporto.
+* Disconnettersi: disconnetti l’account dall’app senza rimuoverne la configurazione.
+* Reimposta applicazione: reimposta completamente l’app e cancella tutti i dati associati. Per accedere nuovamente, segui le istruzioni nella sezione Access.
+
+### Notifiche
+
+Dopo 7 giorni di inattività nell’app NethVoice, potrebbe apparire un popup che informa che la sessione sta per scadere. Per continuare a ricevere chiamate, devi toccare la notifica o aprire l’app NethVoice.
+
 ## Qualità e prestazioni
 
 L'app mobile NethVoice è ottimizzata per:

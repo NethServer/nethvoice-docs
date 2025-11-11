@@ -6,9 +6,13 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #45a142;
-  --ifm-color-primary-dark: #3e913b;
-  --ifm-color-primary-darker: #3b8938;
+  /* Active - Emerald 700 */
+  --ifm-color-primary: #047857;
+  /* Hover - Emerald 800 */
+  --ifm-color-primary-dark: #065f46;
+  /* Focus - Emerald 500 */
+  --ifm-color-primary-darker: #10b981;
+  /* Unused */
   --ifm-color-primary-darkest: #30712e;
   --ifm-color-primary-light: #4cb149;
   --ifm-color-primary-lighter: #52b74e;
@@ -17,12 +21,17 @@
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
 [data-theme='dark'] {
-  --ifm-color-primary: #45a142;
-  --ifm-color-primary-dark: #3e913b;
-  --ifm-color-primary-darker: #3b8938;
+  /* Active - Emerald 500 */
+  --ifm-color-primary: #10b981;
+  /* Hover - Emerald 300 */
+  --ifm-color-primary-dark: #6ee7b7;
+  /* Focus - Emerald 200 */
+  --ifm-color-primary-darker: #a7f3d0;
+  /* Unused */
   --ifm-color-primary-darkest: #30712e;
   --ifm-color-primary-light: #4cb149;
   --ifm-color-primary-lighter: #52b74e;
   --ifm-color-primary-lightest: #69c167;
+  /* Background color */
   --ifm-background-color: #232429;
 }
