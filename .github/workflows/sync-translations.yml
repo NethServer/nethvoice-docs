@@ -14,7 +14,12 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  models: read
+  actions: read
+  checks: read
+  issues: read
+  metadata: read
+  repository-projects: read
+  statuses: read
 
 jobs:
   sync-translations:
