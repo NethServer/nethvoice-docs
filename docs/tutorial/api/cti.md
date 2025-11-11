@@ -296,3 +296,8 @@ To migrate from the legacy authentication to the new JWT-based method:
 3. **Update WebSocket path**: Change from `/socket.io/` to `/api/ws/`
 4. **Adapt headers**: Use `Authorization: Bearer <jwt-token>` instead of `Authorization: username:token`
 5. **Handle JWT expiration**: Monitor token `expire` field and refresh as needed
+
+
+## New test section: Test Translation Agent  {#new-test-section-test-translation-agent}
+
+This section has been created for testing purpose. A new agent has been developed with the aim of translating new contents from and to English and Italian, in order to allow users to create new documentation just in one of the two language and generate the other specular version automatically. 
