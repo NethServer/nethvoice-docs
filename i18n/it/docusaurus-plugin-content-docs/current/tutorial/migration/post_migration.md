@@ -203,3 +203,5 @@ Avete completato con successo la migrazione di NethVoice a NethServer 8. Il vost
 Per assistenza, consultate i [forum della comunità NethServer](https://community.nethserver.org/) o contattate i servizi di supporto professionale di Nethesis.
 :::
 
+-   - Verificare che tutti gli utenti e i gruppi siano presenti  
+- [ ] Ambiente sano con hardware richiesto

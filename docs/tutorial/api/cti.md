@@ -296,3 +296,8 @@ To migrate from the legacy authentication to the new JWT-based method:
 3. **Update WebSocket path**: Change from `/socket.io/` to `/api/ws/`
 4. **Adapt headers**: Use `Authorization: Bearer <jwt-token>` instead of `Authorization: username:token`
 5. **Handle JWT expiration**: Monitor token `expire` field and refresh as needed
+
+### Logout
+
+Below are the details related to the logout procedure from the service.  
+The procedure includes a POST call to an endpoint secured by authentication with a Bearer token.
