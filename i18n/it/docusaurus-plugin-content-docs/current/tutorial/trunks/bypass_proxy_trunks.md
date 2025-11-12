@@ -49,9 +49,11 @@ Questa pagina spiega perché e come bypassare il proxy SIP per trunk non support
 - Il proxy richiede hairpin NAT in alcune topologie; molti installatori non possono o non vogliono modificare il firewall.
 
 
-## Esperimento di port‑forwarding (ALTAMENTE SPERIMENTALE)
+## Port‑forwarding porta 5060
 
 Scopo: permettere un bypass completo del proxy SIP in casi estremi (tipico: Mediant on‑prem che si aspetta 5060).
+
+Usare con attenzione!
 
 ### Scenario tipico
 
