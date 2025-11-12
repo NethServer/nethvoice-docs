@@ -35,6 +35,7 @@ The On-Premise installation involves hosting NethServer and NethVoice on the com
 * **FQDN / SSL Mandate**: A public FQDN is still mandatory. Features like NethLink and the Mobile App require public FQDN, SSL, and external reachability on specific ports.
 * **Networking and Audio Issues**: Audio problems (e.g., one-way audio) in on-premise deployments are often caused by NAT configuration issues. For troubleshooting steps, refer to: [troubleshooting guide](./troubleshooting/audio_problems.md).
 * **Networking Complexity**: Requires Hairpin NAT and careful firewall configuration to allow local clients to access the server via its public FQDN. As an alternative, Split DNS can be configured to resolve the FQDN to a local IP address for internal clients.
+* **Improper Configurations**: In the event of configuration errors, analysis and correction can require a non-negligible amount of time.
 
 
 ### Synthesis Comparison Table
@@ -51,3 +52,6 @@ The On-Premise installation involves hosting NethServer and NethVoice on the com
 
 Given the architectural benefits for networking, security, and the significant operational advantages like native firewall and simplified migration, the **Cloud Deployment** is the recommended choice for a robust and simplified NethVoice solution.
 
+## Feedback
+
+In case of issues encountered, send us a report at [test@example.it](mailto:test@example.it).
