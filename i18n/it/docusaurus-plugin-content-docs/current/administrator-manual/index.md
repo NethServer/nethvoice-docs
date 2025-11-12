@@ -194,3 +194,6 @@ Nethesis offre una suite completa di soluzioni ICT modulari e indipendenti che r
 
 Tutte le soluzioni sono indipendenti dalla modalità di distribuzione: installabili su appliance certificate, macchine virtuali, cloud privati o hardware compatibile. Per maggiori informazioni visitate [www.nethesis.it](https://www.nethesis.it) o contattate [marketing@nethesis.it](mailto:marketing@nethesis.it).
 
+## Nuova sezione di test: Agente di traduzione di prova {#nuova-sezione-di-test-agente-di-traduzione}
+
+Questa sezione è stata creata a scopo di test. È stato sviluppato un nuovo agente con l'obiettivo di tradurre nuovi contenuti da e verso l'inglese e l'italiano, per consentire agli utenti di creare nuova documentazione in una sola delle due lingue e generare automaticamente l'altra versione speculare.
