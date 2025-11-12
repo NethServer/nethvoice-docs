@@ -52,12 +52,19 @@ jobs:
         run: |
           # Get the list of changed files between main branch (target) and current PR branch (source)
           git fetch origin main
+          git fetch origin ${{ github.event.pull_request.head.ref }}
           
-          # Use three-dot notation for merge-base comparison - only docs/ and i18n/ directories
-          CHANGED_FILES=$(git diff --name-only origin/main...HEAD -- 'docs/**/*.md' 'docs/**/*.mdx' 'i18n/**/*.md' 'i18n/**/*.mdx' || true)
+          echo "🔍 Debug: Branch information:"
+          echo "Target branch: ${{ github.event.pull_request.base.ref }}"
+          echo "Source branch: ${{ github.event.pull_request.head.ref }}"
+          echo "Current HEAD: $(git rev-parse HEAD)"
+          echo "Main branch: $(git rev-parse origin/main)"
+          
+          # Use two-dot notation to compare the branches directly
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD -- 'docs/**/*.md' 'docs/**/*.mdx' 'i18n/**/*.md' 'i18n/**/*.mdx' || true)
           
           echo "🔍 Debug: All changed files in PR:"
-          git diff --name-only origin/main...HEAD || true
+          git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD || true
           
           if [ -z "$CHANGED_FILES" ]; then
             echo "✅ No documentation files changed between main and PR branch"
