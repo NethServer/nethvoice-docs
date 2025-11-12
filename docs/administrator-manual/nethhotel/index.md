@@ -1,4 +1,3 @@
-```
 ---
 title: NethHotel
 sidebar_position: 12
@@ -85,4 +84,3 @@ Or from NethVoice administrator wizard:
 ## Feedback {#feedback}
 
 If any malfunctions are encountered, please send us a report at [test@example.it](mailto:test@example.it).
-```
