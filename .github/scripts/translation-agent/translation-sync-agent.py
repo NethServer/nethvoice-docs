@@ -29,7 +29,7 @@ class DocumentationSyncAgent:
         
         # GitHub Models API configuration
         self.models_api_url = "https://models.github.ai/inference/chat/completions"
-        self.model_name = "meta/meta-llama-3.1-405b-instruct"  # Centralized model selection
+        self.model_name = "openai/gpt-4o"  # Centralized model selection
 
     def get_file_content(self, file_path: str) -> str:
         """Get content of a file"""
