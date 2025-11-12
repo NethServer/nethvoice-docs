@@ -297,3 +297,8 @@ Per eseguire la migrazione dall'autenticazione legacy al nuovo metodo basato su 
 4. **Adattare gli header**: Utilizzare `Authorization: Bearer <jwt-token>` invece di `Authorization: username:token`
 5. **Gestire la scadenza JWT**: Monitorare il campo `expire` del token e aggiornare secondo necessità
 
+```markdown
+## New test section: Test Translation Agent  {#new-test-section-test-translation-agent}
+
+Questa sezione è stata creata a scopo di test. Un nuovo agente è stato sviluppato con l'obiettivo di tradurre nuovi contenuti da e verso l'inglese e l'italiano, in modo da permettere agli utenti di creare nuova documentazione in una delle due lingue e generare automaticamente l'altra versione speculare.
+```
