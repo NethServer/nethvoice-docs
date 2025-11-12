@@ -27,8 +27,9 @@ class DocumentationSyncAgent:
         self.en_docs_path = Path('docs')
         self.it_docs_path = Path('i18n/it/docusaurus-plugin-content-docs/current')
         
-        # GitHub Models API endpoint
+        # GitHub Models API configuration
         self.models_api_url = "https://models.github.ai/inference/chat/completions"
+        self.model_name = "meta/meta-llama-3.1-405b-instruct"  # Centralized model selection
 
     def get_file_content(self, file_path: str) -> str:
         """Get content of a file"""
@@ -144,7 +145,7 @@ Return ONLY the translated markdown content that should be added/modified, witho
                         "content": prompt
                     }
                 ],
-                "model": "microsoft/phi-4-reasoning",
+                "model": self.model_name,
                 "temperature": 1
             }
             
@@ -266,7 +267,7 @@ Do not include any explanations, just the final file content.
                         "content": prompt
                     }
                 ],
-                "model": "microsoft/phi-4-reasoning",
+                "model": self.model_name,
                 "temperature": 1  # Lower temperature for more consistent positioning
             }
             
@@ -373,7 +374,7 @@ Return the COMPLETE translated file content, without any explanations or markdow
                         "content": prompt
                     }
                 ],
-                "model": "microsoft/phi-4-reasoning",
+                "model": self.model_name,
                 "temperature": 1  # Slightly higher for full file translation
             }
             
