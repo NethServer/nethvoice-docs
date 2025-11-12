@@ -38,42 +38,6 @@ jobs:
         run: |
           pip install requests PyYAML gitpython
 
-      - name: Test call to GitHub Models API
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "🔍 Testing GitHub Models API with cURL..."
-          
-          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" \
-             "https://models.github.ai/inference/chat/completions" \
-             -H "Content-Type: application/json" \
-             -H "Authorization: Bearer $GITHUB_TOKEN" \
-             -d '{
-              "messages": [
-                  {
-                     "role": "user",
-                     "content": "Hey GitHub, what time is it?"
-                  }
-               ],
-               "model": "openai/gpt-4o"
-            }')
-          
-          # Extract HTTP status code
-          HTTP_STATUS=$(echo "$RESPONSE" | grep "HTTP_STATUS:" | cut -d: -f2)
-          
-          # Extract response body (everything before HTTP_STATUS line)
-          RESPONSE_BODY=$(echo "$RESPONSE" | sed '/HTTP_STATUS:/d')
-          
-          echo "📊 HTTP Status: $HTTP_STATUS"
-          echo "📄 Response Body:"
-          echo "$RESPONSE_BODY"
-          
-          if [ "$HTTP_STATUS" -eq 200 ]; then
-            echo "✅ GitHub Models API call successful!"
-          else
-            echo "❌ GitHub Models API call failed with status $HTTP_STATUS"
-          fi    
-
       - name: Test GitHub Copilot API access
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -89,8 +53,11 @@ jobs:
           # Get the list of changed files between main branch (target) and current PR branch (source)
           git fetch origin main
           
-          # Use three-dot notation for merge-base comparison
-          CHANGED_FILES=$(git diff --name-only origin/main...HEAD -- '*.md' '*.mdx' || true)
+          # Use three-dot notation for merge-base comparison - only docs/ and i18n/ directories
+          CHANGED_FILES=$(git diff --name-only origin/main...HEAD -- 'docs/**/*.md' 'docs/**/*.mdx' 'i18n/**/*.md' 'i18n/**/*.mdx' || true)
+          
+          echo "🔍 Debug: All changed files in PR:"
+          git diff --name-only origin/main...HEAD || true
           
           if [ -z "$CHANGED_FILES" ]; then
             echo "✅ No documentation files changed between main and PR branch"
