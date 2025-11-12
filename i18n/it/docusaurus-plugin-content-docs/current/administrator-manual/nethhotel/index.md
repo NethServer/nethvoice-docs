@@ -28,6 +28,7 @@ NethHotel consente agli operatori degli hotel di:
 - ✅ **Integrazione PMS** - Connessione a Oracle OPERA tramite protocollo FIAS
 - ✅ **Gestione extra** - Traccia e fattura addebiti minibar e altri
 - ✅ **Gestione camere** - Visualizzazione dello stato visuale e operazioni della camera
+- ✅ **Gestione segreteria telefonica** - Possibilità di lasciare un messaggio in segreteria telefonica in caso di mancata risposta
 
 ## Link veloci
 
@@ -42,6 +43,7 @@ Guida completa per la configurazione e la gestione del modulo NethHotel:
 - Gruppi e operazioni in bulk
 - Fatturazione e reporting
 - Codici funzionalità del telefono
+- Richiedi il riavvio di NethVoice
 
 ### [Integrazione FIAS](fias_integration.md)
 
@@ -78,3 +80,7 @@ O dalla procedura guidata dell'amministratore di NethVoice:
 - Vedi la guida [Configurazione e gestione di NethHotel](configuration.md) per i dettagli completi di configurazione e operazione
 - Rivedi [Integrazione FIAS](fias_integration.md) per la connessione PMS e l'automazione
 - Consulta la [documentazione principale di NethVoice](../../intro.md) per le funzionalità generali di NethVoice
+
+## Feedback
+
+In caso di malfunzionamenti riscontrati, inviaci una segnalazione all'indirizzo [test@example.it](mailto:test@example.it).
