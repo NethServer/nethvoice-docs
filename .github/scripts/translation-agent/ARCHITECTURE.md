@@ -47,7 +47,7 @@ The automated translation system consists of three main components working toget
 - Technical terminology consistency
 
 **AI Integration**:
-- **Model**: `openai/gpt-4o` via GitHub Models API
+- **Model**: `microsoft/phi-4-reasoning` via GitHub Models API
 - **Authentication**: GitHub token with Copilot access
 - **Prompt Engineering**: Structured instructions for consistent output
 - **Error Handling**: Graceful degradation and retry logic
@@ -146,7 +146,7 @@ Implemented in the agent's prompt:
 
 ### AI Integration Specifics
 - **Endpoint**: `https://models.github.ai/inference/chat/completions`
-- **Model**: `openai/gpt-4o` 
+- **Model**: `microsoft/phi-4-reasoning` 
 - **Temperature**: 1 (for consistent translations)
 - **Authentication**: GitHub token with Copilot subscription
 - **Timeout**: 30 seconds per request

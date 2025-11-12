@@ -144,7 +144,7 @@ Return ONLY the translated markdown content that should be added/modified, witho
                         "content": prompt
                     }
                 ],
-                "model": "openai/gpt-4o",
+                "model": "microsoft/phi-4-reasoning",
                 "temperature": 1
             }
             
@@ -266,7 +266,7 @@ Do not include any explanations, just the final file content.
                         "content": prompt
                     }
                 ],
-                "model": "openai/gpt-4o",
+                "model": "microsoft/phi-4-reasoning",
                 "temperature": 1  # Lower temperature for more consistent positioning
             }
             
@@ -373,7 +373,7 @@ Return the COMPLETE translated file content, without any explanations or markdow
                         "content": prompt
                     }
                 ],
-                "model": "openai/gpt-4o",
+                "model": "microsoft/phi-4-reasoning",
                 "temperature": 1  # Slightly higher for full file translation
             }
             

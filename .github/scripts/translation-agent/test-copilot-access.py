@@ -29,7 +29,7 @@ def test_copilot_access():
                 "content": "Hello, can you help me translate a simple phrase from English to Italian: 'Hello World'"
             }
         ],
-        "model": "openai/gpt-4o",
+        "model": "microsoft/phi-4-reasoning",
         "temperature": 1
     }
     
