@@ -142,7 +142,7 @@ Return ONLY the translated markdown content that should be added/modified, witho
                         "content": prompt
                     }
                 ],
-                "model": "openai/gpt-5-mini",
+                "model": "openai/gpt-4o",
                 "temperature": 1
             }
             
