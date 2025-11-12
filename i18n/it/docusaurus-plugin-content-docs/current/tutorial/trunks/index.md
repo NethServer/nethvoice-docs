@@ -54,3 +54,6 @@ Seguire queste migliori pratiche aiuterà a garantire che le vostre connessioni 
 
 6.  **Configurare le Regole di Composizione con Attenzione**:
     - Verificate due volte le vostre regole di composizione in uscita (rotte in uscita) per assicurarvi che le chiamate siano indirizzate attraverso il trunk corretto. Le non configurazioni possono portare a chiamate non riuscite o fatturazione inaspettata.
+
+7.  **Nuovo elemento di test**:
+    - Nuovo elemento di elenco di test utilizzato per testare la conversione dalla lingua italiana alla lingua inglese all'interno di una sezione esistente.

@@ -31,7 +31,7 @@ After completing the NethVoice migration from NethServer 7 to NethServer 8, veri
 1. **Verify Users**
    - NS8 interface → **Domains and users**
    - Check your domain is active
-   - Verify all users and groups are present
+   - Verify that all users and groups are present
    - Test user authentication via CTI login
 
 2. **Check Extensions**
@@ -184,6 +184,7 @@ Before considering migration complete:
 - [ ] SSL certificates valid
 - [ ] No phones registered to NS7
 - [ ] Account provider finalized
+- [ ] Healthy environment with required hardware
 
 ## Next Steps {#next-steps}
 

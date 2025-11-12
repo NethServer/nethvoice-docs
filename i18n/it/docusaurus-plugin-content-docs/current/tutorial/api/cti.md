@@ -41,6 +41,9 @@ curl -X POST https://nethcti.example.com/api/login \
 
 ### Logout
 
+Di seguito le informazioni relative alla procedura di logout dal servizio.
+La procedura comprende una chiamata in POST ad un endpoint protetto da autenticazione con Bearer token.
+
 **Endpoint:** `POST /api/logout`
 
 Invalidare il token JWT corrente.
