@@ -7,7 +7,7 @@ La decisione tra un'installazione **Cloud (IaaS/SaaS)** e **On-Premise** (locale
 
 NethVoice non può essere accessibile utilizzando un indirizzo IP — i client (telefoni IP, app mobile, integrazioni CTI e NethLink) devono essere sempre configurati per utilizzare l'**FQDN pubblicamente risolvibile**.
 
-Questo è un cambiamento fondamentale rispetto alle versioni precedenti (ad es. NethVoice 14) ed è imposto dalle migliori pratiche moderne per la **Sicurezza** (abilitazione di certificati SSL/TLS validi) e la **Manutenibilità** (gestione centralizzata semplificata). Un FQDN pubblicamente risolvibile è un prerequisito non negoziabile.
+Questo è un cambiamento fondamentale rispetto alle versioni precedenti (ad es. NethVoice 14) ed è imposto dalle migliori pratiche moderne per la **Sicurezza** (abilitazione di certificati SSL/TLS validi) e la **Manutenibilità** (gestione centralizzata semplificata). Un FQDN pubblicamente risolvibile è un prerequisito richiesto obbligatoriamente.
 
 
 ### Opzione 1: Deployment Cloud (IaaS o SaaS)
@@ -35,6 +35,7 @@ L'installazione On-Premise prevede l'hosting di NethServer e NethVoice sui serve
 * **Mandato FQDN / SSL**: Un FQDN pubblico è ancora obbligatorio. Funzionalità come NethLink e l'App Mobile richiedono FQDN pubblico, SSL, e raggiungibilità esterna su porte specifiche.
 * **Problemi di Rete e Audio**: I problemi di audio (ad es. audio unidirezionale) nei deployment on-premise sono spesso causati da problemi di configurazione NAT. Per i passaggi di troubleshooting, fate riferimento a: [guida di troubleshooting](./troubleshooting/audio_problems.md).
 * **Complessità di Rete**: Richiede Hairpin NAT e configurazione firewall attenta per permettere ai client locali di accedere al server via il suo FQDN pubblico. In alternativa, Split DNS può essere configurato per risolvere l'FQDN a un indirizzo IP locale per i client interni.
+* **Spot di configurazioni errate**: In caso di configurazioni errate, l'analisi e la correzione può richiedere un intervallo di tempo non trascurabile.
 
 
 ### Tabella di Confronto Sintetica
@@ -50,3 +51,7 @@ L'installazione On-Premise prevede l'hosting di NethServer e NethVoice sui serve
 ---
 
 Dati i vantaggi architetturali per la rete, la sicurezza, e i significativi vantaggi operativi come firewall nativo e migrazione semplificata, il **Deployment Cloud** è la scelta consigliata per una soluzione NethVoice robusta e semplificata.
+
+## Feedback
+
+In caso di malfunzionamenti riscontrati, inviaci una segnalazione all'indirizzo [test@example.it](mailto:test@example.it).
