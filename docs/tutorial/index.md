@@ -46,3 +46,7 @@ After installation, configure your NethVoice instance:
 ---
 
 For each step, refer to the linked documentation for comprehensive, step-by-step instructions.
+
+## New test section: Test Translation Agent  {#new-test-section-test-translation-agent}
+
+This section has been created for testing purpose. A new agent has been developed with the aim of translating new contents from and to English and Italian, in order to allow users to create new documentation just in one of the two language and generate the other specular version automatically. 

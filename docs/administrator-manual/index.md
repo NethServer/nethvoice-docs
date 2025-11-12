@@ -192,3 +192,7 @@ Nethesis offers a comprehensive suite of modular, independent ICT solutions that
 - **[NethSpot](https://www.nethesis.it/soluzioni/nethspot)** — Public WiFi hotspot management. Improve guest experience with proximity marketing, social login, centralized WiFi management, and bandwidth controls.
 
 All solutions are deployment-agnostic: install on certified appliances, virtual machines, private clouds, or compatible hardware. For more information, visit [www.nethesis.it](https://www.nethesis.it) or contact [marketing@nethesis.it](mailto:marketing@nethesis.it).
+
+## New test section: Test Translation Agent  {#new-test-section-test-translation-agent}
+
+This section has been created for testing purpose. A new agent has been developed with the aim of translating new contents from and to English and Italian, in order to allow users to create new documentation just in one of the two language and generate the other specular version automatically. 
