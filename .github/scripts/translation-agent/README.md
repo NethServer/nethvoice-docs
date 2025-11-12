@@ -1,104 +1,79 @@
 # Documentation Translation Sync System
 
-This system automates translation synchronization in NethVoice documentation.
+This system automates translation synchronization between English and Italian versions of NethVoice documentation.
+
+## Overview
+
+The translation workflow automatically detects changes to documentation files and generates corresponding translations using AI, maintaining consistency between the English (`docs/`) and Italian (`i18n/it/`) documentation.
 
 ## How It Works
 
-### Trigger
-The workflow automatically activates when a Pull Request is created or updated targeting the `main` branch that modifies documentation files (`.md` or `.mdx`).
+### When It Triggers
+The workflow activates automatically when:
+- A Pull Request is created or updated
+- The PR targets the `main` branch
+- Documentation files (`.md` or `.mdx`) are modified
 
-### Process
-1. **API Verification**: Tests access to GitHub Models API before proceeding
-2. **Change Analysis**: The system identifies which files have been modified
-3. **Categorization**: Distinguishes between changes to English files (`docs/`) and Italian files (`i18n/it/`)
-4. **Translation Generation**: Uses GitHub Models (GPT-4o Mini) to translate new sections
-5. **Application**: Applies translations to corresponding files in the other language
-6. **Commit**: Adds changes with Conventional Commits format to the original PR branch
+### What It Does
+1. **Verifies API Access**: Tests GitHub Models API connectivity before processing
+2. **Analyzes Changes**: Identifies which documentation files have been modified
+3. **Calls Translation Agent**: Invokes the Python agent to process changed files
+4. **Generates Translations**: Uses AI to translate new or modified content
+5. **Commits Results**: Adds translations to the same PR branch
 
-### Path Mapping
-- English file: `docs/tutorial/example.md`
-- Italian file: `i18n/it/docusaurus-plugin-content-docs/current/tutorial/example.md`
+### Translation Agent Role
+The Python agent (`translation-sync-agent.py`) handles the core translation logic:
+- Processes git diffs to identify new content
+- Maps file paths between English and Italian directories
+- Uses GitHub Models API (GPT-4o) for translation
+- Applies translations while preserving markdown formatting
+- Maintains technical terminology consistency
 
-## Commit Standards
+## File Structure
 
-The system uses **Conventional Commits** for standardized management:
-- Format: `docs: auto-sync translations for PR #<number>`
-- Single commit for all translations in a PR
-- Descriptive and consistent message
+### English Documentation
+```
+docs/
+├── tutorial/
+├── administrator-manual/
+└── user-manual/
+```
 
-## Configuration
+### Italian Documentation
+```
+i18n/it/docusaurus-plugin-content-docs/current/
+├── tutorial/
+├── administrator-manual/
+└── user-manual/
+```
 
-### Requirements
+## Requirements
+
 - Active GitHub Copilot subscription for the organization
-- `GITHUB_TOKEN` with access to Copilot APIs (automatically available)
-- Write permissions for GitHub Actions
-
-### System Files
-- `.github/workflows/sync-translations.yml`: Main workflow
-- `.github/scripts/translation-sync-agent.py`: Python agent for translation
-- `.github/scripts/test-copilot-access.py`: API connectivity test (integrated in workflow)
+- Standard GitHub Actions permissions (automatically configured)
+- Documentation files in Docusaurus markdown format
 
 ## Usage Example
 
-1. **Scenario**: Add a new section to the file `docs/tutorial/getting-started.md`
-2. **Added content**:
-   ```markdown
-   ## Feedback
-   
-   If you encounter any issues, please contact: test@example.com
-   ```
-3. **Result**: The system automatically creates the Italian version in `i18n/it/docusaurus-plugin-content-docs/current/tutorial/getting-started.md`:
-   ```markdown
-   ## Feedback
-   
-   Se riscontri problemi, contatta: test@example.com
-   ```
+When you add content to an English file:
+```markdown
+## New Feature
+This feature helps users manage their settings.
+```
 
-## Translation Rules
+The system automatically creates the Italian equivalent:
+```markdown
+## Nuova Funzionalità
+Questa funzionalità aiuta gli utenti a gestire le loro impostazioni.
+```
 
-### Preserved Elements
-- Section IDs: `{#section-id}`
-- Internal and external links
-- Code blocks and configuration
-- Email addresses and URLs
+## Architecture Details
 
-### Translation Style
-- **Italian**: Formal tone, technical terminology in English when appropriate
-- **English**: Professional tone, consistent terminology
-
-### Formatting
-- UI labels in bold: **Install**, **Installa**
-- Code in backticks: `Nethesis,1234`
-- Email links: `[email](mailto:email)`
-
-## Security and Fail-Fast
-
-### Preliminary API Test
-The system implements a **preliminary test** for GitHub Models API access:
-- ✅ **Verifies connectivity** before processing files
-- ❌ **Blocks execution** if API is not accessible
-- 🔒 **Prevents partial executions** without translation capability
-
-### Fail-Fast Benefits
-- **Immediate feedback** on API access issues
-- **No unnecessary processing** of files without translation possibility
-- **Clear error messages** for quick diagnosis and resolution
-
-## Current Limitations
-
-- The system adds new content but doesn't handle complex modifications to existing sections
-- Works best with complete section additions
-- Requires human supervision to verify translation quality
+For technical implementation details, file specifications, and advanced configuration options, see [ARCHITECTURE.md](./ARCHITECTURE.md).
 
 ## Monitoring
 
-Check workflow logs in GitHub Actions for:
-- Processed files
-- Generated translations
-- Any errors
-
-## Future Developments
-
-- Improved intelligence for complex modifications
-- Support for document restructuring
-- Integration with review systems for translations
+Check the GitHub Actions workflow logs to monitor:
+- Translation processing progress
+- API connectivity status  
+- Generated translations quality

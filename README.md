@@ -80,3 +80,9 @@ And for Italian:
 ```bash
 yarn build --locale it
 ```
+
+## Translation Automation
+
+The project includes an automated translation sync system that helps maintain consistency between English and Italian documentation. When documentation files are modified in Pull Requests, the system automatically generates corresponding translations using AI.
+
+For technical details, see the [Translation Agent Documentation](./.github/scripts/translation-agent/README.md).
