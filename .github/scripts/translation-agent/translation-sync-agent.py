@@ -244,9 +244,10 @@ RULES:
 4. **Preserve structure**: Maintain the overall document structure and hierarchy
 5. **Keep formatting**: Preserve all markdown formatting, spacing, and line breaks
 
-OUTPUT:
-Return the COMPLETE updated target file content with the translated content properly positioned. 
-Do not include any explanations, just the final file content.
+OUTPUT FORMAT:
+Return the COMPLETE updated target file content with the translated content properly positioned.
+CRITICAL: Do NOT wrap the output in markdown code blocks (```). Do NOT add any explanations.
+Return ONLY the raw file content, starting directly with the file's content (e.g., starting with --- for frontmatter or # for headers).
 """
 
         try:
