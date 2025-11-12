@@ -106,15 +106,26 @@ INSTRUCTIONS:
 5. Keep technical terms consistent (NethVoice, NethServer, etc.)
 6. For Italian: use formal tone, keep button labels in **bold**, code in `backticks`
 
-IMPORTANT FORMATTING RULES:
-- Keep heading IDs unchanged: ## Section Title {{#section-id}}
+CRITICAL FORMATTING RULES:
+- NEVER include markdown code blocks markers like ```markdown or ``` in the output
+- Translate section titles when appropriate (e.g., "New test section" → "Nuova sezione di test")
+- Do NOT translate words that are common in both languages (e.g., "Feedback", "API", "Login")
+- Update heading IDs to match translated titles: ## Section Title {{#section-id}} → ## Titolo Sezione {{#titolo-sezione}}
 - Keep email links: [email@domain.com](mailto:email@domain.com)
 - Keep internal links: [text](relative/path.md)
 - Bold for UI elements: **Install**, **Configure**
 - Backticks for code/values: `Nethesis,1234`
 
+TITLE TRANSLATION EXAMPLES:
+- "Test section" → "Sezione di test"
+- "Configuration" → "Configurazione" 
+- "Installation guide" → "Guida all'installazione"
+- "API" → "API" (no translation)
+- "Feedback" → "Feedback" (no translation)
+- "Dashboard" → "Dashboard" (no translation)
+
 OUTPUT FORMAT:
-Return ONLY the translated markdown content that should be added/modified, without any explanations or git diff syntax.
+Return ONLY the translated markdown content that should be added/modified, without any explanations, git diff syntax, or markdown code block markers.
 """
 
         try:

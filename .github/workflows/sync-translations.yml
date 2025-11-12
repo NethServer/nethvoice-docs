@@ -38,17 +38,8 @@ jobs:
         run: |
           pip install requests PyYAML gitpython
 
-      - name: Test GitHub Copilot API access
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          echo "🔍 Testing GitHub Models API connectivity..."
-          python .github/scripts/translation-agent/test-copilot-access.py
-          echo "✅ API test passed, proceeding with translation sync"
-
-      - name: Get changed files and run translation sync
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Analyze changed documentation files
+        id: analyze-files
         run: |
           # Get the list of changed files between main branch (target) and current PR branch (source)
           git fetch origin main
@@ -68,21 +59,98 @@ jobs:
           
           if [ -z "$CHANGED_FILES" ]; then
             echo "✅ No documentation files changed between main and PR branch"
+            echo "needs-translation=false" >> $GITHUB_OUTPUT
             exit 0
           fi
           
           echo "📝 Found changed files:"
           echo "$CHANGED_FILES"
           
-          # Process all files sequentially (not in a subshell to preserve environment)
+          # Function to map English file to Italian equivalent
+          map_en_to_it() {
+            local en_file="$1"
+            echo "${en_file/docs\//i18n\/it\/docusaurus-plugin-content-docs\/current\/}"
+          }
+          
+          # Function to map Italian file to English equivalent  
+          map_it_to_en() {
+            local it_file="$1"
+            echo "${it_file/i18n\/it\/docusaurus-plugin-content-docs\/current\//docs\/}"
+          }
+          
+          # Convert changed files to array for easier checking
+          CHANGED_FILES_ARRAY=($CHANGED_FILES)
+          FILES_NEEDING_TRANSLATION=""
+          
+          # Analyze which files need translation
           for file in $CHANGED_FILES; do
+            if [ -n "$file" ]; then
+              # Determine counterpart file path
+              if [[ "$file" == docs/* ]]; then
+                # English file - check if Italian counterpart was also modified
+                counterpart=$(map_en_to_it "$file")
+                direction="EN → IT"
+              elif [[ "$file" == i18n/it/docusaurus-plugin-content-docs/current/* ]]; then
+                # Italian file - check if English counterpart was also modified
+                counterpart=$(map_it_to_en "$file")
+                direction="IT → EN"
+              else
+                echo "⚠️ Unrecognized file path: $file"
+                continue
+              fi
+              
+              # Check if counterpart file was also modified in this PR
+              if [[ " ${CHANGED_FILES_ARRAY[*]} " =~ " ${counterpart} " ]]; then
+                echo "✅ Both files modified ($direction): $file ↔ $counterpart"
+                echo "⏭️ Skipping - manual translation detected"
+              else
+                echo "🤖 Single file modified ($direction): $file → $counterpart"
+                echo "📋 Will need translation agent"
+                FILES_NEEDING_TRANSLATION="$FILES_NEEDING_TRANSLATION $file"
+              fi
+            fi
+          done
+          
+          # Set output variables
+          if [ -n "$FILES_NEEDING_TRANSLATION" ]; then
+            echo "needs-translation=true" >> $GITHUB_OUTPUT
+            echo "$FILES_NEEDING_TRANSLATION" > /tmp/files-for-translation.txt
+            echo "📝 Files that need translation: $FILES_NEEDING_TRANSLATION"
+          else
+            echo "needs-translation=false" >> $GITHUB_OUTPUT
+            echo "✅ All files have manual translations - no agent needed"
+          fi
+          
+          echo "✅ Analysis completed."
+
+      - name: Test GitHub Models API access
+        if: steps.analyze-files.outputs.needs-translation == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "🔍 Testing GitHub Models API connectivity..."
+          python .github/scripts/translation-agent/test-copilot-access.py
+          echo "✅ API test passed, proceeding with translation sync"
+
+      - name: Run translation sync
+        if: steps.analyze-files.outputs.needs-translation == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Read files that need translation
+          FILES_NEEDING_TRANSLATION=$(cat /tmp/files-for-translation.txt)
+          
+          echo "🤖 Running translation agent for files: $FILES_NEEDING_TRANSLATION"
+          
+          # Process each file that needs translation
+          for file in $FILES_NEEDING_TRANSLATION; do
             if [ -n "$file" ]; then
               echo "🔄 Processing: $file"
               python .github/scripts/translation-agent/translation-sync-agent.py "$file"
             fi
           done
           
-          echo "✅ All files processed. Ready for commit check."
+          echo "✅ All translations completed."
         continue-on-error: false
 
       - name: Check for changes and commit
