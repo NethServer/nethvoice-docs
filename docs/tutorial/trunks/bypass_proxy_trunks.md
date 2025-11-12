@@ -49,9 +49,11 @@ This page explains why and how to bypass the SIP proxy for unsupported trunks. I
 - The proxy requires hairpin NAT in some topologies; many PBX installers cannot or will not modify their firewall.
 
 
-## Port‑forwarding experiment (HIGHLY EXPERIMENTAL)
+## Port‑forwarding for port 5060
 
 Purpose: allow a complete bypass of the incoming SIP proxy for extreme cases (typical: on‑prem Mediant TIM expecting 5060).
+
+Use with care!
 
 ### Typical scenario
 
