@@ -30,33 +30,7 @@ class DocumentationSyncAgent:
         # GitHub Models API endpoint
         self.models_api_url = "https://models.github.ai/inference/chat/completions"
         
-    def get_changed_files(self) -> List[str]:
-        """Get list of changed files between main branch (target) and current PR branch (source)"""
-        try:
-            # Get changed files compared to origin/main using three-dot notation for merge-base
-            result = subprocess.run(
-                ['git', 'diff', '--name-only', 'origin/main...HEAD', '--', '*.md', '*.mdx'],
-                capture_output=True, text=True, check=True
-            )
-            files = [f.strip() for f in result.stdout.split('\n') if f.strip()]
-            # Files are already filtered by git diff, but double-check
-            return [f for f in files if f.endswith(('.md', '.mdx'))]
-        except subprocess.CalledProcessError as e:
-            print(f"Error getting changed files: {e}")
-            return []
 
-    def categorize_files(self, changed_files: List[str]) -> Tuple[List[str], List[str]]:
-        """Categorize files into English and Italian"""
-        en_files = []
-        it_files = []
-        
-        for file in changed_files:
-            if file.startswith('docs/'):
-                en_files.append(file)
-            elif file.startswith('i18n/it/docusaurus-plugin-content-docs/current/'):
-                it_files.append(file)
-                
-        return en_files, it_files
 
     def get_file_content(self, file_path: str) -> str:
         """Get content of a file"""
@@ -69,12 +43,31 @@ class DocumentationSyncAgent:
     def get_file_diff(self, file_path: str) -> str:
         """Get git diff for a specific file"""
         try:
+            # Use same diff method as workflow: two-dot notation
             result = subprocess.run(
-                ['git', 'diff', 'origin/main...HEAD', '--', file_path],
+                ['git', 'diff', 'origin/main..HEAD', '--', file_path],
                 capture_output=True, text=True, check=True
             )
-            return result.stdout
-        except subprocess.CalledProcessError:
+            diff_output = result.stdout
+            
+            # Debug output
+            print(f"🔍 Git diff command: git diff origin/main..HEAD -- {file_path}")
+            print(f"🔍 Diff output length: {len(diff_output)} characters")
+            if diff_output:
+                print(f"🔍 Diff preview: {diff_output[:300]}...")
+            else:
+                print("🔍 No diff output - trying alternative approach...")
+                # Try with just HEAD (compare with working tree)
+                result_alt = subprocess.run(
+                    ['git', 'diff', 'HEAD~1', '--', file_path],
+                    capture_output=True, text=True, check=True
+                )
+                diff_output = result_alt.stdout
+                print(f"🔍 Alternative diff length: {len(diff_output)} characters")
+            
+            return diff_output
+        except subprocess.CalledProcessError as e:
+            print(f"🔍 Git diff error: {e}")
             return ""
 
     def map_file_paths(self, en_file: str) -> str:
@@ -230,39 +223,42 @@ Return ONLY the translated markdown content that should be added/modified, witho
             print("❌ GITHUB_TOKEN not found. Cannot access GitHub Models API.")
             return
         
-        # Get changed files (either specific file or all changed files)
-        if specific_file:
-            changed_files = [specific_file] if specific_file.endswith(('.md', '.mdx')) else []
-            print(f"📝 Processing specific file: {specific_file}")
-        else:
-            changed_files = self.get_changed_files()
-            if not changed_files:
-                print("✅ No documentation files changed")
-                return
-            print(f"📝 Found {len(changed_files)} changed files:")
-            for f in changed_files:
-                print(f"  - {f}")
+        # Process specific file (passed from workflow)
+        if not specific_file:
+            print("❌ No file specified. This agent expects a specific file as argument.")
+            return
+            
+        if not specific_file.endswith(('.md', '.mdx')):
+            print(f"❌ File {specific_file} is not a markdown file. Skipping.")
+            return
+            
+        print(f"📝 Processing file: {specific_file}")
         
-        if not changed_files:
-            print("✅ No relevant files to process")
+        # Determine source and target files based on file path
+        if specific_file.startswith('docs/'):
+            # English file -> translate to Italian
+            source_file = specific_file
+            target_file = self.map_file_paths(specific_file)
+            source_lang = "English"
+            target_lang = "Italian"
+            print(f"🔄 EN → IT: {source_file} → {target_file}")
+            
+        elif specific_file.startswith('i18n/it/docusaurus-plugin-content-docs/current/'):
+            # Italian file -> translate to English
+            source_file = specific_file
+            target_file = self.map_it_to_en_path(specific_file)
+            source_lang = "Italian"
+            target_lang = "English"
+            print(f"🔄 IT → EN: {source_file} → {target_file}")
+            
+        else:
+            print(f"❌ File {specific_file} is not in a recognized documentation directory. Skipping.")
             return
         
-        # Categorize files
-        en_files, it_files = self.categorize_files(changed_files)
+        # Process the translation
+        self.sync_translation(source_file, target_file, source_lang, target_lang)
         
-        # Process English to Italian translations
-        for en_file in en_files:
-            it_file = self.map_file_paths(en_file)
-            print(f"\n🔄 EN → IT: {en_file} → {it_file}")
-            self.sync_translation(en_file, it_file, "English", "Italian")
-        
-        # Process Italian to English translations
-        for it_file in it_files:
-            en_file = self.map_it_to_en_path(it_file)
-            print(f"\n🔄 IT → EN: {it_file} → {en_file}")
-            self.sync_translation(it_file, en_file, "Italian", "English")
-        
-        print("\n✅ Translation sync completed!")
+        print("✅ Translation sync completed!")
 
 if __name__ == "__main__":
     import sys
