@@ -29,7 +29,8 @@ NethLink è disponibile per il download dal sito ufficiale: [nethserver.github.i
 1. Scarica l'installer `.exe`
 2. Fai doppio clic sull'installer
 3. Segui la procedura di installazione
-4. Avvia NethLink dal menu Start
+4. Riavviare il PC per applicare la configurazione  
+5. Avvia NethLink dal menu Start
 
 ### macOS
 
@@ -43,4 +44,3 @@ NethLink è disponibile per il download dal sito ufficiale: [nethserver.github.i
 1. Scarica il file `.AppImage`
 2. Rendilo eseguibile: `chmod +x NethLink-*.AppImage`
 3. Esegui l'applicazione o integrarla nel menu delle applicazioni
-

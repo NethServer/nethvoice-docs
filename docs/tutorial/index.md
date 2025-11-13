@@ -3,7 +3,6 @@ title: Getting started
 sidebar_position: 1
 ---
 
-
 # Getting Started with NethVoice
 
 NethVoice is a telephony and unified communications platform that provides PBX features for small and medium businesses.  
@@ -42,6 +41,10 @@ Once the proxy is configured, you can install the NethVoice module:
 After installation, configure your NethVoice instance:
 - Follow the [NethVoice configuration guide](https://github.com/NethServer/ns8-docs/blob/main/nethvoice.rst) for detailed setup instructions.
 - Complete the initial configuration, add users, and set up your telephony environment as needed.
+
+## Feedback
+
+If any malfunctions are encountered during the operations described in the tutorials, our support team is available to receive reports via email at [test@example.it](mailto:test@example.it).
 
 ---
 
