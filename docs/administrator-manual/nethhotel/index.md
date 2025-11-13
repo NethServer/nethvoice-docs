@@ -5,7 +5,7 @@ sidebar_position: 12
 
 # NethHotel Module
 
-NethHotel is a specialized module of NethVoice designed for the management of extensions properly configured as hotel rooms. It provides comprehensive features for managing guest communications, billing, and property management system integration.
+NethHotel is a specialized module of NethVoice designed for the management of extensions properly configured as hotel rooms. It provides comprehensive features for managing guest communications, billing, property management system integration and billing.
 
 ## Overview {#overview}
 
