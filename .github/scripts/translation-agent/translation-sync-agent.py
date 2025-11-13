@@ -27,8 +27,9 @@ class DocumentationSyncAgent:
         self.en_docs_path = Path('docs')
         self.it_docs_path = Path('i18n/it/docusaurus-plugin-content-docs/current')
         
-        # GitHub Models API endpoint
+        # GitHub Models API configuration
         self.models_api_url = "https://models.github.ai/inference/chat/completions"
+        self.model_name = "openai/gpt-4o"  # Centralized model selection
 
     def get_file_content(self, file_path: str) -> str:
         """Get content of a file"""
@@ -144,7 +145,7 @@ Return ONLY the translated markdown content that should be added/modified, witho
                         "content": prompt
                     }
                 ],
-                "model": "openai/gpt-4o",
+                "model": self.model_name,
                 "temperature": 1
             }
             
@@ -167,7 +168,7 @@ Return ONLY the translated markdown content that should be added/modified, witho
             return None
 
     def apply_translation_to_file(self, target_file: str, original_content: str, translated_content: str, diff_content: str):
-        """Apply translated content to target file"""
+        """Apply translated content to target file with AI-powered intelligent positioning"""
         
         # Create target directory if it doesn't exist
         target_path = Path(target_file)
@@ -184,18 +185,224 @@ Return ONLY the translated markdown content that should be added/modified, witho
         with open(target_path, 'r', encoding='utf-8') as f:
             current_content = f.read()
         
-        # For now, append the translated content at the end
-        # In a more sophisticated version, we could try to match sections
-        if translated_content and translated_content not in current_content:
-            # Try to find a good insertion point or append at the end
-            updated_content = current_content.rstrip() + '\n\n' + translated_content
-            
+        if not translated_content:
+            return
+        
+        # Use AI to intelligently position the translated content
+        updated_content = self._apply_ai_positioning(
+            current_content, translated_content, original_content, diff_content, target_file
+        )
+        
+        if updated_content:
+            # Write the updated content
             with open(target_path, 'w', encoding='utf-8') as f:
                 f.write(updated_content)
-            print(f"Updated file: {target_file}")
+            print(f"Updated file with AI positioning: {target_file}")
+        else:
+            # Fallback: append at the end
+            print(f"AI positioning failed, using fallback for: {target_file}")
+            updated_content = current_content.rstrip() + '\n\n' + translated_content
+            with open(target_path, 'w', encoding='utf-8') as f:
+                f.write(updated_content)
+
+    def _apply_ai_positioning(self, current_target_content: str, translated_content: str, original_source_content: str, diff_content: str, target_file: str) -> Optional[str]:
+        """Use AI to intelligently position translated content in the target file"""
+        
+        prompt = f"""You are an expert documentation editor. Your task is to intelligently merge new translated content into an existing documentation file.
+
+CONTEXT:
+- Original source file (the file that was modified): 
+```
+{original_source_content}
+```
+
+- Current target file content (where the translation should be inserted):
+```
+{current_target_content}
+```
+
+- Git diff showing what changed in the source file:
+```
+{diff_content}
+```
+
+- New translated content to be inserted:
+```
+{translated_content}
+```
+
+TASK:
+Analyze the changes shown in the git diff and intelligently insert the translated content into the appropriate position in the current target file. 
+
+RULES:
+1. **Understand the context**: Look at where the changes were made in the source file
+2. **Find the equivalent position**: Locate the corresponding section in the target file
+3. **Insert appropriately**: 
+   - If it's a NEW section/content: Insert it in the same relative position
+   - If it's a MODIFICATION: Replace the existing content with the new translation
+   - If it's an ADDITION to existing section: Add it in the correct place within that section
+4. **Preserve structure**: Maintain the overall document structure and hierarchy
+5. **Keep formatting**: Preserve all markdown formatting, spacing, and line breaks
+
+OUTPUT FORMAT:
+Return the COMPLETE updated target file content with the translated content properly positioned.
+CRITICAL: Do NOT wrap the output in markdown code blocks (```). Do NOT add any explanations.
+Return ONLY the raw file content, starting directly with the file's content (e.g., starting with --- for frontmatter or # for headers).
+"""
+
+        try:
+            headers = {
+                "Authorization": f"Bearer {self.github_token}",
+                "Accept": "application/vnd.github+json",
+                "Content-Type": "application/json"
+            }
+            
+            payload = {
+                "messages": [
+                    {
+                        "role": "system", 
+                        "content": "You are an expert documentation editor specializing in intelligent content positioning and file merging."
+                    },
+                    {
+                        "role": "user", 
+                        "content": prompt
+                    }
+                ],
+                "model": self.model_name,
+                "temperature": 1  # Lower temperature for more consistent positioning
+            }
+            
+            print(f"🤖 Using AI positioning for {target_file}")
+            response = requests.post(
+                self.models_api_url,
+                headers=headers,
+                json=payload,
+                timeout=45  # Longer timeout for complex positioning
+            )
+            
+            if response.status_code == 200:
+                result = response.json()
+                positioned_content = result["choices"][0]["message"]["content"].strip()
+                print(f"✅ AI positioning successful")
+                return positioned_content
+            else:
+                print(f"❌ AI positioning API error: {response.status_code} - {response.text}")
+                return None
+                
+        except Exception as e:
+            print(f"❌ Error with AI positioning: {e}")
+            return None
+
+    def _is_completely_new_file(self, diff_content: str) -> bool:
+        """Check if the diff represents a completely new file"""
+        lines = diff_content.split('\n')
+        
+        # Look for "new file mode" indicator
+        for line in lines:
+            if line.startswith('new file mode'):
+                return True
+            # Also check if all non-header lines are additions (start with +)
+            if line.startswith('@@'):
+                # After finding diff header, check if most lines are additions
+                break
+        
+        # Count additions vs modifications
+        additions = sum(1 for line in lines if line.startswith('+') and not line.startswith('+++'))
+        modifications = sum(1 for line in lines if line.startswith('-') and not line.startswith('---'))
+        
+        # If there are only additions and no deletions, it's likely a new file
+        return additions > 0 and modifications == 0
+
+    def translate_entire_file(self, file_path: str, source_content: str, source_lang: str, target_lang: str) -> Optional[str]:
+        """Translate an entire file content for new files"""
+        
+        prompt = f"""You are a documentation translation agent for NethVoice, an open source PBX system.
+
+TASK: Translate the ENTIRE content of this documentation file from {source_lang} to {target_lang}.
+
+SOURCE LANGUAGE: {source_lang}
+TARGET LANGUAGE: {target_lang}
+FILE: {file_path}
+
+SOURCE CONTENT:
+```
+{source_content}
+```
+
+INSTRUCTIONS:
+1. Translate the ENTIRE file content to {target_lang}
+2. Maintain all markdown formatting, links, and IDs exactly as they are
+3. Keep technical terms consistent (NethVoice, NethServer, etc.)
+4. For Italian: use formal tone, keep button labels in **bold**, code in `backticks`
+
+CRITICAL FORMATTING RULES:
+- NEVER include markdown code blocks markers like ```markdown or ``` in the output
+- Translate section titles when appropriate (e.g., "New test section" → "Nuova sezione di test")
+- Do NOT translate words that are common in both languages (e.g., "Feedback", "API", "Login")
+- Update heading IDs to match translated titles: ## Section Title {{#section-id}} → ## Titolo Sezione {{#titolo-sezione}}
+- Keep email links: [email@domain.com](mailto:email@domain.com)
+- Keep internal links: [text](relative/path.md)
+- Bold for UI elements: **Install**, **Configure**
+- Backticks for code/values: `Nethesis,1234`
+
+TITLE TRANSLATION EXAMPLES:
+- "Test section" → "Sezione di test"
+- "Configuration" → "Configurazione" 
+- "Installation guide" → "Guida all'installazione"
+- "API" → "API" (no translation)
+- "Feedback" → "Feedback" (no translation)
+- "Dashboard" → "Dashboard" (no translation)
+
+OUTPUT FORMAT:
+Return the COMPLETE translated file content, without any explanations or markdown code block markers.
+"""
+
+        try:
+            headers = {
+                "Authorization": f"Bearer {self.github_token}",
+                "Accept": "application/vnd.github+json",
+                "Content-Type": "application/json"
+            }
+            
+            payload = {
+                "messages": [
+                    {
+                        "role": "system", 
+                        "content": "You are an expert technical documentation translator specializing in telecommunications and PBX systems."
+                    },
+                    {
+                        "role": "user", 
+                        "content": prompt
+                    }
+                ],
+                "model": self.model_name,
+                "temperature": 1  # Slightly higher for full file translation
+            }
+            
+            print(f"🌍 Translating entire file: {file_path}")
+            response = requests.post(
+                self.models_api_url,
+                headers=headers,
+                json=payload,
+                timeout=60  # Longer timeout for full file translation
+            )
+            
+            if response.status_code == 200:
+                result = response.json()
+                return result["choices"][0]["message"]["content"].strip()
+            else:
+                print(f"GitHub Models API error: {response.status_code} - {response.text}")
+                return None
+                
+        except Exception as e:
+            print(f"Error with GitHub Models full file translation: {e}")
+            return None
 
     def sync_translation(self, source_file: str, target_file: str, source_lang: str, target_lang: str):
         """Sync translation from source to target file"""
+        
+        # Check if target file exists to determine if this is a new file
+        target_exists = Path(target_file).exists()
         
         # Get the diff for source file
         diff_content = self.get_file_diff(source_file)
@@ -206,10 +413,20 @@ Return ONLY the translated markdown content that should be added/modified, witho
         print(f"Processing changes in {source_file}")
         print(f"Diff content preview: {diff_content[:200]}...")
         
-        # Get AI translation
-        translated_content = self.analyze_changes_with_ai(
-            source_file, diff_content, source_lang, target_lang
-        )
+        # Determine if this is a completely new file
+        is_new_file = self._is_completely_new_file(diff_content)
+        
+        if is_new_file and not target_exists:
+            print(f"🆕 Detected new file: {source_file}")
+            # For new files, translate the entire content
+            source_content = self.get_file_content(source_file)
+            translated_content = self.translate_entire_file(source_file, source_content, source_lang, target_lang)
+        else:
+            print(f"📝 Detected file modification: {source_file}")
+            # For modifications, use the existing diff-based approach
+            translated_content = self.analyze_changes_with_ai(
+                source_file, diff_content, source_lang, target_lang
+            )
         
         if not translated_content:
             print(f"Could not generate translation for {source_file}")
