@@ -41,9 +41,9 @@ After completing the NethVoice migration from NethServer 7 to NethServer 8, veri
    - Test voicemail access
 
 3. **Phone Registration**
-   - Verify provisioning service running
-   - Reboot test phones and check registration
-   - Update DHCP option 66 if needed for new provisioning server
+   - Update DHCP option 66 if needed for new provisioning server
+   - Reboot phones and check registration
+   - If the NethVoice hostname changed, reset phones to factory defaults. They will automatically retrieve the new configuration from the server
 
 ## Telephony Testing {#telephony-testing}
 

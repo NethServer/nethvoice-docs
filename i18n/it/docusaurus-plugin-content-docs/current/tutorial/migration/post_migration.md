@@ -41,9 +41,9 @@ Dopo aver completato la migrazione di NethVoice da NethServer 7 a NethServer 8, 
    - Testare l'accesso alla segreteria telefonica
 
 3. **Registrazione dei telefoni**
-   - Verificare che il servizio di provisioning sia in esecuzione
-   - Riavviare i telefoni di test e verificare la registrazione
    - Aggiornare l'opzione DHCP 66 se necessario per il nuovo server di provisioning
+   - Riavviare i telefoni e verificare la registrazione
+   - Se il nome host di NethVoice è stato modificato, reimpostare i telefoni alle impostazioni di fabbrica. Recupereranno automaticamente la nuova configurazione dal server
 
 ## Test della telefonia
 
