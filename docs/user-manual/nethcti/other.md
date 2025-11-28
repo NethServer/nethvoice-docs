@@ -258,12 +258,24 @@ Customize your NethVoice CTI by accessing Settings:
 
 - **Devices**: Control your phones and their status
 - **Mobile App**: Generate QR code to connect your [smartphone](https://docs.nethvoice.it/it/latest/app_manual.html) (subject to specific permissions)
+- **Incoming calls**: Control how your application behaves when receiving external calls. This includes choosing your ringtone, selecting where the sound plays, and configuring optional automatic URL actions triggered by incoming calls.
 - **Customer Card**: Configure how the customer card behaves (subject to specific permissions)
 - **Queues**: Decide how to automate your queue access (subject to specific permissions)
 - **Profile Picture**: Modify your avatar
 - **Theme**: Choose light or dark theme based on your preferences
 - **Integrations**: Integrate your Phone Island with external tools
 - **Cache**: Clearing browser cache can help resolve some page loading issues
+
+#### Incoming calls {#incoming-calls}
+The Incoming Calls settings allow you to configure how the system handles external calls, including ringtone behavior, audio output, and automated URL actions:
+
+1. Ringtone Settings: Choose the sound that plays when an incoming call is received.
+2. Ringtone Output Device: Select which audio device will play the ringtone.
+3. Parameterized URL: You can configure the system to automatically open a URL whenever an external call comes in. This is useful for CRM lookups, customer information pages, or internal tools.
+4. URL Opened on External Incoming Call: The URL is configured by system administrator.
+5. Pop-Up Permissions: Your browser must allow pop-ups for this feature to work.
+6. URL Opening Trigger: Choose when the configured URL should be opened.
+
 
 ## Supported Browsers {#supported-browsers}
 

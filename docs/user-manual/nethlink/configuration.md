@@ -26,6 +26,15 @@ To ensure optimal call quality:
 3. Run the audio test to verify the configuration
 4. Adjust volume levels as needed
 
+
+## Incoming Calls {#incoming-calls-configuration}
+
+![Nethlinkaudio](/img/nethlink/nethlink_ringtone.png)
+
+1. Choose the sound that plays when an incoming call is received.
+2. Select which audio device will play the ringtone.
+
+
 ## Keyboard Shortcut Configuration {#keyboard-shortcut-configuration}
 
 ![Nethlinkshortcut](/img/nethlink/nethlink_scorciatoia.png)
