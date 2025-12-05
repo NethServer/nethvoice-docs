@@ -117,6 +117,12 @@ const config: Config = {
   themeConfig: {
     // Replace with your project's social card
     image: 'img/docusaurus-social-card.jpg',
+     algolia: {
+      appId: 'O6PGH102QO',
+      apiKey: '78afbe06254842a9184f40408492d896',
+      indexName: 'Docs NethVoice',
+      contextualSearch: true,
+    },
     navbar: {
       title: '',
       logo: {
