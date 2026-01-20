@@ -48,12 +48,8 @@ NethLink allows you to customize keyboard shortcuts for common operations:
 
 Currently available shortcuts are:
 
-- Call initiation
-- Answer call
-- Reject call
-- End call
-- Mute/unmute
-- Hold/resume
+- Click to call: by selecting a phone number and pressing the configured key combination, a phone call is initiated.
+- Call initiation (Command bar): by using the configured key combination, a command line is displayed where a phone number can be entered to initiate a call.
 
 ## Application Settings {#application-settings}
 
