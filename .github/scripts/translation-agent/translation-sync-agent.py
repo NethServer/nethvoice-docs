@@ -9,10 +9,8 @@ Uses GitHub Copilot Chat API for translations.
 
 import os
 import sys
-import json
-import re
 from pathlib import Path
-from typing import Dict, List, Tuple, Optional
+from typing import Optional
 import subprocess
 import requests
 from git import Repo
@@ -30,6 +28,30 @@ class DocumentationSyncAgent:
         # GitHub Models API configuration
         self.models_api_url = "https://models.github.ai/inference/chat/completions"
         self.model_name = "openai/gpt-4o"  # Centralized model selection
+        
+        # Shared prompt templates and rules
+        self.CRITICAL_FORMATTING_RULES = """CRITICAL FORMATTING RULES:
+- NEVER include markdown code blocks markers like ```markdown or ``` in the output
+- Translate section titles when appropriate (e.g., "New test section" → "Nuova sezione di test")
+- Do NOT translate words that are common in both languages (e.g., "Feedback", "API", "Login")
+- When translating section and subsection titles, translate only the title; DO NOT TRANSLATE the relative link (e.g., '## Section Title {#section-id}' → '## Titolo Sezione {#section-id}')
+- Keep email links: [email@domain.com](mailto:email@domain.com)
+- Keep internal links: [text](relative/path.md)
+- Bold for UI elements: **Install**, **Configure**
+- Backticks for code/values: `Nethesis,1234`"""
+
+        self.TITLE_TRANSLATION_EXAMPLES = """TITLE TRANSLATION EXAMPLES:
+- "Test section" → "Sezione di test"
+- "Configuration" → "Configurazione" 
+- "Installation guide" → "Guida all'installazione"
+- "API" → "API" (no translation)
+- "Feedback" → "Feedback" (no translation)
+- "Dashboard" → "Dashboard" (no translation)
+- "Overview" → "Overview" (no translation)"""
+
+        self.SYSTEM_PROMPT_TRANSLATOR = "You are an expert technical documentation translator specializing in telecommunications and PBX systems."
+        
+        self.SYSTEM_PROMPT_EDITOR = "You are an expert documentation editor specializing in intelligent content positioning and file merging."
 
     def get_file_content(self, file_path: str) -> str:
         """Get content of a file"""
@@ -105,23 +127,9 @@ INSTRUCTIONS:
 5. Keep technical terms consistent (NethVoice, NethServer, etc.)
 6. For Italian: use formal tone, keep button labels in **bold**, code in `backticks`
 
-CRITICAL FORMATTING RULES:
-- NEVER include markdown code blocks markers like ```markdown or ``` in the output
-- Translate section titles when appropriate (e.g., "New test section" → "Nuova sezione di test")
-- Do NOT translate words that are common in both languages (e.g., "Feedback", "API", "Login")
-- Update heading IDs to match translated titles: ## Section Title {{#section-id}} → ## Titolo Sezione {{#titolo-sezione}}
-- Keep email links: [email@domain.com](mailto:email@domain.com)
-- Keep internal links: [text](relative/path.md)
-- Bold for UI elements: **Install**, **Configure**
-- Backticks for code/values: `Nethesis,1234`
+{self.CRITICAL_FORMATTING_RULES}
 
-TITLE TRANSLATION EXAMPLES:
-- "Test section" → "Sezione di test"
-- "Configuration" → "Configurazione" 
-- "Installation guide" → "Guida all'installazione"
-- "API" → "API" (no translation)
-- "Feedback" → "Feedback" (no translation)
-- "Dashboard" → "Dashboard" (no translation)
+{self.TITLE_TRANSLATION_EXAMPLES}
 
 OUTPUT FORMAT:
 Return ONLY the translated markdown content that should be added/modified, without any explanations, git diff syntax, or markdown code block markers.
@@ -138,7 +146,7 @@ Return ONLY the translated markdown content that should be added/modified, witho
                 "messages": [
                     {
                         "role": "system", 
-                        "content": "You are an expert technical documentation translator specializing in telecommunications and PBX systems."
+                        "content": self.SYSTEM_PROMPT_TRANSLATOR
                     },
                     {
                         "role": "user", 
@@ -199,11 +207,8 @@ Return ONLY the translated markdown content that should be added/modified, witho
                 f.write(updated_content)
             print(f"Updated file with AI positioning: {target_file}")
         else:
-            # Fallback: append at the end
-            print(f"AI positioning failed, using fallback for: {target_file}")
-            updated_content = current_content.rstrip() + '\n\n' + translated_content
-            with open(target_path, 'w', encoding='utf-8') as f:
-                f.write(updated_content)
+            # AI positioning failed - do not apply changes
+            print(f"⚠️ AI positioning failed for: {target_file} - translation not applied")
 
     def _apply_ai_positioning(self, current_target_content: str, translated_content: str, original_source_content: str, diff_content: str, target_file: str) -> Optional[str]:
         """Use AI to intelligently position translated content in the target file"""
@@ -261,7 +266,7 @@ Return ONLY the raw file content, starting directly with the file's content (e.g
                 "messages": [
                     {
                         "role": "system", 
-                        "content": "You are an expert documentation editor specializing in intelligent content positioning and file merging."
+                        "content": self.SYSTEM_PROMPT_EDITOR
                     },
                     {
                         "role": "user", 
@@ -335,23 +340,9 @@ INSTRUCTIONS:
 3. Keep technical terms consistent (NethVoice, NethServer, etc.)
 4. For Italian: use formal tone, keep button labels in **bold**, code in `backticks`
 
-CRITICAL FORMATTING RULES:
-- NEVER include markdown code blocks markers like ```markdown or ``` in the output
-- Translate section titles when appropriate (e.g., "New test section" → "Nuova sezione di test")
-- Do NOT translate words that are common in both languages (e.g., "Feedback", "API", "Login")
-- Update heading IDs to match translated titles: ## Section Title {{#section-id}} → ## Titolo Sezione {{#titolo-sezione}}
-- Keep email links: [email@domain.com](mailto:email@domain.com)
-- Keep internal links: [text](relative/path.md)
-- Bold for UI elements: **Install**, **Configure**
-- Backticks for code/values: `Nethesis,1234`
+{self.CRITICAL_FORMATTING_RULES}
 
-TITLE TRANSLATION EXAMPLES:
-- "Test section" → "Sezione di test"
-- "Configuration" → "Configurazione" 
-- "Installation guide" → "Guida all'installazione"
-- "API" → "API" (no translation)
-- "Feedback" → "Feedback" (no translation)
-- "Dashboard" → "Dashboard" (no translation)
+{self.TITLE_TRANSLATION_EXAMPLES}
 
 OUTPUT FORMAT:
 Return the COMPLETE translated file content, without any explanations or markdown code block markers.
@@ -368,7 +359,7 @@ Return the COMPLETE translated file content, without any explanations or markdow
                 "messages": [
                     {
                         "role": "system", 
-                        "content": "You are an expert technical documentation translator specializing in telecommunications and PBX systems."
+                        "content": self.SYSTEM_PROMPT_TRANSLATOR
                     },
                     {
                         "role": "user", 
