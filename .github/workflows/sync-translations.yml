@@ -41,7 +41,7 @@ jobs:
       - name: Analyze changed documentation files
         id: analyze-files
         run: |
-          # Get the list of changed files between main branch (target) and current PR branch (source)
+          # Get the list of commits in this PR
           git fetch origin main
           git fetch origin ${{ github.event.pull_request.head.ref }}
           
@@ -51,20 +51,101 @@ jobs:
           echo "Current HEAD: $(git rev-parse HEAD)"
           echo "Main branch: $(git rev-parse origin/main)"
           
-          # Use two-dot notation to compare the branches directly
-          CHANGED_FILES=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD -- 'docs/**/*.md' 'docs/**/*.mdx' 'i18n/**/*.md' 'i18n/**/*.mdx' || true)
+          # Get all commits in the PR (from merge base to HEAD)
+          MERGE_BASE=$(git merge-base origin/${{ github.event.pull_request.base.ref }} HEAD)
+          echo "📍 Merge base: $MERGE_BASE"
           
-          echo "🔍 Debug: All changed files in PR:"
-          git diff --name-only origin/${{ github.event.pull_request.base.ref }}..HEAD || true
+          # Get list of commits in chronological order (oldest first)
+          COMMITS=$(git rev-list --reverse $MERGE_BASE..HEAD)
           
-          if [ -z "$CHANGED_FILES" ]; then
-            echo "✅ No documentation files changed between main and PR branch"
+          if [ -z "$COMMITS" ]; then
+            echo "✅ No commits found in PR"
             echo "needs-translation=false" >> $GITHUB_OUTPUT
             exit 0
           fi
           
-          echo "📝 Found changed files:"
-          echo "$CHANGED_FILES"
+          echo "📝 Commits in PR:"
+          echo "$COMMITS" | while read commit; do
+            echo "  - $(git log --oneline -1 $commit)"
+          done
+          
+          # Determine PR primary language by analyzing commits until we find a clear majority
+          echo ""
+          echo "🔍 Determining PR primary language from commits..."
+          
+          PR_LANGUAGE=""
+          COMMIT_INDEX=0
+          
+          # Iterate through commits until we determine a language
+          echo "$COMMITS" | while read check_commit; do
+            COMMIT_INDEX=$((COMMIT_INDEX + 1))
+            
+            if [ -n "$PR_LANGUAGE" ]; then
+              # Language already determined, skip
+              break
+            fi
+            
+            echo "  � Checking commit $COMMIT_INDEX: $(git log --oneline -1 $check_commit)"
+            
+            COMMIT_FILES=$(git diff-tree --no-commit-id --name-only -r $check_commit -- 'docs/**/*.md' 'docs/**/*.mdx' 'i18n/**/*.md' 'i18n/**/*.mdx')
+            
+            if [ -z "$COMMIT_FILES" ]; then
+              echo "    ⏭️  No documentation files, checking next commit..."
+              continue
+            fi
+            
+            # Check files in this commit
+            EN_FILES=$(echo "$COMMIT_FILES" | grep "^docs/" || true)
+            IT_FILES=$(echo "$COMMIT_FILES" | grep "^i18n/it/" || true)
+            
+            if [ -z "$EN_FILES" ] && [ -z "$IT_FILES" ]; then
+              echo "    ⏭️  No documentation files, checking next commit..."
+              continue
+            elif [ -n "$EN_FILES" ] && [ -z "$IT_FILES" ]; then
+              # Only English files
+              PR_LANGUAGE="EN"
+              echo "    ✅ Only EN files found"
+              echo "📌 PR primary language: English (EN) - determined from commit $COMMIT_INDEX"
+              break
+            elif [ -z "$EN_FILES" ] && [ -n "$IT_FILES" ]; then
+              # Only Italian files
+              PR_LANGUAGE="IT"
+              echo "    ✅ Only IT files found"
+              echo "📌 PR primary language: Italian (IT) - determined from commit $COMMIT_INDEX"
+              break
+            else
+              # Both languages present - check majority
+              EN_COUNT=$(echo "$EN_FILES" | wc -l)
+              IT_COUNT=$(echo "$IT_FILES" | wc -l)
+              
+              echo "    📊 Found $EN_COUNT EN files and $IT_COUNT IT files"
+              
+              if [ "$EN_COUNT" -gt "$IT_COUNT" ]; then
+                PR_LANGUAGE="EN"
+                echo "    ✅ EN majority ($EN_COUNT > $IT_COUNT)"
+                echo "📌 PR primary language: English (EN) - determined from commit $COMMIT_INDEX"
+                break
+              elif [ "$IT_COUNT" -gt "$EN_COUNT" ]; then
+                PR_LANGUAGE="IT"
+                echo "    ✅ IT majority ($IT_COUNT > $EN_COUNT)"
+                echo "📌 PR primary language: Italian (IT) - determined from commit $COMMIT_INDEX"
+                break
+              else
+                # Equal - continue to next commit
+                echo "    ⚠️  Equal files ($EN_COUNT each), checking next commit..."
+                continue
+              fi
+            fi
+          done
+          
+          # Check if we managed to determine a language
+          if [ -z "$PR_LANGUAGE" ]; then
+            echo ""
+            echo "⚠️ Could not determine PR primary language from any commit"
+            echo "⚠️ All commits have equal EN/IT files - skipping automatic translation"
+            echo "needs-translation=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
           
           # Function to map English file to Italian equivalent
           map_en_to_it() {
@@ -78,50 +159,80 @@ jobs:
             echo "${it_file/i18n\/it\/docusaurus-plugin-content-docs\/current\//docs\/}"
           }
           
-          # Convert changed files to array for easier checking
-          CHANGED_FILES_ARRAY=($CHANGED_FILES)
-          FILES_NEEDING_TRANSLATION=""
+          # Process each commit
+          echo ""
+          echo "🔄 Processing commits one by one..."
+          echo "$COMMITS" > /tmp/all-commits.txt
           
-          # Analyze which files need translation
-          for file in $CHANGED_FILES; do
-            if [ -n "$file" ]; then
-              # Determine counterpart file path
-              if [[ "$file" == docs/* ]]; then
-                # English file - check if Italian counterpart was also modified
-                counterpart=$(map_en_to_it "$file")
-                direction="EN → IT"
-              elif [[ "$file" == i18n/it/docusaurus-plugin-content-docs/current/* ]]; then
-                # Italian file - check if English counterpart was also modified
-                counterpart=$(map_it_to_en "$file")
-                direction="IT → EN"
-              else
-                echo "⚠️ Unrecognized file path: $file"
-                continue
-              fi
-              
-              # Check if counterpart file was also modified in this PR
-              if [[ " ${CHANGED_FILES_ARRAY[*]} " =~ " ${counterpart} " ]]; then
-                echo "✅ Both files modified ($direction): $file ↔ $counterpart"
-                echo "⏭️ Skipping - manual translation detected"
-              else
-                echo "🤖 Single file modified ($direction): $file → $counterpart"
-                echo "📋 Will need translation agent"
-                FILES_NEEDING_TRANSLATION="$FILES_NEEDING_TRANSLATION $file"
-              fi
+          # Clear the files list
+          > /tmp/commits-needing-translation.json
+          
+          echo "$COMMITS" | while read commit; do
+            echo ""
+            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            echo "📦 Processing commit: $(git log --oneline -1 $commit)"
+            
+            # Get files changed in this specific commit
+            COMMIT_FILES=$(git diff-tree --no-commit-id --name-only -r $commit -- 'docs/**/*.md' 'docs/**/*.mdx' 'i18n/**/*.md' 'i18n/**/*.mdx')
+            
+            if [ -z "$COMMIT_FILES" ]; then
+              echo "  ⏭️  No documentation files in this commit"
+              continue
             fi
+            
+            echo "  📄 Files in commit:"
+            echo "$COMMIT_FILES" | sed 's/^/    - /'
+            
+            # Analyze files in this commit - check each file individually
+            echo "  🤖 Analyzing files for translation needs..."
+            
+            # Convert COMMIT_FILES to array for easier checking
+            COMMIT_FILES_ARRAY=($COMMIT_FILES)
+            
+            for file in $COMMIT_FILES; do
+              if [ -n "$file" ]; then
+                # Determine counterpart file path and check language
+                if [[ "$file" == docs/* ]]; then
+                  counterpart=$(map_en_to_it "$file")
+                  direction="EN → IT"
+                  file_lang="EN"
+                elif [[ "$file" == i18n/it/docusaurus-plugin-content-docs/current/* ]]; then
+                  counterpart=$(map_it_to_en "$file")
+                  direction="IT → EN"
+                  file_lang="IT"
+                else
+                  # Not a documentation file, skip
+                  continue
+                fi
+                
+                # Check if this file's language matches PR primary language
+                if [ "$file_lang" != "$PR_LANGUAGE" ]; then
+                  echo "    ⏭️  Skipping $file - not in primary language ($PR_LANGUAGE)"
+                  continue
+                fi
+                
+                # Check if counterpart was also modified in this same commit
+                if [[ " ${COMMIT_FILES_ARRAY[*]} " =~ " ${counterpart} " ]]; then
+                  echo "    ✅ Both files in commit ($direction): $file ↔ $counterpart - skipping (manual translation)"
+                else
+                  echo "    🔄 Need translation ($direction): $file → $counterpart"
+                  # Store commit hash and file in JSON format
+                  echo "{\"commit\":\"$commit\",\"file\":\"$file\"}" >> /tmp/commits-needing-translation.json
+                fi
+              fi
+            done
           done
           
-          # Set output variables
-          if [ -n "$FILES_NEEDING_TRANSLATION" ]; then
+          # Check if we have any files to translate
+          if [ -f /tmp/commits-needing-translation.json ] && [ -s /tmp/commits-needing-translation.json ]; then
+            echo ""
+            echo "✅ Analysis completed - found files needing translation"
             echo "needs-translation=true" >> $GITHUB_OUTPUT
-            echo "$FILES_NEEDING_TRANSLATION" > /tmp/files-for-translation.txt
-            echo "📝 Files that need translation: $FILES_NEEDING_TRANSLATION"
           else
+            echo ""
+            echo "✅ Analysis completed - no translation needed"
             echo "needs-translation=false" >> $GITHUB_OUTPUT
-            echo "✅ All files have manual translations - no agent needed"
           fi
-          
-          echo "✅ Analysis completed."
 
       - name: Test GitHub Models API access
         if: steps.analyze-files.outputs.needs-translation == 'true'
@@ -137,18 +248,31 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Read files that need translation
-          FILES_NEEDING_TRANSLATION=$(cat /tmp/files-for-translation.txt)
+          # Read commit-file pairs that need translation
+          if [ ! -f /tmp/commits-needing-translation.json ]; then
+            echo "❌ No translation data file found"
+            exit 1
+          fi
           
-          echo "🤖 Running translation agent for files: $FILES_NEEDING_TRANSLATION"
+          echo "🤖 Running translation agent for commits..."
+          echo ""
           
-          # Process each file that needs translation
-          for file in $FILES_NEEDING_TRANSLATION; do
-            if [ -n "$file" ]; then
-              echo "🔄 Processing: $file"
-              python .github/scripts/translation-agent/translation-sync-agent.py "$file"
+          # Process each commit-file pair
+          while IFS= read -r line; do
+            if [ -n "$line" ]; then
+              commit=$(echo "$line" | python3 -c "import sys, json; print(json.load(sys.stdin)['commit'])")
+              file=$(echo "$line" | python3 -c "import sys, json; print(json.load(sys.stdin)['file'])")
+              
+              echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+              echo "📦 Commit: $(git log --oneline -1 $commit)"
+              echo "� File: $file"
+              echo ""
+              
+              python .github/scripts/translation-agent/translation-sync-agent.py "$file" "$commit"
+              
+              echo ""
             fi
-          done
+          done < /tmp/commits-needing-translation.json
           
           echo "✅ All translations completed."
         continue-on-error: false

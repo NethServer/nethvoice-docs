@@ -16,10 +16,11 @@ import requests
 from git import Repo
 
 class DocumentationSyncAgent:
-    def __init__(self):
+    def __init__(self, commit_hash: Optional[str] = None):
         self.repo = Repo('.')
         self.github_token = os.getenv('GITHUB_TOKEN')
         self.base_path = Path('.')
+        self.commit_hash = commit_hash  # Specific commit to analyze
         
         # Path mappings
         self.en_docs_path = Path('docs')
@@ -62,29 +63,34 @@ class DocumentationSyncAgent:
             return ""
 
     def get_file_diff(self, file_path: str) -> str:
-        """Get git diff for a specific file"""
+        """Get git diff for a specific file from a specific commit"""
         try:
-            # Use same diff method as workflow: two-dot notation
-            result = subprocess.run(
-                ['git', 'diff', 'origin/main..HEAD', '--', file_path],
-                capture_output=True, text=True, check=True
-            )
-            diff_output = result.stdout
-            
-            # Debug output
-            print(f"🔍 Git diff command: git diff origin/main..HEAD -- {file_path}")
-            print(f"🔍 Diff output length: {len(diff_output)} characters")
-            if diff_output:
-                print(f"🔍 Diff preview: {diff_output[:300]}...")
-            else:
-                print("🔍 No diff output - trying alternative approach...")
-                # Try with just HEAD (compare with working tree)
-                result_alt = subprocess.run(
-                    ['git', 'diff', 'HEAD~1', '--', file_path],
+            if self.commit_hash:
+                # Get diff for this specific commit only
+                result = subprocess.run(
+                    ['git', 'diff-tree', '--no-commit-id', '-p', '-r', self.commit_hash, '--', file_path],
                     capture_output=True, text=True, check=True
                 )
-                diff_output = result_alt.stdout
-                print(f"🔍 Alternative diff length: {len(diff_output)} characters")
+                diff_output = result.stdout
+                
+                print(f"🔍 Git diff command: git diff-tree --no-commit-id -p -r {self.commit_hash} -- {file_path}")
+                print(f"🔍 Diff output length: {len(diff_output)} characters")
+                if diff_output:
+                    print(f"🔍 Diff preview: {diff_output[:300]}...")
+                else:
+                    print("🔍 No diff output for this commit")
+            else:
+                # Fallback to old behavior (compare with main branch)
+                result = subprocess.run(
+                    ['git', 'diff', 'origin/main..HEAD', '--', file_path],
+                    capture_output=True, text=True, check=True
+                )
+                diff_output = result.stdout
+                
+                print(f"🔍 Git diff command: git diff origin/main..HEAD -- {file_path}")
+                print(f"🔍 Diff output length: {len(diff_output)} characters")
+                if diff_output:
+                    print(f"🔍 Diff preview: {diff_output[:300]}...")
             
             return diff_output
         except subprocess.CalledProcessError as e:
@@ -433,7 +439,11 @@ Return the COMPLETE translated file content, without any explanations or markdow
 
     def run(self, specific_file: str = None):
         """Main execution method"""
-        print("🤖 Starting Documentation Translation Sync Agent (GitHub Models)")
+        if self.commit_hash:
+            print(f"🤖 Starting Documentation Translation Sync Agent")
+            print(f"📦 Processing commit: {self.commit_hash}")
+        else:
+            print("🤖 Starting Documentation Translation Sync Agent")
         
         # Check if GitHub token is available
         if not self.github_token:
@@ -480,8 +490,9 @@ Return the COMPLETE translated file content, without any explanations or markdow
 if __name__ == "__main__":
     import sys
     
-    agent = DocumentationSyncAgent()
-    
-    # Check if a specific file was passed as argument
+    # Check for commit hash argument
     specific_file = sys.argv[1] if len(sys.argv) > 1 else None
+    commit_hash = sys.argv[2] if len(sys.argv) > 2 else None
+    
+    agent = DocumentationSyncAgent(commit_hash=commit_hash)
     agent.run(specific_file)
