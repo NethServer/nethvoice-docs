@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Optional
 import subprocess
 import requests
+import time
 from git import Repo
 
 class DocumentationSyncAgent:
@@ -53,6 +54,68 @@ class DocumentationSyncAgent:
         self.SYSTEM_PROMPT_TRANSLATOR = "You are an expert technical documentation translator specializing in telecommunications and PBX systems."
         
         self.SYSTEM_PROMPT_EDITOR = "You are an expert documentation editor specializing in intelligent content positioning and file merging."
+        
+        # Rate limiting configuration
+        self.max_retries = 5
+        self.base_retry_delay = 2  # seconds
+
+    def _make_api_call_with_retry(self, headers: dict, payload: dict, operation_name: str = "API call") -> Optional[dict]:
+        """Make API call with exponential backoff retry logic for rate limiting"""
+        
+        for attempt in range(self.max_retries):
+            try:
+                response = requests.post(
+                    self.models_api_url,
+                    headers=headers,
+                    json=payload,
+                    timeout=60
+                )
+                
+                if response.status_code == 200:
+                    return response.json()
+                
+                elif response.status_code == 429:
+                    # Rate limited - retry with exponential backoff
+                    retry_delay = self.base_retry_delay * (2 ** attempt)
+                    
+                    # Check for Retry-After header
+                    retry_after = response.headers.get('Retry-After')
+                    if retry_after:
+                        try:
+                            retry_delay = int(retry_after)
+                        except ValueError:
+                            pass
+                    
+                    print(f"⚠️ Rate limited (429) on {operation_name}")
+                    print(f"   Attempt {attempt + 1}/{self.max_retries}")
+                    print(f"   Retrying in {retry_delay} seconds...")
+                    
+                    time.sleep(retry_delay)
+                    continue
+                
+                else:
+                    # Other error
+                    print(f"❌ GitHub Models API error on {operation_name}: {response.status_code}")
+                    print(f"   Response: {response.text}")
+                    return None
+                    
+            except requests.exceptions.Timeout:
+                print(f"⚠️ Timeout on {operation_name}, attempt {attempt + 1}/{self.max_retries}")
+                if attempt < self.max_retries - 1:
+                    retry_delay = self.base_retry_delay * (2 ** attempt)
+                    print(f"   Retrying in {retry_delay} seconds...")
+                    time.sleep(retry_delay)
+                    continue
+                else:
+                    print(f"❌ Max retries reached for {operation_name}")
+                    return None
+                    
+            except Exception as e:
+                print(f"❌ Unexpected error on {operation_name}: {e}")
+                return None
+        
+        print(f"❌ Max retries ({self.max_retries}) exceeded for {operation_name}")
+        return None
 
     def get_file_content(self, file_path: str) -> str:
         """Get content of a file"""
@@ -163,18 +226,15 @@ Return ONLY the translated markdown content that should be added/modified, witho
                 "temperature": 0.2
             }
             
-            response = requests.post(
-                self.models_api_url,
-                headers=headers,
-                json=payload,
-                timeout=30
+            result = self._make_api_call_with_retry(
+                headers, 
+                payload, 
+                f"translation of {file_path}"
             )
             
-            if response.status_code == 200:
-                result = response.json()
+            if result:
                 return result["choices"][0]["message"]["content"].strip()
             else:
-                print(f"GitHub Models API error: {response.status_code} - {response.text}")
                 return None
                 
         except Exception as e:
@@ -284,20 +344,18 @@ Return ONLY the raw file content, starting directly with the file's content (e.g
             }
             
             print(f"🤖 Using AI positioning for {target_file}")
-            response = requests.post(
-                self.models_api_url,
-                headers=headers,
-                json=payload,
-                timeout=45  # Longer timeout for complex positioning
+            
+            result = self._make_api_call_with_retry(
+                headers,
+                payload,
+                f"AI positioning for {target_file}"
             )
             
-            if response.status_code == 200:
-                result = response.json()
+            if result:
                 positioned_content = result["choices"][0]["message"]["content"].strip()
                 print(f"✅ AI positioning successful")
                 return positioned_content
             else:
-                print(f"❌ AI positioning API error: {response.status_code} - {response.text}")
                 return None
                 
         except Exception as e:
@@ -377,18 +435,16 @@ Return the COMPLETE translated file content, without any explanations or markdow
             }
             
             print(f"🌍 Translating entire file: {file_path}")
-            response = requests.post(
-                self.models_api_url,
-                headers=headers,
-                json=payload,
-                timeout=60  # Longer timeout for full file translation
+            
+            result = self._make_api_call_with_retry(
+                headers,
+                payload,
+                f"full file translation of {file_path}"
             )
             
-            if response.status_code == 200:
-                result = response.json()
+            if result:
                 return result["choices"][0]["message"]["content"].strip()
             else:
-                print(f"GitHub Models API error: {response.status_code} - {response.text}")
                 return None
                 
         except Exception as e:
