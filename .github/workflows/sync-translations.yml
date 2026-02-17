@@ -28,6 +28,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           ref: ${{ github.event.pull_request.head.ref }}
           repository: ${{ github.event.pull_request.head.repo.full_name }}
+          fetch-depth: 0
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -51,43 +52,85 @@ jobs:
           echo "Current HEAD: $(git rev-parse HEAD)"
           echo "Main branch: $(git rev-parse origin/main)"
           
-          # Get all commits in the PR (from merge base to HEAD)
+          # Get merge base for language detection (always from start of PR)
           MERGE_BASE=$(git merge-base origin/${{ github.event.pull_request.base.ref }} HEAD)
           echo "📍 Merge base: $MERGE_BASE"
           
-          # Get list of commits in chronological order (oldest first)
-          COMMITS=$(git rev-list --reverse $MERGE_BASE..HEAD)
+          # Get the last workflow run on this branch to find the last processed commit
+          echo ""
+          echo "🔎 Checking for previous workflow executions..."
           
-          if [ -z "$COMMITS" ]; then
-            echo "✅ No commits found in PR"
+          LAST_WORKFLOW_COMMIT=""
+          
+          # Use GitHub API to get the last successful run of this workflow on this branch
+          WORKFLOW_RUNS=$(curl -s \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${{ github.repository }}/actions/workflows/sync-translations.yml/runs?branch=${{ github.event.pull_request.head.ref }}&per_page=5")
+          
+          # Extract the head_commit SHA from the last successful completed run
+          LAST_WORKFLOW_COMMIT=$(echo "$WORKFLOW_RUNS" | python3 -c "
+          import sys, json
+          data = json.load(sys.stdin)
+          runs = data.get('workflow_runs', [])
+          # Find the most recent completed run (excluding current run)
+          for run in runs:
+            if run['status'] == 'completed':
+              print(run['head_commit']['id'])
+              break
+          " 2>/dev/null || echo "")
+          
+          if [ -n "$LAST_WORKFLOW_COMMIT" ]; then
+            echo "✅ Found last workflow execution at commit: $LAST_WORKFLOW_COMMIT"
+            # Use the commit after the last processed one as the range start for processing
+            COMMITS_TO_PROCESS_RANGE="$LAST_WORKFLOW_COMMIT..HEAD"
+          else
+            echo "⚠️  No previous workflow execution found, processing all commits"
+            COMMITS_TO_PROCESS_RANGE="$MERGE_BASE..HEAD"
+          fi
+          
+          # Get all commits for language detection (from PR start)
+          ALL_COMMITS=$(git rev-list --reverse $MERGE_BASE..HEAD)
+          
+          # Get commits to process (excluding already processed ones)
+          COMMITS_TO_PROCESS=$(git rev-list --reverse $COMMITS_TO_PROCESS_RANGE)
+          
+          # Save commits to array to avoid subshell issues with pipes
+          mapfile -t ALL_COMMITS_ARRAY <<< "$ALL_COMMITS"
+          mapfile -t COMMITS_TO_PROCESS_ARRAY <<< "$COMMITS_TO_PROCESS"
+          
+          if [ ${#COMMITS_TO_PROCESS_ARRAY[@]} -eq 0 ]; then
+            echo "✅ No new commits found to process"
             echo "needs-translation=false" >> $GITHUB_OUTPUT
             exit 0
           fi
           
-          echo "📝 Commits in PR:"
-          echo "$COMMITS" | while read commit; do
+          echo ""
+          echo "📝 Commits to process:"
+          echo "$COMMITS_TO_PROCESS" | while read commit; do
             echo "  - $(git log --oneline -1 $commit)"
           done
           
-          # Determine PR primary language by analyzing commits until we find a clear majority
+          # Determine PR primary language by analyzing ALL commits from the start of PR
           echo ""
-          echo "🔍 Determining PR primary language from commits..."
+          echo "🔍 Determining PR primary language from all PR commits..."
           
           PR_LANGUAGE=""
           COMMIT_INDEX=0
           
-          # Iterate through commits until we determine a language
-          echo "$COMMITS" | while read check_commit; do
+          # Iterate through ALL commits to determine language
+          for check_commit in "${ALL_COMMITS_ARRAY[@]}"; do
             COMMIT_INDEX=$((COMMIT_INDEX + 1))
             
             if [ -n "$PR_LANGUAGE" ]; then
-              # Language already determined, skip
+              # Language already determined, stop
               break
             fi
             
-            echo "  � Checking commit $COMMIT_INDEX: $(git log --oneline -1 $check_commit)"
+            echo "  ✓ Checking commit $COMMIT_INDEX: $(git log --oneline -1 $check_commit)"
             
-            COMMIT_FILES=$(git diff-tree --no-commit-id --name-only -r $check_commit -- 'docs/**/*.md' 'docs/**/*.mdx' 'i18n/**/*.md' 'i18n/**/*.mdx')
+            # Get files changed in this commit - using simpler pattern matching
+            COMMIT_FILES=$(git diff-tree --no-commit-id --name-only -r $check_commit)
             
             if [ -z "$COMMIT_FILES" ]; then
               echo "    ⏭️  No documentation files, checking next commit..."
@@ -159,21 +202,29 @@ jobs:
             echo "${it_file/i18n\/it\/docusaurus-plugin-content-docs\/current\//docs\/}"
           }
           
-          # Process each commit
+          # Process each commit (excluding already processed ones)
           echo ""
           echo "🔄 Processing commits one by one..."
-          echo "$COMMITS" > /tmp/all-commits.txt
           
           # Clear the files list
           > /tmp/commits-needing-translation.json
           
-          echo "$COMMITS" | while read commit; do
+          for commit in "${COMMITS_TO_PROCESS_ARRAY[@]}"; do
             echo ""
             echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            
+            # Check if this commit is from the workflow bot
+            COMMIT_MESSAGE=$(git log --format=%B -n 1 $commit)
+            if [[ "$COMMIT_MESSAGE" == *"auto-sync translations"* ]]; then
+              echo "📦 Commit: $(git log --oneline -1 $commit)"
+              echo "⏭️  Skipping - this commit was generated by the translation agent"
+              continue
+            fi
+            
             echo "📦 Processing commit: $(git log --oneline -1 $commit)"
             
             # Get files changed in this specific commit
-            COMMIT_FILES=$(git diff-tree --no-commit-id --name-only -r $commit -- 'docs/**/*.md' 'docs/**/*.mdx' 'i18n/**/*.md' 'i18n/**/*.mdx')
+            COMMIT_FILES=$(git diff-tree --no-commit-id --name-only -r $commit)
             
             if [ -z "$COMMIT_FILES" ]; then
               echo "  ⏭️  No documentation files in this commit"
