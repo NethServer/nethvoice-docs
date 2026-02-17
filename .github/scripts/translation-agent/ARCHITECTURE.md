@@ -16,16 +16,22 @@ The automated translation system consists of three main components working toget
 - Repository: Internal PRs only (not forks)
 
 **Workflow Steps**:
-1. **File Analysis**: Identifies changed documentation files
-2. **API Testing**: Verifies GitHub Models API access (fail-fast approach)  
-3. **Translation Processing**: Calls Python agent for each changed file
-4. **Git Operations**: Commits and pushes translations to PR branch
+1. **Commit History Analysis**: Fetches all commits and finds the last successful workflow execution
+2. **Primary Language Detection**: Determines if PR is primarily English or Italian changes
+3. **Translation Decision**: Analyzes each file to decide if automatic translation is needed
+4. **API Testing**: Verifies GitHub Models API access (fail-fast approach)  
+5. **Translation Processing**: Calls Python agent for each file requiring translation
+6. **Git Operations**: Commits and pushes translations to PR branch
 
 **Key Features**:
 - Conditional execution (only runs when translation is needed)
+- Smart history tracking via GitHub API to avoid re-processing commits
+- Primary language detection from PR commits
+- Manual translation detection (skips if both EN and IT modified together)
 - Fail-fast API testing to prevent partial execution
 - Conventional Commits compliance
 - Automatic branch management
+- Filtering of workflow-generated commits to prevent loops
 
 ### 2. Translation Sync Agent (`.github/scripts/translation-agent/translation-sync-agent.py`)
 
@@ -94,32 +100,124 @@ Italian Documentation (i18n/it/docusaurus-plugin-content-docs/current/):
 graph TD
     A[PR Created/Updated] --> B[Workflow Triggered]
     B --> C[Checkout PR Branch]
-    C --> D[Analyze Changed Files]
-    D --> E{Files Need Translation?}
-    E --> |No| Z[Skip Workflow]
-    E --> |Yes| F[Test API Access]
-    F --> |API Failed| Y[Fail Workflow]
-    F --> |API OK| G[Process Each File]
-    G --> H[Get Git Diff]
-    H --> I[Call AI Translation]
-    I --> J[Apply Translation]
-    J --> K[Commit Changes]
-    K --> L[Push to PR Branch]
+    C --> D["1. Commit History Analysis<br/>Find last workflow execution<br/>Determine commits to process"]
+    D --> E["2. Primary Language Detection<br/>Scan commits to detect EN or IT"]
+    E --> F{Language<br/>Determined?}
+    F --> |No| Z["Skip: Ambiguous PR<br/>Equal EN/IT files"]
+    F --> |Yes| G["3. Analyze Each Commit<br/>Check file-by-file needs"]
+    G --> H{Files Need<br/>Translation?}
+    H --> |No| Y["Skip Workflow<br/>No translations needed"]
+    H --> |Yes| I["Test API Access"]
+    I --> |API Failed| X["Fail Workflow<br/>API unavailable"]
+    I --> |API OK| J["4. For Each File:<br/>Skip workflow commits<br/>Check primary language<br/>Detect manual translations"]
+    J --> K{Process<br/>File?}
+    K --> |No| L["Skip this file"]
+    K --> |Yes| M["5. Translation Processing<br/>Extract git diff<br/>Call AI Translation<br/>Apply intelligent positioning"]
+    L --> N["6. Commit & Push<br/>Commit translations<br/>Push to PR branch"]
+    M --> N
+    N --> O["✅ Workflow Complete"]
 ```
+
+## Commit History and Processing
+
+### History Analysis System
+The workflow implements an intelligent commit tracking system to avoid re-processing already translated content:
+
+**Process**:
+1. **Fetches all commits** in the PR using `git merge-base origin/main..HEAD`
+2. **Queries GitHub API** to find the last successful workflow execution on the branch
+3. **Calculates commit range**:
+   - If first run: processes all commits from PR start (`$MERGE_BASE..HEAD`)
+   - If previous runs exist: processes only new commits after last execution (`$LAST_WORKFLOW_COMMIT..HEAD`)
+4. **Iterates through commits** to be processed, analyzing each one individually
+
+**API Call**:
+```
+GET /repos/{owner}/{repo}/actions/workflows/sync-translations.yml/runs
+  ?branch={branch_name}&per_page=5
+```
+
+Extracts the `head_commit.id` from the most recent completed run.
+
+### Primary Language Detection
+The workflow determines the PR's primary language by analyzing commits:
+
+**Detection Algorithm**:
+1. Scans commits **in reverse order** (oldest to newest)
+2. For each commit, categorizes files as:
+   - **EN**: Files in `docs/` directory
+   - **IT**: Files in `i18n/it/docusaurus-plugin-content-docs/current/`
+3. **Determines language** based on first meaningful commit:
+   - **Only EN files** → Primary language = **English**
+   - **Only IT files** → Primary language = **Italian**
+   - **Mixed files** → Count and use majority (EN > IT → English, etc.)
+   - **Equal count** → Continue to next commit
+4. **Stops when** language is determined or all commits are scanned
+
+**Result**: If language cannot be determined (all commits have equal EN/IT files), workflow skips (no ambiguity)
+
+### Commit Filtering and File Analysis
+For each commit in the processing range:
+
+**Filters**:
+- **Skips workflow-generated commits**: If commit message contains "auto-sync translations"
+- **Prevents loops**: Avoids re-processing translations created by previous workflow runs
+
+**File-by-File Decision**:
+For each file modified in a commit:
+1. **Checks language match**: File language must match PR's primary language
+   - English file in English-primary PR → candidate for translation
+   - Italian file in Italian-primary PR → candidate for translation
+   - Opposite language → skipped
+2. **Detects manual translations**: 
+   - If **both** English AND Italian counterpart files are modified in the **same commit**
+   - Assumes developer manually translated content
+   - **Skips automatic translation** for that commit pair
+3. **Marks for translation**: If only one file is modified (not both), marks for automatic translation
 
 ## Translation Rules Implementation
 
 ### AI Prompt Structure
 
+The agent uses a **dual-persona prompt system** with specialized AI agents:
+
+**Persona 1: Translation Agent**
+- **Role**: Expert technical documentation translator
+- **Domain**: Telecommunications and PBX systems
+- **Temperature**: 0.2 (consistent, reproducible translations)
+- **Task**: Translate git diffs from source to target language
+- **Input**: 
+  - Source language and target language
+  - Git diff showing only new/modified content
+  - File path and context
+- **Output**: Translated markdown content only (no explanations)
+
+**Persona 2: Positioning Agent**
+- **Role**: Expert documentation editor
+- **Specialty**: Intelligent content positioning and file merging
+- **Temperature**: 0 (deterministic output)
+- **Task**: Intelligently position translated content in target file
+- **Input**:
+  - Current target file content
+  - New translated content
+  - Original source content
+  - Git diff context
+- **Output**: Complete updated target file with translations properly merged
+
+**Shared Formatting Rules**:
 The agent uses carefully crafted prompts with specific rules:
 
 ```python
 CRITICAL FORMATTING RULES:
-- NEVER include markdown code blocks markers like ```markdown
+- NEVER include markdown code blocks markers like ```markdown or ``` in the output
 - Translate section titles when appropriate
-- Do NOT translate common technical terms (API, Login, Feedback)
-- Update heading IDs to match translated titles
-- Preserve all markdown formatting and links
+- Do NOT translate common technical terms (API, Login, Feedback, Dashboard)
+- When translating titles, DO NOT TRANSLATE the heading ID
+  Example: '## Section Title {#section-id}' → '## Titolo Sezione {#section-id}'
+- Keep email links: [email@domain.com](mailto:email@domain.com)
+- Keep internal links: [text](relative/path.md)
+- Bold for UI elements: **Install**, **Configure**
+- Backticks for code/values: `Nethesis,1234`
 ```
 
 ### Title Translation Examples
@@ -139,17 +237,31 @@ Implemented in the agent's prompt:
 ## Technical Implementation Details
 
 ### Git Operations
-- **Diff Analysis**: Uses `git diff origin/main..HEAD` to identify changes
-- **File Detection**: Processes `.md` and `.mdx` files only  
+- **Merge Base**: Calculates `git merge-base origin/main..HEAD` to identify PR start
+- **Workflow History**: Queries GitHub API to find last successful workflow execution
+- **Commit Range**: 
+  - First run: processes all commits from PR start to HEAD (`$MERGE_BASE..HEAD`)
+  - Subsequent runs: processes only new commits (`$LAST_WORKFLOW_COMMIT..HEAD`)
+- **Commit Analysis**: Uses `git diff-tree --no-commit-id --name-only -r $commit` per file detection
+- **File Detection**: Processes `.md` and `.mdx` files only
 - **Branch Management**: Works directly on PR branch
-- **Commit Strategy**: Single conventional commit per PR
+- **Commit Strategy**: Single conventional commit per PR with all translations
+- **Commit Filtering**: Skips commits with "auto-sync translations" in message to prevent loops
 
 ### AI Integration Specifics
 - **Endpoint**: `https://models.github.ai/inference/chat/completions`
 - **Model**: `openai/gpt-4o` 
-- **Temperature**: 0-0.2 (for consistent translations)
+- **Temperature Settings**:
+  - Translation: 0.2 (for consistent, reproducible translations)
+  - Content Positioning: 0 (for deterministic output)
+- **Request Timeout**: 60 seconds per request
 - **Authentication**: GitHub token with Copilot subscription
-- **Timeout**: 30 seconds per request
+- **Rate Limiting**: Exponential backoff retry logic
+  - Max retries: 5 attempts
+  - Base delay: 2 seconds
+  - Backoff formula: `2 ** attempt_number`
+  - Respects `Retry-After` header if provided
+- **Intelligent Positioning**: Uses AI to determine optimal placement of translated content in target file
 
 ### Error Handling Strategy
 1. **API Failures**: Fail-fast with clear error messages
@@ -190,40 +302,120 @@ permissions:
 ## Monitoring and Debugging
 
 ### Workflow Logs Structure
+The workflow provides detailed logging at each stage:
+
 ```
-🤖 Starting Translation Sync Agent
-📝 Processing file: docs/tutorial/example.md
-🔄 EN → IT: docs/tutorial/example.md → i18n/it/.../example.md
+🔍 Debug: Branch information:
+Target branch: main
+Source branch: feature-branch
+📍 Merge base: abc123def456
+
+🔎 Checking for previous workflow executions...
+✅ Found last workflow execution at commit: abc123def456
+📝 Commits to process:
+  - abc1111 feat: add new section
+  - def2222 docs: update content
+  
+🔍 Determining PR primary language from all PR commits...
+  ✓ Checking commit 1: feat: add new section
+    ✅ Only EN files found
+📌 PR primary language: English (EN)
+
+🔄 Processing commits one by one...
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+� Processing commit: feat: add new section
+  📄 Files in commit:
+    - docs/tutorial/example.md
+  🤖 Analyzing files for translation needs...
+    🔄 Need translation (EN → IT): docs/tutorial/example.md → i18n/it/.../example.md
+
+🤖 Running translation agent for commits...
+📦 Commit: feat: add new section
+📝 File: docs/tutorial/example.md
 ✅ Translation completed
+
+📝 Files with translation changes:
+M i18n/it/docusaurus-plugin-content-docs/current/tutorial/example.md
+✅ Translation changes committed and pushed (1 files)
 ```
 
-### Debug Information
-- Git diff output preview
-- Translation content preview  
-- File path mappings
-- API response status
-- Error details with context
+### Debug Information Available
+The workflow logs include:
+
+**Phase 1: History Analysis**
+- Branch information and merge base
+- GitHub API query results
+- Last workflow execution commit
+- Commits to process range
+
+**Phase 2: Language Detection**
+- Each commit being analyzed
+- File categorization (EN vs IT)
+- Language determination progress
+- Final primary language result
+
+**Phase 3: File Analysis**
+- Each file being processed
+- Translation need determination
+- Manual translation detection
+- File-by-file results
+
+**Phase 4: Translation Processing**
+- Git diff extraction
+- AI translation progress
+- File positioning results
+- API status and errors
+
+**Phase 5: Commit**
+- Changed files list
+- Commit count
+- Push confirmation
+
+### Troubleshooting with Logs
+When issues occur, the logs clearly indicate:
+- Which commit failed and why
+- Which file caused the problem
+- What API errors occurred
+- Whether it was a rate limit or timeout
+- Retry attempts and delays
 
 ## Current System Limitations
 
-1. **Content Handling**:
-   - Optimized for new section additions
-   - Limited support for complex content modifications
-   - No cross-file context awareness
+### Design Constraints
+1. **Language Detection**:
+   - Requires clear majority or exclusive language in early commits
+   - Cannot handle PRs with truly mixed EN/IT changes across entire history
+   - Falls back to skip if unable to determine language
 
-2. **Translation Quality**:
-   - Requires human review for accuracy
-   - No automatic quality validation
-   - Limited terminology management
+2. **Content Handling**:
+   - Optimized for git diff-based incremental translations
+   - AI-powered intelligent positioning is effective for most cases
+   - May struggle with very large content modifications or complex restructuring
+   - No awareness of multi-file dependencies or cross-references
+
+3. **Manual Translation Respect**:
+   - Only detects manual translations when both files are in the same commit
+
+### Quality Considerations
+1. **Translation Quality**:
+   - Depends entirely on GPT-4o model accuracy
+   - Requires human review for critical content
+   - No automatic quality validation or consistency checks
+   - Terminology might need manual adjustment for domain-specific content
+
+2. **Content Positioning**:
+   - AI-powered positioning is intelligent but not guaranteed perfect
+   - Works best with standard markdown structure
+   - May need manual adjustment for complex nested sections
 
 3. **File Dependencies**:
-   - Doesn't handle related images or includes
-   - No automatic sidebar updates
+   - Doesn't handle related images or media files
+   - No automatic sidebar (`sidebars.ts`) updates
    - No validation of internal link consistency
+   - No detection of broken cross-references
 
-## Future Enhancement Opportunities
-
-1. **Intelligent Modifications**: Better handling of existing content changes
-2. **Quality Assurance**: Automated translation quality checks
-3. **Context Awareness**: Cross-file translation consistency
-4. **Asset Management**: Automatic handling of images and dependencies
+### Scalability Notes
+- **Processing Time**: ~30-60 seconds per file depending on size and content
+- **API Rate Limiting**: Handled with retry logic, but large PRs may take longer
+- **Memory**: Minimal per-file footprint, suitable for large documentation sets
+- **File Count**: No hard limit, but very large PRs (100+ files) may take extended processing time
