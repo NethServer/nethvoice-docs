@@ -60,7 +60,7 @@ The Snom D862 and D865 phones do not support HTTP commands, so it is not possibl
 
 ## Gigaset {#gigaset}
 
-**FIRMWARE Version 10.1.X or higher**
+**FIRMWARE Version 10.1.0 or higher**
 
 - P710 IP PRO, P810-P810B IP PRO, P820-P825 IP PRO, P850W-P855BW IP PRO
 
