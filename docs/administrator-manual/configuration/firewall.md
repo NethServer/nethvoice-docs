@@ -71,11 +71,12 @@ NAT helper functions on firewalls should be **disabled** when possible. These fe
 
 ### Hairpin NAT {#hairpin-nat}
 
-When a proxy is deployed behind a firewall with Network Address Translation (NAT), **hairpin NAT** (also known as NAT reflection, NAT hairpining, or loopback NAT) must be enabled on the firewall.
+When a proxy is deployed behind a firewall with Network Address Translation (NAT), **hairpin NAT** (also known as NAT reflection, NAT hairpining, or loopback NAT) must be enabled on the firewall if devices on the local network resolve the NethVoice FQDN and the NethVoice Proxy FQDN to the public IP address.
 
 #### Why Hairpin NAT is Important
 
-Hairpin NAT allows local network devices to reach the proxy using the external (public) IP address or FQDN, even though they are on the same local network. This is essential for proper device provisioning and functionality.
+Hairpin NAT allows local network devices to reach the proxy using the external (public) IP address or FQDN, even though they are on the same local network.
+This is essential for proper device provisioning and functionality when the devices resolve the NethVoice FQDN and the NethVoice Proxy FQDN to the public IP address.
 
 #### Enabling Hairpin NAT
 
@@ -96,3 +97,4 @@ If you encounter connectivity issues after opening firewall ports:
 3. **Disable NAT helper**: Try disabling NAT helper/ALG functions if connectivity is intermittent
 4. **Verify instance ports**: Double-check that you've opened the correct ports for your specific NethVoice instance
 5. **Contact support**: Open a ticket with Nethesis support if issues persist
+

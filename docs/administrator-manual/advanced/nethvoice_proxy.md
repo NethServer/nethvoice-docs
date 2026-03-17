@@ -50,7 +50,7 @@ With multiple NethVoice instances on the same node, NethVoice Proxy provides:
 - **Shared SSL Certificates**: Manages external security for all instances
 - **Centralized Trunk Management**: External trunks can be shared or routed to specific instances
 
-:::example Multi-Instance Architecture
+:::info Multi-Instance Architecture
 ```
 Internet/External Trunks
         ↓
