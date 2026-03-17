@@ -42,14 +42,20 @@ To ensure optimal call quality:
 NethLink allows you to customize keyboard shortcuts for common operations:
 
 1. Go to **Profile → Settings → Shortcuts**
-2. Select the operation to configure
+2. Select the operation to configure (Command bar or Call shortcut) 
 3. Press the desired key combination
 4. Save the settings
 
 Currently available shortcuts are:
 
-- Click to call: by selecting a phone number and pressing the configured key combination, a phone call is initiated.
-- Call initiation (Command bar): by using the configured key combination, a command line is displayed where a phone number can be entered to initiate a call.
+- Call start (Command bar)
+- Answer (Command bar)
+- Reject (Command bar)
+- Hangup (Command bar)
+- Mute/Unmute (Command bar)
+- Hold/Unhold (Command bar)
+- Phonebook search (Command bar)
+- Click to call (Call shortcut)
 
 ## Application Settings {#application-settings}
 
