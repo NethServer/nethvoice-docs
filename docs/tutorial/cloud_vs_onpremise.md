@@ -1,9 +1,9 @@
 ---
-title: Cloud vs on-premise
+title: Common NethVoice deployment scenarios
 sidebar_position: 7
 ---
 
-The decision between a **Cloud (IaaS/SaaS)** and an **On-Premise** (local) installation of NethVoice on NethServer largely depends on business requirements, available IT resources, and specific needs regarding control, security, and scalability.
+The choice between a **Cloud (IaaS/SaaS)** and an **On-Premise** (local) installation of NethVoice on NethServer largely depends on business requirements, available IT resources, and specific needs related to control, security, and scalability.
 
 NethVoice cannot be accessed using an IP address — clients (IP phones, mobile apps, CTI integrations, and NethLink) must be always configured to use the **publicly resolvable FQDN**.
 
@@ -25,7 +25,16 @@ The NethVoice proxy (Kamailio/RTP Engine) strictly follows SIP standards and inc
 
 The proxy isolates and mediates external signaling and media, along with the firewall, it avoids direct exposure of the Asterisk by improving security.
 
-### Option 2: On-Premise Deployment
+#### What do you need?
+
+* **FQDN** → pointing to the public IP for the **NethVoice proxy**
+* **FQDN** → pointing to the public IP for **NethVoice**
+* **FQDN** → pointing to the public IP for **NethVoice CTI**
+* Dedicated **public IP** with required ports open refer to: [firewall configuration](.administrator-manual/configuration/firewall#port-summary)
+* Valid SSL certificate for any FQDN (e.g., via Let’s Encrypt)
+
+
+### Option 2: On-Premise Deployment with Public Access
 
 The On-Premise installation involves hosting NethServer and NethVoice on the company's own physical servers or as a virtual machine (VM) within the local network infrastructure.
 
@@ -36,16 +45,38 @@ The On-Premise installation involves hosting NethServer and NethVoice on the com
 * **Networking and Audio Issues**: Audio problems (e.g., one-way audio) in on-premise deployments are often caused by NAT configuration issues. For troubleshooting steps, refer to: [troubleshooting guide](./troubleshooting/audio_problems.md).
 * **Networking Complexity**: Requires Hairpin NAT and careful firewall configuration to allow local clients to access the server via its public FQDN. As an alternative, Split DNS can be configured to resolve the FQDN to a local IP address for internal clients.
 
+#### What do you need?
+
+* **FQDN** → pointing to the public IP for the **NethVoice proxy**
+* **FQDN** → pointing to the public IP for **NethVoice**
+* **FQDN** → pointing to the public IP for **NethVoice CTI**
+* Dedicated **public IP** and port forwarding refer to  the [firewall configuration](.administrator-manual/configuration/firewall#port-summary)
+* Valid SSL certificate for any FQDN (e.g., via Let’s Encrypt)
+* Split DNS (recommended) OR Public DNS only + **Hairpin NAT** properly configured refer to the [firewall configuration](.administrator-manual/configuration/firewall#hairpin-nat)
+
+### Option 3: On-Premise Deployment without Public Access
+
+This setup keeps NethVoice entirely **within the local network**, without exposing services externally.
+
+#### What do you need?
+
+* **FQDN** → pointing to the local IP for the **NethVoice proxy**
+* **FQDN** → pointing to the local IP for **NethVoice**
+* **FQDN** → pointing to the local IP for **NethVoice CTI**
+* Valid SSL certificate for any FQDN (Let’s Encrypt cannot be used with standard HTTP/HTTPS validation in this scenario. DNS-based validation may be possible currently under evaluation, contact Nethesis support for more details)
+
 
 ### Synthesis Comparison Table
 
-| Feature | ☁️ Cloud Installation (IaaS/SaaS) | 🖥️ On-Premise Installation |
-| :--- | :--- | :--- |
-| **Access Method** | FQDN only (Mandatory). | FQDN only (Mandatory). |
-| **Firewall Management** | **Managed natively by NethServer** (Simpler). | **Managed by the client** (Requires expertise). |
-| **Proxy Use** | **Recommended** (Choose certified providers). | Recommended to avoid NAT/audio issues. |
-| **Migration** | Direct migration possible; reduced switchover time. | Requires traditional migration/switchover process. |
-| **Network Complexity** | Low: Single FQDN, no Hairpin NAT needed for clients. | High: Requires Hairpin NAT and/or Split DNS setup. |
+| Feature | ☁️ Cloud Installation (IaaS/SaaS) | 🖥️ Public On-Premise Installation | 🖥️  Local On-Premise Installation |
+| :--- | :--- | :--- | :--- |
+| **Access Method** | FQDN only (Mandatory). | FQDN only (Mandatory). | FQDN only (Mandatory). |
+| **Firewall Management** | **Managed natively by NethServer** (Simpler). | **Managed by the client** (Requires expertise). | Not needed |
+| **Proxy Use** | **Recommended** (Choose certified providers). | Recommended to avoid NAT/audio issues. | Recommended to have secure TLS connection |
+| **Migration** | Direct migration possible; reduced switchover time. | Requires traditional migration/switchover process. | Requires traditional migration/switchover process. |
+| **Network Complexity** | Low: Single FQDN, no Hairpin NAT needed for clients. | High: Requires Hairpin NAT and/or Split DNS setup. | Low but certificate is needed |
+
+
 
 ---
 

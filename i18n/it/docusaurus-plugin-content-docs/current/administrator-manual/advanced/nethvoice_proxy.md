@@ -50,7 +50,7 @@ Con più istanze di NethVoice sullo stesso nodo, NethVoice Proxy fornisce:
 - **Certificati SSL condivisi**: Gestisce la sicurezza esterna per tutte le istanze
 - **Gestione trunk centralizzata**: I trunk esterni possono essere condivisi o inoltrati a istanze specifiche
 
-:::example Architettura multi-istanza
+:::info Architettura multi-istanza
 ```
 Internet/Trunk esterni
         ↓

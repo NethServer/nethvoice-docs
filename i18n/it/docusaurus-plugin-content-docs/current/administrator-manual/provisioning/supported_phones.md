@@ -60,11 +60,9 @@ I telefoni Snom D862 e D865 non supportano i comandi HTTP, quindi non è possibi
 
 ## Gigaset
 
-**FIRMWARE Versione 3.15.9 o superiore**
+**FIRMWARE Version 10.1.0 or superiore**
 
-- Maxwell Basic, Maxwell 2, Maxwell 3, Maxwell 4
-
-
+- P710 IP PRO, P810-P810B IP PRO, P820-P825 IP PRO, P850W-P855BW IP PRO
 
 ## Compatibilità Provisioning
 

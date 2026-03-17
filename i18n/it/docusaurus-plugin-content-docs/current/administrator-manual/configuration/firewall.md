@@ -71,11 +71,12 @@ Le funzioni di NAT helper sui firewall dovrebbero essere **disabilitate** quando
 
 ### Hairpin NAT {#hairpin-nat}
 
-Quando un proxy viene distribuito dietro un firewall con Network Address Translation (NAT), il **hairpin NAT** (noto anche come NAT reflection, NAT hairpining o loopback NAT) deve essere abilitato sul firewall.
+Quando un proxy viene distribuito dietro un firewall con Network Address Translation (NAT), il **hairpin NAT** (noto anche come NAT reflection, NAT hairpining o loopback NAT) deve essere abilitato sul firewall se i dispositivi nella rete locale risolvono il FQDN di NethVoice e il FQDN del NethVoice Proxy con l’indirizzo IP pubblico.
 
 #### Perché l'Hairpin NAT è Importante
 
-Hairpin NAT consente ai dispositivi della rete locale di raggiungere il proxy utilizzando l'indirizzo IP esterno (pubblico) o l'FQDN, anche se si trovano sulla stessa rete locale. Ciò è essenziale per il corretto provisioning e funzionamento dei dispositivi.
+Hairpin NAT consente ai dispositivi della rete locale di raggiungere il proxy utilizzando l'indirizzo IP esterno (pubblico) o l'FQDN, anche se si trovano sulla stessa rete locale. 
+Questo è essenziale per il corretto provisioning e funzionamento dei dispositivi quando questi risolvono il FQDN di NethVoice e il FQDN del NethVoice Proxy con l’indirizzo IP pubblico.
 
 #### Abilitazione di Hairpin NAT
 
