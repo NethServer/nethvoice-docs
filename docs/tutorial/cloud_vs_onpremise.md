@@ -1,5 +1,5 @@
 ---
-title: Common NethVoice deployment scenarios
+title: Common deployment scenarios
 sidebar_position: 7
 ---
 
