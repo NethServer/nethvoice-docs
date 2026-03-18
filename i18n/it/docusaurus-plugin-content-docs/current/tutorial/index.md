@@ -41,7 +41,7 @@ Per ogni passaggio, consulta la documentazione collegata per istruzioni dettagli
 
 ## Tutorial correlati {#tutorial-correlati}
 
-* [Cloud vs On-Premise deployments](./cloud_vs_onpremise.md)
+* [Scenari tipici di installazione](./cloud_vs_onpremise.md)
 * [Esportare la rubrica come CSV da NethVoice](./export-phonebook-csv.md)
 * [Eliminare i vecchi messaggi della casella vocale](./voicemail-prune.md)
 * [Eliminare le vecchie registrazioni di chiamate](./recording-prune.md)

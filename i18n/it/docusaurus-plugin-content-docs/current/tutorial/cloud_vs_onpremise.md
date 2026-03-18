@@ -1,5 +1,5 @@
 ---
-title: Scenari tipici di installazione di NethVoice
+title: Scenari tipici di installazione
 sidebar_position: 7
 ---
 

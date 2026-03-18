@@ -41,7 +41,7 @@ For each step, refer to the linked documentation for comprehensive, step-by-step
 
 ## Related tutorials {#related-tutorials}
 
-* [Cloud vs On-Premise deployments](https://docs.nethvoice.com/docs/tutorial/cloud_vs_onpremise)
+* [Common deployment scenarios](https://docs.nethvoice.com/docs/tutorial/cloud_vs_onpremise)
 * [Export phonebook as CSV from NethVoice](https://docs.nethvoice.com/docs/tutorial/export-phonebook-csv)
 * [Prune old Voicemail Messages](https://docs.nethvoice.com/docs/tutorial/voicemail-prune)
 * [Prune old Call Recordings](https://docs.nethvoice.com/docs/tutorial/recording-prune)
