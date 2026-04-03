@@ -13,6 +13,7 @@ Questo è un cambiamento fondamentale rispetto alle versioni precedenti (ad es. 
 ### Opzione 1: Installazione Cloud (IaaS o SaaS)
 
 Questa opzione prevede l'hosting di NethServer e NethVoice presso un Cloud Provider (IaaS) o l'utilizzo di una soluzione SaaS pre-configurata.
+In questo scenario di installazione l'accesso ai servizi è permesso da tutti le reti pubbliche.
 
 #### Vantaggi Principali
 
@@ -30,33 +31,35 @@ Il proxy isola e media la segnalazione e i media esterni, e insieme al firewall,
 * **FQDN** → che punta all'IP pubblico per **NethVoice proxy**
 * **FQDN** → che punta all'IP pubblico per **NethVoice**
 * **FQDN** → che punta all'IP pubblico per **NethVoice CTI**
-* **IP pubblico** dedicato con le porte necessarie aperte vedi [configurazione firewall](.administrator-manual/configuration/firewall#port-summary)
+* **IP pubblico** dedicato con le porte necessarie aperte vedi [configurazione firewall](https://docs.nethvoice.com/it/docs/administrator-manual/configuration/firewall)
 * Certificato SSL valido per tutti gli FQDN (ottenibile tramite Let’s Encrypt)
 
 
 ### Opzione 2: Installazione On-Premise con accesso pubblico
 
 L'installazione On-Premise prevede l'hosting di NethServer e NethVoice sui server fisici propri dell'azienda o come macchina virtuale (VM) all'interno dell'infrastruttura di rete locale.
+In questo scenario di installazione l'accesso ai servizi è permesso sia dalla rete locale che da reti pubbliche.
 
 #### Sfide Principali e Considerazioni
 
 * **Gestione Firewall**: Il cliente è responsabile della configurazione e della gestione del firewall (router/dispositivo perimetrale).
 * **Mandato FQDN / SSL**: Un FQDN pubblico è ancora obbligatorio. Funzionalità come NethLink e l'App Mobile richiedono FQDN pubblico, SSL, e raggiungibilità esterna su porte specifiche.
-* **Problemi di Rete e Audio**: I problemi di audio (ad es. audio unidirezionale) nei deployment on-premise sono spesso causati da problemi di configurazione NAT. Per i passaggi di troubleshooting, fate riferimento a: [guida di troubleshooting](./troubleshooting/audio_problems.md).
-* **Complessità di Rete**: Richiede Hairpin NAT e configurazione firewall attenta per permettere ai client locali di accedere al server via il suo FQDN pubblico. In alternativa, Split DNS può essere configurato per risolvere l'FQDN a un indirizzo IP locale per i client interni.
+* **Problemi di Rete e Audio**: I problemi di audio (ad es. audio unidirezionale) nei deployment on-premise sono spesso causati da problemi di configurazione NAT. Per i passaggi di troubleshooting, fate riferimento a [guida di troubleshooting](./troubleshooting/audio_problems.md).
+* **Configurazioni di Rete**: Richiede Split DNS(risoluzione degli FQDN con l'IP locale dalla rete locale e IP pubblico dalle reti pubbliche) o Hairpin NAT con la sola risoluzione pubblica degli FQDN.
 
 #### Cosa ti serve?
 
 * **FQDN** → che punta all'IP pubblico per **NethVoice proxy**
 * **FQDN** → che punta all'IP pubblico per **NethVoice**
 * **FQDN** → che punta all'IP pubblico per **NethVoice CTI**
-* **IP pubblico** dedicato con le porte necessarie aperte vedi [configurazione firewall](.administrator-manual/configuration/firewall#port-summary)
+* **IP pubblico** dedicato con le porte necessarie aperte vedi [configurazione firewall](https://docs.nethvoice.com/it/docs/administrator-manual/configuration/firewall)
 * Certificato SSL valido per tutti gli FQDN (ottenibile tramite Let’s Encrypt)
-* Split DNS (preferibile) O DNS pubblico + **HairPIN NAT** correttamente configurato vedi [configurazione firewall](.administrator-manual/configuration/firewall#hairpin-nat)
+* Split DNS (preferibile) O DNS pubblico + **HairPIN NAT** correttamente configurato vedi [configurazione firewall](https://docs.nethvoice.com/it/docs/administrator-manual/configuration/firewall)
 
 ### Opzione 3: Installazione On-Premise senza accesso pubblico
 
 L'installazione On-Premise senza accesso pubblico mantiene NethVoice interamente all’interno della rete locale, senza esporre i servizi verso l’esterno.
+In questo scenario di installazione l'accesso ai servizi è permesso solo dalla rete locale.
 
 #### Cosa ti serve?
 
@@ -74,7 +77,7 @@ L'installazione On-Premise senza accesso pubblico mantiene NethVoice interamente
 | **Gestione Firewall** | **Gestita nativamente da NethServer** (Più semplice). | **Gestita dal cliente** (Richiede competenze). | Non necessaria. |
 | **Uso del Proxy** | **Consigliato** (Scegliere provider certificati). | Consigliato per evitare problemi NAT/audio. | Raccomandato per avere connessioni sicure |
 | **Migrazione** | Migrazione diretta possibile; ridotti tempi di switchover. | Richiede processo di migrazione/switchover tradizionale. | Richiede processo di migrazione/switchover tradizionale. |
-| **Complessità di Rete** | Bassa: FQDN singolo, nessun Hairpin NAT necessario per i client. | Alta: Richiede Hairpin NAT e/o setup Split DNS. | Bassa: difficoltà nell'ottenere i certificati. |
+| **Complessità di Rete** | Bassa: FQDN singolo, nessun Hairpin NAT necessario per i client. | Alta: Richiede Split DNS o Hairpin NAT. | Bassa: difficoltà nell'ottenere i certificati. |
 
 ---
 
