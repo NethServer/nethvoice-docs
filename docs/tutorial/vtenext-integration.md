@@ -2,53 +2,59 @@
 
 ## Guide Objective
 
-The purpose of this guide is to explain **how to configure** the vtenext CRM integration scripts on nethvoice 8 **to let the two systems exchange data**, as it happened in nethvoice version 14
+The purpose of this guide is to explain how to configure the [vtenext CRM](https://www.vtenext.com/) integration scripts on NethVoice 8 **to let the two systems exchange data**.
 
 ## Introduction to the Concept
 
 Data exchange between the two systems can go both ways:
 
-- from vtenext CRM to nethvoice:
+- from vtenext CRM to NethVoice:
 
-    1. show CRM contact info on incoming phone call
-    2. populate nethvoice centralized phone directory with company contacts from vtenext
+    1. show CRM contact info on incoming phone call.
+    2. populate NethVoice centralized phone directory with company contacts from vtenext.
 
-- from nethvoice to vtenext CRM:
+- from NethVoice to vtenext CRM:
 
-    3. nethvoice can register caller info in vtenext for incoming calls 
+    3. NethVoice can register caller info in vtenext for incoming calls.
 
 ## 1. Show Caller Info
 
 ### Definition
 
-This feature allows you to show caller info, taken from vtenext CRM, while receiving an incoming call
+This feature allows you to show caller info, taken from vtenext CRM, while receiving an incoming call.
 
 ### How it Works
 
-* a user registered in vtenext CRM calls
-* its info show up while phone rings
+* a contact registered in vtenext CRM calls.
+* its info show up in CTI while phone rings.
 
-## 2. Populate nethvoice Phone Directory with vtenext Contacts Data
+## 2. Populate NethVoice Phone Directory with vtenext Contacts Data
 
 ### Definition
 
-Phone data for vtenext contacts are periodically imported in nethvoice centralized phone directory
+Phone data for vtenext contacts are periodically imported in NethVoice centralized phone directory.
 
 ### How it Works
 
-Periodically, contacts phone data are updated automatically, importing them from vtenext into nethvoice phone directory 
+Periodically, contacts phone data are updated automatically, importing them from vtenext into NethVoice phone directory.
+
+You can check import frequency with command
+
+```bash
+systemctl --user list-timers
+```
 
 ## 3. Register Incoming Calls into vtenext
 
+:::info this function needs a proprietary plugin, available from vtenext, that implements the `notify_incoming_call` endpoint. :::
+
 ### Definition
 
-On incoming call, the event is registered in vtenext, attributed to called phone extension owner and an incoming call notification is shown 
+On incoming call, the event is registered in vtenext, attributed to called phone extension owner and an incoming call notification is shown. 
 
 ### How it Works
 
-When a phone extension receives an inbound call, nethvoice notifies vtenext through an API call and event is registered in CRM, connected to phone extension owner as defined in Asterisk configuration under user preferences
-
-**Note:** this function needs a proprietary plugin, _NethVoice.zip_, available from vtenext, that implements the `notify_incoming_call` endpoint
+When a phone extension receives an inbound call, NethVoice notifies vtenext through an API call and event is registered in CRM, connected to phone extension owner as defined in Asterisk configuration under user preferences.
 
 ---
 
@@ -56,9 +62,9 @@ When a phone extension receives an inbound call, nethvoice notifies vtenext thro
 
 ### Prerequisites
 
-- version 1.6 or later of the nethvoice 8 image
-- version 2.x of vtenext CRM
-- vtenext _NethVoice.zip_ plugin (needed only if you want to register incoming calls in vtenext)
+- version 1.6 or later of the NethVoice image.
+- version 2 of vtenext CRM.
+- vtenext plugin (needed only if you want to register incoming calls in vtenext).
 
 ### VTENEXT Configuration
 
@@ -73,23 +79,22 @@ When a phone extension receives an inbound call, nethvoice notifies vtenext thro
 7. Authenticate.
 8. Copy the content of the **Access Key** field.
 
-#### Install the vtenext _NethVoice.zip_ plugin
+#### Install the vtenext plugin
 
-
-1. Get _NethVoice.zip_ plugin from vtenext.
+1. Get plugin from vtenext.
 2. Open **Settings** (gear icon at the bottom left).
 3. Select **Business Process Manager** (buildings icon on the left).
 4. Go to **Module Manager**.
 5. Select the **Custom Modules** tab.
 6. Press the button **Import new module**.
-7. Press the file selection button and choose the _NethVoice.zip_ file from your disk.
+7. Press the file selection button and choose the plugin .ZIP file from your disk.
 8. Press **Import**.
-9. Verify that the _NethVoice_ module appears in the **Standard Modules** list.
+9. Verify that the **NethVoice** module appears in the **Standard Modules** list.
 
 ### Install the scripts in NethVoice
 
 1. Access the machine via **ssh**.
-2. To enter Nethvoice module, run the command:
+2. To enter NethVoice module, run the command:
     ```
     runagent -m nethvoice1
     ```
@@ -106,6 +111,9 @@ When a phone extension receives an inbound call, nethvoice notifies vtenext thro
     -   the username
     -   the Access Key
 6. Define `NETHCTI_CDR_SCRIPT_EXTENSION_RING` environment variable in the module environment, pointing at `lookup_vte.php` script
+
+:::info The following command will close all running calls, so execute it when suitable :::
+
 7. To apply changes, restart freepbx with the command:
     ```
     systemctl --user restart freepbx
