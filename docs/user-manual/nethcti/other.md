@@ -134,6 +134,10 @@ Use convenient filters to search for calls from your extension, group, or entire
 - Contact name
 - Duration
 - Call status
+- Content type, including summary, transcription, and voicemail when available
+
+When AI call insights are enabled by the administrator, History can also show post-call transcription and summary results.
+From the call actions menu you can open the available content directly from the selected call.
 
 ## Queue Manager {#queue-manager}
 
@@ -219,34 +223,53 @@ Access [Advanced Reporting](https://docs.nethvoice.it/it/latest/pbxreport_manual
 
 ## Voice Transcription {#voice-transcription}
 
-Voice transcription automatically converts your call audio into text in real-time. This feature is available if your administrator has configured a Deepgram API key in NethVoice.
+Voice transcription converts call audio into text during the call and, when enabled by the administrator, makes post-call transcription and summary available from History.
 
 ### Requirements {#transcription-requirements}
 
-- Voice transcription must be enabled and configured in NethVoice by your administrator
+- Call transcription must be enabled and configured in NethVoice by your administrator
 - A valid Deepgram API key must be configured in the phone system
-- You must have the appropriate permissions to use this feature
+- Call summary also requires a valid OpenAI API key and the related integration option enabled by the administrator
+- You must have the appropriate permissions to use these features
 
-### Starting a Transcription {#starting-transcription}
+### Live Transcription During Calls {#live-transcription-during-calls}
 
 During an active call:
 
-1. Look for the transcription button in the side panel (accessible through the side actions expansion button)
-2. Click the **Start Transcription** button
-3. The transcription will begin immediately and appear on your screen
-4. Audio will be transcribed in real-time as the call progresses
+1. Open the Phone Island side actions.
+2. Start transcription from the available call controls, when shown.
+3. The transcription appears while the call is in progress.
+4. Interim text may change until the final segments are confirmed.
 
-### Stopping a Transcription {#stopping-transcription}
+### After the Call {#after-the-call}
 
-To stop recording the transcription:
+When processing is complete, the same call can expose:
 
-1. Click the **Stop Transcription** button (or the close button on the transcription panel)
-2. The transcription will be stopped immediately
-3. Any previously transcribed text will remain available for review
+- **Transcription**: full post-call transcript
+- **Summary**: AI-generated call summary
+
+You can access them from **History > Calls**:
+
+1. Open the call row actions.
+2. Select **View transcription** or **View summary** when available.
+3. Review the generated content in the side drawer.
+
+If allowed by your profile, you can also edit the summary and save the updated text.
+
+### Notifications {#summary-notifications}
+
+When call summary is enabled for your user, CTI can notify you when a summary is ready.
+
+From **Settings > Notifications** you can:
+
+- enable or disable call summary notifications
+- keep the same preference across the web phone and desktop app
+
+If notifications are enabled, clicking the summary-ready notification opens the related call directly in History.
 
 ### Accessing Transcription History
 
-Transcription history is currently not available and will be implemented in future releases.
+Transcription and summary history are available from **History > Calls** when the feature is enabled and content has been generated.
 
 ## Settings {#settings}
 
@@ -259,6 +282,7 @@ Customize your NethVoice CTI by accessing Settings:
 - **Devices**: Control your phones and their status
 - **Mobile App**: Generate QR code to connect your [smartphone](https://docs.nethvoice.it/it/latest/app_manual.html) (subject to specific permissions)
 - **Incoming calls**: Control how your application behaves when receiving external calls. This includes choosing your ringtone, selecting where the sound plays, and configuring optional automatic URL actions triggered by incoming calls.
+- **Notifications**: Configure notifications for AI-generated call summaries when the feature is enabled for your user.
 - **Customer Card**: Configure how the customer card behaves (subject to specific permissions)
 - **Queues**: Decide how to automate your queue access (subject to specific permissions)
 - **Profile Picture**: Modify your avatar

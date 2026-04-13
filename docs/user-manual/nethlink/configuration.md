@@ -65,6 +65,7 @@ Currently available shortcuts are:
 - Show notifications
 - Enable system tray integration
 - Theme (light/dark mode)
+- Call summary notifications, when the feature is enabled for the user
 
 ### Privacy Settings {#privacy-settings}
 

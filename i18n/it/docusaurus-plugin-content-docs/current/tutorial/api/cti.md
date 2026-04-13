@@ -3,22 +3,24 @@ title: API CTI quickstart
 sidebar_position: 2
 ---
 
-# API CTI quickstart 
+# API CTI quickstart
 
-L'API CTI fornisce accesso programmatico alle funzionalità CTI (Computer Telephony Integration) di NethVoice. Questa guida copre l'autenticazione, la connessione WebSocket e l'autenticazione a due fattori.
-I metodi legacy sono documentati per riferimento, ma è fortemente consigliato eseguire la migrazione ai nuovi metodi.
-Le nuove funzionalità e i miglioramenti sono disponibili solo nella nuova API.
+L'API CTI fornisce accesso programmatico alle funzionalità CTI (Computer Telephony Integration) di NethVoice. Questa guida copre autenticazione, connessione WebSocket, autenticazione a due fattori e endpoint di call insights.
 
-La specifica completa dell'API è disponibile su:  
-- [NethCTI Server full reference](https://documenter.getpostman.com/view/15699632/TzRRC88p#41f9b8cc-bea8-4917-a293-84eaedcaed08)  
-- [NethCTI Middleware reference](https://bump.sh/nethesis/doc/nethcti-middleware/)  
+NethVoice attualmente opera con entrambi i layer:
+- `nethcti-middleware` espone endpoint `/api/...` (layer di integrazione JWT)
+- `nethcti-server` espone endpoint `/webrest/...` (ancora attivo e supportato per compatibilità)
+
+La specifica completa dell'API è disponibile su:
+- [Riferimento completo API NethCTI Server](https://documenter.getpostman.com/view/15699632/TzRRC88p#41f9b8cc-bea8-4917-a293-84eaedcaed08)
+- [NethCTI Middleware reference](https://bump.sh/nethesis/doc/nethcti-middleware/)
 - consulta anche [API Migration Status dashboard](/migration-status) per una panoramica degli endpoint già migrati e di quelli ancora inoltrati al server legacy.
 
 ---
 
 ## Autenticazione {#authentication}
 
-Il nuovo metodo di autenticazione utilizza JWT (JSON Web Tokens) per un accesso API sicuro.
+Il metodo di autenticazione middleware utilizza JWT (JSON Web Tokens) per un accesso API sicuro.
 
 ### Login {#login}
 
@@ -111,6 +113,32 @@ websocat "wss://nethcti.example.com/api/ws/?EIO=4&transport=websocket"
 # Dopo la connessione, inviare il messaggio di login Socket.IO:
 42["login",{"accessKeyId":"user","token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...","uaType":"desktop"}]
 ```
+
+---
+
+## API Call Insights {#api-call-insights}
+
+Questi endpoint sono esposti da `nethcti-middleware` e richiedono autenticazione JWT (più capability dove configurato).
+
+### Endpoint transcript e summary
+
+- `GET /api/transcripts/{uniqueid}`
+- `GET /api/summary/{uniqueid}`
+- `PUT /api/summary/{uniqueid}`
+- `DELETE /api/summary/{uniqueid}`
+- `GET /api/summary/statuses`
+- `POST /api/summary/watch`
+
+### Check esistenza uniqueid
+
+Usare:
+- `HEAD /api/summary/{uniqueid}`
+
+Questo endpoint restituisce solo lo status code (nessun body):
+- `200`: uniqueid esiste
+- `404`: uniqueid non trovato
+
+Per nuove integrazioni, non usare `GET /api/summary/check/{uniqueid}`.
 
 ---
 
@@ -239,16 +267,12 @@ curl https://nethcti.example.com/api/user/me \
 
 ---
 
-## Metodo legacy (Deprecato)
+## API di compatibilità (`/webrest/...`) {#api-di-compatibilita-webrest}
 
-:::warning Avviso di deprecazione
-Il metodo di autenticazione legacy che utilizza token HMAC-SHA1 non sarà più disponibile dopo il **1° giugno 2026**. 
-Eseguite la migrazione al nuovo metodo di autenticazione basato su JWT il prima possibile.
-:::
+Le API di `nethcti-server` sono ancora disponibili e possono coesistere con le API middleware.
+Usatele quando l'integrazione dipende ancora da flussi `/webrest/...`.
 
-### Login legacy
-
-Il metodo legacy richiedeva un processo challenge-response con HMAC-SHA1:
+### Login challenge/response
 
 **Endpoint:** `POST /webrest/authentication/login`
 
@@ -271,7 +295,7 @@ curl https://nethcti.example.com/webrest/user/me \
   -H "Authorization: user:calculated_token_here"
 ```
 
-### Utilizzo del token legacy
+### Utilizzo token `/webrest`
 
 Includete il token nell'header `Authorization` per le richieste autenticate:
 
@@ -280,7 +304,7 @@ curl https://nethcti.example.com/webrest/user/me \
   -H "Authorization: username:abc123def456..."
 ```
 
-### WebSocket legacy
+### WebSocket `/webrest`
 
 **Endpoint:** `/socket.io/`
 
@@ -292,12 +316,8 @@ const socket = io('https://nethcti.example.com', {
 
 ---
 
-## Guida alla migrazione: Dal metodo legacy al nuovo metodo
+## Guida di adozione: da `/webrest` a `/api` {#guida-di-adozione-da-webrest-a-api}
 
-Per eseguire la migrazione dall'autenticazione legacy al nuovo metodo basato su JWT:
+Per una panoramica completa degli endpoint già migrati e di quelli ancora inoltrati al server legacy, consulta la [API Migration Status dashboard](/migration-status).
 
-1. **Sostituire l'endpoint di accesso**: Cambiare da `/webrest/authentication/login` a `/api/login`
-2. **Aggiornare il formato del token**: Sostituire `username:token_hex` con `Bearer <jwt-token>`
-3. **Aggiornare il percorso WebSocket**: Cambiare da `/socket.io/` a `/api/ws/`
-4. **Adattare gli header**: Utilizzare `Authorization: Bearer <jwt-token>` invece di `Authorization: username:token`
-5. **Gestire la scadenza JWT**: Monitorare il campo `expire` del token e aggiornare secondo necessità
+Per adottare progressivamente le API JWT del middleware:

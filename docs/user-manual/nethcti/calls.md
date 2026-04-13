@@ -41,8 +41,10 @@ In other actions, you can:
 - **Record**: Start recording the ongoing call (subject to specific permission).
 - **Enable video**: Start a video call with the caller (subject to specific permission).
 - **Share screen**: Share your screen with another extension registered on NethVoice (subject to specific permission).
-- **Open transcription**: Start a transcription of the current call (subject to configuration and permission).
+- **Open transcription**: Access live transcription controls for the current call, when enabled by the administrator and allowed for your user.
 - **Switch device**: Change the device during an active call, using either the app or a desk phone.
+
+When available, post-call transcription and summary are accessed later from **History**, not directly from the active call controls.
 
 ### Phone Island Positioning {#phone-island-positioning}
 
@@ -56,4 +58,3 @@ When you receive an incoming call, you will see:
 - Call timing information
 
 Click the accept button to answer the call and the Phone Island will appear.
-

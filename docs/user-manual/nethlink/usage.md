@@ -55,6 +55,12 @@ NethLink uses the operating system notification system to:
 - Show the status of calls
 - Confirm successful actions
 
+When call summary is enabled for your user, NethLink can also notify you when a call summary is ready.
+
+- You can enable or disable this behavior from the NethLink notification settings.
+- The notification opens the related call in NethVoice CTI History.
+- NethLink does not provide a dedicated summary viewer: summary and post-call transcription are reviewed in CTI.
+
 ## Advanced Features {#advanced-features}
 
 ### Keyboard Shortcuts {#keyboard-shortcuts}

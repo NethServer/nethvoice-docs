@@ -134,6 +134,10 @@ Utilizza comodi filtri per cercare le chiamate dal tuo interno, gruppo o dall'in
 - Nome contatto
 - Durata
 - Stato della chiamata
+- Tipo di contenuto, inclusi riassunto, trascrizione e voicemail quando disponibili
+
+Quando le funzioni AI di call insights sono abilitate dall'amministratore, la Cronologia può mostrare anche la trascrizione e il riassunto post-chiamata.
+Dal menu azioni della chiamata puoi aprire direttamente il contenuto disponibile.
 
 ## Gestore Code
 
@@ -219,34 +223,53 @@ Accedi alla [Reportistica Avanzata](https://docs.nethvoice.it/it/latest/pbxrepor
 
 ## Trascrizione Vocale {#voice-transcription}
 
-La trascrizione vocale converte automaticamente l'audio della tua chiamata in testo in tempo reale. Questa funzionalità è disponibile se il tuo amministratore ha configurato una chiave API di Deepgram in NethVoice.
+La trascrizione vocale converte l'audio della chiamata in testo durante la conversazione e, quando abilitata dall'amministratore, rende disponibili da Cronologia anche la trascrizione e il riassunto post-chiamata.
 
 ### Requisiti
 
-- La trascrizione vocale deve essere abilitata e configurata in NethVoice dal tuo amministratore
+- La trascrizione delle chiamate deve essere abilitata e configurata in NethVoice dal tuo amministratore
 - Una chiave API di Deepgram valida deve essere configurata nel sistema telefonico
-- Devi avere le autorizzazioni appropriate per utilizzare questa funzionalità
+- Il riassunto delle chiamate richiede anche una chiave API OpenAI valida e la relativa opzione di integrazione abilitata dall'amministratore
+- Devi avere i permessi necessari per utilizzare queste funzionalità
 
-### Avvio di una Trascrizione
+### Trascrizione live durante la chiamata
 
 Durante una chiamata attiva:
 
-1. Cerca il pulsante di trascrizione nel pannello laterale (accessibile tramite il pulsante di espansione delle azioni laterali)
-2. Clicca il pulsante **Avvia Trascrizione**
-3. La trascrizione inizierà immediatamente e apparirà sullo schermo
-4. L'audio verrà trascritto in tempo reale mentre la chiamata progredisce
+1. Apri le azioni laterali della Phone Island.
+2. Avvia la trascrizione dai controlli disponibili della chiamata, quando presenti.
+3. La trascrizione appare mentre la chiamata è in corso.
+4. Il testo intermedio può cambiare fino alla conferma dei segmenti finali.
 
-### Interruzione di una Trascrizione
+### Dopo la chiamata
 
-Per interrompere la registrazione della trascrizione:
+Quando l'elaborazione è completata, la stessa chiamata può mostrare:
 
-1. Clicca il pulsante **Interrompi Trascrizione** (o il pulsante di chiusura nel pannello di trascrizione)
-2. La trascrizione verrà interrotta immediatamente
-3. Qualsiasi testo trascritto precedentemente rimarrà disponibile per la revisione
+- **Trascrizione**: trascrizione completa post-chiamata
+- **Riassunto**: riassunto della chiamata generato dall'AI
+
+Puoi accedervi da **Cronologia > Chiamate**:
+
+1. Apri il menu azioni della chiamata.
+2. Seleziona **Visualizza trascrizione** o **Visualizza riepilogo** quando disponibile.
+3. Consulta il contenuto generato nel pannello laterale.
+
+Se il tuo profilo lo consente, puoi anche modificare il riassunto e salvare il testo aggiornato.
+
+### Notifiche {#summary-notifications}
+
+Quando il riassunto chiamata è abilitato per il tuo utente, CTI può avvisarti quando un riassunto è pronto.
+
+Da **Impostazioni > Notifiche** puoi:
+
+- abilitare o disabilitare le notifiche del riassunto chiamata
+- mantenere la stessa preferenza tra web phone e app desktop
+
+Se le notifiche sono abilitate, cliccando la notifica di riassunto pronto si apre direttamente la chiamata corrispondente nella Cronologia.
 
 ### Accesso alla Cronologia delle Trascrizioni
 
-La cronologia delle trascrizioni non è attualmente disponibile e verrà implementata nelle versioni future.
+La cronologia di trascrizioni e riassunti è disponibile da **Cronologia > Chiamate** quando la funzione è abilitata e il contenuto è stato generato.
 
 ## Impostazioni
 
@@ -259,6 +282,7 @@ Personalizza il tuo NethVoice CTI accedendo alle Impostazioni:
 - **Dispositivi**: Controlla i tuoi telefoni e il loro stato
 - **App Mobile**: Genera il codice QR per collegare il tuo [smartphone](https://docs.nethvoice.it/it/latest/app_manual.html) (soggetto a autorizzazioni specifiche)
 - **Chiamate in entrata**: Controlla come si comporta l'applicazione quando riceve chiamate esterne. Questo include la scelta della suoneria, la selezione del dispositivo di riproduzione audio e la configurazione di azioni URL automatiche opzionali attivate dalle chiamate in entrata.
+- **Notifiche**: Configura le notifiche per i riassunti delle chiamate generati dall'AI quando la funzione è abilitata per il tuo utente.
 - **Scheda Cliente**: Configura il comportamento della scheda cliente (soggetto a autorizzazioni specifiche)
 - **Code**: Decidi come automatizzare l'accesso alle tue code (soggetto a autorizzazioni specifiche)
 - **Immagine Profilo**: Modifica il tuo avatar

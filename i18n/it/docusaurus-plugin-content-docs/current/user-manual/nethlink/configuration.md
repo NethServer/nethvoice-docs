@@ -63,6 +63,7 @@ Al momento le scorciatoie disponibili sono:
 - Mostra notifiche
 - Abilita integrazione barra delle applicazioni
 - Tema (modalità chiara/scura)
+- Notifiche del riassunto chiamata, quando la funzione è abilitata per l'utente
 
 ### Impostazioni della privacy
 
