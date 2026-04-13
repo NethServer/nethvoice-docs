@@ -75,6 +75,18 @@ If you're unsure about anything, open an issue or contact a documentation mainta
 
 ## Deployment and Local Development
 
+### yarn version
+
+Usa an updated version of yarn
+
+```bash
+yarn --version
+```
+
+Version 1.22.22 is fine [(install instructions)](https://classic.yarnpkg.com/lang/en/docs/install/)
+
+
+
 ### Installation
 
 ```bash
