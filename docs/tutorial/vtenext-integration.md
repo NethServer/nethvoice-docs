@@ -10,7 +10,7 @@ Data exchange between the two systems can go both ways:
 
 - from vtenext CRM to NethVoice:
 
-    1. show CRM contact info on incoming phone call.
+    1. show CRM contact info on incoming calls.
     2. populate NethVoice centralized phone directory with company contacts from vtenext.
 
 - from NethVoice to vtenext CRM:
@@ -26,35 +26,47 @@ This feature allows you to show caller info, taken from vtenext CRM, while recei
 ### How it Works
 
 * a contact registered in vtenext CRM calls.
-* its info show up in CTI while phone rings.
+* their information appears in CTI while the phone rings.
 
 ## 2. Populate NethVoice Phone Directory with vtenext Contacts Data
 
 ### Definition
 
-Phone data for vtenext contacts are periodically imported in NethVoice centralized phone directory.
+Phone data for vtenext contacts are periodically imported into the NethVoice centralized phone directory.
 
 ### How it Works
 
-Periodically, contacts phone data are updated automatically, importing them from vtenext into NethVoice phone directory.
+Periodically, contacts phone data are updated automatically by importing them from vtenext into the NethVoice phone directory, according to the **Address Book Sources** settings in the **Application** menu.
 
-You can check import frequency with command
+The update interval can be:
+
+- 15 minutes
+- 30 minutes
+- 1 hour
+- 6 hours
+- 24 hours
+
+You can check the import frequency with the command:
 
 ```bash
-systemctl --user list-timers
+systemctl --user list-timers | grep phonebook-update
 ```
+
+The first timestamp is relative to the latest update, and the second one to the next run.
 
 ## 3. Register Incoming Calls into vtenext
 
-:::info this function needs a proprietary plugin, available from vtenext, that implements the `notify_incoming_call` endpoint. :::
+:::info
+This function needs a proprietary plugin, available from vtenext, that implements the `notify_incoming_call` endpoint of vtenext API.
+:::
 
 ### Definition
 
-On incoming call, the event is registered in vtenext, attributed to called phone extension owner and an incoming call notification is shown. 
+On an incoming call, the event is registered in vtenext, attributed to the called extension owner, and an incoming call notification is shown in vtenext.
 
 ### How it Works
 
-When a phone extension receives an inbound call, NethVoice notifies vtenext through an API call and event is registered in CRM, connected to phone extension owner as defined in Asterisk configuration under user preferences.
+When a phone extension receives an inbound call, NethVoice notifies vtenext through an API call, and the event is registered in CRM and linked to the extension owner as defined in the Asterisk configuration under user preferences.
 
 ---
 
@@ -62,8 +74,13 @@ When a phone extension receives an inbound call, NethVoice notifies vtenext thro
 
 ### Prerequisites
 
-- version 1.6 or later of the NethVoice image.
-- version 2 of vtenext CRM.
+- Version 1.6 or later of the NethVoice image.
+    The version number can be checked inside the NethVoice module with the command:
+    ```bash
+    runagent -m nethvoice1
+    env | grep IMAGE_URL
+    ```
+- Version 2 of vtenext CRM.
 - vtenext plugin (needed only if you want to register incoming calls in vtenext).
 
 ### VTENEXT Configuration
@@ -81,40 +98,51 @@ When a phone extension receives an inbound call, NethVoice notifies vtenext thro
 
 #### Install the vtenext plugin
 
-1. Get plugin from vtenext.
+1. Get the plugin from vtenext.
 2. Open **Settings** (gear icon at the bottom left).
 3. Select **Business Process Manager** (buildings icon on the left).
 4. Go to **Module Manager**.
 5. Select the **Custom Modules** tab.
 6. Press the button **Import new module**.
-7. Press the file selection button and choose the plugin .ZIP file from your disk.
+7. Press the file selection button and choose the plugin ZIP file from your disk.
 8. Press **Import**.
 9. Verify that the **NethVoice** module appears in the **Standard Modules** list.
 
 ### Install the scripts in NethVoice
 
 1. Access the machine via **ssh**.
-2. To enter NethVoice module, run the command:
-    ```
+2. To enter the NethVoice module, run the command:
+    ```bash
     runagent -m nethvoice1
     ```
-3. To enter freepbx container, run the command:
-    ```
+3. To enter the FreePBX container, run the command:
+    ```bash
     podman exec -ti freepbx /bin/sh    
     ```
 4. Copy the files:
     -   `lookup_vte.php` from `/usr/src/nethvoice/samples` to `/usr/src/nethvoice/lookup.d`
     -   `vte.php` from `/usr/share/phonebooks/samples/` to `/usr/share/phonebooks/scripts`
     -   `vte_incoming_call.php` from `/usr/src/nethvoice/samples` to `/var/lib/asterisk/agi-bin`
+
+    ```bash
+    cp /usr/src/nethvoice/samples/lookup_vte.php /usr/src/nethvoice/lookup.d
+    cp /usr/share/phonebooks/samples/vte.php /usr/share/phonebooks/scripts
+    cp /usr/src/nethvoice/samples/vte_incoming_call.php /var/lib/asterisk/agi-bin
+    ```
 5. Edit all three scripts to update:
     -   the API base URL
     -   the username
     -   the Access Key
-6. Define `NETHCTI_CDR_SCRIPT_EXTENSION_RING` environment variable in the module environment, pointing at `lookup_vte.php` script
-
-:::info The following command will close all running calls, so execute it when suitable :::
-
-7. To apply changes, restart freepbx with the command:
+6. Define the `NETHCTI_CDR_SCRIPT_EXTENSION_RING` environment variable in the module environment, pointing to the `vte_incoming_call.php` script:
+    ```bash
+    sed -i '/^NETHCTI_CDR_SCRIPT_EXTENSION_RING=/d' environment && echo 'NETHCTI_CDR_SCRIPT_EXTENSION_RING="/var/lib/asterisk/agi-bin/vte_incoming_call.php"' >> environment
     ```
+
+:::warning
+The following command will close all active calls, so execute it when suitable
+:::
+
+7. To apply changes, restart FreePBX inside the NethVoice module with the command:
+    ```bash
     systemctl --user restart freepbx
     ```
