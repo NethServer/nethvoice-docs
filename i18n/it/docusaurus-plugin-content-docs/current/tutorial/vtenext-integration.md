@@ -2,7 +2,7 @@
 
 ## Obiettivo della guida
 
-Lo scopo di questa guida è spiegare come configurare gli script di integrazione di [vtenext CRM](https://www.vtenext.com/) su NethVoice 8 **per consentire lo scambio di dati tra i due sistemi**.
+Lo scopo di questa guida è spiegare come configurare gli script di integrazione di [vtenext CRM](https://www.vtenext.com/) su NethVoice 8 per consentire lo scambio di dati tra i due sistemi.
 
 ## Introduzione al concetto
 
@@ -10,14 +10,14 @@ Lo scambio di dati tra i due sistemi può avvenire in entrambe le direzioni:
 
 - da vtenext CRM a NethVoice:
 
-    1. mostrare le informazioni di contatto del CRM durante una chiamata in arrivo.
-    2. popolare la rubrica telefonica centralizzata di NethVoice con i contatti aziendali di vtenext.
+   1. mostrare le informazioni di contatto del CRM durante una chiamata in arrivo.
+   2. popolare la rubrica telefonica centralizzata di NethVoice con i contatti aziendali di vtenext.
 
 - da NethVoice a vtenext CRM:
 
-    3. NethVoice può registrare le informazioni del chiamante in vtenext per le chiamate in arrivo.
+   3. NethVoice può registrare le informazioni del chiamante in vtenext per le chiamate in arrivo.
 
-## 1. Mostrare le informazioni di contatto del CRM durante una chiamata in arrivo {#show-crm-contact-info}
+## 1. Mostrare le informazioni del chiamante
 
 ### Definizione
 
@@ -25,10 +25,10 @@ Questa funzionalità consente di mostrare le informazioni del chiamante, prese d
 
 ### Come Funziona
 
-* un contatto registrato in vtenext CRM chiama.  
-* le sue informazioni appaiono nel CTI mentre il telefono squilla.  
+* un contatto registrato in vtenext CRM chiama.
+* le sue informazioni appaiono nel CTI mentre il telefono squilla.
 
-## 2. Popolare la Rubrica Telefonica di NethVoice con i dati dei contatti di vtenext {#populate-nethvoice-phone-directory}
+## 2. Popolare la rubrica telefonica di NethVoice con i dati dei contatti di vtenext
 
 ### Definizione
 
@@ -40,22 +40,34 @@ Periodicamente, i dati telefonici dei contatti vengono aggiornati automaticament
 
 L'intervallo di aggiornamento può essere:
 
-- 15 minuti  
-- 30 minuti  
-- 1 ora  
-- 6 ore  
-- 24 ore  
+- 15 minuti
+- 30 minuti
+- 1 ora
+- 6 ore
+- 24 ore
 
 È possibile verificare la frequenza di importazione con il comando:
 
-`systemctl --user list-timers | grep phonebook-update`
+```bash
+runagent -m nethvoice1
+systemctl --user status phonebook-update.timer
+```
 
-Il primo timestamp è relativo all'ultimo aggiornamento, mentre il secondo indica la prossima esecuzione.
+Esempio di output:
 
-## 3. Registrare le chiamate in arrivo in vtenext {#register-incoming-calls}
+```bash
+● phonebook-update.timer - Timer for phonebook source update
+    Loaded: loaded (/home/nethvoice136/.config/systemd/user/phonebook-update.timer; enabled; preset: disabled)
+    Active: active (waiting) since Tue 2026-03-17 16:21:55 CET; 3 weeks 6 days ago
+     Until: Tue 2026-03-17 16:21:55 CET; 3 weeks 6 days ago
+   Trigger: Tue 2026-04-14 08:15:44 CEST; 1min 42s left
+   Triggers: ● phonebook-update.service
+```
 
-:::info  
-Questa funzione richiede un plugin proprietario, disponibile da vtenext, che implementa l'endpoint `notify_incoming_call` delle API di vtenext.  
+## 3. Registrare le chiamate in arrivo in vtenext
+
+:::info
+Questa funzione richiede un plugin proprietario, disponibile da vtenext, che implementa l'endpoint `notify_incoming_call` delle API di vtenext. Contattare il supporto vtenext per ottenere il plugin.
 :::
 
 ### Definizione
@@ -72,65 +84,76 @@ Quando un interno telefonico riceve una chiamata in entrata, NethVoice notifica 
 
 ### Prerequisiti
 
-- Versione 1.6 o successiva dell'immagine di NethVoice.  
-  Il numero di versione può essere verificato all'interno del modulo NethVoice con il comando:  
-  `runagent -m nethvoice1`  
-  `env | grep IMAGE_URL`  
-- Versione 2 di vtenext CRM.  
+- Versione 1.6 o successiva dell'immagine di NethVoice.
+   Il numero di versione può essere verificato all'interno del modulo NethVoice con il comando:
+   ```bash
+   runagent -m nethvoice1
+   env | grep IMAGE_URL
+   ```
+- Versione 2 di vtenext CRM.
 - Plugin vtenext (necessario solo se si desidera registrare le chiamate in arrivo in vtenext).
 
 ### Configurazione di VTENEXT
 
 #### Ottenere la chiave di accesso al Webservice
 
-1. Accedi come utente che gestisce le chiamate API.  
-2. Apri **Impostazioni** (icona dell'ingranaggio in basso a sinistra).  
-3. Seleziona **Business Process Manager** (icona degli edifici a sinistra).  
-4. Vai su **Webservice REST**.  
-5. Nel campo **Username**, seleziona l'utente che eseguirà gli script.  
-6. Premi il pulsante **Webservice accesskey – Mostra**.  
-7. Autenticati.  
-8. Copia il contenuto del campo **Access Key**.  
+1. Accedi come utente che gestisce le chiamate API.
+2. Apri **Impostazioni** (icona dell'ingranaggio in basso a sinistra).
+3. Seleziona **Business Process Manager** (icona degli edifici a sinistra).
+4. Vai su **Webservice REST**.
+5. Nel campo **Username**, seleziona l'utente che eseguirà gli script.
+6. Premi il pulsante **Webservice accesskey – Mostra**.
+7. Autenticati.
+8. Copia il contenuto del campo **Access Key**.
 
-#### Installare il plugin vtenext {#install-vtenext-plugin}
+#### Installare il plugin vtenext
 
-1. Ottenere il plugin da vtenext.  
-2. Aprire **Settings** (icona dell'ingranaggio in basso a sinistra).  
-3. Selezionare **Business Process Manager** (icona degli edifici a sinistra).  
-4. Accedere a **Module Manager**.  
-5. Selezionare la scheda **Custom Modules**.  
-6. Premere il pulsante **Import new module**.  
-7. Premere il pulsante di selezione file e scegliere il file ZIP del plugin dal proprio disco.  
-8. Premere **Import**.  
-9. Verificare che il modulo **NethVoice** appaia nell'elenco **Standard Modules**.  
+1. Ottieni il plugin da vtenext.
+2. Apri **Settings** (icona dell'ingranaggio in basso a sinistra).
+3. Seleziona **Business Process Manager** (icona degli edifici a sinistra).
+4. Vai su **Module Manager**.
+5. Seleziona la scheda **Custom Modules**.
+6. Premi il pulsante **Import new module**.
+7. Premi il pulsante di selezione file e scegli il file ZIP del plugin dal tuo disco.
+8. Premi **Import**.
+9. Verifica che il modulo **NethVoice** appaia nell'elenco **Standard Modules**.
 
-### Installare gli script in NethVoice {#install-scripts}
+### Installare gli script in NethVoice
 
-1. Accedere alla macchina tramite **ssh**.  
-2. Per accedere al modulo NethVoice, eseguire il comando:  
-   `runagent -m nethvoice1`  
-3. Per accedere al container FreePBX, eseguire il comando:  
-   `podman exec -ti freepbx /bin/sh`  
-4. Copiare i file:  
-   - `lookup_vte.php` da `/usr/src/nethvoice/samples` a `/usr/src/nethvoice/lookup.d`  
-   - `vte.php` da `/usr/share/phonebooks/samples/` a `/usr/share/phonebooks/scripts`  
-   - `vte_incoming_call.php` da `/usr/src/nethvoice/samples` a `/var/lib/asterisk/agi-bin`  
+1. Accedi alla macchina tramite **ssh**.
+2. Per entrare nel modulo NethVoice, esegui il comando:
+   ```bash
+   runagent -m nethvoice1
+   ```
+3. Per entrare nel container FreePBX, esegui il comando:
+   ```bash
+   podman exec -ti freepbx /bin/sh
+   ```
+4. Copia i file:
+   -   `lookup_vte.php` da `/usr/src/nethvoice/samples` a `/usr/src/nethvoice/lookup.d`
+   -   `vte.php` da `/usr/share/phonebooks/samples/` a `/usr/share/phonebooks/scripts`
+   -   `vte_incoming_call.php` da `/usr/src/nethvoice/samples` a `/var/lib/asterisk/agi-bin`
 
-   `cp /usr/src/nethvoice/samples/lookup_vte.php /usr/src/nethvoice/lookup.d`  
-   `cp /usr/share/phonebooks/samples/vte.php /usr/share/phonebooks/scripts`  
-   `cp /usr/src/nethvoice/samples/vte_incoming_call.php /var/lib/asterisk/agi-bin`  
+   Puoi eseguire i seguenti comandi per farlo:
+   ```bash
+   cp /usr/src/nethvoice/samples/lookup_vte.php /usr/src/nethvoice/lookup.d
+   cp /usr/share/phonebooks/samples/vte.php /usr/share/phonebooks/scripts
+   cp /usr/src/nethvoice/samples/vte_incoming_call.php /var/lib/asterisk/agi-bin
+   ```
+5. Modifica tutti e tre gli script per aggiornare:
+   -   l'URL base delle API
+   -   il nome utente
+   -   la chiave di accesso
+6. Definisci la variabile di ambiente `NETHCTI_CDR_SCRIPT_EXTENSION_RING` nell'ambiente del modulo, puntando allo script `vte_incoming_call.php`:
+   ```bash
+   sed -i '/^NETHCTI_CDR_SCRIPT_EXTENSION_RING=/d' environment && echo 'NETHCTI_CDR_SCRIPT_EXTENSION_RING="/var/lib/asterisk/agi-bin/vte_incoming_call.php"' >> environment
+   ```
+7. Per applicare le modifiche, riavvia FreePBX all'interno del modulo NethVoice con il comando:
 
-5. Modificare tutti e tre gli script per aggiornare:  
-   - l'URL base delle API  
-   - il nome utente  
-   - la chiave di accesso  
+   :::warning
+   Il seguente comando chiuderà tutte le chiamate attive, quindi eseguilo quando opportuno.
+   :::
 
-6. Definire la variabile di ambiente `NETHCTI_CDR_SCRIPT_EXTENSION_RING` nell'ambiente del modulo, puntando allo script `vte_incoming_call.php`:  
-   `sed -i '/^NETHCTI_CDR_SCRIPT_EXTENSION_RING=/d' environment && echo 'NETHCTI_CDR_SCRIPT_EXTENSION_RING="/var/lib/asterisk/agi-bin/vte_incoming_call.php"' >> environment`  
-
-:::warning  
-Il seguente comando chiuderà tutte le chiamate attive, quindi eseguirlo solo quando opportuno.  
-:::
-
-7. Per applicare le modifiche, riavviare FreePBX all'interno del modulo NethVoice con il comando:  
-   `systemctl --user restart freepbx`
+   ```bash
+   systemctl --user restart freepbx
+   ```
