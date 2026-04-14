@@ -2,7 +2,7 @@
 
 ## Guide Objective
 
-The purpose of this guide is to explain how to configure the [vtenext CRM](https://www.vtenext.com/) integration scripts on NethVoice 8 **to let the two systems exchange data**.
+The purpose of this guide is to explain how to configure the [vtenext CRM](https://www.vtenext.com/) integration scripts on NethVoice 8 to let the two systems exchange data.
 
 ## Introduction to the Concept
 
@@ -10,7 +10,7 @@ Data exchange between the two systems can go both ways:
 
 - from vtenext CRM to NethVoice:
 
-    1. show CRM contact info on incoming calls.
+    1. show CRM contact info on incoming calls inside CTI.
     2. populate NethVoice centralized phone directory with company contacts from vtenext.
 
 - from NethVoice to vtenext CRM:
@@ -49,15 +49,25 @@ The update interval can be:
 You can check the import frequency with the command:
 
 ```bash
-systemctl --user list-timers | grep phonebook-update
+runagent -m nethvoice1
+systemctl --user status phonebook-update.timer
 ```
 
-The first timestamp is relative to the latest update, and the second one to the next run.
+Output example:
+
+```bash
+● phonebook-update.timer - Timer for phonebook source update
+     Loaded: loaded (/home/nethvoice136/.config/systemd/user/phonebook-update.timer; enabled; preset: disabled)
+     Active: active (waiting) since Tue 2026-03-17 16:21:55 CET; 3 weeks 6 days ago
+      Until: Tue 2026-03-17 16:21:55 CET; 3 weeks 6 days ago
+    Trigger: Tue 2026-04-14 08:15:44 CEST; 1min 42s left
+   Triggers: ● phonebook-update.service
+```
 
 ## 3. Register Incoming Calls into vtenext
 
 :::info
-This function needs a proprietary plugin, available from vtenext, that implements the `notify_incoming_call` endpoint of vtenext API.
+This function needs a proprietary plugin, available from vtenext, that implements the `notify_incoming_call` endpoint of vtenext API. Please contact vtenext support to obtain the plugin.
 :::
 
 ### Definition
@@ -124,6 +134,7 @@ When a phone extension receives an inbound call, NethVoice notifies vtenext thro
     -   `vte.php` from `/usr/share/phonebooks/samples/` to `/usr/share/phonebooks/scripts`
     -   `vte_incoming_call.php` from `/usr/src/nethvoice/samples` to `/var/lib/asterisk/agi-bin`
 
+    You can run the following commands to do it:
     ```bash
     cp /usr/src/nethvoice/samples/lookup_vte.php /usr/src/nethvoice/lookup.d
     cp /usr/share/phonebooks/samples/vte.php /usr/share/phonebooks/scripts
@@ -137,12 +148,12 @@ When a phone extension receives an inbound call, NethVoice notifies vtenext thro
     ```bash
     sed -i '/^NETHCTI_CDR_SCRIPT_EXTENSION_RING=/d' environment && echo 'NETHCTI_CDR_SCRIPT_EXTENSION_RING="/var/lib/asterisk/agi-bin/vte_incoming_call.php"' >> environment
     ```
-
-:::warning
-The following command will close all active calls, so execute it when suitable
-:::
-
 7. To apply changes, restart FreePBX inside the NethVoice module with the command:
+
+    :::warning
+    The following command will close all active calls, so execute it when suitable.
+    :::
+
     ```bash
     systemctl --user restart freepbx
     ```
