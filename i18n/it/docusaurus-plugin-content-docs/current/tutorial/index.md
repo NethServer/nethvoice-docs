@@ -44,4 +44,4 @@ Per ogni passaggio, consulta la documentazione collegata per istruzioni dettagli
 * [Esportare la rubrica come CSV da NethVoice](./export-phonebook-csv.md)
 * [Eliminare i vecchi messaggi della casella vocale](./voicemail-prune.md)
 * [Eliminare le vecchie registrazioni di chiamate](./recording-prune.md)
-* [Integrazione CRM vtenext](https://docs.nethvoice.com/docs/tutorial/vtenext-integration.md)
+* [Integrazione CRM vtenext](./vtenext-integration.md)
