@@ -75,7 +75,7 @@ docs/
 - Use standard Markdown syntax as supported by Docusaurus.
 - Follow existing linting and formatting rules in the repository.
 - Use proper headings (`#`, `##`, `###`, etc.) to structure content.
-- Use links in the format `[link text](relative/path/to/page.md)` for internal links.
+- Use links in the format `[link text](relative/path/to/page.md)` for internal links, never use absolute URLs for internal documentation.
 - Use consistent terminology for NethVoice features and components.
 - Buttons labels inside the documentation should be wrapped in double asterisks, e.g., **Install**.
 - Source code or values inside a text input should be wrapped in backticks, e.g., `Nethesis,1234`.
