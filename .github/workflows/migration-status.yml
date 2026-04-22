@@ -9,6 +9,9 @@ on:
   repository_dispatch:
     types: [migration-status-update]
 
+permissions:
+  contents: write
+
 jobs:
   generate:
     name: Generate migration data
@@ -18,7 +21,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          # Use a token so the push at the end triggers deploy.yml
+          # Use the workflow token for the authenticated push at the end
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Checkout nethcti-server
