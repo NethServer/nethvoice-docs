@@ -1,0 +1,60 @@
+name: Update Migration Status Dashboard
+
+on:
+  schedule:
+    # Run daily at 00:00 UTC
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+  # Allow nethcti-server and nethcti-middleware to trigger this workflow
+  repository_dispatch:
+    types: [migration-status-update]
+
+jobs:
+  generate:
+    name: Generate migration data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout nethvoice-docs
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # Use a token so the push at the end triggers deploy.yml
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout nethcti-server
+        uses: actions/checkout@v4
+        with:
+          repository: nethesis/nethcti-server
+          path: _nethcti-server
+
+      - name: Checkout nethcti-middleware
+        uses: actions/checkout@v4
+        with:
+          repository: nethesis/nethcti-middleware
+          path: _nethcti-middleware
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Generate migration-data.json
+        run: |
+          python3 scripts/extract-migration-status.py \
+            --server _nethcti-server \
+            --middleware _nethcti-middleware \
+            --output static/migration-data.json \
+            --migration-map migration-map.json
+
+      - name: Commit and push updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add static/migration-data.json
+          # Only commit and push if the file changed
+          if git diff --staged --quiet; then
+            echo "No changes to migration data, skipping commit."
+          else
+            git commit -m "chore: update migration status data"
+            git push
+          fi

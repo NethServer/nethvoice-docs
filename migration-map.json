@@ -1,0 +1,26 @@
+{
+  "mappings": [
+    {
+      "server_endpoints": [
+        { "method": "POST", "path": "/authentication/phone_island_token_login" }
+      ],
+      "middleware_endpoint": { "method": "POST", "path": "/tokens/persistent/:audience" },
+      "notes": "Replaced by the new persistent token API. The old path is kept as a compatibility shim in the middleware."
+    },
+    {
+      "server_endpoints": [
+        { "method": "GET", "path": "/authentication/phone_island_token_check/:subtype" }
+      ],
+      "middleware_endpoint": { "method": "GET", "path": "/tokens/persistent/:audience" },
+      "notes": "Replaced by the new persistent token API. The old path is kept as a compatibility shim in the middleware."
+    },
+    {
+      "server_endpoints": [
+        { "method": "POST", "path": "/authentication/persistent_token_remove" }
+      ],
+      "middleware_endpoint": { "method": "DELETE", "path": "/tokens/persistent/:audience" },
+      "notes": "Replaced by the new persistent token API. The old path is kept as a compatibility shim in the middleware."
+    }
+  ]
+}
+

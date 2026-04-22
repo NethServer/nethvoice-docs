@@ -161,6 +161,11 @@ const config: Config = {
           label: 'User manual',
         },
         {
+          to: '/migration-status',
+          label: 'Migration Status',
+          position: 'right',
+        },
+        {
           type: 'localeDropdown',
           position: 'right',
         },

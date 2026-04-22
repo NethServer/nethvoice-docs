@@ -1,0 +1,1189 @@
+{
+  "generated_at": "2026-04-22T09:00:56.876789+00:00",
+  "sources": {
+    "nethcti_server": {
+      "repo": "nethesis/nethcti-server",
+      "commit": "a3b709aa45f001b65f4ebe1b30863b16414d5f1a"
+    },
+    "nethcti_middleware": {
+      "repo": "nethesis/nethcti-middleware",
+      "commit": "a22323510ae7071e611aad24a1517f3b91839229"
+    }
+  },
+  "stats": {
+    "total_legacy": 167,
+    "migrated": 4,
+    "legacy_only": 163,
+    "migration_percentage": 2.4,
+    "middleware_by_class": {
+      "admin": 2,
+      "native": 20,
+      "websocket": 1,
+      "compatibility": 3
+    },
+    "new_in_middleware": 16
+  },
+  "endpoints": {
+    "server": [
+      {
+        "method": "GET",
+        "path": "/astproxy/queues",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/trunks",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/prefix",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/wakeup",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/opgroups",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/parkings",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/qmanager_qcalls_hist",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/extension/:id",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/extensions",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/sip_webrtc",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/conference/:endpoint",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/qmanager_astats",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/queue_astats",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/qmanager_qcalls",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/qmanager_qstats/:qid",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/queue_recall/:hours/:qids/:type",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/qmanager_queue_recall/:hours/:qids/:type",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/qrecall_info/:hours/:cid/:qid",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/qmanager_qrecall_info/:hours/:cid/:qid",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/qrecall_check/:num",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/cw/:endpoint",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/dnd/:endpoint",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/cfvm/:type/:endpoint",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/cfcall/:type/:endpoint",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/qmanager_queues",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/opdata",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/qalarms",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/pin",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/pinstatus",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/astproxy/feature_codes",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/cw",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/dnd",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/park",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/call",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/mute",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/dtmf",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/cfvm",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/wakeup",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/unmute",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/cfcall",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/atxfer",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/answer",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/hangup",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/intrude",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/end_conf",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/call_echo",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/start_spy",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/txfer_tovm",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/start_conf",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/toggle_hold",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/toggle_mute",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/cancel",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/pickup_conv",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/stop_record",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/join_myconf",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/mute_record",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/start_record",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/force_hangup",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/unauthe_call",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/op_wait_conv",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/pin",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/incall_audio",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/phone_reload",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/mute_userconf",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/answer_webrtc",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/blindtransfer",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/unmute_record",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/hangup_channel",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/pickup_parking",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/unmute_userconf",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/hangup_userconf",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/queuemember_add",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/hangup_mainexten",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/inout_dyn_queues",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/queuemember_pause",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/pickup_qwaitcaller",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/queuemember_remove",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/queuemember_unpause",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/blindtransfer_queue",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/blindtransfer_parking",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/astproxy/recall_on_busy",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "DELETE",
+        "path": "/astproxy/wakeup",
+        "plugin": "com_astproxy_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/authentication/phone_island_token_check/:subtype",
+        "plugin": "com_authentication_rest",
+        "status": "migrated",
+        "mapped_to": "/tokens/persistent/:audience",
+        "notes": "Replaced by the new persistent token API. The old path is kept as a compatibility shim in the middleware."
+      },
+      {
+        "method": "POST",
+        "path": "/authentication/login",
+        "plugin": "com_authentication_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/authentication/remotelogin",
+        "plugin": "com_authentication_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/authentication/logout",
+        "plugin": "com_authentication_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/authentication/phone_island_token_login",
+        "plugin": "com_authentication_rest",
+        "status": "migrated",
+        "mapped_to": "/tokens/persistent/:audience",
+        "notes": "Replaced by the new persistent token API. The old path is kept as a compatibility shim in the middleware."
+      },
+      {
+        "method": "POST",
+        "path": "/authentication/persistent_token_login",
+        "plugin": "com_authentication_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/authentication/persistent_token_remove",
+        "plugin": "com_authentication_rest",
+        "status": "migrated",
+        "mapped_to": "/tokens/persistent/:audience",
+        "notes": "Replaced by the new persistent token API. The old path is kept as a compatibility shim in the middleware."
+      },
+      {
+        "method": "GET",
+        "path": "/custcard/list",
+        "plugin": "com_customer_card_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/custcard/getbynum/:number/:format",
+        "plugin": "com_customer_card_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/custcard/preview",
+        "plugin": "com_customer_card_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/dbconn/test",
+        "plugin": "com_dbconn_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/histcallsgroups/interval/:from/:to",
+        "plugin": "com_history_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/histcallsgroups/interval/:from/:to/:filter",
+        "plugin": "com_history_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/histcallswitch/interval/:from/:to",
+        "plugin": "com_history_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/histcallswitch/interval/:from/:to/:filter",
+        "plugin": "com_history_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/historycall/down_callrec/:id",
+        "plugin": "com_history_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/historycall/listen_callrec/:id",
+        "plugin": "com_history_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/historycall/interval/:type/:target/:from/:to",
+        "plugin": "com_history_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/historycall/interval/:type/:target/:from/:to/:filter",
+        "plugin": "com_history_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/historycall/delete_callrec",
+        "plugin": "com_history_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/offhour/list",
+        "plugin": "com_offhour_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/offhour/list_announcement",
+        "plugin": "com_offhour_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/offhour/listen_announcement/:id",
+        "plugin": "com_offhour_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/offhour/download_announcement/:id",
+        "plugin": "com_offhour_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/offhour/set_offhour",
+        "plugin": "com_offhour_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/offhour/modify_announcement",
+        "plugin": "com_offhour_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/offhour/delete_announcement",
+        "plugin": "com_offhour_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/offhour/record_announcement",
+        "plugin": "com_offhour_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/offhour/enable_announcement",
+        "plugin": "com_offhour_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/offhour/upload_announcement",
+        "plugin": "com_offhour_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/phonebook/speeddials",
+        "plugin": "com_phonebook_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/phonebook/search/:term",
+        "plugin": "com_phonebook_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/phonebook/searchemail/:term",
+        "plugin": "com_phonebook_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/phonebook/getall/:term",
+        "plugin": "com_phonebook_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/phonebook/contact/:id",
+        "plugin": "com_phonebook_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/phonebook/cticontact/:id",
+        "plugin": "com_phonebook_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/phonebook/searchstartswith/:term",
+        "plugin": "com_phonebook_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/phonebook/searchstartswith_digit/:view",
+        "plugin": "com_phonebook_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/phonebook/create",
+        "plugin": "com_phonebook_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/phonebook/delete_cticontact",
+        "plugin": "com_phonebook_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/phonebook/modify_cticontact",
+        "plugin": "com_phonebook_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/phonebook/import_csv_speeddial",
+        "plugin": "com_phonebook_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "DELETE",
+        "path": "/phonebook/speeddials",
+        "plugin": "com_phonebook_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/profiling/all",
+        "plugin": "com_profiling_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/profiling/proc_mem",
+        "plugin": "com_profiling_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/profiling/db_stats",
+        "plugin": "com_profiling_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/profiling/tot_users",
+        "plugin": "com_profiling_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/profiling/conn_clients",
+        "plugin": "com_profiling_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/streaming/sources",
+        "plugin": "com_streaming_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/streaming/image/:source",
+        "plugin": "com_streaming_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/streaming/open",
+        "plugin": "com_streaming_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/streaming/subscribe",
+        "plugin": "com_streaming_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/streaming/unsubscribe",
+        "plugin": "com_streaming_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/user/me",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/user/paramurl",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/user/presence",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/user/all_avatars",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/user/presencelist",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/user/endpoints/all",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/user/presence_onbusy",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/user/presencelist_onbusy",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/user/presence_onunavailable",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/user/presencelist_onunavailable",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/user/nethlink",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/user/presence",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/user/settings",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/user/default_device",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/user/presence_onbusy",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/user/presence_onunavailable",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/user/mobile",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/user/nethlink",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "DELETE",
+        "path": "/user/settings",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "DELETE",
+        "path": "/user/setting/:prop",
+        "plugin": "com_user_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/videoconf/newroom",
+        "plugin": "com_videoconf_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/videoconf/send_emails",
+        "plugin": "com_videoconf_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/voicemail/list/:type",
+        "plugin": "com_voicemail_rest",
+        "status": "migrated",
+        "migrated_to": "/voicemail/list/:id"
+      },
+      {
+        "method": "GET",
+        "path": "/voicemail/listen/:id",
+        "plugin": "com_voicemail_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/voicemail/download/:id",
+        "plugin": "com_voicemail_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/voicemail/new_counters",
+        "plugin": "com_voicemail_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/voicemail/listen_custom_msg/:type",
+        "plugin": "com_voicemail_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
+        "path": "/voicemail/download_custom_msg/:type",
+        "plugin": "com_voicemail_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/voicemail/delete",
+        "plugin": "com_voicemail_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/voicemail/custom_msg",
+        "plugin": "com_voicemail_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "POST",
+        "path": "/voicemail/custom_msg_from_file",
+        "plugin": "com_voicemail_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "DELETE",
+        "path": "/voicemail/custom_msg/:type",
+        "plugin": "com_voicemail_rest",
+        "status": "legacy-only"
+      }
+    ],
+    "middleware": [
+      {
+        "method": "POST",
+        "path": "/admin/phonebook/import",
+        "class": "admin"
+      },
+      {
+        "method": "POST",
+        "path": "/admin/reload/profiles",
+        "class": "admin"
+      },
+      {
+        "method": "POST",
+        "path": "/login",
+        "class": "native"
+      },
+      {
+        "method": "GET",
+        "path": "/ws/",
+        "class": "websocket"
+      },
+      {
+        "method": "GET",
+        "path": "/transcripts/:uniqueid",
+        "class": "native"
+      },
+      {
+        "method": "GET",
+        "path": "/summary/:uniqueid",
+        "class": "native"
+      },
+      {
+        "method": "HEAD",
+        "path": "/summary/:uniqueid",
+        "class": "native"
+      },
+      {
+        "method": "PUT",
+        "path": "/summary/:uniqueid",
+        "class": "native"
+      },
+      {
+        "method": "DELETE",
+        "path": "/summary/:uniqueid",
+        "class": "native"
+      },
+      {
+        "method": "POST",
+        "path": "/summary/statuses",
+        "class": "native"
+      },
+      {
+        "method": "POST",
+        "path": "/summary/watch",
+        "class": "native"
+      },
+      {
+        "method": "POST",
+        "path": "/2fa/disable",
+        "class": "native"
+      },
+      {
+        "method": "POST",
+        "path": "/2fa/verify-otp",
+        "class": "native"
+      },
+      {
+        "method": "GET",
+        "path": "/2fa/status",
+        "class": "native"
+      },
+      {
+        "method": "POST",
+        "path": "/2fa/recovery-codes",
+        "class": "native"
+      },
+      {
+        "method": "GET",
+        "path": "/2fa/qr-code",
+        "class": "native"
+      },
+      {
+        "method": "POST",
+        "path": "/tokens/persistent/:audience",
+        "class": "native",
+        "migrated_from": [
+          "/authentication/phone_island_token_login"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/tokens/persistent/:audience",
+        "class": "native",
+        "migrated_from": [
+          "/authentication/phone_island_token_check/:subtype"
+        ]
+      },
+      {
+        "method": "DELETE",
+        "path": "/tokens/persistent/:audience",
+        "class": "native",
+        "migrated_from": [
+          "/authentication/persistent_token_remove"
+        ]
+      },
+      {
+        "method": "POST",
+        "path": "/authentication/phone_island_token_login",
+        "class": "compatibility",
+        "migrated_from": [
+          "/authentication/phone_island_token_login"
+        ]
+      },
+      {
+        "method": "POST",
+        "path": "/authentication/persistent_token_remove",
+        "class": "compatibility",
+        "migrated_from": [
+          "/authentication/persistent_token_remove"
+        ]
+      },
+      {
+        "method": "GET",
+        "path": "/authentication/phone_island_token_check",
+        "class": "compatibility"
+      },
+      {
+        "method": "POST",
+        "path": "/phonebook/import",
+        "class": "native"
+      },
+      {
+        "method": "GET",
+        "path": "/history/calls",
+        "class": "native"
+      },
+      {
+        "method": "GET",
+        "path": "/voicemail/list/:id",
+        "class": "native",
+        "migrated_from": [
+          "/voicemail/list/:type"
+        ]
+      },
+      {
+        "method": "POST",
+        "path": "/logout",
+        "class": "native"
+      }
+    ]
+  }
+}
