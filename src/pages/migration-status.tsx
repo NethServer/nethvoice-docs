@@ -10,7 +10,7 @@ type ServerEndpoint = {
   method: string;
   path: string;
   plugin: string;
-  status: "migrated" | "legacy-only";
+  status: "migrated" | "legacy-only" | "manually-mapped";
   migrated_to?: string;
   mapped_to?: string;
   notes?: string;
@@ -56,6 +56,7 @@ const METHOD_COLORS: Record<string, string> = {
 
 const STATUS_BADGE: Record<string, { label: string; color: string; bg: string }> = {
   migrated: { label: "Migrated", color: "#fff", bg: "#28a745" },
+  "manually-mapped": { label: "Mapped", color: "#fff", bg: "#17a2b8" },
   "legacy-only": { label: "Legacy", color: "#fff", bg: "#dc3545" },
 };
 
@@ -259,9 +260,9 @@ function EndpointTable<T extends { method: string; path: string }>({
                 </td>
               </tr>
             ) : (
-              filtered.map((ep, i) => (
+              filtered.map((ep) => (
                 <tr
-                  key={i}
+                  key={`${ep.method}:${ep.path}`}
                   style={{ borderBottom: "1px solid var(--ifm-color-emphasis-100)" }}
                 >
                   <td style={tdStyle}>
@@ -320,7 +321,8 @@ export default function MigrationStatus(): ReactNode {
 
   const filteredServer =
     data?.endpoints.server.filter(
-      (ep) => serverFilter === "ALL" || ep.status === serverFilter
+      (ep) => serverFilter === "ALL" ||
+        (serverFilter === "migrated" ? (ep.status === "migrated" || ep.status === "manually-mapped") : ep.status === serverFilter)
     ) ?? [];
 
   const filteredMiddleware =
@@ -490,6 +492,8 @@ export default function MigrationStatus(): ReactNode {
                     const count =
                       f === "ALL"
                         ? data.endpoints.server.length
+                        : f === "migrated"
+                        ? data.endpoints.server.filter((e) => e.status === "migrated" || e.status === "manually-mapped").length
                         : data.endpoints.server.filter((e) => e.status === f).length;
                     return (
                       <button
@@ -517,7 +521,16 @@ export default function MigrationStatus(): ReactNode {
                   renderExtra={(ep) => (
                     <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
-                        <Badge {...STATUS_BADGE[ep.status]} />
+                        <Badge {...STATUS_BADGE[ep.status === "manually-mapped" ? "migrated" : ep.status]} />
+                        {ep.status === "manually-mapped" && (
+                          <span style={{
+                            fontSize: "0.72rem",
+                            padding: "1px 6px",
+                            borderRadius: 4,
+                            border: "1px solid var(--ifm-color-emphasis-300)",
+                            color: "var(--ifm-color-emphasis-600)",
+                          }}>Mapped</span>
+                        )}
                         <span style={{ fontSize: "0.78rem", color: "var(--ifm-color-emphasis-500)" }}>
                           {ep.plugin.replace("com_", "").replace("_rest", "")}
                         </span>
@@ -593,7 +606,18 @@ export default function MigrationStatus(): ReactNode {
                   endpoints={filteredMiddleware}
                   renderExtra={(ep) => (
                     <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-                      <Badge {...CLASS_BADGE[ep.class]} />
+                      <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
+                        <Badge {...CLASS_BADGE[ep.class]} />
+                        {ep.migrated_from && ep.migrated_from.length > 0 && (
+                          <span style={{
+                            fontSize: "0.72rem",
+                            padding: "1px 6px",
+                            borderRadius: 4,
+                            border: "1px solid var(--ifm-color-emphasis-300)",
+                            color: "var(--ifm-color-emphasis-600)",
+                          }}>Mapped</span>
+                        )}
+                      </div>
                       {ep.migrated_from && ep.migrated_from.length > 0 && (
                         <div style={{ fontSize: "0.78rem", color: "var(--ifm-color-emphasis-600)" }}>
                           Replaces:{" "}

@@ -14,10 +14,13 @@ Output schema:
 """
 
 import argparse
+import contextlib
 import json
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -33,6 +36,24 @@ def git_sha(repo_path: str) -> str:
         return result.stdout.strip()
     except Exception:
         return "unknown"
+
+
+@contextlib.contextmanager
+def clone_repo(repo: str, branch: str):
+    """Clone repo from GitHub at a specific branch into a temp dir (shallow clone)."""
+    tmpdir = tempfile.mkdtemp(prefix="migration-clone-")
+    try:
+        result = subprocess.run(
+            ["git", "clone", "--depth", "1", "--branch", branch,
+             f"https://github.com/{repo}.git", tmpdir],
+            capture_output=True,
+        )
+        if result.returncode != 0:
+            print(f"Error: could not clone '{repo}' branch '{branch}':\n{result.stderr.decode()}", file=sys.stderr)
+            sys.exit(1)
+        yield tmpdir
+    finally:
+        shutil.rmtree(tmpdir, ignore_errors=True)
 
 
 def normalize_path(path: str) -> str:
@@ -232,7 +253,7 @@ def categorise(
             manually_mapped_srv.add(srv_key)
             # Annotate the matching server endpoint
             if srv_key in srv_index:
-                srv_index[srv_key]["status"] = "migrated"
+                srv_index[srv_key]["status"] = "manually-mapped"
                 srv_index[srv_key]["mapped_to"] = mw_ep.get("path", "")
                 srv_index[srv_key]["notes"] = notes
         # Annotate the matching middleware endpoint
@@ -302,53 +323,75 @@ def compute_stats(server_eps: list[dict], middleware_eps: list[dict]) -> dict:
 
 # ─── main ───────────────────────────────────────────────────────────────────
 
+SCRIPT_DIR = Path(__file__).parent
+REPO_ROOT = SCRIPT_DIR.parent
+OUTPUT_PATH = REPO_ROOT / "static" / "migration-data.json"
+MIGRATION_MAP_PATH = REPO_ROOT / "migration-map.json"
+
+SERVER_REPO = "nethesis/nethcti-server"
+MIDDLEWARE_REPO = "nethesis/nethcti-middleware"
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Extract NethVoice API migration status")
-    parser.add_argument("--server", required=True, help="Path to nethcti-server repo")
-    parser.add_argument("--middleware", required=True, help="Path to nethcti-middleware repo")
-    parser.add_argument("--output", required=True, help="Output JSON file path")
-    parser.add_argument(
-        "--migration-map",
-        default="migration-map.json",
-        help="Path to manual migration-map.json (default: migration-map.json)",
-    )
+    parser.add_argument("--server-branch", default="ns8", help="nethcti-server branch (default: ns8)")
+    parser.add_argument("--middleware-branch", default="main", help="nethcti-middleware branch (default: main)")
     args = parser.parse_args()
 
-    server_eps = extract_server_endpoints(args.server)
-    middleware_eps = extract_middleware_endpoints(args.middleware)
-    manual_maps = load_migration_map(args.migration_map)
+    with clone_repo(SERVER_REPO, args.server_branch) as server_path, \
+         clone_repo(MIDDLEWARE_REPO, args.middleware_branch) as middleware_path:
 
-    server_eps, middleware_eps = categorise(server_eps, middleware_eps, manual_maps)
-    stats = compute_stats(server_eps, middleware_eps)
+        server_eps = extract_server_endpoints(server_path)
+        middleware_eps = extract_middleware_endpoints(middleware_path)
+        manual_maps = load_migration_map(str(MIGRATION_MAP_PATH))
 
-    output = {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
-        "sources": {
-            "nethcti_server": {
-                "repo": "nethesis/nethcti-server",
-                "commit": git_sha(args.server),
+        server_eps, middleware_eps = categorise(server_eps, middleware_eps, manual_maps)
+        stats = compute_stats(server_eps, middleware_eps)
+
+        output = {
+            "generated_at": datetime.now(timezone.utc).isoformat(),
+            "sources": {
+                "nethcti_server": {
+                    "repo": SERVER_REPO,
+                    "branch": args.server_branch,
+                    "commit": git_sha(server_path),
+                },
+                "nethcti_middleware": {
+                    "repo": MIDDLEWARE_REPO,
+                    "branch": args.middleware_branch,
+                    "commit": git_sha(middleware_path),
+                },
             },
-            "nethcti_middleware": {
-                "repo": "nethesis/nethcti-middleware",
-                "commit": git_sha(args.middleware),
+            "stats": stats,
+            "endpoints": {
+                "server": server_eps,
+                "middleware": middleware_eps,
             },
-        },
-        "stats": stats,
-        "endpoints": {
-            "server": server_eps,
-            "middleware": middleware_eps,
-        },
-    }
+        }
 
-    out_path = Path(args.output)
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    out_path.write_text(json.dumps(output, indent=2, ensure_ascii=False))
-    print(
-        f"Generated {args.output}: "
-        f"{stats['total_legacy']} legacy endpoints, "
-        f"{stats['migrated']} migrated ({stats['migration_percentage']}%)",
-        file=sys.stderr,
-    )
+        OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
+
+        def endpoint_data(d: dict) -> dict:
+            """Return only the parts that matter for change detection (not timestamps or commit SHAs)."""
+            return {k: v for k, v in d.items() if k not in ("generated_at", "sources")}
+
+        existing = {}
+        if OUTPUT_PATH.exists():
+            try:
+                existing = json.loads(OUTPUT_PATH.read_text())
+            except Exception:
+                pass
+
+        if endpoint_data(output) == endpoint_data(existing):
+            print("No changes to migration data, skipping write.", file=sys.stderr)
+        else:
+            OUTPUT_PATH.write_text(json.dumps(output, indent=2, ensure_ascii=False))
+            print(
+                f"Generated {OUTPUT_PATH}: "
+                f"{stats['total_legacy']} legacy endpoints, "
+                f"{stats['migrated']} migrated ({stats['migration_percentage']}%)",
+                file=sys.stderr,
+            )
 
 
 if __name__ == "__main__":
