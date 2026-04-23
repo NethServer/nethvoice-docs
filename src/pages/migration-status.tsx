@@ -203,6 +203,7 @@ function EndpointTable<T extends { method: string; path: string }>({
       <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap" }}>
         <input
           type="search"
+          aria-label="Filter endpoints by path"
           placeholder="Filter by path…"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
@@ -459,8 +460,6 @@ export default function MigrationStatus(): ReactNode {
 
             {/* Tabs */}
             <div
-              role="tablist"
-              aria-label="Endpoint tabs"
               style={{ borderBottom: "2px solid var(--ifm-color-emphasis-200)", marginBottom: 24, display: "flex", gap: 0 }}
             >
               {(
@@ -471,8 +470,7 @@ export default function MigrationStatus(): ReactNode {
               ).map(({ key, label }) => (
                 <button
                   key={key}
-                  role="tab"
-                  aria-selected={tab === key}
+                  aria-pressed={tab === key}
                   onClick={() => setTab(key)}
                   style={{
                     padding: "10px 20px",

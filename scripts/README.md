@@ -12,6 +12,8 @@ and produces `static/migration-data.json`, read by the migration status dashboar
 Default usage — always fetches the production reference branches (`ns8` for
 `nethcti-server`, `main` for `nethcti-middleware`):
 
+> **Requires Python 3.10 or later.**
+
 ```bash
 # run from the nethvoice-docs repo root
 python3 scripts/extract-migration-status.py

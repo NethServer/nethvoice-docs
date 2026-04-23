@@ -159,10 +159,10 @@ def extract_middleware_endpoints(middleware_path: str) -> list[dict]:
         if "LEGACY COMPATIBILITY" in stripped:
             in_legacy_compat = True
             continue
-        # Any line inside the compat block that is still a comment continues the block
-        if in_legacy_compat and stripped.startswith("//"):
+        # Comments and blank lines inside the compat block continue the block
+        if in_legacy_compat and (stripped.startswith("//") or stripped == ""):
             continue
-        # A non-comment, non-route line ends the compat block
+        # A non-comment, non-blank, non-route line ends the compat block
         if in_legacy_compat and not _ROUTE_RE.search(stripped):
             in_legacy_compat = False
 

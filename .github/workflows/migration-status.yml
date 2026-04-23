@@ -24,6 +24,11 @@ jobs:
           # Use the workflow token for the authenticated push at the end
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
       - name: Generate migration-data.json
         run: |
           python3 scripts/extract-migration-status.py
