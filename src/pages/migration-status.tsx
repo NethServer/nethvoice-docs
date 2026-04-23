@@ -21,13 +21,15 @@ type MiddlewareEndpoint = {
   path: string;
   class: "native" | "compatibility" | "admin" | "websocket";
   migrated_from?: string[];
+  replaced_by?: string;
+  manually_mapped?: boolean;
 };
 
 type MigrationData = {
   generated_at: string;
   sources: {
-    nethcti_server: { repo: string; commit: string };
-    nethcti_middleware: { repo: string; commit: string };
+    nethcti_server: { repo: string; branch: string; commit: string };
+    nethcti_middleware: { repo: string; branch: string; commit: string };
   };
   stats: {
     total_legacy: number;
@@ -456,7 +458,11 @@ export default function MigrationStatus(): ReactNode {
             </div>
 
             {/* Tabs */}
-            <div style={{ borderBottom: "2px solid var(--ifm-color-emphasis-200)", marginBottom: 24, display: "flex", gap: 0 }}>
+            <div
+              role="tablist"
+              aria-label="Endpoint tabs"
+              style={{ borderBottom: "2px solid var(--ifm-color-emphasis-200)", marginBottom: 24, display: "flex", gap: 0 }}
+            >
               {(
                 [
                   { key: "server", label: `Legacy server (${data.endpoints.server.length})` },
@@ -465,6 +471,8 @@ export default function MigrationStatus(): ReactNode {
               ).map(({ key, label }) => (
                 <button
                   key={key}
+                  role="tab"
+                  aria-selected={tab === key}
                   onClick={() => setTab(key)}
                   style={{
                     padding: "10px 20px",
@@ -605,20 +613,20 @@ export default function MigrationStatus(): ReactNode {
                 <EndpointTable
                   endpoints={filteredMiddleware}
                   renderExtra={(ep) => (
-                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
                       <div style={{ display: "flex", gap: 6, flexWrap: "wrap", alignItems: "center" }}>
                         <Badge {...CLASS_BADGE[ep.class]} />
-                        {ep.migrated_from && ep.migrated_from.length > 0 && (
+                        {ep.manually_mapped && (
                           <span style={{
                             fontSize: "0.72rem",
                             padding: "1px 6px",
                             borderRadius: 4,
                             border: "1px solid var(--ifm-color-emphasis-300)",
                             color: "var(--ifm-color-emphasis-600)",
-                          }}>Mapped</span>
+                          }}>Manually mapped</span>
                         )}
                       </div>
-                      {ep.migrated_from && ep.migrated_from.length > 0 && (
+                      {ep.class !== "compatibility" && ep.migrated_from && ep.migrated_from.length > 0 && (
                         <div style={{ fontSize: "0.78rem", color: "var(--ifm-color-emphasis-600)" }}>
                           Replaces:{" "}
                           {ep.migrated_from.map((p, i) => (
@@ -627,6 +635,11 @@ export default function MigrationStatus(): ReactNode {
                               {i < ep.migrated_from!.length - 1 ? ", " : ""}
                             </span>
                           ))}
+                        </div>
+                      )}
+                      {ep.class === "compatibility" && ep.replaced_by && (
+                        <div style={{ fontSize: "0.78rem", color: "var(--ifm-color-emphasis-600)" }}>
+                          Replaced by: <code>{ep.replaced_by}</code>
                         </div>
                       )}
                     </div>

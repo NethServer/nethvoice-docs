@@ -244,6 +244,8 @@ def categorise(
     # Apply manual mappings first
     manually_mapped_srv: set[tuple] = set()
     manually_mapped_mw: set[tuple] = set()
+    # Build lookup: (method, normalized_server_path) → new middleware path
+    srv_to_replacement: dict[tuple, str] = {}
     for mapping in manual_maps:
         mw_ep = mapping.get("middleware_endpoint", {})
         mw_key = (mw_ep.get("method", ""), normalize_path(mw_ep.get("path", "")))
@@ -251,6 +253,7 @@ def categorise(
         for srv_ep in mapping.get("server_endpoints", []):
             srv_key = (srv_ep.get("method", ""), normalize_path(srv_ep.get("path", "")))
             manually_mapped_srv.add(srv_key)
+            srv_to_replacement[srv_key] = mw_ep.get("path", "")
             # Annotate the matching server endpoint
             if srv_key in srv_index:
                 srv_index[srv_key]["status"] = "manually-mapped"
@@ -261,6 +264,7 @@ def categorise(
             mw_index[mw_key]["migrated_from"] = [
                 ep.get("path", "") for ep in mapping.get("server_endpoints", [])
             ]
+            mw_index[mw_key]["manually_mapped"] = True
             manually_mapped_mw.add(mw_key)
 
     # Auto-match remaining server endpoints by normalised path
@@ -282,7 +286,10 @@ def categorise(
     annotated_middleware: list[dict] = []
     for ep in middleware_eps:
         key = (ep["method"], normalize_path(ep["path"]))
-        if key not in manually_mapped_mw and key in srv_index:
+        if ep.get("class") == "compatibility" and key in srv_to_replacement:
+            ep["replaced_by"] = srv_to_replacement[key]
+            ep["manually_mapped"] = True
+        elif key not in manually_mapped_mw and key in srv_index:
             ep["migrated_from"] = [srv_index[key]["path"]]
         annotated_middleware.append(ep)
 
@@ -336,6 +343,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Extract NethVoice API migration status")
     parser.add_argument("--server-branch", default="ns8", help="nethcti-server branch (default: ns8)")
     parser.add_argument("--middleware-branch", default="main", help="nethcti-middleware branch (default: main)")
+    parser.add_argument("--force", action="store_true", help="Always write output even if endpoint data has not changed")
     args = parser.parse_args()
 
     with clone_repo(SERVER_REPO, args.server_branch) as server_path, \
@@ -382,7 +390,7 @@ def main() -> None:
             except Exception:
                 pass
 
-        if endpoint_data(output) == endpoint_data(existing):
+        if not args.force and endpoint_data(output) == endpoint_data(existing):
             print("No changes to migration data, skipping write.", file=sys.stderr)
         else:
             OUTPUT_PATH.write_text(json.dumps(output, indent=2, ensure_ascii=False))

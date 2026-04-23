@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-22T19:33:38.887155+00:00",
+  "generated_at": "2026-04-23T10:57:33.931306+00:00",
   "sources": {
     "nethcti_server": {
       "repo": "nethesis/nethcti-server",
@@ -9,7 +9,7 @@
     "nethcti_middleware": {
       "repo": "nethesis/nethcti-middleware",
       "branch": "main",
-      "commit": "fbe0e3929bf6ee6ad25078320930cf8321dc8baf"
+      "commit": "b7e26d3a31867b660ef9d0cf65b2ec7bf7fe3c1f"
     }
   },
   "stats": {
@@ -1124,7 +1124,8 @@
         "class": "native",
         "migrated_from": [
           "/authentication/phone_island_token_login"
-        ]
+        ],
+        "manually_mapped": true
       },
       {
         "method": "GET",
@@ -1132,7 +1133,8 @@
         "class": "native",
         "migrated_from": [
           "/authentication/phone_island_token_check/:subtype"
-        ]
+        ],
+        "manually_mapped": true
       },
       {
         "method": "DELETE",
@@ -1140,23 +1142,22 @@
         "class": "native",
         "migrated_from": [
           "/authentication/persistent_token_remove"
-        ]
+        ],
+        "manually_mapped": true
       },
       {
         "method": "POST",
         "path": "/authentication/phone_island_token_login",
         "class": "compatibility",
-        "migrated_from": [
-          "/authentication/phone_island_token_login"
-        ]
+        "replaced_by": "/tokens/persistent/:audience",
+        "manually_mapped": true
       },
       {
         "method": "POST",
         "path": "/authentication/persistent_token_remove",
         "class": "compatibility",
-        "migrated_from": [
-          "/authentication/persistent_token_remove"
-        ]
+        "replaced_by": "/tokens/persistent/:audience",
+        "manually_mapped": true
       },
       {
         "method": "GET",

@@ -35,9 +35,18 @@ python3 scripts/extract-migration-status.py --server-branch my-fix
 > local repository files. The branches it clones must therefore already be pushed to
 > `origin`. There is nothing to commit or stash locally before running the script.
 
-Output is always written to `static/migration-data.json`. If the generated data is
-identical to the existing file (excluding the `generated_at` timestamp), the file is
-left unchanged so that CI does not produce spurious commits.
+To force regeneration even when endpoint data has not changed (e.g. to update commit
+SHAs or timestamps for a new deployment):
+
+```bash
+python3 scripts/extract-migration-status.py --force
+```
+
+ If the generated data is
+identical to the existing file (excluding the `generated_at` timestamp and the `sources`
+section which contains commit SHAs), the file is left unchanged so that CI does not
+produce spurious commits. This means the commit SHAs shown in the dashboard reflect the
+last run that actually changed endpoint data, not necessarily the latest commit.
 
 
 
