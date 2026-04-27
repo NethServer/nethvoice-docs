@@ -205,6 +205,23 @@ const config: Config = {
           ],
         },
         {
+          title: 'Developers',
+          items: [
+            {
+              label: 'Middleware API reference',
+              href: 'https://bump.sh/nethesis/doc/nethcti-middleware/',
+            },
+            {
+              label: 'CTI Server API reference',
+              href: 'https://documenter.getpostman.com/view/15699632/TzRRC88p',
+            },
+            {
+              label: 'API Migration Status',
+              to: '/migration-status',
+            },
+          ],
+        },
+        {
           title: 'More',
           items: [
             {
