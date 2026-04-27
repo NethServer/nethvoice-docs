@@ -32,6 +32,7 @@ Per i telefoni non elencati come supportati, è possibile creare modelli di prov
 - X7A/C
 - X301/P/G/W, X303/P/G/W
 - H2U, H2U-V2, H5
+- W610W, W611W, W620W
 
 ## Yealink
 
