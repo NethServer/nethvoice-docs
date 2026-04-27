@@ -151,6 +151,7 @@ def extract_middleware_endpoints(middleware_path: str) -> list[dict]:
 
     endpoints = []
     in_legacy_compat = False
+    prev_was_blank = False
 
     for line in main_go.read_text(encoding="utf-8").splitlines():
         stripped = line.strip()
@@ -158,10 +159,23 @@ def extract_middleware_endpoints(middleware_path: str) -> list[dict]:
         # Track the LEGACY COMPATIBILITY comment block
         if "LEGACY COMPATIBILITY" in stripped:
             in_legacy_compat = True
+            prev_was_blank = False
             continue
-        # Comments and blank lines inside the compat block continue the block
-        if in_legacy_compat and (stripped.startswith("//") or stripped == ""):
-            continue
+        # Handle content inside the compat block
+        if in_legacy_compat:
+            if stripped == "":
+                prev_was_blank = True
+                continue
+            if stripped.startswith("//"):
+                # A comment after a blank line means a new section — end the block
+                if prev_was_blank:
+                    in_legacy_compat = False
+                    prev_was_blank = False
+                    continue
+                # Continuation comment (same block, no blank before), keep going
+                prev_was_blank = False
+                continue
+            prev_was_blank = False
         # A non-comment, non-blank, non-route line ends the compat block
         if in_legacy_compat and not _ROUTE_RE.search(stripped):
             in_legacy_compat = False
@@ -173,13 +187,12 @@ def extract_middleware_endpoints(middleware_path: str) -> list[dict]:
         http_method = m.group(1)
         path = m.group(2)
 
-        # Classify the endpoint
-        if path.startswith("/admin/"):
-            cls = "admin"
-        elif path.startswith("/ws"):
-            cls = "websocket"
+        # Classify the endpoint — skip admin and websocket (not REST migration targets)
+        if path.startswith("/admin/") or path.startswith("/ws"):
+            prev_was_blank = False
+            continue
         elif in_legacy_compat:
-            cls = "compatibility"
+            cls = "deprecated"
         else:
             cls = "native"
 
@@ -188,26 +201,73 @@ def extract_middleware_endpoints(middleware_path: str) -> list[dict]:
     return endpoints
 
 
-# ─── migration-map loading ───────────────────────────────────────────────────
+# ─── migration annotation parsing ───────────────────────────────────────────
 
-def load_migration_map(map_path: str) -> list[dict]:
+_REPLACES_RE = re.compile(
+    r"^//\s*@migration-replaces:\s+(GET|POST|PUT|DELETE|PATCH|HEAD)\s+(\S+)\s*$"
+)
+_NOTE_RE = re.compile(r"^//\s*@migration-note:\s+(.+)$")
+
+
+def parse_migration_annotations(middleware_path: str) -> list[dict]:
     """
-    Load manual endpoint mappings.  Returns empty list if the file is absent.
+    Parse @migration-replaces / @migration-note annotations from main.go.
 
-    Schema: list of objects with:
+    Each annotation block must appear on consecutive lines (blank lines and
+    plain comments allowed) immediately before a route definition.
+
+    Returns a list of mappings with the same schema as the old migration-map.json:
       server_endpoints   list of {method, path}
       middleware_endpoint {method, path}
       notes              optional string
     """
-    path = Path(map_path)
-    if not path.exists():
+    main_go = Path(middleware_path) / "main.go"
+    if not main_go.exists():
         return []
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-        return data.get("mappings", [])
-    except Exception as exc:
-        print(f"[WARN] Could not load migration map: {exc}", file=sys.stderr)
-        return []
+
+    mappings: list[dict] = []
+    pending_replaces: list[dict] = []
+    pending_note: str = ""
+
+    for line in main_go.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+
+        m = _REPLACES_RE.match(stripped)
+        if m:
+            pending_replaces.append({"method": m.group(1), "path": m.group(2)})
+            continue
+
+        n = _NOTE_RE.match(stripped)
+        if n:
+            pending_note = n.group(1)
+            continue
+
+        # Blank lines and plain comments don't interrupt the block
+        if stripped == "" or stripped.startswith("//"):
+            continue
+
+        r = _ROUTE_RE.search(stripped)
+        if r and pending_replaces:
+            mappings.append({
+                "middleware_endpoint": {"method": r.group(1), "path": r.group(2)},
+                "server_endpoints": pending_replaces,
+                "notes": pending_note,
+            })
+
+        if pending_replaces and not r:
+            print(
+                f"[WARN] @migration-replaces annotation not followed by a route: {stripped!r}",
+                file=sys.stderr,
+            )
+
+        # Any non-blank, non-comment line resets the pending block
+        pending_replaces = []
+        pending_note = ""
+
+    if pending_replaces:
+        print("[WARN] @migration-replaces annotation at EOF was never associated with a route.", file=sys.stderr)
+
+    return mappings
 
 
 # ─── categorisation ─────────────────────────────────────────────────────────
@@ -222,11 +282,11 @@ def categorise(
 
     Server endpoint statuses:
       migrated        exact path match found in middleware (after normalisation)
-      manually-mapped explicitly declared in migration-map.json
+      manually-mapped explicitly declared via @migration-replaces annotations
       legacy-only     no native middleware counterpart
 
     Middleware endpoint classes stay as set by the extractor (native,
-    compatibility, admin, websocket).  Manually-mapped ones get an extra
+    deprecated).  Manually-mapped ones get an extra
     'migrated_from' field.
     """
     # Index middleware endpoints by normalised path for fast lookup
@@ -286,7 +346,7 @@ def categorise(
     annotated_middleware: list[dict] = []
     for ep in middleware_eps:
         key = (ep["method"], normalize_path(ep["path"]))
-        if ep.get("class") == "compatibility" and key in srv_to_replacement:
+        if ep.get("class") == "deprecated" and key in srv_to_replacement:
             ep["replaced_by"] = srv_to_replacement[key]
             ep["manually_mapped"] = True
         elif key not in manually_mapped_mw and key in srv_index:
@@ -315,7 +375,7 @@ def compute_stats(server_eps: list[dict], middleware_eps: list[dict]) -> dict:
 
     new_mw = sum(
         1 for ep in middleware_eps
-        if not ep.get("migrated_from") and ep.get("class") not in ("compatibility", "admin", "websocket")
+        if not ep.get("migrated_from") and ep.get("class") not in ("deprecated",)
     )
 
     return {
@@ -333,7 +393,6 @@ def compute_stats(server_eps: list[dict], middleware_eps: list[dict]) -> dict:
 SCRIPT_DIR = Path(__file__).parent
 REPO_ROOT = SCRIPT_DIR.parent
 OUTPUT_PATH = REPO_ROOT / "static" / "migration-data.json"
-MIGRATION_MAP_PATH = REPO_ROOT / "migration-map.json"
 
 SERVER_REPO = "nethesis/nethcti-server"
 MIDDLEWARE_REPO = "nethesis/nethcti-middleware"
@@ -351,7 +410,7 @@ def main() -> None:
 
         server_eps = extract_server_endpoints(server_path)
         middleware_eps = extract_middleware_endpoints(middleware_path)
-        manual_maps = load_migration_map(str(MIGRATION_MAP_PATH))
+        manual_maps = parse_migration_annotations(middleware_path)
 
         server_eps, middleware_eps = categorise(server_eps, middleware_eps, manual_maps)
         stats = compute_stats(server_eps, middleware_eps)

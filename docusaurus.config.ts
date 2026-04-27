@@ -161,11 +161,6 @@ const config: Config = {
           label: 'User manual',
         },
         {
-          to: '/migration-status',
-          label: 'Migration Status',
-          position: 'right',
-        },
-        {
           type: 'localeDropdown',
           position: 'right',
         },
@@ -206,6 +201,23 @@ const config: Config = {
             {
               label: 'Partner Community (Italian)',
               href: 'https://partner.nethesis.it',
+            },
+          ],
+        },
+        {
+          title: 'Developers',
+          items: [
+            {
+              label: 'Middleware API reference',
+              href: 'https://bump.sh/nethesis/doc/nethcti-middleware/',
+            },
+            {
+              label: 'CTI Server API reference',
+              href: 'https://documenter.getpostman.com/view/15699632/TzRRC88p',
+            },
+            {
+              label: 'API Migration Status',
+              to: '/migration-status',
             },
           ],
         },

@@ -9,7 +9,7 @@ The CTI API provides programmatic access to the NethVoice CTI (Computer Telephon
 Legacy methods are also documented for reference, but migrating to the new methods is strongly recommended.
 New features and improvements are only available in the new API.
 
-Full API specification is available at: [NethCTI Server full reference](https://documenter.getpostman.com/view/15699632/TzRRC88p#41f9b8cc-bea8-4917-a293-84eaedcaed08)
+Full API specification is available at: [NethCTI Server full reference](https://documenter.getpostman.com/view/15699632/TzRRC88p#41f9b8cc-bea8-4917-a293-84eaedcaed08) · [NethCTI Middleware reference](https://bump.sh/nethesis/doc/nethcti-middleware/)
 
 ---
 
@@ -290,6 +290,8 @@ const socket = io('https://nethcti.example.com', {
 ---
 
 ## Migration Guide: Legacy to New Method {#migration-guide-legacy-to-new-method}
+
+For a full overview of which endpoints have already been migrated and which are still proxied to the legacy server, see the [API Migration Status dashboard](/migration-status).
 
 To migrate from the legacy authentication to the new JWT-based method:
 

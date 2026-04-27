@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-04-23T10:57:33.931306+00:00",
+  "generated_at": "2026-04-27T14:25:17.154653+00:00",
   "sources": {
     "nethcti_server": {
       "repo": "nethesis/nethcti-server",
@@ -9,7 +9,7 @@
     "nethcti_middleware": {
       "repo": "nethesis/nethcti-middleware",
       "branch": "main",
-      "commit": "b7e26d3a31867b660ef9d0cf65b2ec7bf7fe3c1f"
+      "commit": "589b333bfb77d07bac35db8c280b5db89a3f5899"
     }
   },
   "stats": {
@@ -18,10 +18,8 @@
     "legacy_only": 163,
     "migration_percentage": 2.4,
     "middleware_by_class": {
-      "admin": 2,
       "native": 21,
-      "websocket": 1,
-      "compatibility": 3
+      "deprecated": 3
     },
     "new_in_middleware": 17
   },
@@ -525,7 +523,7 @@
         "plugin": "com_authentication_rest",
         "status": "manually-mapped",
         "mapped_to": "/tokens/persistent/:audience",
-        "notes": "Replaced by the new persistent token API. The old path is kept as a compatibility shim in the middleware."
+        "notes": "Replaced by the new persistent token API. The old path is kept as a compatibility shim."
       },
       {
         "method": "POST",
@@ -551,7 +549,7 @@
         "plugin": "com_authentication_rest",
         "status": "manually-mapped",
         "mapped_to": "/tokens/persistent/:audience",
-        "notes": "Replaced by the new persistent token API. The old path is kept as a compatibility shim in the middleware."
+        "notes": "Replaced by the new persistent token API. The old path is kept as a compatibility shim."
       },
       {
         "method": "POST",
@@ -565,7 +563,7 @@
         "plugin": "com_authentication_rest",
         "status": "manually-mapped",
         "mapped_to": "/tokens/persistent/:audience",
-        "notes": "Replaced by the new persistent token API. The old path is kept as a compatibility shim in the middleware."
+        "notes": "Replaced by the new persistent token API. The old path is kept as a compatibility shim."
       },
       {
         "method": "GET",
@@ -1040,23 +1038,8 @@
     "middleware": [
       {
         "method": "POST",
-        "path": "/admin/phonebook/import",
-        "class": "admin"
-      },
-      {
-        "method": "POST",
-        "path": "/admin/reload/profiles",
-        "class": "admin"
-      },
-      {
-        "method": "POST",
         "path": "/login",
         "class": "native"
-      },
-      {
-        "method": "GET",
-        "path": "/ws/",
-        "class": "websocket"
       },
       {
         "method": "GET",
@@ -1148,21 +1131,23 @@
       {
         "method": "POST",
         "path": "/authentication/phone_island_token_login",
-        "class": "compatibility",
+        "class": "deprecated",
         "replaced_by": "/tokens/persistent/:audience",
         "manually_mapped": true
       },
       {
         "method": "POST",
         "path": "/authentication/persistent_token_remove",
-        "class": "compatibility",
+        "class": "deprecated",
         "replaced_by": "/tokens/persistent/:audience",
         "manually_mapped": true
       },
       {
         "method": "GET",
-        "path": "/authentication/phone_island_token_check",
-        "class": "compatibility"
+        "path": "/authentication/phone_island_token_check/:subtype",
+        "class": "deprecated",
+        "replaced_by": "/tokens/persistent/:audience",
+        "manually_mapped": true
       },
       {
         "method": "POST",

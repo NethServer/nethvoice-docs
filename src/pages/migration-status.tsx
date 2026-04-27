@@ -19,7 +19,7 @@ type ServerEndpoint = {
 type MiddlewareEndpoint = {
   method: string;
   path: string;
-  class: "native" | "compatibility" | "admin" | "websocket";
+  class: "native" | "deprecated";
   migrated_from?: string[];
   replaced_by?: string;
   manually_mapped?: boolean;
@@ -64,9 +64,7 @@ const STATUS_BADGE: Record<string, { label: string; color: string; bg: string }>
 
 const CLASS_BADGE: Record<string, { label: string; color: string; bg: string }> = {
   native: { label: "Native", color: "#fff", bg: "#28a745" },
-  compatibility: { label: "Deprecated", color: "#212529", bg: "#ffc107" },
-  admin: { label: "Admin", color: "#fff", bg: "#6c757d" },
-  websocket: { label: "WebSocket", color: "#fff", bg: "#17a2b8" },
+  deprecated: { label: "Deprecated", color: "#212529", bg: "#ffc107" },
 };
 
 // ─── Sub-components ──────────────────────────────────────────────────────────
@@ -330,7 +328,9 @@ export default function MigrationStatus(): ReactNode {
 
   const filteredMiddleware =
     data?.endpoints.middleware.filter(
-      (ep) => middlewareFilter === "ALL" || ep.class === middlewareFilter
+      (ep) =>
+        (ep.class === "native" || ep.class === "deprecated") &&
+        (middlewareFilter === "ALL" || ep.class === middlewareFilter)
     ) ?? [];
 
   return (
@@ -343,12 +343,18 @@ export default function MigrationStatus(): ReactNode {
         <Heading as="h1" style={{ marginBottom: 4 }}>
           API Migration Status
         </Heading>
-        <p style={{ color: "var(--ifm-color-emphasis-600)", marginBottom: 24 }}>
+        <p style={{ color: "var(--ifm-color-emphasis-600)", marginBottom: 16 }}>
           Migration progress from{" "}
           <code>nethcti-server</code> (legacy) to{" "}
           <code>nethcti-middleware</code> (new backend).
           Endpoints not yet natively implemented in the middleware are transparently
           proxied to the legacy server.
+        </p>
+        <p style={{ marginBottom: 24, fontSize: "0.9rem" }}>
+          📖{" "}
+          <a href="/docs/tutorial/api/cti">
+            Migration guide
+          </a>
         </p>
 
         {/* Error state */}
@@ -562,10 +568,10 @@ export default function MigrationStatus(): ReactNode {
               <>
                 {/* Class filter pills */}
                 <div style={{ display: "flex", gap: 8, marginBottom: 16, flexWrap: "wrap" }}>
-                  {["ALL", "native", "compatibility", "admin", "websocket"].map((f) => {
+                  {["ALL", "native", "deprecated"].map((f) => {
                     const count =
                       f === "ALL"
-                        ? data.endpoints.middleware.length
+                        ? data.endpoints.middleware.filter((e) => e.class === "native" || e.class === "deprecated").length
                         : data.endpoints.middleware.filter((e) => e.class === f).length;
                     return (
                       <button
@@ -603,9 +609,7 @@ export default function MigrationStatus(): ReactNode {
                   }}
                 >
                   <span><Badge {...CLASS_BADGE.native} /> Fully implemented in middleware</span>
-                  <span><Badge {...CLASS_BADGE.compatibility} /> Legacy path kept for backward compatibility</span>
-                  <span><Badge {...CLASS_BADGE.admin} /> Super-admin endpoint (no JWT)</span>
-                  <span><Badge {...CLASS_BADGE.websocket} /> WebSocket (not a REST endpoint)</span>
+                  <span><Badge {...CLASS_BADGE.deprecated} /> Legacy path kept for backward compatibility</span>
                 </div>
 
                 <EndpointTable
@@ -624,7 +628,7 @@ export default function MigrationStatus(): ReactNode {
                           }}>Manually mapped</span>
                         )}
                       </div>
-                      {ep.class !== "compatibility" && ep.migrated_from && ep.migrated_from.length > 0 && (
+                      {ep.class !== "deprecated" && ep.migrated_from && ep.migrated_from.length > 0 && (
                         <div style={{ fontSize: "0.78rem", color: "var(--ifm-color-emphasis-600)" }}>
                           Replaces:{" "}
                           {ep.migrated_from.map((p, i) => (
@@ -635,7 +639,7 @@ export default function MigrationStatus(): ReactNode {
                           ))}
                         </div>
                       )}
-                      {ep.class === "compatibility" && ep.replaced_by && (
+                      {ep.class === "deprecated" && ep.replaced_by && (
                         <div style={{ fontSize: "0.78rem", color: "var(--ifm-color-emphasis-600)" }}>
                           Replaced by: <code>{ep.replaced_by}</code>
                         </div>
