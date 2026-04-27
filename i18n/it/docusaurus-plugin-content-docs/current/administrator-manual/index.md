@@ -187,4 +187,4 @@ Nethesis offre una suite completa di soluzioni ICT modulari e indipendenti che r
 
 - **[NethSpot](https://www.nethesis.it/soluzioni/nethspot)** — Gestione hotspot WiFi pubblici. Migliora l'esperienza guest con proximity marketing, login social, gestione centralizzata del WiFi e controllo della banda.
 
-Tutte le soluzioni sono indipendenti dalla modalità di distribuzione: installabili su appliance certificate, macchine virtuali, cloud privati o hardware compatibile. Per maggiori informazioni visitate [www.nethesis.it](https://www.nethesis.it) o contattate [marketing@nethesis.it](mailto:marketing@nethesis.it).
+Tutte le soluzioni sono indipendenti dal tipo di distribuzione: installabili su appliance certificati, macchine virtuali, cloud privati o hardware compatibile. Per maggiori informazioni, visita [www.nethesis.it](https://www.nethesis.it) o contatta [info@nethesis.it](mailto:info@nethesis.it).
