@@ -8,6 +8,8 @@ This directory contains utility scripts for managing the NethVoice documentation
 
 The script fetches `nethcti-server` and `nethcti-middleware` from GitHub (shallow clone)
 and produces `static/migration-data.json`, read by the migration status dashboard page.
+The Docusaurus build runs this extractor automatically through a plugin, so manual
+invocation is only needed when refreshing the file outside a site build.
 
 Default usage — always fetches the production reference branches (`ns8` for
 `nethcti-server`, `main` for `nethcti-middleware`):
