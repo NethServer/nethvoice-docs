@@ -9,7 +9,10 @@ L'API CTI fornisce accesso programmatico alle funzionalità CTI (Computer Teleph
 I metodi legacy sono documentati per riferimento, ma è fortemente consigliato eseguire la migrazione ai nuovi metodi.
 Le nuove funzionalità e i miglioramenti sono disponibili solo nella nuova API.
 
-Le specifiche complete sono disponibili qui: [NethCTI Server full reference](https://documenter.getpostman.com/view/15699632/TzRRC88p#41f9b8cc-bea8-4917-a293-84eaedcaed08)
+La specifica completa dell'API è disponibile su:  
+- [NethCTI Server full reference](https://documenter.getpostman.com/view/15699632/TzRRC88p#41f9b8cc-bea8-4917-a293-84eaedcaed08)  
+- [NethCTI Middleware reference](https://bump.sh/nethesis/doc/nethcti-middleware/)  
+- consulta anche [API Migration Status dashboard](/migration-status) per una panoramica degli endpoint già migrati e di quelli ancora inoltrati al server legacy.
 
 ---
 
@@ -298,4 +301,3 @@ Per eseguire la migrazione dall'autenticazione legacy al nuovo metodo basato su 
 3. **Aggiornare il percorso WebSocket**: Cambiare da `/socket.io/` a `/api/ws/`
 4. **Adattare gli header**: Utilizzare `Authorization: Bearer <jwt-token>` invece di `Authorization: username:token`
 5. **Gestire la scadenza JWT**: Monitorare il campo `expire` del token e aggiornare secondo necessità
-

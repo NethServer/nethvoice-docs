@@ -6,6 +6,7 @@ title: Trunk VoIP supportati
 - `Active Network`
 - `Cheapnet`
 - `Clouditalia`
+- `Enegan`
 - `MessageNet`
 - `MyNet (cloud1b.voicer.it)`
 - `Neomedia`
