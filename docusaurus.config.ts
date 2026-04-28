@@ -31,6 +31,7 @@ const config: Config = {
 
   plugins: [
     './plugins/docusaurus-plugin-generate-trunks',
+    './plugins/docusaurus-plugin-generate-migration-status',
   ],
 
   scripts: [
