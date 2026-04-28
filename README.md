@@ -91,6 +91,8 @@ Version 1.22.22 is fine [(install instructions)](https://classic.yarnpkg.com/lan
 yarn install
 ```
 
+This installs all required dependencies, including Docusaurus and the faster build plugin.
+
 ### Local Development
 
 To open the English website locally for development, run:
