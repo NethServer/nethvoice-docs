@@ -30,7 +30,7 @@ The proxy isolates and mediates external signaling and media, along with the fir
 * **FQDN** → pointing to the public IP for the **NethVoice proxy**
 * **FQDN** → pointing to the public IP for **NethVoice**
 * **FQDN** → pointing to the public IP for **NethVoice CTI**
-* Dedicated **public IP** with required ports open refer to: [firewall configuration](.administrator-manual/configuration/firewall#port-summary)
+* Dedicated **public IP** with required ports open refer to: [firewall configuration](../administrator-manual/configuration/firewall#port-summary)
 * Valid SSL certificate for any FQDN (e.g., via Let’s Encrypt)
 
 
@@ -50,9 +50,9 @@ The On-Premise installation involves hosting NethServer and NethVoice on the com
 * **FQDN** → pointing to the public IP for the **NethVoice proxy**
 * **FQDN** → pointing to the public IP for **NethVoice**
 * **FQDN** → pointing to the public IP for **NethVoice CTI**
-* Dedicated **public IP** and port forwarding refer to  the [firewall configuration](.administrator-manual/configuration/firewall#port-summary)
+* Dedicated **public IP** and port forwarding refer to  the [firewall configuration](../administrator-manual/configuration/firewall#port-summary)
 * Valid SSL certificate for any FQDN (e.g., via Let’s Encrypt)
-* Split DNS (recommended) OR Public DNS only + **Hairpin NAT** properly configured refer to the [firewall configuration](.administrator-manual/configuration/firewall#hairpin-nat)
+* Split DNS (recommended) OR Public DNS only + **Hairpin NAT** properly configured refer to the [firewall configuration](../administrator-manual/configuration/firewall#hairpin-nat)
 
 ### Option 3: On-Premise Deployment without Public Access
 
