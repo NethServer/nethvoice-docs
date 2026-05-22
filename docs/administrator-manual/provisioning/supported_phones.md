@@ -32,6 +32,7 @@ For phones not listed as supported, it is possible to create custom provisioning
 - X7A/C
 - X301/P/G/W, X303/P/G/W
 - H2U, H2U-V2, H5
+- W610W, W611W, W620W
 
 ## Yealink {#yealink}
 
@@ -82,4 +83,3 @@ The following table summarizes the provisioning methods used by each manufacture
 
 
 For a complete list of provisioning parameters, see [Provisioning Parameters](provisioning_parameters).
-
