@@ -41,7 +41,7 @@ In altre azioni puoi:
 * **Registrare**: Avviare la registrazione della chiamata in corso (soggetto a specifico permesso)
 * **Abilitare il video**: Avviare una videochiamata con il chiamante interno (soggetto a specifico permesso)
 * **Condividere lo schermo**: Condividere lo schermo con un altro interno registrato su NethVoice (soggetto a specifico permesso)
-* **Aprire la trascrizione**: Accedere ai controlli della trascrizione live della chiamata in corso, quando abilitata dall'amministratore e consentita per il tuo utente
+* **Aprire la trascrizione**: Aprire il pannello di trascrizione live e iniziare a trascrivere la chiamata in corso, quando abilitata dall'amministratore e consentita per il tuo utente
 * **Cambiare dispositivo**: Cambiare dispositivo durante una chiamata attiva, utilizzando l’app o un telefono fisso
 
 Quando disponibili, trascrizione e riassunto post-chiamata si consultano in seguito dalla **Cronologia**, non direttamente dai controlli della chiamata attiva.

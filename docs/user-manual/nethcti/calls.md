@@ -41,7 +41,7 @@ In other actions, you can:
 - **Record**: Start recording the ongoing call (subject to specific permission).
 - **Enable video**: Start a video call with the caller (subject to specific permission).
 - **Share screen**: Share your screen with another extension registered on NethVoice (subject to specific permission).
-- **Open transcription**: Access live transcription controls for the current call, when enabled by the administrator and allowed for your user.
+- **Open transcription**: Open the live transcription panel and start transcribing the current call, when enabled by the administrator and allowed for your user.
 - **Switch device**: Change the device during an active call, using either the app or a desk phone.
 
 When available, post-call transcription and summary are accessed later from **History**, not directly from the active call controls.

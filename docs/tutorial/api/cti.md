@@ -118,27 +118,56 @@ websocat "wss://nethcti.example.com/api/ws/?EIO=4&transport=websocket"
 
 ## Call Insights APIs {#call-insights-apis}
 
-These endpoints are exposed by `nethcti-middleware` and require JWT auth (plus capabilities where configured).
+These endpoints are exposed by `nethcti-middleware` under `/api/...`. They require JWT authentication and the `nethvoice_cti.satellite_stt` capability. The authenticated user must also be a participant in the call, otherwise summary and transcript endpoints return `403`.
 
-### Transcripts and Summary endpoints
+Use the call `uniqueid` as the main identifier. When a History row also has a `linkedid`, pass it as `?linkedid=<linkedid>` to help the middleware resolve transferred, queue, and multi-leg calls to the correct transcript row.
 
-- `GET /api/transcripts/{uniqueid}`
-- `GET /api/summary/{uniqueid}`
-- `PUT /api/summary/{uniqueid}`
-- `DELETE /api/summary/{uniqueid}`
-- `GET /api/summary/statuses`
-- `POST /api/summary/watch`
+### Status lookup
 
-### Unique ID existence check
+Use `POST /api/summary/statuses` to check many calls at once:
 
-Use:
-- `HEAD /api/summary/{uniqueid}`
+```bash
+curl -X POST https://nethcti.example.com/api/summary/statuses \
+  -H "Authorization: Bearer <jwt-token>" \
+  -H "Content-Type: application/json" \
+  -d '{"lookups":[{"uniqueid":"1750153516.571","linkedid":"1750153516.570"}]}'
+```
 
-This endpoint returns only status code (no response body):
-- `200`: uniqueid exists
-- `404`: uniqueid not found
+You can also send `{"uniqueids":["1750153516.571"]}` when no linked ID is available. Each result can include:
 
-Do not use `GET /api/summary/check/{uniqueid}` in new integrations.
+- `state`: processing state such as `progress`, `summarizing`, `done`, or `failed`
+- `has_transcription`: `true` when a post-call transcription is available
+- `has_summary`: `true` when a summary is available
+- `error: "not_found"`: no matching transcript row was found for that lookup
+
+Show final content only when `state` is `done` and the related `has_*` flag is `true`.
+
+### Retrieve and update content
+
+- `GET /api/transcripts/{uniqueid}?linkedid={linkedid}`: get the post-call transcription.
+- `GET /api/summary/{uniqueid}?linkedid={linkedid}`: get the call summary and call metadata.
+- `PUT /api/summary/{uniqueid}?linkedid={linkedid}` with `{"summary":"..."}`: update the summary text.
+- `DELETE /api/summary/{uniqueid}?linkedid={linkedid}`: delete the stored summary/transcript row.
+
+### Summary readiness and notifications
+
+Use `HEAD /api/summary/{uniqueid}?linkedid={linkedid}` when you only need to know whether a summary is ready. The response has no body:
+
+- `200`: summary is ready
+- `204`: summary is not ready yet, or the transcript row has not appeared yet for the linked call
+- `404`: no matching call or summary can be found
+- `401`, `403`, `503`: authentication, authorization, or service availability failure
+
+To receive a WebSocket notification when a summary becomes ready, register a watch:
+
+```bash
+curl -X POST https://nethcti.example.com/api/summary/watch \
+  -H "Authorization: Bearer <jwt-token>" \
+  -H "Content-Type: application/json" \
+  -d '{"uniqueid":"1750153516.571","linkedid":"1750153516.570"}'
+```
+
+A successful new watch returns `202`. If a watch is already active or cannot be started, the endpoint returns `200` with a message. Ready notifications are delivered on the Socket.IO event `satellite/summary`.
 
 ---
 

@@ -63,7 +63,12 @@ Al momento le scorciatoie disponibili sono:
 - Mostra notifiche
 - Abilita integrazione barra delle applicazioni
 - Tema (modalità chiara/scura)
-- Notifiche del riassunto chiamata, quando la funzione è abilitata per l'utente
+
+### Impostazioni notifiche
+
+Quando il riassunto chiamata è abilitato per il tuo utente, NethLink mostra una finestra **Notifiche** nelle impostazioni. Da lì puoi abilitare o disabilitare le notifiche di sistema operativo per i riassunti chiamata pronti.
+
+Questa preferenza viene salvata sul tuo account NethVoice ed è condivisa con il web phone CTI.
 
 ### Impostazioni della privacy
 

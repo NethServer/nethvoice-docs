@@ -221,55 +221,60 @@ Gestione avanzata videocitofoni. Gestisci e controlla i tuoi videocitofoni (sogg
 
 Accedi alla [Reportistica Avanzata](https://docs.nethvoice.it/it/latest/pbxreport_manual.html) per il tuo centralino telefonico (soggetto a autorizzazioni specifiche).
 
-## Trascrizione Vocale {#voice-transcription}
+## Trascrizione vocale e riassunto chiamata {#voice-transcription}
 
-La trascrizione vocale converte l'audio della chiamata in testo durante la conversazione e, quando abilitata dall'amministratore, rende disponibili da Cronologia anche la trascrizione e il riassunto post-chiamata.
+NethVoice può fornire due funzionalità di chiamata assistite dall'AI:
+
+- **Trascrizione live**: testo generato mentre la chiamata è in corso e mostrato nella Phone Island.
+- **Contenuti post-chiamata**: trascrizione e, quando abilitato, riassunto generato dall'AI disponibili dopo la chiamata da **Cronologia > Chiamate**.
 
 ### Requisiti
 
-- La trascrizione delle chiamate deve essere abilitata e configurata in NethVoice dal tuo amministratore
-- Una chiave API di Deepgram valida deve essere configurata nel sistema telefonico
-- Il riassunto delle chiamate richiede anche una chiave API OpenAI valida e la relativa opzione di integrazione abilitata dall'amministratore
-- Devi avere i permessi necessari per utilizzare queste funzionalità
+- La trascrizione delle chiamate deve essere abilitata e configurata dall'amministratore.
+- Il sistema telefonico deve avere una configurazione Deepgram valida.
+- Il tuo profilo utente deve includere il permesso per le funzionalità di trascrizione e riassunto.
+- I riassunti delle chiamate richiedono anche una configurazione OpenAI e la funzionalità di riassunto abilitata per l'istanza.
+- I contenuti generati sono disponibili solo per chiamate supportate con audio utilizzabile. Chiamate molto brevi, silenziose, fallite o non supportate potrebbero non produrre trascrizione o riassunto.
+
+Il testo generato dall'AI può contenere errori. Verifica i contenuti importanti prima di copiarli, condividerli o salvarli.
 
 ### Trascrizione live durante la chiamata
 
 Durante una chiamata attiva:
 
 1. Apri le azioni laterali della Phone Island.
-2. Avvia la trascrizione dai controlli disponibili della chiamata, quando presenti.
-3. La trascrizione appare mentre la chiamata è in corso.
+2. Seleziona **Apri trascrizione** quando l'azione è disponibile.
+3. Il pannello di trascrizione live si apre e inizia a ricevere testo per la chiamata corrente.
 4. Il testo intermedio può cambiare fino alla conferma dei segmenti finali.
+5. Chiudi il pannello di trascrizione per interrompere la trascrizione live della chiamata.
 
-### Dopo la chiamata
+La trascrizione live riguarda solo la chiamata attiva. I contenuti delle chiamate concluse si consultano successivamente dalla Cronologia.
 
-Quando l'elaborazione è completata, la stessa chiamata può mostrare:
+### Trascrizione e riassunto post-chiamata
 
-- **Trascrizione**: trascrizione completa post-chiamata
-- **Riassunto**: riassunto della chiamata generato dall'AI
+Dopo la fine di una chiamata risposta e supportata, NethVoice elabora l'audio disponibile. L'elaborazione può richiedere tempo, in base alla durata della chiamata e alla disponibilità dei servizi.
 
-Puoi accedervi da **Cronologia > Chiamate**:
+Quando l'elaborazione è completa, la chiamata può mostrare:
 
-1. Apri il menu azioni della chiamata.
-2. Seleziona **Visualizza trascrizione** o **Visualizza riepilogo** quando disponibile.
-3. Consulta il contenuto generato nel pannello laterale.
+- **Trascrizione**: trascrizione completa post-chiamata, in sola lettura.
+- **Riassunto**: riassunto generato dall'AI. Il riassunto può essere modificato e salvato dal pannello laterale.
 
-Se il tuo profilo lo consente, puoi anche modificare il riassunto e salvare il testo aggiornato.
+Per consultare i contenuti generati:
 
-### Notifiche {#summary-notifications}
+1. Apri **Cronologia > Chiamate**.
+2. Usa il filtro contenuto quando necessario: **Riassunto**, **Trascrizione** o **Voicemail**.
+3. Apri il menu azioni della chiamata.
+4. Seleziona **Visualizza riepilogo** quando è disponibile un riassunto, oppure **Visualizza trascrizione** quando è disponibile solo la trascrizione.
 
-Quando il riassunto chiamata è abilitato per il tuo utente, CTI può avvisarti quando un riassunto è pronto.
+Quando è disponibile un riassunto, il pannello del riassunto permette anche di espandere e consultare la trascrizione completa.
 
-Da **Impostazioni > Notifiche** puoi:
+### Notifiche riassunto {#summary-notifications}
 
-- abilitare o disabilitare le notifiche del riassunto chiamata
-- mantenere la stessa preferenza tra web phone e app desktop
+Quando il riassunto chiamata è abilitato per il tuo utente, CTI può avvisarti quando un riassunto diventa pronto.
 
-Se le notifiche sono abilitate, cliccando la notifica di riassunto pronto si apre direttamente la chiamata corrispondente nella Cronologia.
+Da **Impostazioni > Notifiche** puoi abilitare o disabilitare le **Notifiche riepilogo chiamata**. La preferenza è condivisa tra web phone e NethLink.
 
-### Accesso alla Cronologia delle Trascrizioni
-
-La cronologia di trascrizioni e riassunti è disponibile da **Cronologia > Chiamate** quando la funzione è abilitata e il contenuto è stato generato.
+CTI mostra una notifica interna quando un riassunto è pronto. Se le notifiche del browser sono autorizzate e la pagina CTI non è in primo piano, CTI può mostrare anche una notifica di sistema. Aprendo la notifica o l'azione interna si apre il pannello del riassunto corrispondente.
 
 ## Impostazioni
 

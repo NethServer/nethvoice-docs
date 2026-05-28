@@ -65,7 +65,12 @@ Currently available shortcuts are:
 - Show notifications
 - Enable system tray integration
 - Theme (light/dark mode)
-- Call summary notifications, when the feature is enabled for the user
+
+### Notification Settings {#notification-settings}
+
+When call summary is enabled for your user, NethLink shows a **Notifications** settings dialog. From there you can enable or disable operating system notifications for ready call summaries.
+
+This preference is saved on your NethVoice account and is shared with the CTI web phone.
 
 ### Privacy Settings {#privacy-settings}
 

@@ -180,8 +180,8 @@ Ricevi notifiche di sistema native per:
 - Chiamate perse
 - Messaggi e avvisi
 
-L'app mobile al momento non espone una interfaccia dedicata per il riassunto chiamata o la trascrizione post-chiamata.
-Se trascrizione chiamate e riassunto chiamate sono abilitati dall'amministratore, l'audio delle chiamate supportate può comunque essere elaborato dalla piattaforma e il contenuto risultante può essere consultato successivamente da NethVoice CTI.
+L'app mobile al momento non espone un'interfaccia dedicata o un flusso di notifica per il riassunto chiamata o la trascrizione post-chiamata.
+Se trascrizione chiamate e riassunto chiamate sono abilitati per l'istanza, le chiamate supportate effettuate o ricevute dall'app mobile possono comunque essere elaborate dalla piattaforma. I contenuti generati si consultano successivamente da **NethVoice CTI > Cronologia > Chiamate**.
 
 ## Dispositivi correlati
 

@@ -221,55 +221,60 @@ Advanced video intercom management. Manage and control your video intercoms (sub
 
 Access [Advanced Reporting](https://docs.nethvoice.it/it/latest/pbxreport_manual.html) for your phone system (subject to specific permissions).
 
-## Voice Transcription {#voice-transcription}
+## Voice Transcription and Call Summary {#voice-transcription}
 
-Voice transcription converts call audio into text during the call and, when enabled by the administrator, makes post-call transcription and summary available from History.
+NethVoice can provide two related AI-assisted call features:
+
+- **Live transcription**: text generated while a call is in progress and shown in Phone Island.
+- **Post-call content**: transcription and, when enabled, an AI-generated summary available after the call from **History > Calls**.
 
 ### Requirements {#transcription-requirements}
 
-- Call transcription must be enabled and configured in NethVoice by your administrator
-- A valid Deepgram API key must be configured in the phone system
-- Call summary also requires a valid OpenAI API key and the related integration option enabled by the administrator
-- You must have the appropriate permissions to use these features
+- Call transcription must be enabled and configured by your administrator.
+- The phone system must have a valid Deepgram configuration.
+- Your user profile must include the permission for transcription and summary features.
+- Call summaries also require an OpenAI configuration and the call summary feature enabled for the instance.
+- Generated content is available only for supported calls with usable audio. Very short, silent, failed, or unsupported calls may not produce a transcript or summary.
 
-### Live Transcription During Calls {#live-transcription-during-calls}
+AI-generated text can contain mistakes. Review important content before copying, sharing, or saving it.
+
+### Live transcription during calls {#live-transcription-during-calls}
 
 During an active call:
 
 1. Open the Phone Island side actions.
-2. Start transcription from the available call controls, when shown.
-3. The transcription appears while the call is in progress.
-4. Interim text may change until the final segments are confirmed.
+2. Select **Open transcription** when the action is available.
+3. The live transcription panel opens and starts receiving text for the current call.
+4. Interim text may change until final segments are confirmed.
+5. Close the transcription panel to stop live transcription for that call.
 
-### After the Call {#after-the-call}
+Live transcription is for the active call only. Completed-call content is reviewed later from History.
 
-When processing is complete, the same call can expose:
+### Post-call transcription and summary {#after-the-call}
 
-- **Transcription**: full post-call transcript
-- **Summary**: AI-generated call summary
+After a supported answered call ends, NethVoice processes the available call audio. Processing can take some time, depending on call length and service availability.
 
-You can access them from **History > Calls**:
+When processing is complete, the call can expose:
 
-1. Open the call row actions.
-2. Select **View transcription** or **View summary** when available.
-3. Review the generated content in the side drawer.
+- **Transcription**: the full post-call transcript, shown read-only.
+- **Summary**: an AI-generated summary. The summary can be edited and saved from the drawer.
 
-If allowed by your profile, you can also edit the summary and save the updated text.
+To review generated content:
 
-### Notifications {#summary-notifications}
+1. Open **History > Calls**.
+2. Use the content filter when needed: **Summary**, **Transcription**, or **Voicemail**.
+3. Open the call actions menu.
+4. Select **View summary** when a summary is available, or **View transcription** when only the transcript is available.
 
-When call summary is enabled for your user, CTI can notify you when a summary is ready.
+When a summary is available, the summary drawer also lets you expand and review the full transcription.
 
-From **Settings > Notifications** you can:
+### Summary notifications {#summary-notifications}
 
-- enable or disable call summary notifications
-- keep the same preference across the web phone and desktop app
+When call summary is enabled for your user, CTI can notify you when a summary becomes ready.
 
-If notifications are enabled, clicking the summary-ready notification opens the related call directly in History.
+From **Settings > Notifications** you can enable or disable **Call summary notifications**. The preference is shared between the web phone and NethLink.
 
-### Accessing Transcription History
-
-Transcription and summary history are available from **History > Calls** when the feature is enabled and content has been generated.
+CTI shows an in-app notification when a summary is ready. If browser notifications are allowed and the CTI page is not focused, CTI can also show a system notification. Opening the notification or the in-app action opens the related summary drawer.
 
 ## Settings {#settings}
 
