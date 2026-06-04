@@ -5,11 +5,9 @@ sidebar_position: 2
 
 # CTI APIs quickstart
 
-The CTI API provides programmatic access to NethVoice CTI (Computer Telephony Integration) features. This guide covers authentication, WebSocket connection, two-factor authentication, and call-insights endpoints.
-
-NethVoice currently runs with both layers:
-- `nethcti-middleware` exposes `/api/...` endpoints (JWT-based, current integration layer)
-- `nethcti-server` exposes `/webrest/...` endpoints (still active and supported for compatibility)
+The CTI API provides programmatic access to the NethVoice CTI (Computer Telephony Integration) features. This guide covers authentication, WebSocket connection, and two-factor authentication.
+Legacy methods are also documented for reference, but migrating to the new methods is strongly recommended.
+New features and improvements are only available in the new API.
 
 Full API specification is available at:
 - [NethCTI Server full reference](https://documenter.getpostman.com/view/15699632/TzRRC88p#41f9b8cc-bea8-4917-a293-84eaedcaed08)
@@ -20,7 +18,7 @@ Full API specification is available at:
 
 ## Authentication {#authentication}
 
-The middleware authentication method uses JWT (JSON Web Tokens) for secure API access.
+The new authentication method uses JWT (JSON Web Tokens) for secure API access.
 
 ### Login {#login}
 
@@ -241,12 +239,16 @@ curl https://nethcti.example.com/api/user/me \
 
 ---
 
-## Compatibility APIs (`/webrest/...`) {#compatibility-apis-webrest}
+## Legacy Method (Deprecated) {#legacy-method-deprecated}
 
-`nethcti-server` APIs are still available and can coexist with middleware APIs.
-Use these endpoints when integrating with flows that are still tied to `/webrest/...` behavior.
+:::warning Deprecation Notice
+The legacy authentication method using HMAC-SHA1 tokens will no longer be available after **June 1, 2026**. 
+Please migrate to the new JWT-based authentication method as soon as possible.
+:::
 
-### Login with challenge/response
+### Legacy Login {#legacy-login}
+
+The legacy method required a challenge-response process with HMAC-SHA1:
 
 **Endpoint:** `POST /webrest/authentication/login`
 
@@ -269,7 +271,7 @@ curl https://nethcti.example.com/webrest/user/me \
   -H "Authorization: user:calculated_token_here"
 ```
 
-### `/webrest` token usage
+### Legacy Token Usage {#legacy-token-usage}
 
 Include the token in the `Authorization` header for authenticated requests:
 
@@ -278,7 +280,7 @@ curl https://nethcti.example.com/webrest/user/me \
   -H "Authorization: username:abc123def456..."
 ```
 
-### `/webrest` WebSocket
+### Legacy WebSocket {#legacy-websocket}
 
 **Endpoint:** `/socket.io/`
 
@@ -290,14 +292,14 @@ const socket = io('https://nethcti.example.com', {
 
 ---
 
-## Adoption Guide: `/webrest` to `/api` {#adoption-guide-webrest-to-api}
+## Migration Guide: Legacy to New Method {#migration-guide-legacy-to-new-method}
 
 For a full overview of which endpoints have already been migrated and which are still proxied to the legacy server, see the [API Migration Status dashboard](/migration-status).
 
-To progressively adopt middleware JWT APIs:
+To migrate from the legacy authentication to the new JWT-based method:
 
-1. Start new integrations on `/api/login` and `Authorization: Bearer <jwt-token>`
-2. Keep existing `/webrest/...` consumers working while migrating module by module
-3. Move WebSocket consumers from `/socket.io/` to `/api/ws/` when possible
-4. Use middleware-only endpoints (for example summary/transcripts) on `/api/...`
-5. Keep compatibility tests for both paths during transition
+1. **Replace login endpoint**: Change from `/webrest/authentication/login` to `/api/login`
+2. **Update token format**: Replace `username:token_hex` with `Bearer <jwt-token>`
+3. **Update WebSocket path**: Change from `/socket.io/` to `/api/ws/`
+4. **Adapt headers**: Use `Authorization: Bearer <jwt-token>` instead of `Authorization: username:token`
+5. **Handle JWT expiration**: Monitor token `expire` field and refresh as needed
