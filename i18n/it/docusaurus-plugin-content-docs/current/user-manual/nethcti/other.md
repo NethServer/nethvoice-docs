@@ -234,9 +234,24 @@ NethVoice può fornire due funzionalità di chiamata assistite dall'AI:
 - Il sistema telefonico deve avere una configurazione Deepgram valida.
 - Il tuo profilo utente deve includere il permesso per le funzionalità di trascrizione e riassunto.
 - I riassunti delle chiamate richiedono anche una configurazione OpenAI e la funzionalità di riassunto abilitata per l'istanza.
-- I contenuti generati sono disponibili solo per chiamate supportate con audio utilizzabile. Chiamate molto brevi, silenziose, fallite o non supportate potrebbero non produrre trascrizione o riassunto.
+- I contenuti generati sono disponibili solo per chiamate supportate con audio utilizzabile (vedi [Chiamate supportate e limitazioni](#supported-calls)). Chiamate molto brevi, silenziose, fallite o non supportate potrebbero non produrre trascrizione o riassunto.
 
 Il testo generato dall'AI può contenere errori. Verifica i contenuti importanti prima di copiarli, condividerli o salvarli.
+
+### Chiamate supportate e limitazioni {#supported-calls}
+
+Trascrizione e riassunto sono prodotti per le normali conversazioni vocali a due partecipanti che hanno avuto risposta e con audio utilizzabile, tra cui:
+
+- **Chiamate esterne entranti e uscenti** tra un interno e un numero esterno.
+- **Chiamate interne** tra due interni.
+- **Chiamate da coda** con risposta di un operatore.
+- **Chiamate trasferite**, sia cieche sia con consultazione. In un trasferimento con consultazione ogni conversazione reale viene elaborata e salvata separatamente — la chiamata originale, la consultazione tra i due operatori e la conversazione che prosegue dopo il trasferimento.
+
+Non vengono **trascritte né riassunte**:
+
+- **Conferenze a più partecipanti**: mentre tre o più persone condividono la stessa conversazione, quella parte della chiamata non viene trascritta né riassunta. È un limite tecnico dell'elaborazione a due partecipanti, non una restrizione imposta: i segmenti a due partecipanti della stessa chiamata (ad esempio prima o dopo la conferenza) vengono comunque elaborati normalmente.
+- **Chiamate senza risposta, molto brevi, silenziose o fallite**, che non contengono una conversazione utilizzabile.
+- Le chiamate gestite mentre la funzionalità, i servizi richiesti (Deepgram per la trascrizione, OpenAI per i riassunti) o il permesso del tuo utente non sono attivi.
 
 ### Trascrizione live durante la chiamata
 
