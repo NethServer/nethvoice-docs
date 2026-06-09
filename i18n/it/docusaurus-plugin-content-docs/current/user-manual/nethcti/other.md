@@ -230,28 +230,18 @@ NethVoice può fornire due funzionalità di chiamata assistite dall'AI:
 
 ### Requisiti
 
-- La trascrizione delle chiamate deve essere abilitata e configurata dall'amministratore.
-- Il sistema telefonico deve avere una configurazione Deepgram valida.
-- Il tuo profilo utente deve includere il permesso per le funzionalità di trascrizione e riassunto.
-- I riassunti delle chiamate richiedono anche una configurazione OpenAI e la funzionalità di riassunto abilitata per l'istanza.
-- I contenuti generati sono disponibili solo per chiamate supportate con audio utilizzabile (vedi [Chiamate supportate e limitazioni](#supported-calls)). Chiamate molto brevi, silenziose, fallite o non supportate potrebbero non produrre trascrizione o riassunto.
+Servono due cose distinte: un permesso per-utente per **vedere** i contenuti e le funzioni **abilitate sul sistema** da un amministratore.
+
+- **Permesso di visualizzazione (per utente)**: il tuo profilo utente deve includere il permesso **Speech-To-Text**. Ti consente di aprire la trascrizione live durante una chiamata e di vedere trascrizioni e riassunti post-chiamata dalla Cronologia. Senza, i controlli di trascrizione e riassunto non sono disponibili, anche se la funzione è abilitata sul sistema.
+- **Abilitazione di trascrizione e riassunti (amministratore, pagina Integrazioni di NethVoice)**: un amministratore attiva le funzioni dalla pagina **Integrazioni** di NethVoice. La trascrizione delle chiamate richiede una chiave API Deepgram valida; i riassunti generati dall'AI richiedono inoltre una chiave API OpenAI con l'opzione di riassunto chiamata abilitata.
+
+I contenuti generati sono disponibili solo per chiamate con audio utilizzabile: chiamate molto brevi, silenziose o fallite potrebbero non produrre trascrizione o riassunto.
 
 Il testo generato dall'AI può contenere errori. Verifica i contenuti importanti prima di copiarli, condividerli o salvarli.
 
 ### Chiamate supportate e limitazioni {#supported-calls}
 
-Trascrizione e riassunto sono prodotti per le normali conversazioni vocali a due partecipanti che hanno avuto risposta e con audio utilizzabile, tra cui:
-
-- **Chiamate esterne entranti e uscenti** tra un interno e un numero esterno.
-- **Chiamate interne** tra due interni.
-- **Chiamate da coda** con risposta di un operatore.
-- **Chiamate trasferite**, sia cieche sia con consultazione. In un trasferimento con consultazione ogni conversazione reale viene elaborata e salvata separatamente — la chiamata originale, la consultazione tra i due operatori e la conversazione che prosegue dopo il trasferimento.
-
-Non vengono **trascritte né riassunte**:
-
-- **Conferenze a più partecipanti**: mentre tre o più persone condividono la stessa conversazione, quella parte della chiamata non viene trascritta né riassunta. È un limite tecnico dell'elaborazione a due partecipanti, non una restrizione imposta: i segmenti a due partecipanti della stessa chiamata (ad esempio prima o dopo la conferenza) vengono comunque elaborati normalmente.
-- **Chiamate senza risposta, molto brevi, silenziose o fallite**, che non contengono una conversazione utilizzabile.
-- Le chiamate gestite mentre la funzionalità, i servizi richiesti (Deepgram per la trascrizione, OpenAI per i riassunti) o il permesso del tuo utente non sono attivi.
+Tutte le chiamate sono supportate per trascrizione e riassunto; l'unica eccezione sono le **conferenze a più partecipanti**. Mentre tre o più persone condividono la stessa conversazione, quella parte della chiamata non viene trascritta né riassunta — è un limite tecnico dell'elaborazione a due partecipanti, non una restrizione imposta. I segmenti a due partecipanti della stessa chiamata (ad esempio prima o dopo la conferenza) vengono comunque elaborati normalmente.
 
 ### Trascrizione live durante la chiamata
 
@@ -279,7 +269,7 @@ Per consultare i contenuti generati:
 1. Apri **Cronologia > Chiamate**.
 2. Usa il filtro contenuto quando necessario: **Riassunto**, **Trascrizione** o **Voicemail**.
 3. Apri il menu azioni della chiamata.
-4. Seleziona **Visualizza riepilogo** quando è disponibile un riassunto, oppure **Visualizza trascrizione** quando è disponibile solo la trascrizione.
+4. Seleziona **Visualizza riassunto** quando è disponibile un riassunto, oppure **Visualizza trascrizione** quando è disponibile solo la trascrizione.
 
 Quando è disponibile un riassunto, il pannello del riassunto permette anche di espandere e consultare la trascrizione completa.
 
@@ -287,7 +277,7 @@ Quando è disponibile un riassunto, il pannello del riassunto permette anche di 
 
 Quando il riassunto chiamata è abilitato per il tuo utente, CTI può avvisarti quando un riassunto diventa pronto.
 
-Da **Impostazioni > Notifiche** puoi abilitare o disabilitare le **Notifiche riepilogo chiamata**. La preferenza è condivisa tra web phone e NethLink.
+Da **Impostazioni > Notifiche** puoi abilitare o disabilitare le **Notifiche riassunto chiamata**. La preferenza è condivisa tra web phone e NethLink.
 
 CTI mostra una notifica interna quando un riassunto è pronto. Se le notifiche del browser sono autorizzate e la pagina CTI non è in primo piano, CTI può mostrare anche una notifica di sistema. Aprendo la notifica o l'azione interna si apre il pannello del riassunto corrispondente.
 

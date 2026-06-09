@@ -230,28 +230,18 @@ NethVoice can provide two related AI-assisted call features:
 
 ### Requirements {#transcription-requirements}
 
-- Call transcription must be enabled and configured by your administrator.
-- The phone system must have a valid Deepgram configuration.
-- Your user profile must include the permission for transcription and summary features.
-- Call summaries also require an OpenAI configuration and the call summary feature enabled for the instance.
-- Generated content is available only for supported calls with usable audio (see [Supported calls and limitations](#supported-calls)). Very short, silent, failed, or unsupported calls may not produce a transcript or summary.
+Two separate things are required: a per-user permission to **view** the content, and the features **enabled on the system** by an administrator.
+
+- **Permission to view (per user)**: your user profile must include the **Speech-To-Text** permission. It lets you open live transcription during a call and view post-call transcriptions and summaries from History. Without it the transcription and summary controls are not available, even when the feature is enabled on the system.
+- **Enabling transcription and summaries (administrator, NethVoice Integrations page)**: an administrator turns the features on from the NethVoice **Integrations** page. Call transcription requires a valid Deepgram API key; AI-generated summaries additionally require an OpenAI API key with the call summary option enabled.
+
+Generated content is available only for calls with usable audio: very short, silent, or failed calls may not produce a transcript or summary.
 
 AI-generated text can contain mistakes. Review important content before copying, sharing, or saving it.
 
 ### Supported calls and limitations {#supported-calls}
 
-Transcription and summary are produced for standard two-party voice conversations that are answered and carry usable audio, including:
-
-- **Inbound and outbound external calls** between an extension and an outside number.
-- **Internal calls** between two extensions.
-- **Queue calls** answered by an agent.
-- **Transferred calls**, both blind and attended. In an attended transfer each real conversation is processed and stored separately — the original call, the consultation between the two operators, and the conversation that continues after the transfer.
-
-The following are **not** transcribed or summarized:
-
-- **Multi-party conferences**: while three or more participants share the same conversation, that part of the call is not transcribed or summarized. This is a technical limitation of the two-party processing, not an enforced restriction — any two-party segments of the same call (for example before or after the conference) are still processed normally.
-- **Unanswered, very short, silent, or failed calls**, which contain no usable conversation.
-- Calls handled while the feature, the required services (Deepgram for transcription, OpenAI for summaries), or your user permission are not active.
+All calls are supported for transcription and summary; the only exception is **multi-party conferences**. While three or more participants share the same conversation, that part of the call is not transcribed or summarized — this is a technical limitation of the two-party processing, not an enforced restriction. The two-party segments of the same call (for example before or after the conference) are still processed normally.
 
 ### Live transcription during calls {#live-transcription-during-calls}
 
