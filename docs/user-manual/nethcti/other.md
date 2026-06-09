@@ -243,6 +243,10 @@ AI-generated text can contain mistakes. Review important content before copying,
 
 All calls are supported for transcription and summary; the only exception is **multi-party conferences**, which are not transcribed or summarized.
 
+:::warning Transferred calls are in beta
+Transcription and summary for **transferred calls** are still in beta and may not always work reliably. Your privacy is always preserved: you only see the transcriptions and summaries of conversations you took part in, never those of other users.
+:::
+
 ### Live transcription during calls {#live-transcription-during-calls}
 
 During an active call:

@@ -243,6 +243,10 @@ Il testo generato dall'AI può contenere errori. Verifica i contenuti importanti
 
 Tutte le chiamate sono supportate per trascrizione e riassunto; l'unica eccezione sono le **conferenze a più partecipanti**, che non vengono trascritte né riassunte.
 
+:::warning I trasferimenti sono in beta
+La trascrizione e il riassunto delle **chiamate trasferite** sono ancora in fase beta e potrebbero non funzionare sempre in modo affidabile. La tua privacy è sempre garantita: vedi solo le trascrizioni e i riassunti delle conversazioni a cui hai partecipato, mai quelle di altri utenti.
+:::
+
 ### Trascrizione live durante la chiamata
 
 Durante una chiamata attiva:
