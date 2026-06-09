@@ -241,7 +241,7 @@ Il testo generato dall'AI può contenere errori. Verifica i contenuti importanti
 
 ### Chiamate supportate e limitazioni {#supported-calls}
 
-Tutte le chiamate sono supportate per trascrizione e riassunto; l'unica eccezione sono le **conferenze a più partecipanti**. Mentre tre o più persone condividono la stessa conversazione, quella parte della chiamata non viene trascritta né riassunta — è un limite tecnico dell'elaborazione a due partecipanti, non una restrizione imposta. I segmenti a due partecipanti della stessa chiamata (ad esempio prima o dopo la conferenza) vengono comunque elaborati normalmente.
+Tutte le chiamate sono supportate per trascrizione e riassunto; l'unica eccezione sono le **conferenze a più partecipanti**, che non vengono trascritte né riassunte.
 
 ### Trascrizione live durante la chiamata
 

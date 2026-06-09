@@ -241,7 +241,7 @@ AI-generated text can contain mistakes. Review important content before copying,
 
 ### Supported calls and limitations {#supported-calls}
 
-All calls are supported for transcription and summary; the only exception is **multi-party conferences**. While three or more participants share the same conversation, that part of the call is not transcribed or summarized — this is a technical limitation of the two-party processing, not an enforced restriction. The two-party segments of the same call (for example before or after the conference) are still processed normally.
+All calls are supported for transcription and summary; the only exception is **multi-party conferences**, which are not transcribed or summarized.
 
 ### Live transcription during calls {#live-transcription-during-calls}
 
