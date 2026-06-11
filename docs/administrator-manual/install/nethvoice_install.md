@@ -160,13 +160,16 @@ On the **Settings** page you can review and change most of the configuration par
 - **Reports prefix**: telephone prefix number used in reports
 - **New admin password for NethVoice**: define a new password for the `admin` user
 
-On the **Integrations** page you can configure call and voicemail transcription:
-- **Deepgram API Key**: Enter your Deepgram API key to enable advanced speech recognition features and voice transcription.
-- **Call transcription**: Enable this option to allow users to transcribe calls in real-time using Deepgram's speech-to-text service. This feature incurs additional costs based on your Deepgram usage.
-- **Voicemail transcription**: Enable voicemail transcription to convert voicemail messages to text using Deepgram. This feature also incurs additional costs based on your Deepgram usage.
+On the **Integrations** page you can configure speech-to-text and AI services:
+- **Deepgram API Key**: required to enable call and voicemail transcription.
+- **Call transcription (Preview)**: enables transcription for calls handled by NethVoice. Users with the required profile permission can open live transcription during a call, and supported completed calls can expose post-call transcription data in CTI History. This feature may consume Deepgram credits quickly on systems with many calls.
+- **Voicemail transcription**: converts voicemail audio to text with Deepgram and includes the transcription in voicemail messages when the voicemail flow provides an audio attachment.
+- **OpenAI API Key**: required to enable AI-generated call summaries. When an OpenAI API Key is configured, users with the required profile permission can review generated summaries from CTI History and configure summary-ready notifications.
 
-:::info Voice Transcription
-For detailed information on how users can access and use voice transcription features, see [Voice Transcription](../../user-manual/nethcti/other.md#voice-transcription) in the User Manual.
+AI-generated call summaries use the post-call transcription data and require both a working Deepgram configuration and a configured OpenAI API Key.
+
+:::info Transcription and summaries
+For user-facing details about live transcription, post-call transcription, summaries, notifications, and History integration, see [Voice Transcription and Call Summary](../../user-manual/nethcti/other.md#voice-transcription) in the User Manual.
 :::
 
 On the **Rebranding** page you can customize the NethVoice user interface with the brand identity of your company. To enable this feature, you have to contact Nethesis sales team and have an active Enterprise subscription.

@@ -55,6 +55,13 @@ NethLink utilizza il sistema di notifiche del sistema operativo per:
 - Mostrare lo stato delle chiamate
 - Confermare azioni riuscite
 
+Quando il riassunto chiamata è abilitato per il tuo utente, NethLink può anche mostrare una notifica di sistema operativo quando un riassunto è pronto.
+
+- Puoi abilitare o disabilitare questo comportamento dalle impostazioni notifiche di NethLink.
+- Cliccando la notifica si apre nel browser la Cronologia di NethVoice CTI sulla chiamata corrispondente.
+- NethLink non fornisce un visualizzatore dedicato per il riassunto: riassunti e trascrizioni post-chiamata si consultano in CTI.
+- Se le notifiche sono disabilitate, i contenuti generati restano disponibili successivamente dalla Cronologia CTI.
+
 ## Funzioni avanzate
 
 ### Scorciatoie da tastiera

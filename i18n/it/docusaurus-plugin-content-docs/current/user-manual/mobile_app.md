@@ -180,6 +180,9 @@ Ricevi notifiche di sistema native per:
 - Chiamate perse
 - Messaggi e avvisi
 
+L'app mobile al momento non espone un'interfaccia dedicata o un flusso di notifica per il riassunto chiamata o la trascrizione post-chiamata.
+Se trascrizione chiamate e riassunto chiamate sono abilitati per l'istanza, le chiamate supportate effettuate o ricevute dall'app mobile possono comunque essere elaborate dalla piattaforma. I contenuti generati si consultano successivamente da **NethVoice CTI > Cronologia > Chiamate**.
+
 ## Dispositivi correlati
 
 L'app mobile NethVoice è uno dei vari modi per utilizzare il tuo telefono aziendale. Gli altri tipi di dispositivo disponibili includono:
@@ -201,4 +204,3 @@ Se riscontri problemi con l'app mobile:
 - **Contatta il tuo amministratore** — Per problemi relativi al provisioning o all'account
 
 Per ulteriore aiuto, contatta il tuo amministratore NethVoice o rivolgiti al tuo provider di servizi.
-

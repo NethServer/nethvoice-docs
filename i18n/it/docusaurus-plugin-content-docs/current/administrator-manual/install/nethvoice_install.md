@@ -158,13 +158,16 @@ Nella pagina **Impostazioni** puoi rivedere e modificare la maggior parte dei pa
 - **Prefisso dei report**: prefisso telefonico utilizzato nei report.  
 - **Nuova password amministratore per NethVoice**: definisci una nuova password per l'utente `admin`.  
 
-Nella pagina **Integrazioni** puoi configurare la trascrizione di chiamate e messaggi vocali:  
-- **API Key Deepgram**: Inserisci la tua chiave API Deepgram per abilitare funzionalità avanzate di riconoscimento vocale e trascrizione.  
-- **Trascrizione delle chiamate**: Abilita questa opzione per consentire agli utenti di trascrivere le chiamate in tempo reale utilizzando il servizio di conversione vocale in testo di Deepgram. Questa funzionalità comporta costi aggiuntivi in base all'utilizzo di Deepgram.  
-- **Trascrizione dei messaggi vocali**: Abilita la trascrizione dei messaggi vocali per convertirli in testo utilizzando Deepgram. Anche questa funzionalità comporta costi aggiuntivi in base all'utilizzo di Deepgram.  
+Nella pagina **Integrazioni** puoi configurare i servizi speech-to-text e AI:
+- **API Key Deepgram**: necessaria per abilitare la trascrizione delle chiamate e dei messaggi vocali.
+- **Trascrizione delle chiamate (Preview)**: abilita la trascrizione delle chiamate gestite da NethVoice. Gli utenti con il permesso di profilo richiesto possono aprire la trascrizione live durante una chiamata, e le chiamate completate supportate possono mostrare i dati di trascrizione post-chiamata nella Cronologia CTI. Questa funzionalità può consumare rapidamente crediti Deepgram sui sistemi con molte chiamate.
+- **Trascrizione dei messaggi vocali**: converte l'audio dei messaggi vocali in testo con Deepgram e include la trascrizione nei messaggi vocali quando il flusso voicemail fornisce un allegato audio.
+- **API Key OpenAI**: necessaria per abilitare i riassunti delle chiamate generati dall'AI. Quando una API Key OpenAI è configurata, gli utenti con il permesso di profilo richiesto possono consultare i riassunti generati dalla Cronologia CTI e configurare le notifiche di riassunto pronto.
 
-:::info Trascrizione vocale  
-Per informazioni dettagliate su come gli utenti possono accedere e utilizzare le funzionalità di trascrizione vocale, consulta [Trascrizione vocale](../../user-manual/nethcti/other.md#voice-transcription) nel Manuale Utente.  
+I riassunti delle chiamate generati dall'AI usano i dati della trascrizione post-chiamata e richiedono sia una configurazione Deepgram funzionante che una API Key OpenAI configurata.
+
+:::info Trascrizioni e riassunti  
+Per informazioni utente su trascrizione live, trascrizione post-chiamata, riassunti, notifiche e integrazione con la Cronologia, consulta [Trascrizione vocale e Riassunto chiamata](../../user-manual/nethcti/other.md#voice-transcription) nel Manuale Utente.  
 :::
 
 Nella pagina **Rebranding** puoi personalizzare l'interfaccia utente di NethVoice con l'identità del marchio della tua azienda. Per abilitare questa funzionalità, devi contattare il team commerciale di Nethesis e avere un abbonamento Enterprise attivo.  

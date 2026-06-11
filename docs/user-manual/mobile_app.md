@@ -189,6 +189,9 @@ Receive native system notifications for:
 - Missed calls
 - Messages and alerts
 
+The mobile app does not currently expose a dedicated interface or summary-ready notification flow for call summaries or post-call transcriptions.
+If call transcription and call summary are enabled for the instance, supported calls placed or received from the mobile app can still be processed by the platform. Generated content is reviewed later from **NethVoice CTI > History > Calls**.
+
 ## Support & Troubleshooting
 
 If you experience issues with the mobile app:
@@ -199,4 +202,3 @@ If you experience issues with the mobile app:
 - **Contact your administrator** — For provisioning or account-related issues
 
 For additional help, contact your NethVoice administrator or reach out to your service provider.
-
