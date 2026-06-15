@@ -111,9 +111,9 @@ Search for contacts quickly and efficiently.
 
 What you can do in the address book depends on your profile permissions:
 
-- Some users can only search and view contacts.
-- Some users can create and manage only their own private contacts.
-- Users with advanced permissions can also create and manage public contacts and contacts shared with allowed groups.
+- Users with `Access phonebook` can search and view contacts, but cannot create or change CTI contacts.
+- Users with `Manage private contacts` can create and manage only their own private CTI contacts.
+- Users with `Manage private and shared contacts` can also create and manage public CTI contacts and contacts shared with their available groups.
 - Contacts imported from centralized phonebook sources are always available in read-only mode.
 
 ### Creating Contacts {#creating-contacts}
@@ -122,7 +122,7 @@ Add new contacts using the "Create Contact" function (subject to specific permis
 
 ![Create Contact](/img/nethcti/crea_contatto.png)
 
-When your profile allows contact sharing, you can choose the visibility of a CTI contact. Depending on the permissions assigned by the administrator, you may be limited to private contacts only, or you may also be allowed to create public contacts and contacts shared with your available groups. If the group-sharing option is not visible, your profile does not allow it or no eligible operator groups are available to your user.
+When your profile allows contact sharing, you can choose the visibility of a CTI contact. Depending on the permissions assigned by the administrator, you may be limited to private contacts only, or you may also be allowed to create public contacts and contacts shared with your available groups. If the group-sharing option is not visible, your profile does not include `Manage private and shared contacts` or no groups are available to your user.
 
 You can add:
 - Contact name

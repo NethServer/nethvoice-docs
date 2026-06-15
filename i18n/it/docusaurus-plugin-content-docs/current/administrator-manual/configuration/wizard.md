@@ -281,8 +281,13 @@ Tutti i percorsi in uscita configurati in NethVoice vengono visualizzati e puoi 
 
 ##### Rubrica
 
-- `Rubrica`: L'autorizzazione generale abilita la visualizzazione della rubrica in NethVoice CTI e la possibilità di aggiungere, modificare ed eliminare i propri contatti.
-- `Rubrica avanzata`: Abilita la possibilità di modificare/eliminare contatti non posseduti nella rubrica in NethVoice CTI.
+- `Rubrica`: abilita l'accesso alla rubrica in NethVoice CTI. Se questa autorizzazione è disabilitata, l'utente non può cercare o aprire contatti CTI o contatti provenienti da fonti centralizzate.
+- `Access phonebook`: consente di cercare e visualizzare i contatti, inclusi quelli importati dalle fonti centralizzate, ma non consente di creare, modificare, eliminare o condividere contatti CTI.
+- `Manage private contacts`: consente di creare, modificare ed eliminare solo i contatti CTI privati dell'utente.
+- `Manage private and shared contacts`: consente di creare, modificare ed eliminare contatti CTI con visibilità privata, pubblica o di gruppo. Consente anche di gestire contatti CTI non appartenenti all'utente.
+- La condivisione per gruppi è disponibile solo con `Manage private and shared contacts`. I gruppi selezionabili sono quelli abilitati nei permessi del Pannello di presenza, più i gruppi operatori a cui appartiene l'utente. Se il permesso `all_groups` del Pannello di presenza è abilitato, sono disponibili tutti i gruppi operatori.
+- I contatti importati tramite Fonti della rubrica restano in sola lettura in NethVoice CTI, indipendentemente dal livello di permesso rubrica selezionato.
+- Per compatibilità con i profili esistenti, il permesso legacy `ad_phonebook` viene trattato come livello massimo, equivalente a `Manage private and shared contacts`.
 
 ##### CDR
 

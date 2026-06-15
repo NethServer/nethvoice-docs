@@ -7,6 +7,16 @@ sidebar_position: 2
 
 La rubrica di NethVoice è una directory centralizzata che archivia e gestisce le informazioni di contatto per utenti e organizzazioni. Consente la risoluzione del nome e del numero senza interruzioni per le chiamate in arrivo e in uscita, garantendo che i dettagli del chiamante siano sempre disponibili in NethVoice CTI e NethVoice App. La rubrica può aggregare i contatti da varie fonti, inclusi database esterni e file CSV, fornendo una rubrica unificata e facilmente accessibile per tutti gli utenti.
 
+#### Come le fonti della rubrica interagiscono con i permessi CTI
+
+I contatti importati dalle Fonti della rubrica vengono aggiunti alla rubrica centralizzata e sono disponibili per la ricerca e la risoluzione dei nomi in NethVoice CTI e NethVoice App.
+
+- Gli utenti con accesso alla rubrica possono cercare e visualizzare questi contatti importati.
+- I contatti importati restano in sola lettura in NethVoice CTI, anche quando l'utente ha permessi avanzati sulla rubrica.
+- Le azioni di creazione, modifica, eliminazione e condivisione in NethVoice CTI si applicano solo ai contatti CTI creati dagli utenti.
+- I livelli di permesso rubrica configurati nei profili utente controllano cosa gli utenti possono fare con i contatti CTI, non con i record importati da fonti esterne. Per i dettagli sui profili, vedi [Permessi rubrica](../wizard.md#rubrica).
+- La condivisione per gruppi si applica solo ai contatti CTI ed è disponibile solo con `Manage private and shared contacts`. I gruppi selezionabili derivano dai permessi gruppo del Pannello di presenza e dall'appartenenza dell'utente ai gruppi; se il permesso `all_groups` del Pannello di presenza è abilitato, sono disponibili tutti i gruppi operatori.
+
 #### Aggiunta di rubriche esterne
 
 Dal menu `Applicazioni -> Fonti della rubrica`, puoi definire un'origine esterna per i contatti che NethVoice dovrebbe utilizzare per risolvere le chiamate in arrivo e in uscita.
