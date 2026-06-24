@@ -45,4 +45,3 @@ For each step, refer to the linked documentation for comprehensive, step-by-step
 * [Export phonebook as CSV from NethVoice](./export-phonebook-csv.md)
 * [Prune old Voicemail Messages](./voicemail-prune.md)
 * [Prune old Call Recordings](./recording-prune.md)
-* [vtenext CRM integration](./vtenext-integration.md)

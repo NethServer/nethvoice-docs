@@ -1,4 +1,4 @@
-# vtenext CRM Integration
+# vtenext CRM
 
 ## Guide Objective
 
