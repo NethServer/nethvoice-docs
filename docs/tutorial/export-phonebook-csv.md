@@ -1,6 +1,6 @@
 ---
 title: Export phonebook as CSV from NethVoice
-sidebar_position: 3
+sidebar_position: 9
 ---
 
 # Export phonebook as CSV from NethVoice {#export-phonebook-csv}

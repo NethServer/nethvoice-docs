@@ -162,7 +162,7 @@ On the **Settings** page you can review and change most of the configuration par
 
 On the **Integrations** page you can configure speech-to-text and AI services:
 - **Deepgram API Key**: required to enable call and voicemail transcription.
-- **Call transcription (Preview)**: enables transcription for calls handled by NethVoice. Users with the required profile permission can open live transcription during a call, and supported completed calls can expose post-call transcription data in CTI History. This feature may consume Deepgram credits quickly on systems with many calls.
+- **Call transcription**: enables transcription for calls handled by NethVoice. Users with the required profile permission can open live transcription during a call, and supported completed calls can expose post-call transcription data in CTI History. This feature may consume Deepgram credits quickly on systems with many calls.
 - **Voicemail transcription**: converts voicemail audio to text with Deepgram and includes the transcription in voicemail messages when the voicemail flow provides an audio attachment.
 - **OpenAI API Key**: required to enable AI-generated call summaries. When an OpenAI API Key is configured, users with the required profile permission can review generated summaries from CTI History and configure summary-ready notifications.
 

@@ -7,6 +7,7 @@ sidebar_position: 5
 - `Active Network`
 - `Cheapnet`
 - `Clouditalia`
+- `ElevenLabs`
 - `Enegan`
 - `MessageNet`
 - `MyNet (cloud1b.voicer.it)`
