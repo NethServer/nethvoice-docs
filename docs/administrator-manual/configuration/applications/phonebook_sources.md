@@ -9,6 +9,16 @@ sidebar_position: 2
 
 The NethVoice phonebook is a centralized directory that stores and manages contact information for users and organizations. It enables seamless name and number resolution for incoming and outgoing calls, ensuring that caller details are consistently available across NethVoice CTI and NethVoice App. The phonebook can aggregate contacts from various sources, including external databases and CSV files, providing a unified and easily accessible address book for all users.
 
+#### How phonebook sources interact with CTI permissions {#how-phonebook-sources-interact-with-cti-permissions}
+
+Contacts imported from Address Book Sources are added to the centralized phonebook and are available for search and name resolution in NethVoice CTI and NethVoice App.
+
+- Users with address book access can search and view these imported contacts.
+- Imported contacts remain read-only in NethVoice CTI, even when the user has the maximum phonebook permission level.
+- Create, edit, delete, and sharing actions in NethVoice CTI apply only to CTI contacts created by users.
+- Phonebook permission levels configured in user profiles control what users can do with CTI contacts, not with records imported from external sources. For profile-level details, see [Address Book permissions](../wizard.md#address-book).
+- Group sharing applies only to CTI contacts and is available only with `Manage private and shared contacts`. The selectable groups come from the user's Presence Panel group permissions and group membership; if the Presence Panel `all_groups` permission is enabled, all operator groups are available.
+
 #### Adding External Address Books {#adding-external-address-books}
 
 From the menu `Applications -> Address Book Sources`, you can define an external source for the contacts NethVoice should use to resolve incoming and outgoing calls.

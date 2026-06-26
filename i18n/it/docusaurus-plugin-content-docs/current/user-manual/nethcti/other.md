@@ -109,11 +109,20 @@ Visualizza la tua rubrica di NethVoice CTI:
 
 Cerca i contatti rapidamente ed efficientemente.
 
+Le azioni disponibili nella rubrica dipendono dai permessi del profilo:
+
+- Gli utenti con `Access phonebook` possono cercare e visualizzare i contatti, ma non possono creare o modificare contatti CTI.
+- Gli utenti con `Manage private contacts` possono creare e gestire solo i propri contatti CTI privati.
+- Gli utenti con `Manage private and shared contacts` possono creare e gestire anche contatti CTI pubblici e contatti condivisi con i gruppi disponibili.
+- I contatti importati da fonti centralizzate sono sempre disponibili in sola lettura.
+
 ### Creazione Contatti
 
 Aggiungi nuovi contatti utilizzando la funzione "Crea Contatto" (soggetto a autorizzazioni specifiche):
 
 ![Crea Contatto](/img/nethcti/crea_contatto.png)
+
+Quando il profilo consente la condivisione dei contatti, puoi scegliere la visibilità di un contatto CTI. A seconda dei permessi assegnati dall'amministratore, potresti essere limitato ai soli contatti privati oppure potresti creare anche contatti pubblici e contatti condivisi con i gruppi disponibili. Se l'opzione di condivisione per gruppi non è visibile, il profilo non include `Manage private and shared contacts` oppure non ci sono gruppi disponibili per il tuo utente.
 
 Puoi aggiungere:
 - Nome contatto

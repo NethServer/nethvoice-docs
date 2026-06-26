@@ -285,8 +285,13 @@ All configured outbound routes in NethVoice are displayed, and you can enable/di
 
 ##### Address Book {#address-book}
 
-- `Address Book`: The general permission enables the viewing of the address book in NethVoice CTI and the ability to add, modify, and delete own contacts.
-- `Advanced Address Book`: Enables the ability to modify/delete non-owned contacts in the address book in NethVoice CTI.
+- `Address Book`: Enables access to the address book in NethVoice CTI. If this permission is disabled, the user cannot search or open contacts from either CTI contacts or centralized phonebook sources.
+- `Access phonebook`: Allows searching and viewing contacts, including contacts imported from centralized phonebook sources, but does not allow creating, editing, deleting, or sharing CTI contacts.
+- `Manage private contacts`: Allows creating, editing, and deleting only the user's own private CTI contacts.
+- `Manage private and shared contacts`: Allows creating, editing, and deleting CTI contacts with private, public, or group visibility. It also allows managing CTI contacts that are not owned by the user.
+- Group sharing is available only with `Manage private and shared contacts`. The selectable groups are the groups enabled in Presence Panel permissions, plus the operator groups the user belongs to. If the Presence Panel `all_groups` permission is enabled, all operator groups are available.
+- Contacts imported through Address Book Sources remain read-only in NethVoice CTI regardless of the selected phonebook permission level.
+- For compatibility with older profiles, the legacy `ad_phonebook` permission is treated as the maximum phonebook level, equivalent to `Manage private and shared contacts`.
 
 ##### CDR {#cdr}
 
