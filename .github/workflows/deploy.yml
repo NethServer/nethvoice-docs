@@ -26,15 +26,20 @@ jobs:
           cache: yarn
       - uses: actions/setup-python@v6
         with:
-          python-version: "3.14"
+          python-version: "3.12"
 
       - name: Install dependencies
         run: yarn install
       - name: Build website
         run: yarn build
 
+<<<<<<< HEAD
       - name: Deploy to gh-pages
         uses: peaceiris/actions-gh-pages@v4
+=======
+      - name: Upload Build Artifact
+        uses: actions/upload-pages-artifact@v4
+>>>>>>> b450932 (ci(actions): update GitHub Actions to support Node.js 24)
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
