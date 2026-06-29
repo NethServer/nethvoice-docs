@@ -5,7 +5,7 @@ sidebar_position: 1
 
 # Introduzione
 
-Benvenuti al sito di documentazione ufficiale di NethVoice, la vostra guida completa alle comunicazioni unificate. Questo sito fornisce tutte le risorse necessarie, inclusi il Manuale dell'amministratore, il Manuale dello sviluppatore, il Manuale utente, le Domande frequenti e i Tutorial.
+**Benvenuto** al sito ufficiale della documentazione di NethVoice, la tua guida completa alle comunicazioni unificate. Questo sito fornisce tutte le risorse necessarie, inclusi il Manuale dell'Amministratore, il Manuale dello Sviluppatore, il Manuale Utente, le FAQ e i Tutorial.
 
 Che tu stia gestendo, sviluppando o utilizzando NethVoice, questa documentazione è progettata per supportarti ad ogni passaggio. Qui troverai istruzioni chiare, best practice e suggerimenti utili per ottenere il massimo da NethVoice.
 
