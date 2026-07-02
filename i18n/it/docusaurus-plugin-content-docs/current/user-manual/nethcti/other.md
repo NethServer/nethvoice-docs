@@ -241,7 +241,7 @@ NethVoice può fornire due funzionalità di chiamata assistite dall'AI:
 
 Servono due cose distinte: un permesso per-utente per **vedere** i contenuti e le funzioni **abilitate sul sistema** da un amministratore.
 
-- **Permesso di visualizzazione (per utente)**: il tuo profilo utente deve includere il permesso **Speech-To-Text**. Ti consente di aprire la trascrizione live durante una chiamata e di vedere trascrizioni e riassunti post-chiamata dalla Cronologia. Senza, i controlli di trascrizione e riassunto non sono disponibili, anche se la funzione è abilitata sul sistema.
+- **Permesso di visualizzazione (per utente)**: il tuo profilo utente deve includere il permesso **Transcription and Summary**. Ti consente di aprire la trascrizione live durante una chiamata e di vedere trascrizioni e riassunti post-chiamata dalla Cronologia. Senza, i controlli di trascrizione e riassunto non sono disponibili, anche se la funzione è abilitata sul sistema.
 - **Abilitazione di trascrizione e riassunti (amministratore, pagina Integrazioni di NethVoice)**: un amministratore attiva le funzioni dalla pagina **Integrazioni** di NethVoice. La trascrizione delle chiamate richiede una chiave API Deepgram valida; i riassunti generati dall'AI richiedono inoltre una chiave API OpenAI con l'opzione di riassunto chiamata abilitata.
 
 I contenuti generati sono disponibili solo per chiamate con audio utilizzabile: chiamate molto brevi, silenziose o fallite potrebbero non produrre trascrizione o riassunto.
@@ -252,8 +252,8 @@ Il testo generato dall'AI può contenere errori. Verifica i contenuti importanti
 
 Tutte le chiamate sono supportate per trascrizione e riassunto; l'unica eccezione sono le **conferenze a più partecipanti**, che non vengono trascritte né riassunte.
 
-:::warning I trasferimenti sono in beta
-La trascrizione e il riassunto delle **chiamate trasferite** sono ancora in fase beta e potrebbero non funzionare sempre in modo affidabile. La tua privacy è sempre garantita: vedi solo le trascrizioni e i riassunti delle conversazioni a cui hai partecipato, mai quelle di altri utenti.
+:::note Privacy
+La tua privacy è sempre garantita: vedi solo le trascrizioni e i riassunti delle conversazioni a cui hai partecipato, mai quelle di altri utenti.
 :::
 
 ### Trascrizione live durante la chiamata
