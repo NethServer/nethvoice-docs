@@ -1,1 +1,0 @@
-**NethVoice** utilizza i servizi di Deepgram per il riconoscimento vocale — trascrizione in tempo reale mostrata durante una chiamata, trascrizione post-chiamata archiviata nella Cronologia CTI e trascrizione della segreteria telefonica — così come per la sintesi vocale.

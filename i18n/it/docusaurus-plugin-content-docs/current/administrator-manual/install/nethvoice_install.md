@@ -165,7 +165,7 @@ Nella pagina **Integrazioni** puoi configurare i servizi speech-to-text e AI:
 - **API Key OpenAI**: necessaria per abilitare i riassunti delle chiamate generati dall'AI. Quando una API Key OpenAI è configurata, gli utenti con il permesso di profilo richiesto possono consultare i riassunti generati dalla Cronologia CTI e configurare le notifiche di riassunto pronto.
 - **Riepilogo chiamata**: abilita i riepiloghi generati dall'AI delle chiamate completate. Può essere attivato solo quando è configurata una OpenAI API Key e **Trascrizione chiamata** è abilitata, poiché i riepiloghi vengono generati dai dati di trascrizione post-chiamata.
 
-I riepiloghi delle chiamate generati dall'AI utilizzano i dati di trascrizione post-chiamata e richiedono sia una configurazione funzionante di Deepgram sia una OpenAI API Key configurata.
+I riassunti delle chiamate generati dall'AI usano i dati della trascrizione post-chiamata e richiedono sia una configurazione Deepgram funzionante che una API Key OpenAI configurata.
 
 :::info Trascrizioni e riassunti  
 Per informazioni utente su trascrizione live, trascrizione post-chiamata, riassunti, notifiche e integrazione con la Cronologia, consulta [Trascrizione vocale e Riassunto chiamata](../../user-manual/nethcti/other.md#voice-transcription) nel Manuale Utente.  
