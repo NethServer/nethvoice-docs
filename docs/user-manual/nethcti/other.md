@@ -241,7 +241,7 @@ NethVoice can provide two related AI-assisted call features:
 
 Two separate things are required: a per-user permission to **view** the content, and the features **enabled on the system** by an administrator.
 
-- **Permission to view (per user)**: your user profile must include the **Speech-To-Text** permission. It lets you open live transcription during a call and view post-call transcriptions and summaries from History. Without it the transcription and summary controls are not available, even when the feature is enabled on the system.
+- **Permission to view (per user)**: your user profile must include the **Transcription and Summary** permission. It lets you open live transcription during a call and view post-call transcriptions and summaries from History. Without it the transcription and summary controls are not available, even when the feature is enabled on the system.
 - **Enabling transcription and summaries (administrator, NethVoice Integrations page)**: an administrator turns the features on from the NethVoice **Integrations** page. Call transcription requires a valid Deepgram API key; AI-generated summaries additionally require an OpenAI API key with the call summary option enabled.
 
 Generated content is available only for calls with usable audio: very short, silent, or failed calls may not produce a transcript or summary.
@@ -252,8 +252,8 @@ AI-generated text can contain mistakes. Review important content before copying,
 
 All calls are supported for transcription and summary; the only exception is **multi-party conferences**, which are not transcribed or summarized.
 
-:::warning Transferred calls are in beta
-Transcription and summary for **transferred calls** are still in beta and may not always work reliably. Your privacy is always preserved: you only see the transcriptions and summaries of conversations you took part in, never those of other users.
+:::note Privacy
+Your privacy is always preserved: you only see the transcriptions and summaries of conversations you took part in, never those of other users.
 :::
 
 ### Live transcription during calls {#live-transcription-during-calls}
