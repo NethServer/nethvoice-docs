@@ -45,3 +45,4 @@ Per ogni passaggio, consulta la documentazione collegata per istruzioni dettagli
 * [Eliminare i vecchi messaggi della casella vocale](./voicemail-prune.md)
 * [Eliminare le vecchie registrazioni di chiamate](./recording-prune.md)
 * [Integrazione CRM vtenext](./integrations/vtenext-integration.md)
+* [Proteggi NethVoice dagli attacchi brute-force (CrowdSec)](./crowdsec.md)
