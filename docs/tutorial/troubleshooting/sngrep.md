@@ -27,10 +27,12 @@ To analyze these cases as well, you need to **enable TLS support** in Sngrep as 
 ## Installation {#installation}
 
 If sngrep is not already installed on your NethServer, you can install it easily.
-Execute the following command as root from the cluster:
+Execute the following command as root from the cluster on a Rocky Linux installation:
 
 ```bash
-dnf -y install http://repo.okay.com.mx/centos/9/x86_64/release/sngrep-1.6.0-1.el9.x86_64.rpm 
+dnf copr enable irontec/sngrep
+dnf install sngrep
+dnf copr disable irontec/sngrep
 ```
 
 ## Launching Sngrep {#launching-sngrep}

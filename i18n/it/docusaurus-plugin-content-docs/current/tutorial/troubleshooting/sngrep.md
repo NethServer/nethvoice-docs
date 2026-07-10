@@ -26,10 +26,13 @@ Per analizzare anche questi casi è necessario **abilitare il supporto TLS** in 
 
 ## Installazione {#installation}
 
-Se sngrep non è già installato su NethServer, puoi installarlo facilmente. Esegui il seguente comando come root dal cluster:
+Se sngrep non è già installato su NethServer, puoi installarlo facilmente.
+Esegui il seguente comando come root dal cluster su un'installazione Rocky Linux:
 
 ```bash
-dnf -y install http://repo.okay.com.mx/centos/9/x86_64/release/sngrep-1.6.0-1.el9.x86_64.rpm 
+dnf copr enable irontec/sngrep
+dnf install sngrep
+dnf copr disable irontec/sngrep
 ```
 
 ## Avviare Sngrep {#launching-sngrep}
