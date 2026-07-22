@@ -71,7 +71,7 @@ https://<nethvoice_domain>/freepbx/hotel/rooms.php
 ```
 
 O dalla procedura guidata dell'amministratore di NethVoice:
-**Amministrazione** → **Avanzate (freepbx)** → **Applicazioni** → **NethHotel**
+**Amministrazione** → **Avanzate (freepbx)** → **Applicazioni** → **Hotel**
 
 ## Scopri di più
 

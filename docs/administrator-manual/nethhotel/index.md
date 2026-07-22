@@ -31,7 +31,7 @@ NethHotel enables hotel operators to:
 
 ## Quick Links {#quick-links}
 
-### [NethHotel Configuration & Management](nethhotel) {#nethhotel-configuration--management}
+### [NethHotel Configuration & Management](configuration.md) {#nethhotel-configuration--management}
 
 Complete guide for setting up and managing the NethHotel module:
 - Enable NethHotel in NethVoice configuration
@@ -71,10 +71,10 @@ https://<nethvoice_domain>/freepbx/hotel/rooms.php
 ```
 
 Or from NethVoice administrator wizard:
-**Administration** → **Advanced (freepbx)** → **Applications** → **NethHotel**
+**Administration** → **Advanced (freepbx)** → **Applications** → **Hotel**
 
 ## Learn More {#learn-more}
 
-- See the [NethHotel Configuration & Management](nethhotel) guide for comprehensive setup and operation details
+- See the [NethHotel Configuration & Management](configuration.md) guide for comprehensive setup and operation details
 - Review [FIAS Integration](fias_integration.md) for PMS connection and automation
 - Check [NethVoice main documentation](../index.md) for general NethVoice features
