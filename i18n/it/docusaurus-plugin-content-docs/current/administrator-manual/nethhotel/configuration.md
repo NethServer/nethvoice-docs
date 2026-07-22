@@ -21,7 +21,7 @@ NethHotel può essere abilitato nella configurazione dell'istanza di NethVoice:
 4. (Facoltativo) Specifica l'indirizzo e la porta del server FIAS se utilizzi l'integrazione PMS
 5. Salva le modifiche
 
-### Configurazione del PBX
+### Configurazione del PBX {#pbx-configuration}
 
 Dopo aver abilitato il modulo NethHotel, è necessaria una certa configurazione sul lato NethVoice:
 
@@ -35,9 +35,21 @@ Dopo aver abilitato il modulo NethHotel, è necessaria una certa configurazione 
    - Dalla pagina della procedura guidata di NethVoice, accedi al profilo Hotel
    - Abilita la rotta in uscita appena creata
 
-3. **Aggiungi interni delle camere**
-   - Aggiungi gli interni delle camere al profilo hotel utilizzando il pannello di configurazione di NethVoice o lo strumento di gestione di più interni
-   - Tutti gli interni inclusi nel profilo hotel verranno automaticamente gestiti da NethHotel
+3. **Crea gli utenti delle camere**
+   - Ogni camera utilizzata in NethHotel deve prima esistere come utente nel dominio utenti (Active Directory o LDAP) configurato su NethServer 8 — vedi [Dominio utenti](../install/nethvoice_install#user-domains)
+   - Nome consigliato: username `room301`, nome visualizzato `Room 301`
+   - Imposta una password robusta e casuale
+   - Se il dominio utenti lo supporta, abilita l'opzione **la password non scade mai** per evitare blocchi dell'account
+
+4. **Aggiungi interni delle camere**
+   - Apri la pagina [Interni](../configuration/wizard) di NethVoice
+   - La pagina elenca tutti gli utenti creati nel dominio utenti, incluse le camere appena create
+   - Inserisci l'interno per ogni camera (es. `room301` → interno `301`)
+
+5. **Assegna il profilo Hotel**
+   - **Singolo utente**: vai su [Configurazioni > Utenti](../configuration/wizard), seleziona la camera (es. `room301`) e imposta il campo **Profilo** su `Hotel`
+   - **In blocco**: vai su [Applicazioni > Gestione massiva interni](../configuration/applications/bulk_actions#bulk-extensions-users), seleziona tutti gli interni delle camere appena creati, apri il lucchetto sul campo **Profilo** e assegna `Hotel` a tutti in un'unica operazione
+   - Solo gli interni con il profilo Hotel sono visibili all'interno di NethHotel
 
 ### Accesso a NethHotel
 
@@ -46,7 +58,7 @@ L'applicazione NethHotel è accessibile a:
 https://<nethvoice_domain>/freepbx/hotel/rooms.php
 ```
 
-Può essere accessibile anche dalla procedura guidata dell'amministratore di NethVoice: **Amministrazione** → **Avanzate (freepbx)** → **Applicazioni** → **NethHotel**
+Può essere accessibile anche dalla procedura guidata dell'amministratore di NethVoice: **Amministrazione** → **Avanzate (freepbx)** → **Applicazioni** → **Hotel**
 
 ## Come configurare il PBX
 
@@ -54,7 +66,7 @@ Consigliamo la seguente configurazione:
 
 ### Interni delle camere
 
-- Tutti gli interni delle camere devono essere aggiunti al profilo hotel tramite la sezione Configurazioni o utilizzando l'applicazione Gestione di più interni
+- Tutti gli interni delle camere devono appartenere a un utente creato nel dominio utenti, con un interno assegnato e il profilo Hotel applicato — vedi [Crea gli utenti delle camere](#pbx-configuration) sopra per la procedura completa
 
 ### Interni dei servizi
 

@@ -35,9 +35,21 @@ After enabling the NethHotel module, some configurations are required on the Net
    - From the NethVoice wizard page, access the Hotel profile
    - Enable the newly created outbound route
 
-3. **Add Room Extensions**
-   - Add room extensions to the hotel profile using the NethVoice configuration panel or the Multiple Extension Management tool
-   - All extensions included in the hotel profile will automatically be managed by NethHotel
+3. **Create Room Users**
+   - Every room used in NethHotel must first exist as a user in the user domain (Active Directory or LDAP) configured on NethServer 8 — see [User Domain](../install/nethvoice_install#user-domains)
+   - Recommended naming: username `room301`, display name `Room 301`
+   - Set a strong, random password
+   - If the user domain supports it, enable **password never expires** to avoid account lockouts
+
+4. **Add Room Extensions**
+   - Open the [Extensions](../configuration/wizard#extensions) page in NethVoice
+   - The page lists every user created in the user domain, including the rooms just created
+   - Enter the extension number for each room (e.g. `room301` → extension `301`)
+
+5. **Assign Hotel Profile**
+   - **Single user**: go to [Configurations > Users](../configuration/wizard#users), select the room (e.g. `room301`), and set the **Profile** field to `Hotel`
+   - **In bulk**: go to [Applications > Bulk Extensions](../configuration/applications/bulk_actions#bulk-extensions-users), select all the room extensions just created, open the lock on the **Profile** field, and assign `Hotel` to all of them at once
+   - Only extensions with the Hotel profile are visible inside NethHotel
 
 ### Accessing NethHotel {#accessing-nethhotel}
 
@@ -46,7 +58,7 @@ The NethHotel application is accessible at:
 https://<nethvoice_domain>/freepbx/hotel/rooms.php
 ```
 
-It can also be accessed from the NethVoice administrator wizard: **Administration** → **Advanced (freepbx)** → **Applications** → **NethHotel**
+It can also be accessed from the NethVoice administrator wizard: **Administration** → **Advanced (freepbx)** → **Applications** → **Hotel**
 
 ## How to Configure the PBX {#how-to-configure-the-pbx}
 
@@ -54,7 +66,7 @@ We recommend the following configuration:
 
 ### Room Extensions {#room-extensions}
 
-- All room extensions must be added to the hotel profile via the Configurations section or by using the Multiple Extension Management application
+- All room extensions must belong to a user created in the user domain, with an extension assigned and the Hotel profile applied — see [Create Room Users](#pbx-configuration) above for the full procedure
 
 ### Service Extensions {#service-extensions}
 
