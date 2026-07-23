@@ -8,7 +8,7 @@
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7">
 <script src="https://widget.kapa.ai/kapa-widget.bundle.js" data-website-id="54bcf336-8574-4f4e-b02d-27916cc99e46" data-project-name="NethVoice Documentation" data-project-color="#059669" data-modal-header-bg-color="#059669" data-modal-title-color="#ffffff" data-project-logo="https://docs.nethvoice.com/img/favicon_white.ico" data-source-group-ids-include="e92a7b49-112e-479c-8813-0b8562b9e652" async></script><link rel="stylesheet" href="/assets/css/styles.1a51bce8.css">
-<script src="/assets/js/runtime~main.6663e66d.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.ace4cd47.js" defer="defer"></script>
 <script src="/assets/js/main.2002d2bf.js" defer="defer"></script>
 </head>
 <body>
@@ -48,22 +48,40 @@
 </ul>
 </li>
 <li class="">
+<p><strong>Create Room Users</strong></p>
+<ul>
+<li class="">Every room used in NethHotel must first exist as a user in the user domain (Active Directory or LDAP) configured on NethServer 8 — see <a class="" href="/docs/administrator-manual/install/nethvoice_install#user-domains">User Domain</a></li>
+<li class="">Recommended naming: username <code>room301</code>, display name <code>Room 301</code></li>
+<li class="">Set a strong, random password</li>
+<li class="">If the user domain supports it, enable <strong>password never expires</strong> to avoid account lockouts</li>
+</ul>
+</li>
+<li class="">
 <p><strong>Add Room Extensions</strong></p>
 <ul>
-<li class="">Add room extensions to the hotel profile using the NethVoice configuration panel or the Multiple Extension Management tool</li>
-<li class="">All extensions included in the hotel profile will automatically be managed by NethHotel</li>
+<li class="">Open the <a class="" href="/docs/administrator-manual/configuration/wizard#extensions">Extensions</a> page in NethVoice</li>
+<li class="">The page lists every user created in the user domain, including the rooms just created</li>
+<li class="">Enter the extension number for each room (e.g. <code>room301</code> → extension <code>301</code>)</li>
+</ul>
+</li>
+<li class="">
+<p><strong>Assign Hotel Profile</strong></p>
+<ul>
+<li class=""><strong>Single user</strong>: go to <a class="" href="/docs/administrator-manual/configuration/wizard#users">Configurations &gt; Users</a>, select the room (e.g. <code>room301</code>), and set the <strong>Profile</strong> field to <code>Hotel</code></li>
+<li class=""><strong>In bulk</strong>: go to <a class="" href="/docs/administrator-manual/configuration/applications/bulk_actions#bulk-extensions-users">Applications &gt; Bulk Extensions</a>, select all the room extensions just created, open the lock on the <strong>Profile</strong> field, and assign <code>Hotel</code> to all of them at once</li>
+<li class="">Only extensions with the Hotel profile are visible inside NethHotel</li>
 </ul>
 </li>
 </ol>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="accessing-nethhotel">Accessing NethHotel<a href="#accessing-nethhotel" class="hash-link" aria-label="Direct link to Accessing NethHotel" title="Direct link to Accessing NethHotel" translate="no">​</a></h3>
 <p>The NethHotel application is accessible at:</p>
 <div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">https://&lt;nethvoice_domain&gt;/freepbx/hotel/rooms.php</span><br></div></code></pre></div></div>
-<p>It can also be accessed from the NethVoice administrator wizard: <strong>Administration</strong> → <strong>Advanced (freepbx)</strong> → <strong>Applications</strong> → <strong>NethHotel</strong></p>
+<p>It can also be accessed from the NethVoice administrator wizard: <strong>Administration</strong> → <strong>Advanced (freepbx)</strong> → <strong>Applications</strong> → <strong>Hotel</strong></p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="how-to-configure-the-pbx">How to Configure the PBX<a href="#how-to-configure-the-pbx" class="hash-link" aria-label="Direct link to How to Configure the PBX" title="Direct link to How to Configure the PBX" translate="no">​</a></h2>
 <p>We recommend the following configuration:</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="room-extensions">Room Extensions<a href="#room-extensions" class="hash-link" aria-label="Direct link to Room Extensions" title="Direct link to Room Extensions" translate="no">​</a></h3>
 <ul>
-<li class="">All room extensions must be added to the hotel profile via the Configurations section or by using the Multiple Extension Management application</li>
+<li class="">All room extensions must belong to a user created in the user domain, with an extension assigned and the Hotel profile applied — see <a href="#pbx-configuration" class="">Create Room Users</a> above for the full procedure</li>
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="service-extensions">Service Extensions<a href="#service-extensions" class="hash-link" aria-label="Direct link to Service Extensions" title="Direct link to Service Extensions" translate="no">​</a></h3>
 <ul>
