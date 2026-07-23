@@ -60,23 +60,19 @@ installation, so rather than repeat them here, refer to the [CrowdSec NethServer
 
 ## Enable NethVoice and Kamailio protection {#enable-nethvoice-kamailio}
 
-New CrowdSec installations ship with the NethVoice parsers and
-scenarios (listed [above](#crowdsec-protections)) already enabled. If your
-updating an existing Crowdsec module and the feature is disabled,
-turn it on by setting the `NETHVOICE_COLLECTION_ENABLED` variable in the module's `.env` file, then
-restarting the module:
+New CrowdSec installations ship with the NethVoice parsers and scenarios
+(listed [above](#crowdsec-protections)) already enabled — NethVoice, including
+Kamailio SIP authentication, is fully protected out of the box.
 
-```bash
-runagent -m crowdsec1 python3 -c 'import agent ; agent.set_env("NETHVOICE_COLLECTION_ENABLED", "True")'
-systemctl restart crowdsec1
-```
+If you are updating an existing CrowdSec module and the feature is disabled,
+turn it on from the **Collections** page of the CrowdSec module in the
+cluster interface:
 
-To disable it again, set the variable to `False` and restart:
+1. Open the CrowdSec module and go to **Collections**.
+2. Search for **nethvoice**.
+3. Click **Enable** next to the `nethesis/nethvoice` entry.
 
-```bash
-runagent -m crowdsec1 python3 -c 'import agent ; agent.set_env("NETHVOICE_COLLECTION_ENABLED", "False")'
-systemctl restart crowdsec1
-```
+To disable it again, click **Disable** on the same entry.
 
 :::note SIP protection depends on the NethVoice Proxy
 Detecting Kamailio SIP brute-force requires a NethVoice Proxy version that
