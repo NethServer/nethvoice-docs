@@ -8,7 +8,7 @@
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7">
 <script src="https://widget.kapa.ai/kapa-widget.bundle.js" data-website-id="54bcf336-8574-4f4e-b02d-27916cc99e46" data-project-name="NethVoice Documentation" data-project-color="#059669" data-modal-header-bg-color="#059669" data-modal-title-color="#ffffff" data-project-logo="https://docs.nethvoice.com/img/favicon_white.ico" data-source-group-ids-include="e92a7b49-112e-479c-8813-0b8562b9e652" async></script><link rel="stylesheet" href="/pr-preview/pr-60/assets/css/styles.1a51bce8.css">
-<script src="/pr-preview/pr-60/assets/js/runtime~main.e185735c.js" defer="defer"></script>
+<script src="/pr-preview/pr-60/assets/js/runtime~main.102a9da8.js" defer="defer"></script>
 <script src="/pr-preview/pr-60/assets/js/main.e83dd305.js" defer="defer"></script>
 </head>
 <body>
@@ -32,8 +32,8 @@
 </ul><p>To analyze these cases as well, you need to <strong>enable TLS support</strong> in Sngrep as described below.</p></div></div>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="installation">Installation<a href="#installation" class="hash-link" aria-label="Direct link to Installation" title="Direct link to Installation" translate="no">​</a></h2>
 <p>If sngrep is not already installed on your NethServer, you can install it easily.
-Execute the following command as root from the cluster:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">dnf -y install http://repo.okay.com.mx/centos/9/x86_64/release/sngrep-1.6.0-1.el9.x86_64.rpm </span><br></div></code></pre></div></div>
+Execute the following command as root from the cluster on a Rocky Linux installation:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">dnf copr enable irontec/sngrep</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">dnf install sngrep</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">dnf copr disable irontec/sngrep</span><br></div></code></pre></div></div>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="launching-sngrep">Launching Sngrep<a href="#launching-sngrep" class="hash-link" aria-label="Direct link to Launching Sngrep" title="Direct link to Launching Sngrep" translate="no">​</a></h2>
 <p>The quickest way to start a live capture is to run (as root):</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">sngrep</span><br></div></code></pre></div></div>

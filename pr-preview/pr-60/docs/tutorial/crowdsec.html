@@ -8,7 +8,7 @@
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7">
 <script src="https://widget.kapa.ai/kapa-widget.bundle.js" data-website-id="54bcf336-8574-4f4e-b02d-27916cc99e46" data-project-name="NethVoice Documentation" data-project-color="#059669" data-modal-header-bg-color="#059669" data-modal-title-color="#ffffff" data-project-logo="https://docs.nethvoice.com/img/favicon_white.ico" data-source-group-ids-include="e92a7b49-112e-479c-8813-0b8562b9e652" async></script><link rel="stylesheet" href="/pr-preview/pr-60/assets/css/styles.1a51bce8.css">
-<script src="/pr-preview/pr-60/assets/js/runtime~main.e185735c.js" defer="defer"></script>
+<script src="/pr-preview/pr-60/assets/js/runtime~main.102a9da8.js" defer="defer"></script>
 <script src="/pr-preview/pr-60/assets/js/main.e83dd305.js" defer="defer"></script>
 </head>
 <body>
@@ -60,14 +60,18 @@ set the ban durations, the IP whitelist, mail notifications, and the CrowdSec
 Console enrollment. Those options are common to every NethServer 8
 installation, so rather than repeat them here, refer to the <a href="https://docs.nethserver.org/docs/administrator-manual/applications/crowdsec" target="_blank" rel="noopener noreferrer" class="">CrowdSec NethServer module documentation</a></p>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="enable-nethvoice-kamailio">Enable NethVoice and Kamailio protection<a href="#enable-nethvoice-kamailio" class="hash-link" aria-label="Direct link to Enable NethVoice and Kamailio protection" title="Direct link to Enable NethVoice and Kamailio protection" translate="no">​</a></h2>
-<p>New CrowdSec installations ship with the NethVoice parsers and
-scenarios (listed <a href="#crowdsec-protections" class="">above</a>) already enabled. If your
-updating an existing Crowdsec module and the feature is disabled,
-turn it on by setting the <code>NETHVOICE_COLLECTION_ENABLED</code> variable in the module&#x27;s <code>.env</code> file, then
-restarting the module:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">runagent -m crowdsec1 python3 -c &#x27;import agent ; agent.set_env(&quot;NETHVOICE_COLLECTION_ENABLED&quot;, &quot;True&quot;)&#x27;</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">systemctl restart crowdsec1</span><br></div></code></pre></div></div>
-<p>To disable it again, set the variable to <code>False</code> and restart:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">runagent -m crowdsec1 python3 -c &#x27;import agent ; agent.set_env(&quot;NETHVOICE_COLLECTION_ENABLED&quot;, &quot;False&quot;)&#x27;</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">systemctl restart crowdsec1</span><br></div></code></pre></div></div>
+<p>New CrowdSec installations ship with the NethVoice parsers and scenarios
+(listed <a href="#crowdsec-protections" class="">above</a>) already enabled — NethVoice, including
+Kamailio SIP authentication, is fully protected out of the box.</p>
+<p>If you are updating an existing CrowdSec module and the feature is disabled,
+turn it on from the <strong>Collections</strong> page of the CrowdSec module in the
+cluster interface:</p>
+<ol>
+<li class="">Open the CrowdSec module and go to <strong>Collections</strong>.</li>
+<li class="">Search for <strong>nethvoice</strong>.</li>
+<li class="">Click <strong>Enable</strong> next to the <code>nethesis/nethvoice</code> entry.</li>
+</ol>
+<p>To disable it again, click <strong>Disable</strong> on the same entry.</p>
 <div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>SIP protection depends on the NethVoice Proxy</div><div class="admonitionContent_BuS1"><p>Detecting Kamailio SIP brute-force requires a NethVoice Proxy version that
 exposes failed-SIP-auth source IPs to CrowdSec. If SIP bans never trigger,
 upgrade the NethVoice Proxy module at least to version <code>1.6.4</code>.</p></div></div>
