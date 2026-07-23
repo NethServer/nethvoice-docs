@@ -53,10 +53,10 @@ must be turned on manually — see
    runs NethVoice.
 3. Wait for the installation to finish. Protection is active immediately.
 
-CrowdSec exposes a configuration page in the cluster interface where you can
-set the ban durations, the IP whitelist, mail notifications, and the CrowdSec
-Console enrollment. Those options are common to every NethServer 8
-installation, so rather than repeat them here, refer to the [CrowdSec NethServer module documentation](https://docs.nethserver.org/docs/administrator-manual/applications/crowdsec)
+CrowdSec exposes a **Settings** page in the cluster interface where you can
+set the ban durations, mail notifications, and the CrowdSec Console
+enrollment. Those options are common to every NethServer 8 installation, so
+rather than repeat them here, refer to the [CrowdSec NethServer module documentation](https://docs.nethserver.org/docs/administrator-manual/applications/crowdsec)
 
 ## Enable NethVoice and Kamailio protection {#enable-nethvoice-kamailio}
 
@@ -80,95 +80,47 @@ exposes failed-SIP-auth source IPs to CrowdSec. If SIP bans never trigger,
 upgrade the NethVoice Proxy module at least to version `1.6.4`.
 :::
 
-## Whitelist your trusted networks {#whitelist}
+## Allowlist your trusted networks {#whitelist}
 
 :::warning Avoid locking yourself out
 Before you rely on CrowdSec in production, add your **office, VPN, and
-monitoring IP addresses** to the whitelist. Whitelisted addresses are never
+monitoring IP addresses** to the allowlist. Allowlisted addresses are never
 banned, so an administrator mistyping a password a few times will not be locked
 out of the server.
 :::
 
-Open the CrowdSec configuration page in the cluster interface and enter your
-trusted IPs or networks (one per line) in the **whitelist** field. Save to
-apply.
+Open the CrowdSec module, go to **Blocklists**, select the **Allowlist** tab,
+and enter your trusted IPs or networks (one per line). Save to apply.
 
-## Manage bans from the command line {#manage-bans}
+## Detections and blocklists {#detections-blocklists}
 
-CrowdSec provides the `cscli` command-line tool. To use it, enter the module
-environment on the node first:
+The CrowdSec module UI shows what has been detected and blocked — no `cscli`
+needed for day-to-day monitoring.
 
-```bash
-runagent -m crowdsec1
-```
+The **Detections** page lists every triggered scenario: date, scenario name,
+source IP, country, decision (a red **Ban** tag for an active ban, blue for an
+expired one, or `-` when no decision was taken), and event count. Open a
+row's overflow menu and choose **Inspect** for full details — message,
+scenario and version, attack window, events/capacity/leakspeed, decision,
+remediation flag, and the underlying event log.
 
-Then use the following commands.
+The **Blocklists** page, **Local** tab, lists every active local ban with its
+remaining time. Use a row's overflow menu to remove a single ban, or
+**Delete all** to clear every local ban at once.
 
-**List the currently banned IPs (active decisions):**
+To see CrowdSec react in real time, make repeated failed logins against the
+NethVoice web interface from a test machine that isn't allowlisted, then
+watch the offending IP appear on **Blocklists → Local** (or as a new entry on
+**Detections**) once the failure threshold is reached.
 
-```bash
-cscli decisions list
-```
-
-**Remove a ban** — for example when a legitimate user was blocked:
-
-```bash
-# by IP address
-cscli decisions delete --ip 192.0.2.10
-
-# or by decision id (from the list above)
-cscli decisions delete --id 12345
-```
-
-**Add a manual ban** — block an abusive IP yourself:
+:::tip Advanced: `cscli`
+The `cscli` command-line tool (available via `runagent -m crowdsec1`) still
+covers tasks the UI doesn't, such as adding a manual ban:
 
 ```bash
 cscli decisions add --ip 192.0.2.10 --duration 4h --reason "manual block"
 ```
-
-:::tip
-`cscli decisions add` accepts flexible durations such as `30m`, `4h`, or `24h`.
-Use a short duration when testing so you can quickly undo mistakes.
 :::
-
-**Review the detections that triggered** (some alerts do not result in a ban):
-
-```bash
-cscli alerts list
-```
-
-
-## Verify it is working {#verify}
-
-From inside the module environment (`runagent -m crowdsec1`), confirm that
-the detection rules are loaded and the enforcer is active:
-
-```bash
-# enabled protections
-cscli scenarios list
-
-# inspect metrics
-cscli metrics
-```
-
-If NethVoice protection is enabled, `cscli scenarios list` should
-include entries with `nethvoice` or `kamailio` in the name. Inspect one for
-details, replacing `<name>` with the value from the list:
-
-```bash
-cscli scenarios inspect <name>
-```
-
-To see CrowdSec react in real time, watch the decisions list while a test
-machine (not whitelisted) makes repeated failed logins against the NethVoice
-web interface:
-
-```bash
-watch cscli decisions list
-```
-
-The offending IP should appear as a new decision once the failure threshold is
-reached.
 
 ## Email alerts {#alerts}
 

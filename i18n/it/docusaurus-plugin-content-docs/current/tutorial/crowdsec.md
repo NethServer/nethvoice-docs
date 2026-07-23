@@ -60,11 +60,11 @@ sotto.
 3. Attendere il completamento dell'installazione. La protezione è attiva
    immediatamente.
 
-CrowdSec espone una pagina di configurazione nell'interfaccia del cluster
-dove è possibile impostare la durata dei ban, la whitelist degli IP, le
-notifiche via email e l'iscrizione alla CrowdSec Console. Queste opzioni sono
-comuni a ogni installazione di NethServer 8, quindi, invece di ripeterle qui,
-fare riferimento alla [documentazione del modulo CrowdSec di NethServer](https://docs.nethserver.org/docs/administrator-manual/applications/crowdsec)
+CrowdSec espone una pagina **Settings** nell'interfaccia del cluster dove è
+possibile impostare la durata dei ban, le notifiche via email e l'iscrizione
+alla CrowdSec Console. Queste opzioni sono comuni a ogni installazione di
+NethServer 8, quindi, invece di ripeterle qui, fare riferimento alla
+[documentazione del modulo CrowdSec di NethServer](https://docs.nethserver.org/docs/administrator-manual/applications/crowdsec)
 
 ## Abilitare la protezione NethVoice e Kamailio {#enable-nethvoice-kamailio}
 
@@ -89,97 +89,51 @@ SIP falliti. Se i ban SIP non si attivano mai, aggiornare il modulo NethVoice
 Proxy almeno alla versione `1.6.4`.
 :::
 
-## Aggiungere alla whitelist le reti attendibili {#whitelist}
+## Aggiungere alla allowlist le reti attendibili {#whitelist}
 
 :::warning Evitare di bloccarsi fuori
 Prima di utilizzare CrowdSec in produzione, aggiungere gli indirizzi IP della
-propria **sede, VPN e monitoraggio** alla whitelist. Gli indirizzi in
-whitelist non vengono mai bannati, quindi un amministratore che sbaglia a
+propria **sede, VPN e monitoraggio** alla allowlist. Gli indirizzi in
+allowlist non vengono mai bannati, quindi un amministratore che sbaglia a
 digitare una password alcune volte non verrà bloccato fuori dal server.
 :::
 
-Aprire la pagina di configurazione di CrowdSec nell'interfaccia del cluster e
-inserire i propri IP o reti attendibili (uno per riga) nel campo
-**whitelist**. Salvare per applicare.
+Aprire il modulo CrowdSec, andare su **Blocklists**, selezionare la scheda
+**Allowlist** e inserire i propri IP o reti attendibili (uno per riga).
+Salvare per applicare.
 
-## Gestire i ban dalla riga di comando {#manage-bans}
+## Rilevamenti e blocklist {#detections-blocklists}
 
-CrowdSec fornisce lo strumento a riga di comando `cscli`. Per utilizzarlo,
-accedere prima all'ambiente del modulo sul nodo:
+L'interfaccia del modulo CrowdSec mostra cosa è stato rilevato e bloccato —
+non serve `cscli` per il monitoraggio quotidiano.
 
-```bash
-runagent -m crowdsec1
-```
+La pagina **Detections** elenca ogni scenario attivato: data, nome dello
+scenario, IP sorgente, paese, decisione (un tag rosso **Ban** per un ban
+attivo, blu per uno scaduto, oppure `-` se non è stata presa alcuna
+decisione) e numero di eventi. Aprire il menu overflow di una riga e
+scegliere **Inspect** per i dettagli completi — messaggio, scenario e
+versione, finestra dell'attacco, eventi/capacity/leakspeed, decisione, flag
+di remediation e il log degli eventi.
 
-Quindi utilizzare i seguenti comandi.
+La pagina **Blocklists**, scheda **Local**, elenca ogni ban locale attivo con
+il tempo rimanente. Utilizzare il menu overflow di una riga per rimuovere un
+singolo ban, oppure **Delete all** per cancellarli tutti in una volta.
 
-**Elencare gli IP attualmente bannati (decisioni attive):**
+Per vedere CrowdSec reagire in tempo reale, effettuare ripetuti tentativi di
+accesso falliti contro l'interfaccia web di NethVoice da una macchina di test
+non in allowlist, quindi osservare l'IP responsabile comparire in
+**Blocklists → Local** (o come nuova voce in **Detections**) una volta
+raggiunta la soglia di fallimenti.
 
-```bash
-cscli decisions list
-```
-
-**Rimuovere un ban** — ad esempio quando un utente legittimo è stato bloccato:
-
-```bash
-# per indirizzo IP
-cscli decisions delete --ip 192.0.2.10
-
-# oppure per ID decisione (dall'elenco sopra)
-cscli decisions delete --id 12345
-```
-
-**Aggiungere un ban manuale** — bloccare manualmente un IP abusivo:
+:::tip Avanzato: `cscli`
+Lo strumento a riga di comando `cscli` (disponibile con
+`runagent -m crowdsec1`) copre ancora attività che l'interfaccia non
+offre, come aggiungere un ban manuale:
 
 ```bash
 cscli decisions add --ip 192.0.2.10 --duration 4h --reason "manual block"
 ```
-
-:::tip
-`cscli decisions add` accetta durate flessibili come `30m`, `4h` o `24h`.
-Utilizzare una durata breve durante i test per poter correggere rapidamente
-eventuali errori.
 :::
-
-**Esaminare i rilevamenti che hanno attivato una decisione** (alcuni avvisi
-non portano a un ban):
-
-```bash
-cscli alerts list
-```
-
-
-## Verificare il funzionamento {#verify}
-
-Dall'interno dell'ambiente del modulo (`runagent -m crowdsec1`), confermare
-che le regole di rilevamento siano caricate e che l'enforcer sia attivo:
-
-```bash
-# protezioni abilitate
-cscli scenarios list
-
-# metriche
-cscli metrics
-```
-
-Se la protezione NethVoice è abilitata, `cscli scenarios list` dovrebbe
-includere voci con `nethvoice` o `kamailio` nel nome. Esaminarne una per i
-dettagli, sostituendo `<name>` con il valore dell'elenco:
-
-```bash
-cscli scenarios inspect <name>
-```
-
-Per vedere CrowdSec reagire in tempo reale, osservare l'elenco delle decisioni
-mentre una macchina di test (non in whitelist) effettua ripetuti tentativi di
-accesso falliti contro l'interfaccia web di NethVoice:
-
-```bash
-watch cscli decisions list
-```
-
-L'IP responsabile dovrebbe apparire come una nuova decisione una volta
-raggiunta la soglia di fallimenti.
 
 ## Avvisi via email {#alerts}
 
