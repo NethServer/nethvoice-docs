@@ -175,6 +175,15 @@ For user-facing details about live transcription, post-call transcription, summa
 
 On the **Rebranding** page you can customize the NethVoice user interface with the brand identity of your company. To enable this feature, you have to contact Nethesis sales team and have an active Enterprise subscription.
 
+Rebranding is organized in tabs, one for each interface:
+
+- **CTI**: brand name, logos, favicon and background of the NethVoice CTI login page.
+- **Admin**: brand name, logos, favicon and background of the wizard login page, plus the **FreePBX admin interface** section, where you can set the top-left logo and the favicon of the FreePBX administration GUI. The brand name shown in the FreePBX admin interface follows the wizard brand name.
+- **Report**: brand name, logo and favicon of the NethVoice Reports login page.
+- **NethLink**: company name and company URL shown in the *About* window of the NethLink desktop client.
+
+All images must be reachable at a public URL, and SVG is the recommended format. Fields left empty fall back to the default assets. Saving applies the pending changes of all tabs at once.
+
 On the **Hotel** page you can configure the Hotel module; an active subscription is required for this feature.
 
 - **Status**: Activate the Hotel module for managing hotel-specific telephony features.
