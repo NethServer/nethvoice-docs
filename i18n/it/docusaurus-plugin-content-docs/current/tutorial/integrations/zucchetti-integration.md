@@ -1,4 +1,3 @@
-```
 # Zucchetti Infinity
 
 L'integrazione tra NethVoice e [Zucchetti Infinity](https://www.zucchetti.it/website/cms/infinity-zucchetti/1059-infinity-zucchetti.html) porta le funzionalità CTI di NethVoice direttamente nel portale Zucchetti.
@@ -85,4 +84,3 @@ Salva il file ed esci da Vim digitando:
 `:wq`
 
 e premendo *Invio*.
-```
