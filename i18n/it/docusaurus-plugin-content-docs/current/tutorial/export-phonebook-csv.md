@@ -62,3 +62,7 @@ Dopo aver trasferito il CSV fuori dal server, elimina la copia temporanea:
 `rm -f /root/rubrica.csv`
 
 Questo mantiene il sistema ordinato e protegge i dati sensibili.
+
+## Vedi anche {#see-also}
+
+Per caricare un file CSV *dentro* la rubrica di un utente CTI, usa il tipo di origine `CSV (rubrica CTI)` descritto in [Fonti della rubrica](../administrator-manual/configuration/applications/phonebook_sources.md#phonebook-source).

@@ -8,6 +8,8 @@ title: Trunk VoIP supportati
 - `Clouditalia`
 - `Enegan`
 - `MessageNet`
+- `MultiWire (singola numerazione)`
+- `MultiWire Multinumero`
 - `MyNet (cloud1b.voicer.it)`
 - `Neomedia`
 - `NetoIP`
@@ -18,6 +20,7 @@ title: Trunk VoIP supportati
 - `Terrecablate`
 - `Timenet`
 - `TWT`
+- `Vianova (una sola linea x nodo)`
 - `VivaVox`
 - `VoipEasy`
 - `VoipTel`

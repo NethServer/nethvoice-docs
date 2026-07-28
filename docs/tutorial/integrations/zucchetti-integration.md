@@ -16,7 +16,20 @@ Generate and configure the integration token for NethVoice CTI in Zucchetti Infi
 
 ---
 
-### 2. Configure the phonebook synchronization script
+### 2. Configure the phonebook synchronization {#configure-phonebook-synchronization}
+
+The recommended way is to add an **Infinity Zucchetti** address book source from the NethVoice administration interface, without touching the server via SSH.
+
+1. Go to `Applications -> Address Book Sources` and add a new source.
+2. Select `Infinity Zucchetti` as **Source type**.
+3. Fill in the **Phonebook name** and the `URL`, `Username` and `Password` of the Infinity APIs provided by Zucchetti.
+4. In **Settings**, choose who can see the imported contacts (**Public** or a list of **Groups**) and the synchronization interval.
+
+The field mapping is fixed and applied by the importer, so the **Mapping** step is read-only. See [Phonebook sources](/docs/administrator-manual/configuration/applications/phonebook_sources#phonebook-source) for the mapping table and the sharing options.
+
+#### Alternative: configure the synchronization script manually {#configure-synchronization-script}
+
+Use this procedure only if the source cannot be configured from the administration interface.
 
 1. Access the server via *SSH*.
 2. Run the following commands, replacing *X* with the instance number of the NethVoice system to be configured:

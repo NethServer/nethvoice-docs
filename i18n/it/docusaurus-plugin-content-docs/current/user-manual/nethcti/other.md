@@ -125,10 +125,12 @@ Aggiungi nuovi contatti utilizzando la funzione "Crea Contatto" (soggetto a auto
 Quando il profilo consente la condivisione dei contatti, puoi scegliere la visibilità di un contatto CTI. A seconda dei permessi assegnati dall'amministratore, potresti essere limitato ai soli contatti privati oppure potresti creare anche contatti pubblici e contatti condivisi con i gruppi disponibili. Se l'opzione di condivisione per gruppi non è visibile, il profilo non include `Manage private and shared contacts` oppure non ci sono gruppi disponibili per il tuo utente.
 
 Puoi aggiungere:
-- Nome contatto
-- Numeri di telefono
-- Indirizzi email
-- Organizzazione
+- Nome e cognome del contatto
+- Azienda e mansione
+- Numeri di telefono: interno, telefono di lavoro, cellulare, secondo telefono di lavoro, secondo cellulare, telefono di casa, altro telefono, fax
+- Indirizzi email: di lavoro, personale e altro indirizzo email
+- Indirizzo, città, provincia, codice postale e paese
+- Profili social: LinkedIn, Instagram, Facebook e sito web
 - Note
 
 ## Cronologia Chiamate {#call-history}

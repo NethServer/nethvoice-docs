@@ -15,7 +15,8 @@ I contatti importati dalle Fonti della rubrica vengono aggiunti alla rubrica cen
 - I contatti importati restano in sola lettura in NethVoice CTI, anche quando l'utente ha permessi avanzati sulla rubrica.
 - Le azioni di creazione, modifica, eliminazione e condivisione in NethVoice CTI si applicano solo ai contatti CTI creati dagli utenti.
 - I livelli di permesso rubrica configurati nei profili utente controllano cosa gli utenti possono fare con i contatti CTI, non con i record importati da fonti esterne. Per i dettagli sui profili, vedi [Permessi rubrica](../wizard.md#rubrica).
-- La condivisione per gruppi si applica solo ai contatti CTI ed è disponibile solo con `Manage private and shared contacts`. I gruppi selezionabili derivano dai permessi gruppo del Pannello di presenza e dall'appartenenza dell'utente ai gruppi; se il permesso `all_groups` del Pannello di presenza è abilitato, sono disponibili tutti i gruppi operatori.
+- La condivisione per gruppi dei contatti *creati in NethVoice CTI* è disponibile solo con `Manage private and shared contacts`. I gruppi selezionabili derivano dai permessi gruppo del Pannello di presenza e dall'appartenenza dell'utente ai gruppi; se il permesso `all_groups` del Pannello di presenza è abilitato, sono disponibili tutti i gruppi operatori.
+- I contatti importati hanno una propria visibilità, scelta dall'amministratore sulla fonte stessa: vedi [Opzioni di condivisione](#sharing-options).
 
 #### Aggiunta di rubriche esterne
 
@@ -26,11 +27,20 @@ Per configurare una nuova fonte sono necessari tre passaggi:
 
 - **Fonte**: Configura l'accesso al database di origine dei contatti.
 - **Mappatura**: Associa i campi del database di origine a quelli della rubrica di NethVoice.
-- **Impostazioni**: Scegli l'intervallo di sincronizzazione.
+- **Impostazioni**: Scegli chi può vedere i contatti importati e, per le fonti ricorrenti, l'intervallo di sincronizzazione.
 
-#### Fonte della rubrica
+#### Fonte della rubrica {#phonebook-source}
 
-Un `Nome rubrica` univoco deve essere assegnato all'origine per distinguere l'origine dei contatti importati nella rubrica di NethVoice.
+I valori disponibili per `Tipo di origine` sono:
+
+| Tipo di origine | Destinazione | Comportamento |
+|-----------------|--------------|---------------|
+| `MySQL` | Rubrica centralizzata | Sincronizzazione ricorrente da un database esterno |
+| `CSV` | Rubrica centralizzata | Sincronizzazione ricorrente da un file CSV |
+| `CSV (rubrica CTI)` | Rubrica personale di un utente CTI | Importazione una tantum, senza sincronizzazione |
+| `Infinity Zucchetti` | Rubrica centralizzata | Sincronizzazione ricorrente tramite le API di Zucchetti Infinity |
+
+Per le fonti che alimentano la rubrica centralizzata deve essere assegnato un `Nome rubrica` univoco, per distinguere l'origine dei contatti importati nella rubrica di NethVoice. La fonte `CSV (rubrica CTI)` non lo richiede, perché i contatti importati appartengono a un utente e non a una fonte centralizzata.
 
 In base al `Tipo di origine`, è necessario specificare attributi aggiuntivi:
 
@@ -50,6 +60,46 @@ Il file CSV deve essere codificato in UTF-8 e contenere nomi di colonne nella pr
 
 Il pulsante `Verifica` consente di visualizzare in anteprima i dati recuperati dall'origine.
 
+**CSV (rubrica CTI)**
+
+Questo tipo di origine usa lo stesso formato di file CSV descritto sopra, ma i contatti vengono importati una sola volta nella rubrica personale di un singolo utente CTI invece che nella rubrica centralizzata. Non viene salvata alcuna fonte ricorrente e non è disponibile un intervallo di sincronizzazione.
+
+Sono richieste due impostazioni aggiuntive:
+
+- **Proprietario**: l'utente CTI a cui vengono assegnati i contatti. Sono selezionabili solo gli utenti configurati (con un interno) e il campo è obbligatorio.
+- **Opzioni di condivisione**: la visibilità applicata a tutti i contatti importati, vedi [Opzioni di condivisione](#sharing-options).
+
+Il campo di destinazione `owner_id` non è mappabile per le origini CSV, perché il proprietario viene scelto esplicitamente.
+
+Al termine dell'importazione il risultato viene riportato come numero di righe `Importate`, `Saltate` e `Fallite`. Le righe senza valore nel campo mappato su `name` vengono saltate e una riga malformata non interrompe l'intera importazione.
+
+**Infinity Zucchetti**
+
+Popola la rubrica centralizzata tramite le API di [Zucchetti Infinity](/docs/tutorial/integrations/zucchetti-integration). Sono richiesti solo l'`URL` dell'endpoint API, lo `Username` e la `Password` forniti da Zucchetti: la mappatura dei campi è fissa e applicata dall'importatore, quindi il passaggio **Mappatura** la mostra solo in sola lettura.
+
+| Campo di origine Infinity | Campo rubrica NethVoice |
+|---------------------------|-------------------------|
+| Name | `name` |
+| Company | `company` |
+| Mobile phone | `cellphone` |
+| Work phone | `workphone` |
+| Home phone | `homephone` |
+| Fax | `fax` |
+| Work email | `workemail` |
+| Home email | `homeemail` |
+| Address | `workstreet` |
+| Office | `title` |
+| Office / status / id | `notes` |
+
+#### Opzioni di condivisione {#sharing-options}
+
+Per ogni fonte puoi scegliere chi può vedere i contatti importati:
+
+- **Pubblico**: i contatti sono visibili a tutti gli utenti che possono accedere alla rubrica. È il valore predefinito e corrisponde al comportamento delle fonti configurate prima dell'introduzione di questa opzione.
+- **Gruppi**: i contatti sono visibili solo ai membri dei gruppi selezionati. Deve essere selezionato almeno un gruppo.
+
+I gruppi selezionabili sono i gruppi CTI configurati in `Configurazioni -> Utenti`. Se nessuno dei gruppi selezionati esiste più (ad esempio perché rinominato o eliminato), la fonte viene rifiutata invece di essere resa pubblica in modo silenzioso.
+
 #### Risoluzione personalizzata del nome
 
 Se desideri utilizzare un'origine diversa dalla rubrica centralizzata per risolvere i nomi, puoi creare uno script di risoluzione personalizzato e posizionarlo nella directory *~/.local/share/containers/storage/volumes/lookup.d/\_data/*.
@@ -61,7 +111,6 @@ Lo script *lookup_dummy.php* restituisce un risultato finto per qualsiasi numero
 | Campo           | Descrizione             |
 |-----------------|------------------------|
 | owner_id        | Proprietario del contatto   |
-| type            | Fonte di origine       |
 | homeemail       | Indirizzo email personale     |
 | workemail       | Indirizzo email di lavoro     |
 | homephone       | Numero di telefono personale      |
@@ -85,8 +134,26 @@ Lo script *lookup_dummy.php* restituisce un risultato finto per qualsiasi numero
 | workpostalcode  | Codice postale di lavoro       |
 | workcountry     | Paese/regione di lavoro    |
 | url             | Indirizzo del sito web        |
+| firstname       | Nome                   |
+| lastname        | Cognome                |
+| job             | Mansione               |
+| workphone2      | Secondo numero di telefono di lavoro |
+| cellphone2      | Secondo numero di cellulare |
+| otherphone      | Altro numero di telefono |
+| otheremail      | Altro indirizzo email  |
+| facebook        | Profilo Facebook       |
+| instagram       | Profilo Instagram      |
+| linkedin        | Profilo LinkedIn       |
+
+Il campo `name` resta quello usato per la risoluzione del nome nelle chiamate: `firstname` e `lastname` sono campi aggiuntivi, visualizzati e modificabili in NethVoice CTI.
+
+:::note
+Il nome della fonte non è più un campo di destinazione mappabile: viene impostato una sola volta nel campo `Nome rubrica` della fonte.
+:::
 
 #### Impostazioni
+
+Le fonti ricorrenti (`MySQL`, `CSV`, `Infinity Zucchetti`) sincronizzano i contatti in modo pianificato. La fonte `CSV (rubrica CTI)` è un'importazione una tantum e non ha impostazioni di sincronizzazione.
 
 Puoi scegliere l'intervallo di sincronizzazione per i contatti tra:
 

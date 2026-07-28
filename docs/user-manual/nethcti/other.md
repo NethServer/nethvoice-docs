@@ -125,10 +125,12 @@ Add new contacts using the "Create Contact" function (subject to specific permis
 When your profile allows contact sharing, you can choose the visibility of a CTI contact. Depending on the permissions assigned by the administrator, you may be limited to private contacts only, or you may also be allowed to create public contacts and contacts shared with your available groups. If the group-sharing option is not visible, your profile does not include `Manage private and shared contacts` or no groups are available to your user.
 
 You can add:
-- Contact name
-- Phone numbers
-- Email addresses
-- Organization
+- Contact first name and last name
+- Company and job title
+- Phone numbers: extension, work phone, mobile phone, secondary work phone, secondary mobile phone, home phone, other phone, fax
+- Email addresses: work, home and other email address
+- Address, city, province, postal code and country
+- Social profiles: LinkedIn, Instagram, Facebook and website
 - Notes
 
 ## Call History {#call-history}
