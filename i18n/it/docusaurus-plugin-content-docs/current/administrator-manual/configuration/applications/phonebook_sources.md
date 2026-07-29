@@ -36,6 +36,7 @@ I valori disponibili per `Tipo di origine` sono:
 | Tipo di origine | Destinazione | Comportamento |
 |-----------------|--------------|---------------|
 | `MySQL` | Rubrica centralizzata | Sincronizzazione ricorrente da un database esterno |
+| `MS SQL Server` | Rubrica centralizzata | Sincronizzazione ricorrente da un database Microsoft SQL Server esterno |
 | `CSV` | Rubrica centralizzata | Sincronizzazione ricorrente da un file CSV |
 | `CSV (rubrica CTI)` | Rubrica personale di un utente CTI | Importazione una tantum, senza sincronizzazione |
 | `Infinity Zucchetti` | Rubrica centralizzata | Sincronizzazione ricorrente tramite le API di Zucchetti Infinity |
@@ -49,6 +50,12 @@ In base al `Tipo di origine`, è necessario specificare attributi aggiuntivi:
 Il nome del database, l'indirizzo/porta del server, il nome utente e la password per il database di origine sono richiesti.
 
 Inoltre, nell'area di testo Seleziona query, deve essere inserita la query SQL utilizzata per recuperare i dati da importare nella rubrica centralizzata. Se presente nell'area di testo, sostituisci la parola `[table]` con il nome della tabella di origine.
+
+**MS SQL Server**
+
+Gli stessi campi di una fonte MySQL: nome del database, indirizzo/porta del server (`1433` per impostazione predefinita), nome utente, password e query di selezione.
+
+La connessione avviene via TCP con il driver ODBC FreeTDS, quindi l'istanza SQL Server deve accettare connessioni TCP/IP sulla porta configurata. Un'istanza con nome non può essere indicata come `server\istanza`: usa l'indirizzo e la porta TCP su cui l'istanza è in ascolto.
 
 **CSV**
 
@@ -153,7 +160,7 @@ Il nome della fonte non è più un campo di destinazione mappabile: viene impost
 
 #### Impostazioni
 
-Le fonti ricorrenti (`MySQL`, `CSV`, `Infinity Zucchetti`) sincronizzano i contatti in modo pianificato. La fonte `CSV (rubrica CTI)` è un'importazione una tantum e non ha impostazioni di sincronizzazione.
+Le fonti ricorrenti (`MySQL`, `MS SQL Server`, `CSV`, `Infinity Zucchetti`) sincronizzano i contatti in modo pianificato. La fonte `CSV (rubrica CTI)` è un'importazione una tantum e non ha impostazioni di sincronizzazione.
 
 Puoi scegliere l'intervallo di sincronizzazione per i contatti tra:
 

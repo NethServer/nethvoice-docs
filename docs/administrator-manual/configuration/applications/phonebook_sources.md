@@ -38,6 +38,7 @@ The available `Source Type` values are:
 | Source type | Destination | Behaviour |
 |-------------|-------------|-----------|
 | `MySQL` | Centralized phonebook | Recurring synchronization from an external database |
+| `MS SQL Server` | Centralized phonebook | Recurring synchronization from an external Microsoft SQL Server database |
 | `CSV` | Centralized phonebook | Recurring synchronization from a CSV file |
 | `CSV (CTI phonebook)` | Personal address book of a CTI user | One-shot import, no synchronization |
 | `Infinity Zucchetti` | Centralized phonebook | Recurring synchronization through the Zucchetti Infinity APIs |
@@ -51,6 +52,12 @@ Based on the `Source Type`, additional attributes need to be specified:
 Database name, server address/port, username, and password for the source database are required.
 
 Additionally, in the Select query text area, the SQL query used to retrieve data to be imported into the centralized address book must be inserted. If present in the text area, replace the word `[table]` with the name of the source table.
+
+**MS SQL Server**
+
+Same fields as a MySQL source: database name, server address/port (`1433` by default), username, password and the select query.
+
+The connection is established over TCP with the FreeTDS ODBC driver, so the SQL Server instance must accept TCP/IP connections on the configured port. A named instance cannot be addressed as `server\instance`: use the address and the TCP port the instance listens on.
 
 **CSV**
 
@@ -155,7 +162,7 @@ The source name is no longer a mappable destination field: it is set once in the
 
 #### Settings {#settings}
 
-Recurring sources (`MySQL`, `CSV`, `Infinity Zucchetti`) synchronize contacts on a schedule. The `CSV (CTI phonebook)` source is a one-shot import and has no synchronization settings.
+Recurring sources (`MySQL`, `MS SQL Server`, `CSV`, `Infinity Zucchetti`) synchronize contacts on a schedule. The `CSV (CTI phonebook)` source is a one-shot import and has no synchronization settings.
 
 You can choose the synchronization interval for contacts between:
 
