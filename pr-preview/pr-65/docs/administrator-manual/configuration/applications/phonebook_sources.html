@@ -8,7 +8,7 @@
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7">
 <script src="https://widget.kapa.ai/kapa-widget.bundle.js" data-website-id="54bcf336-8574-4f4e-b02d-27916cc99e46" data-project-name="NethVoice Documentation" data-project-color="#059669" data-modal-header-bg-color="#059669" data-modal-title-color="#ffffff" data-project-logo="https://docs.nethvoice.com/img/favicon_white.ico" data-source-group-ids-include="e92a7b49-112e-479c-8813-0b8562b9e652" async></script><link rel="stylesheet" href="/pr-preview/pr-65/assets/css/styles.1a51bce8.css">
-<script src="/pr-preview/pr-65/assets/js/runtime~main.0cdade0c.js" defer="defer"></script>
+<script src="/pr-preview/pr-65/assets/js/runtime~main.032ca936.js" defer="defer"></script>
 <script src="/pr-preview/pr-65/assets/js/main.b07ddeca.js" defer="defer"></script>
 </head>
 <body>
@@ -29,8 +29,9 @@
 <li class="">Imported contacts have their own visibility, chosen by the administrator on the source itself: see <a href="#sharing-options" class="">Sharing options</a>.</li>
 </ul>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="adding-external-address-books">Adding External Address Books<a href="#adding-external-address-books" class="hash-link" aria-label="Direct link to Adding External Address Books" title="Direct link to Adding External Address Books" translate="no">​</a></h4>
-<p>From the menu <code>Applications -&gt; Address Book Sources</code>, you can define an external source for the contacts NethVoice should use to resolve incoming and outgoing calls.
+<p>Address book sources are configured in the <strong>NethVoice administration interface</strong>, from the menu <code>Applications -&gt; Address Book Sources</code>. There you can define an external source for the contacts NethVoice should use to resolve incoming and outgoing calls.
 These contacts will be added to the NethVoice address book and made available for use in NethVoice CTI and NethVoice App.</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>This configuration is not available inside NethVoice CTI: only an administrator can create address book sources, from the NethVoice administration interface.</p></div></div>
 <p>To configure a new source, three steps are required:</p>
 <ul>
 <li class=""><strong>Source</strong>: Configure access to the source database of contacts.</li>
@@ -55,6 +56,8 @@ These contacts will be added to the NethVoice address book and made available fo
 <p>The <code>Verify</code> button allows you to preview the data retrieved from the source.</p>
 <p><strong>CSV (CTI phonebook)</strong></p>
 <p>This source type uses the same CSV file format described above, but the contacts are imported once into the personal address book of a single CTI user instead of the centralized phonebook. No recurring source is stored and no synchronization interval is available.</p>
+<p>The import is started by the administrator from <code>Applications -&gt; Address Book Sources -&gt; New address book source</code>, selecting <code>CSV (CTI phonebook)</code> as <code>Source Type</code>. Users cannot import a CSV from NethVoice CTI: after the import, they only find the contacts in their own address book, where they can manage them as if they had created them.</p>
+<p><img decoding="async" loading="lazy" alt="New address book source with the CSV (CTI phonebook) source type" src="/pr-preview/pr-65/assets/images/phonebook_source_csv_cti-6942860c299bf28b2ef7bf01884db438.png" width="690" height="334" class="img_ev3q"></p>
 <p>Two additional settings are required:</p>
 <ul>
 <li class=""><strong>Owner</strong>: the CTI user the contacts are assigned to. Only configured users (users with an extension) can be selected, and the field is mandatory.</li>
