@@ -20,8 +20,12 @@ I contatti importati dalle Fonti della rubrica vengono aggiunti alla rubrica cen
 
 #### Aggiunta di rubriche esterne
 
-Dal menu `Applicazioni -> Fonti della rubrica`, puoi definire un'origine esterna per i contatti che NethVoice dovrebbe utilizzare per risolvere le chiamate in arrivo e in uscita.
+Le fonti della rubrica si configurano nell'**interfaccia di amministrazione di NethVoice**, dal menu `Applicazioni -> Fonti della rubrica`. Da qui puoi definire un'origine esterna per i contatti che NethVoice dovrebbe utilizzare per risolvere le chiamate in arrivo e in uscita.
 Questi contatti verranno aggiunti alla rubrica di NethVoice e resi disponibili per l'utilizzo in NethVoice CTI e NethVoice App.
+
+:::note
+Questa configurazione non è disponibile dentro NethVoice CTI: solo un amministratore può creare fonti della rubrica, dall'interfaccia di amministrazione di NethVoice.
+:::
 
 Per configurare una nuova fonte sono necessari tre passaggi:
 
@@ -70,6 +74,10 @@ Il pulsante `Verifica` consente di visualizzare in anteprima i dati recuperati d
 **CSV (rubrica CTI)**
 
 Questo tipo di origine usa lo stesso formato di file CSV descritto sopra, ma i contatti vengono importati una sola volta nella rubrica personale di un singolo utente CTI invece che nella rubrica centralizzata. Non viene salvata alcuna fonte ricorrente e non è disponibile un intervallo di sincronizzazione.
+
+L'importazione viene avviata dall'amministratore da `Applicazioni -> Fonti della rubrica -> Nuova sorgente rubrica`, scegliendo `CSV (CTI phonebook)` come `Tipo sorgente`. Gli utenti non possono importare un CSV da NethVoice CTI: al termine dell'importazione trovano i contatti nella propria rubrica, dove possono gestirli come se li avessero creati loro.
+
+![Nuova sorgente rubrica con tipo sorgente CSV (CTI phonebook)](/img/administrator-manual/phonebook_source_csv_cti.png)
 
 Sono richieste due impostazioni aggiuntive:
 

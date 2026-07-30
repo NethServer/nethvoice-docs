@@ -22,8 +22,12 @@ Contacts imported from Address Book Sources are added to the centralized phonebo
 
 #### Adding External Address Books {#adding-external-address-books}
 
-From the menu `Applications -> Address Book Sources`, you can define an external source for the contacts NethVoice should use to resolve incoming and outgoing calls.
+Address book sources are configured in the **NethVoice administration interface**, from the menu `Applications -> Address Book Sources`. There you can define an external source for the contacts NethVoice should use to resolve incoming and outgoing calls.
 These contacts will be added to the NethVoice address book and made available for use in NethVoice CTI and NethVoice App.
+
+:::note
+This configuration is not available inside NethVoice CTI: only an administrator can create address book sources, from the NethVoice administration interface.
+:::
 
 To configure a new source, three steps are required:
 
@@ -72,6 +76,10 @@ The `Verify` button allows you to preview the data retrieved from the source.
 **CSV (CTI phonebook)**
 
 This source type uses the same CSV file format described above, but the contacts are imported once into the personal address book of a single CTI user instead of the centralized phonebook. No recurring source is stored and no synchronization interval is available.
+
+The import is started by the administrator from `Applications -> Address Book Sources -> New address book source`, selecting `CSV (CTI phonebook)` as `Source Type`. Users cannot import a CSV from NethVoice CTI: after the import, they only find the contacts in their own address book, where they can manage them as if they had created them.
+
+![New address book source with the CSV (CTI phonebook) source type](/img/administrator-manual/phonebook_source_csv_cti.png)
 
 Two additional settings are required:
 
