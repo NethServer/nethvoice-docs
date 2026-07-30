@@ -18,5 +18,4 @@ Le seguenti applicazioni sono disponibili nella sezione *Applicazioni*:
 - **URL parametrizzati**: Attiva gli URL personalizzati con parametri relativi alle chiamate durante gli eventi di chiamata.
 - **Sorgenti Video**: Configura telecamere IP e sorgenti video per l'integrazione con NethVoice.
 - **Gestione massiva**: Gestisci e modifica simultaneamente più interni e telefoni.
-- **Google TTS/STT**: Integra i servizi di sintesi vocale e riconoscimento vocale di Google per annunci vocali dinamici e riconoscimento vocale personalizzato.
 - **Casella vocale**: Configura le notifiche email della casella vocale.
