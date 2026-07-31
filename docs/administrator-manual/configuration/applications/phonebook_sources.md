@@ -22,8 +22,12 @@ Contacts imported from Address Book Sources are added to the centralized phonebo
 
 #### Adding External Address Books {#adding-external-address-books}
 
-From the menu `Applications -> Address Book Sources`, you can define an external source for the contacts NethVoice should use to resolve incoming and outgoing calls.
+Address book sources are configured in the **NethVoice administration interface**, from the menu `Applications -> Address Book Sources`. There you can define an external source for the contacts NethVoice should use to resolve incoming and outgoing calls.
 These contacts will be added to the NethVoice address book and made available for use in NethVoice CTI and NethVoice App.
+
+:::note
+This configuration is not available inside NethVoice CTI: only an administrator can create address book sources, from the NethVoice administration interface.
+:::
 
 To configure a new source, three steps are required:
 
@@ -38,6 +42,7 @@ The available `Source Type` values are:
 | Source type | Destination | Behaviour |
 |-------------|-------------|-----------|
 | `MySQL` | Centralized phonebook | Recurring synchronization from an external database |
+| `MS SQL Server` | Centralized phonebook | Recurring synchronization from an external Microsoft SQL Server database |
 | `CSV` | Centralized phonebook | Recurring synchronization from a CSV file |
 | `CSV (CTI phonebook)` | Personal address book of a CTI user | One-shot import, no synchronization |
 | `Infinity Zucchetti` | Centralized phonebook | Recurring synchronization through the Zucchetti Infinity APIs |
@@ -52,6 +57,12 @@ Database name, server address/port, username, and password for the source databa
 
 Additionally, in the Select query text area, the SQL query used to retrieve data to be imported into the centralized address book must be inserted. If present in the text area, replace the word `[table]` with the name of the source table.
 
+**MS SQL Server**
+
+Same fields as a MySQL source: database name, server address/port (`1433` by default), username, password and the select query.
+
+The connection is established over TCP with the FreeTDS ODBC driver, so the SQL Server instance must accept TCP/IP connections on the configured port. A named instance cannot be addressed as `server\instance`: use the address and the TCP port the instance listens on.
+
 **CSV**
 
 In the `URL` field, you can specify the web address of a file in CSV format (Comma-Separated Values, values separated by commas and double quotes "" as text qualifiers, mandatory if the field contains a comma or space). Addresses starting with `http://` and `https://` are accepted.
@@ -65,6 +76,10 @@ The `Verify` button allows you to preview the data retrieved from the source.
 **CSV (CTI phonebook)**
 
 This source type uses the same CSV file format described above, but the contacts are imported once into the personal address book of a single CTI user instead of the centralized phonebook. No recurring source is stored and no synchronization interval is available.
+
+The import is started by the administrator from `Applications -> Address Book Sources -> New address book source`, selecting `CSV (CTI phonebook)` as `Source Type`. Users cannot import a CSV from NethVoice CTI: after the import, they only find the contacts in their own address book, where they can manage them as if they had created them.
+
+![New address book source with the CSV (CTI phonebook) source type](/img/administrator-manual/phonebook_source_csv_cti.png)
 
 Two additional settings are required:
 
@@ -155,7 +170,7 @@ The source name is no longer a mappable destination field: it is set once in the
 
 #### Settings {#settings}
 
-Recurring sources (`MySQL`, `CSV`, `Infinity Zucchetti`) synchronize contacts on a schedule. The `CSV (CTI phonebook)` source is a one-shot import and has no synchronization settings.
+Recurring sources (`MySQL`, `MS SQL Server`, `CSV`, `Infinity Zucchetti`) synchronize contacts on a schedule. The `CSV (CTI phonebook)` source is a one-shot import and has no synchronization settings.
 
 You can choose the synchronization interval for contacts between:
 

@@ -20,8 +20,12 @@ I contatti importati dalle Fonti della rubrica vengono aggiunti alla rubrica cen
 
 #### Aggiunta di rubriche esterne
 
-Dal menu `Applicazioni -> Fonti della rubrica`, puoi definire un'origine esterna per i contatti che NethVoice dovrebbe utilizzare per risolvere le chiamate in arrivo e in uscita.
+Le fonti della rubrica si configurano nell'**interfaccia di amministrazione di NethVoice**, dal menu `Applicazioni -> Fonti della rubrica`. Da qui puoi definire un'origine esterna per i contatti che NethVoice dovrebbe utilizzare per risolvere le chiamate in arrivo e in uscita.
 Questi contatti verranno aggiunti alla rubrica di NethVoice e resi disponibili per l'utilizzo in NethVoice CTI e NethVoice App.
+
+:::note
+Questa configurazione non è disponibile dentro NethVoice CTI: solo un amministratore può creare fonti della rubrica, dall'interfaccia di amministrazione di NethVoice.
+:::
 
 Per configurare una nuova fonte sono necessari tre passaggi:
 
@@ -36,6 +40,7 @@ I valori disponibili per `Tipo di origine` sono:
 | Tipo di origine | Destinazione | Comportamento |
 |-----------------|--------------|---------------|
 | `MySQL` | Rubrica centralizzata | Sincronizzazione ricorrente da un database esterno |
+| `MS SQL Server` | Rubrica centralizzata | Sincronizzazione ricorrente da un database Microsoft SQL Server esterno |
 | `CSV` | Rubrica centralizzata | Sincronizzazione ricorrente da un file CSV |
 | `CSV (rubrica CTI)` | Rubrica personale di un utente CTI | Importazione una tantum, senza sincronizzazione |
 | `Infinity Zucchetti` | Rubrica centralizzata | Sincronizzazione ricorrente tramite le API di Zucchetti Infinity |
@@ -50,6 +55,12 @@ Il nome del database, l'indirizzo/porta del server, il nome utente e la password
 
 Inoltre, nell'area di testo Seleziona query, deve essere inserita la query SQL utilizzata per recuperare i dati da importare nella rubrica centralizzata. Se presente nell'area di testo, sostituisci la parola `[table]` con il nome della tabella di origine.
 
+**MS SQL Server**
+
+Gli stessi campi di una fonte MySQL: nome del database, indirizzo/porta del server (`1433` per impostazione predefinita), nome utente, password e query di selezione.
+
+La connessione avviene via TCP con il driver ODBC FreeTDS, quindi l'istanza SQL Server deve accettare connessioni TCP/IP sulla porta configurata. Un'istanza con nome non può essere indicata come `server\istanza`: usa l'indirizzo e la porta TCP su cui l'istanza è in ascolto.
+
 **CSV**
 
 Nel campo `URL`, puoi specificare l'indirizzo web di un file in formato CSV (Comma-Separated Values, valori separati da virgole e virgolette doppie "" come qualificatori di testo, obbligatorio se il campo contiene una virgola o uno spazio). Gli indirizzi che iniziano con `http://` e `https://` sono accettati.
@@ -63,6 +74,10 @@ Il pulsante `Verifica` consente di visualizzare in anteprima i dati recuperati d
 **CSV (rubrica CTI)**
 
 Questo tipo di origine usa lo stesso formato di file CSV descritto sopra, ma i contatti vengono importati una sola volta nella rubrica personale di un singolo utente CTI invece che nella rubrica centralizzata. Non viene salvata alcuna fonte ricorrente e non è disponibile un intervallo di sincronizzazione.
+
+L'importazione viene avviata dall'amministratore da `Applicazioni -> Fonti della rubrica -> Nuova sorgente rubrica`, scegliendo `CSV (CTI phonebook)` come `Tipo sorgente`. Gli utenti non possono importare un CSV da NethVoice CTI: al termine dell'importazione trovano i contatti nella propria rubrica, dove possono gestirli come se li avessero creati loro.
+
+![Nuova sorgente rubrica con tipo sorgente CSV (CTI phonebook)](/img/administrator-manual/phonebook_source_csv_cti.png)
 
 Sono richieste due impostazioni aggiuntive:
 
@@ -153,7 +168,7 @@ Il nome della fonte non è più un campo di destinazione mappabile: viene impost
 
 #### Impostazioni
 
-Le fonti ricorrenti (`MySQL`, `CSV`, `Infinity Zucchetti`) sincronizzano i contatti in modo pianificato. La fonte `CSV (rubrica CTI)` è un'importazione una tantum e non ha impostazioni di sincronizzazione.
+Le fonti ricorrenti (`MySQL`, `MS SQL Server`, `CSV`, `Infinity Zucchetti`) sincronizzano i contatti in modo pianificato. La fonte `CSV (rubrica CTI)` è un'importazione una tantum e non ha impostazioni di sincronizzazione.
 
 Puoi scegliere l'intervallo di sincronizzazione per i contatti tra:
 
