@@ -8,7 +8,7 @@
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7">
 <script src="https://widget.kapa.ai/kapa-widget.bundle.js" data-website-id="54bcf336-8574-4f4e-b02d-27916cc99e46" data-project-name="NethVoice Documentation" data-project-color="#059669" data-modal-header-bg-color="#059669" data-modal-title-color="#ffffff" data-project-logo="https://docs.nethvoice.com/img/favicon_white.ico" data-source-group-ids-include="e92a7b49-112e-479c-8813-0b8562b9e652" async></script><link rel="stylesheet" href="/it/assets/css/styles.74857691.css">
-<script src="/it/assets/js/runtime~main.759b5d76.js" defer="defer"></script>
+<script src="/it/assets/js/runtime~main.648b4f94.js" defer="defer"></script>
 <script src="/it/assets/js/main.88d05cc0.js" defer="defer"></script>
 </head>
 <body>
@@ -28,8 +28,9 @@
 <li class="">I contatti importati hanno una propria visibilità, scelta dall&#x27;amministratore sulla fonte stessa: vedi <a href="#sharing-options" class="">Opzioni di condivisione</a>.</li>
 </ul>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="aggiunta-di-rubriche-esterne">Aggiunta di rubriche esterne<a href="#aggiunta-di-rubriche-esterne" class="hash-link" aria-label="Link diretto a Aggiunta di rubriche esterne" title="Link diretto a Aggiunta di rubriche esterne" translate="no">​</a></h4>
-<p>Dal menu <code>Applicazioni -&gt; Fonti della rubrica</code>, puoi definire un&#x27;origine esterna per i contatti che NethVoice dovrebbe utilizzare per risolvere le chiamate in arrivo e in uscita.
+<p>Le fonti della rubrica si configurano nell&#x27;<strong>interfaccia di amministrazione di NethVoice</strong>, dal menu <code>Applicazioni -&gt; Fonti della rubrica</code>. Da qui puoi definire un&#x27;origine esterna per i contatti che NethVoice dovrebbe utilizzare per risolvere le chiamate in arrivo e in uscita.
 Questi contatti verranno aggiunti alla rubrica di NethVoice e resi disponibili per l&#x27;utilizzo in NethVoice CTI e NethVoice App.</p>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>Questa configurazione non è disponibile dentro NethVoice CTI: solo un amministratore può creare fonti della rubrica, dall&#x27;interfaccia di amministrazione di NethVoice.</p></div></div>
 <p>Per configurare una nuova fonte sono necessari tre passaggi:</p>
 <ul>
 <li class=""><strong>Fonte</strong>: Configura l&#x27;accesso al database di origine dei contatti.</li>
@@ -38,12 +39,15 @@ Questi contatti verranno aggiunti alla rubrica di NethVoice e resi disponibili p
 </ul>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="phonebook-source">Fonte della rubrica<a href="#phonebook-source" class="hash-link" aria-label="Link diretto a Fonte della rubrica" title="Link diretto a Fonte della rubrica" translate="no">​</a></h4>
 <p>I valori disponibili per <code>Tipo di origine</code> sono:</p>
-<table><thead><tr><th>Tipo di origine</th><th>Destinazione</th><th>Comportamento</th></tr></thead><tbody><tr><td><code>MySQL</code></td><td>Rubrica centralizzata</td><td>Sincronizzazione ricorrente da un database esterno</td></tr><tr><td><code>CSV</code></td><td>Rubrica centralizzata</td><td>Sincronizzazione ricorrente da un file CSV</td></tr><tr><td><code>CSV (rubrica CTI)</code></td><td>Rubrica personale di un utente CTI</td><td>Importazione una tantum, senza sincronizzazione</td></tr><tr><td><code>Infinity Zucchetti</code></td><td>Rubrica centralizzata</td><td>Sincronizzazione ricorrente tramite le API di Zucchetti Infinity</td></tr></tbody></table>
+<table><thead><tr><th>Tipo di origine</th><th>Destinazione</th><th>Comportamento</th></tr></thead><tbody><tr><td><code>MySQL</code></td><td>Rubrica centralizzata</td><td>Sincronizzazione ricorrente da un database esterno</td></tr><tr><td><code>MS SQL Server</code></td><td>Rubrica centralizzata</td><td>Sincronizzazione ricorrente da un database Microsoft SQL Server esterno</td></tr><tr><td><code>CSV</code></td><td>Rubrica centralizzata</td><td>Sincronizzazione ricorrente da un file CSV</td></tr><tr><td><code>CSV (rubrica CTI)</code></td><td>Rubrica personale di un utente CTI</td><td>Importazione una tantum, senza sincronizzazione</td></tr><tr><td><code>Infinity Zucchetti</code></td><td>Rubrica centralizzata</td><td>Sincronizzazione ricorrente tramite le API di Zucchetti Infinity</td></tr></tbody></table>
 <p>Per le fonti che alimentano la rubrica centralizzata deve essere assegnato un <code>Nome rubrica</code> univoco, per distinguere l&#x27;origine dei contatti importati nella rubrica di NethVoice. La fonte <code>CSV (rubrica CTI)</code> non lo richiede, perché i contatti importati appartengono a un utente e non a una fonte centralizzata.</p>
 <p>In base al <code>Tipo di origine</code>, è necessario specificare attributi aggiuntivi:</p>
 <p><strong>MySQL</strong></p>
 <p>Il nome del database, l&#x27;indirizzo/porta del server, il nome utente e la password per il database di origine sono richiesti.</p>
 <p>Inoltre, nell&#x27;area di testo Seleziona query, deve essere inserita la query SQL utilizzata per recuperare i dati da importare nella rubrica centralizzata. Se presente nell&#x27;area di testo, sostituisci la parola <code>[table]</code> con il nome della tabella di origine.</p>
+<p><strong>MS SQL Server</strong></p>
+<p>Gli stessi campi di una fonte MySQL: nome del database, indirizzo/porta del server (<code>1433</code> per impostazione predefinita), nome utente, password e query di selezione.</p>
+<p>La connessione avviene via TCP con il driver ODBC FreeTDS, quindi l&#x27;istanza SQL Server deve accettare connessioni TCP/IP sulla porta configurata. Un&#x27;istanza con nome non può essere indicata come <code>server\istanza</code>: usa l&#x27;indirizzo e la porta TCP su cui l&#x27;istanza è in ascolto.</p>
 <p><strong>CSV</strong></p>
 <p>Nel campo <code>URL</code>, puoi specificare l&#x27;indirizzo web di un file in formato CSV (Comma-Separated Values, valori separati da virgole e virgolette doppie &quot;&quot; come qualificatori di testo, obbligatorio se il campo contiene una virgola o uno spazio). Gli indirizzi che iniziano con <code>http://</code> e <code>https://</code> sono accettati.</p>
 <p>In alternativa, puoi caricare un file CSV tramite il pulsante a destra dello stesso campo di testo. In questo caso, il campo <code>URL</code> verrà compilato automaticamente.</p>
@@ -51,6 +55,8 @@ Questi contatti verranno aggiunti alla rubrica di NethVoice e resi disponibili p
 <p>Il pulsante <code>Verifica</code> consente di visualizzare in anteprima i dati recuperati dall&#x27;origine.</p>
 <p><strong>CSV (rubrica CTI)</strong></p>
 <p>Questo tipo di origine usa lo stesso formato di file CSV descritto sopra, ma i contatti vengono importati una sola volta nella rubrica personale di un singolo utente CTI invece che nella rubrica centralizzata. Non viene salvata alcuna fonte ricorrente e non è disponibile un intervallo di sincronizzazione.</p>
+<p>L&#x27;importazione viene avviata dall&#x27;amministratore da <code>Applicazioni -&gt; Fonti della rubrica -&gt; Nuova sorgente rubrica</code>, scegliendo <code>CSV (CTI phonebook)</code> come <code>Tipo sorgente</code>. Gli utenti non possono importare un CSV da NethVoice CTI: al termine dell&#x27;importazione trovano i contatti nella propria rubrica, dove possono gestirli come se li avessero creati loro.</p>
+<p><img decoding="async" loading="lazy" alt="Nuova sorgente rubrica con tipo sorgente CSV (CTI phonebook)" src="/it/assets/images/phonebook_source_csv_cti-6942860c299bf28b2ef7bf01884db438.png" width="690" height="334" class="img_ev3q"></p>
 <p>Sono richieste due impostazioni aggiuntive:</p>
 <ul>
 <li class=""><strong>Proprietario</strong>: l&#x27;utente CTI a cui vengono assegnati i contatti. Sono selezionabili solo gli utenti configurati (con un interno) e il campo è obbligatorio.</li>
@@ -76,7 +82,7 @@ Questi contatti verranno aggiunti alla rubrica di NethVoice e resi disponibili p
 <p>Il campo <code>name</code> resta quello usato per la risoluzione del nome nelle chiamate: <code>firstname</code> e <code>lastname</code> sono campi aggiuntivi, visualizzati e modificabili in NethVoice CTI.</p>
 <div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>Il nome della fonte non è più un campo di destinazione mappabile: viene impostato una sola volta nel campo <code>Nome rubrica</code> della fonte.</p></div></div>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="impostazioni">Impostazioni<a href="#impostazioni" class="hash-link" aria-label="Link diretto a Impostazioni" title="Link diretto a Impostazioni" translate="no">​</a></h4>
-<p>Le fonti ricorrenti (<code>MySQL</code>, <code>CSV</code>, <code>Infinity Zucchetti</code>) sincronizzano i contatti in modo pianificato. La fonte <code>CSV (rubrica CTI)</code> è un&#x27;importazione una tantum e non ha impostazioni di sincronizzazione.</p>
+<p>Le fonti ricorrenti (<code>MySQL</code>, <code>MS SQL Server</code>, <code>CSV</code>, <code>Infinity Zucchetti</code>) sincronizzano i contatti in modo pianificato. La fonte <code>CSV (rubrica CTI)</code> è un&#x27;importazione una tantum e non ha impostazioni di sincronizzazione.</p>
 <p>Puoi scegliere l&#x27;intervallo di sincronizzazione per i contatti tra:</p>
 <ul>
 <li class="">15 minuti</li>
