@@ -169,6 +169,8 @@ On the **Integrations** page you can configure speech-to-text and AI services:
 
 AI-generated call summaries use the post-call transcription data and require both a working Deepgram configuration and a configured OpenAI API Key.
 
+With a Deepgram API Key configured, text-to-speech is also available when adding a recording for Announcements, IVR, or Call Queues: enter the message text, pick a language and voice, preview it, and save it as a system recording.
+
 :::info Transcription and summaries
 For user-facing details about live transcription, post-call transcription, summaries, notifications, and History integration, see [Voice Transcription and Call Summary](../../user-manual/nethcti/other.md#voice-transcription) in the User Manual.
 :::

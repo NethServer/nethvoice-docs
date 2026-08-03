@@ -18,5 +18,4 @@ The following applications are available in the *Applications* section:
 - **Parameterized URLs**: Trigger custom URLs with call-related parameters during call events.
 - **Video Sources**: Configure IP cameras and video sources for integration with NethVoice.
 - **Bulk actions**: Manage and modify multiple extensions and phones simultaneously.
-- **Google TTS/STT**: Integrate Google's Text-To-Speech and Speech-To-Text services for dynamic voice announcements and custom speech recognition.
 - **Voicemail**: Configure voicemail email notifications.

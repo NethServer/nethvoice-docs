@@ -167,6 +167,8 @@ Nella pagina **Integrazioni** puoi configurare i servizi speech-to-text e AI:
 
 I riassunti delle chiamate generati dall'AI usano i dati della trascrizione post-chiamata e richiedono sia una configurazione Deepgram funzionante che una API Key OpenAI configurata.
 
+Con una API Key Deepgram configurata, è disponibile anche la sintesi vocale (text-to-speech) durante l'aggiunta di una registrazione per Annunci, IVR o Code di chiamata: inserisci il testo del messaggio, scegli lingua e voce, ascolta l'anteprima e salvala come registrazione di sistema.
+
 :::info Trascrizioni e riassunti  
 Per informazioni utente su trascrizione live, trascrizione post-chiamata, riassunti, notifiche e integrazione con la Cronologia, consulta [Trascrizione vocale e Riassunto chiamata](../../user-manual/nethcti/other.md#voice-transcription) nel Manuale Utente.  
 :::
