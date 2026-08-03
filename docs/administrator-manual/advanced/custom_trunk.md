@@ -1,6 +1,6 @@
 ---
 title: Custom VoIP trunk
-sidebar_position: 4
+sidebar_position: 5
 ---
 
 # Configure custom VoIP trunks
