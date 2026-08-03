@@ -22,12 +22,12 @@ If you'd like to contribute documentation, tutorials, or translations to this re
 	- Always include meaningful front-matter `title:` and (when useful) `sidebar_position:`.
 	- Use explicit heading IDs for any headings that may be linked from other pages, e.g. `## Section Title {#section-title}`.
 
-3. Automated translations
+3. Translations
 
     - Create content in English or Italian first, depending on your preference. English is generally preferred.
-    - This repository includes an automated translation bot. If your PR changes an existing page or adds a new one, expect the translation system to update the target files automatically. The bot will update the PR translation and ensures that terminology and structure remain consistent across languages.
-
-    For technical details, see the [Translation Agent Documentation](./.github/scripts/translation-agent/README.md).
+    - Translations are maintained manually: when you add or change a page, update its counterpart in the same PR so both languages stay aligned.
+    - English pages live under `docs/`, Italian pages under `i18n/it/docusaurus-plugin-content-docs/current/` with the same file names and directory structure.
+    - Keep headings, heading IDs, and terminology consistent between the two versions.
 
 4. Style and formatting
 
