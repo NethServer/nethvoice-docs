@@ -31,7 +31,7 @@ podman exec freepbx chown asterisk.asterisk /var/lib/asterisk/agi-bin/SCRIPT.nam
  ```
 - rendi lo script eseguibile nel container
 ```bash
-podman exec freepbx chmod 755 /var/lib/asterisk/agi-bin/SCRIPT.name
+podman exec freepbx chmod 750 /var/lib/asterisk/agi-bin/SCRIPT.name
  ```
 
 ## Eseguire uno script al termine di una chiamata {#script-termine-chiamata}
