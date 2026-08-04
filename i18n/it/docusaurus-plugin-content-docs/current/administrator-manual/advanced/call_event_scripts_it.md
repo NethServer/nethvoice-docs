@@ -1,6 +1,6 @@
 ---
 title: Script sugli eventi di chiamata
-sidebar_position: 3
+sidebar_position: 8
 ---
 
 # Script sugli eventi di chiamata {#script-eventi-chiamata}
