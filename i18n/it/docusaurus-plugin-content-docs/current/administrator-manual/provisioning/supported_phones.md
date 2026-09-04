@@ -15,6 +15,7 @@ Per i telefoni non elencati come supportati, è possibile creare modelli di prov
 
 - NP-X3
 - NP-V61
+- NP-V64
 - NP-X5
 - NP-X210
 

@@ -15,6 +15,7 @@ For phones not listed as supported, it is possible to create custom provisioning
 
 - NP-X3
 - NP-V61
+- NP-V64
 - NP-X5
 - NP-X210
 
