@@ -1,6 +1,6 @@
 ---
 title: WSS Transport
-sidebar_position: 7
+sidebar_position: 8
 ---
 
 # WSS Transport {#wss-transport}

@@ -1,6 +1,6 @@
 ---
 title: Trasporto WSS
-sidebar_position: 7
+sidebar_position: 8
 ---
 
 # Trasporto WSS {#trasporto-wss}
@@ -26,20 +26,20 @@ Per utilizzare WSS, l'interno deve essere configurato all'interno dell'**Interfa
 
 ### Prerequisiti {#prerequisiti}
 
-1.  Creare un nuovo **Dispositivo Personalizzato** o modificarne uno esistente.
-2.  Accedere all'**Interfaccia Avanzata**.
+1. Creare un nuovo **Dispositivo Personalizzato** o modificarne uno esistente.
+2. Accedere all'**Interfaccia Avanzata**.
 
 ### Impostazioni di Trasporto {#impostazioni-di-trasporto}
 
 Modificare le impostazioni `Avanzate` dell'interno con i seguenti parametri per abilitare il trasporto WebSocket sicuro:
 
-1.  **Outbound Proxy:** Rimuovere le configurazioni proxy per questo specifico interno.
-2.  **Transport:** Impostare su `0.0.0.0-wss`.
-3.  **Enable AVPF:** Impostare su `Yes`.
-4.  **Enable ICE Support:** Impostare su `Yes`.
-5.  **Enable rtcp Mux:** Impostare su `Yes`.
-6.  **Media Encryption:** Impostare su `DTLS`.
-7.  **Enable WebRTC Defaults:** Abilitare questa impostazione per applicare le ottimizzazioni WebRTC standard.
+1. **Outbound Proxy:** Rimuovere le configurazioni proxy per questo specifico interno.
+2. **Transport:** Impostare su `0.0.0.0-wss`.
+3. **Enable AVPF:** Impostare su `Yes`.
+4. **Enable ICE Support:** Impostare su `Yes`.
+5. **Enable rtcp Mux:** Impostare su `Yes`.
+6. **Media Encryption:** Impostare su `DTLS`.
+7. **Enable WebRTC Defaults:** Abilitare questa impostazione per applicare le ottimizzazioni WebRTC standard.
 
 ## Configurazione del Client {#configurazione-del-client}
 
