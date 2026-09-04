@@ -8,7 +8,7 @@
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7">
 <script src="https://widget.kapa.ai/kapa-widget.bundle.js" data-website-id="54bcf336-8574-4f4e-b02d-27916cc99e46" data-project-name="NethVoice Documentation" data-project-color="#059669" data-modal-header-bg-color="#059669" data-modal-title-color="#ffffff" data-project-logo="https://docs.nethvoice.com/img/favicon_white.ico" data-source-group-ids-include="e92a7b49-112e-479c-8813-0b8562b9e652" async></script><link rel="stylesheet" href="/pr-preview/pr-70/assets/css/styles.1a51bce8.css">
-<script src="/pr-preview/pr-70/assets/js/runtime~main.1b02988e.js" defer="defer"></script>
+<script src="/pr-preview/pr-70/assets/js/runtime~main.c0000166.js" defer="defer"></script>
 <script src="/pr-preview/pr-70/assets/js/main.ff943293.js" defer="defer"></script>
 </head>
 <body>
@@ -30,28 +30,22 @@
 <p>The Recall on Busy workflow consists of the following steps:</p>
 <ol>
 <li class="">
-<p><strong>Call to a busy extension</strong>
-A user calls another extension that is already engaged in a conversation.</p>
+<p><strong>Call to a busy extension</strong>: a user calls another extension that is already engaged in a conversation.</p>
 </li>
 <li class="">
-<p><strong>Recall activation</strong>
-After receiving the busy tone, the caller enters the feature code configured for Recall on Busy before ending the call.</p>
+<p><strong>Recall activation</strong>: after receiving the busy tone, the caller enters the feature code configured for Recall on Busy before ending the call.</p>
 </li>
 <li class="">
-<p><strong>Called extension monitoring</strong>
-NethVoice monitors the destination extension status using the PBX presence and device-state mechanisms.</p>
+<p><strong>Called extension monitoring</strong>: NethVoice monitors the destination extension status using the PBX presence and device-state mechanisms.</p>
 </li>
 <li class="">
-<p><strong>Extension becomes available</strong>
-When the previously busy extension ends the call and becomes available again, NethVoice starts the recall procedure.</p>
+<p><strong>Extension becomes available</strong>: when the previously busy extension ends the call and becomes available again, NethVoice starts the recall procedure.</p>
 </li>
 <li class="">
-<p><strong>Caller notification</strong>
-The PBX rings the extension that requested the recall.</p>
+<p><strong>Caller notification</strong>: the PBX rings the extension that requested the recall.</p>
 </li>
 <li class="">
-<p><strong>Call completion</strong>
-When the caller answers, NethVoice automatically places a new call to the extension that was previously busy.</p>
+<p><strong>Call completion</strong>: when the caller answers, NethVoice automatically places a new call to the extension that was previously busy.</p>
 </li>
 </ol>
 <p>The call is then handled as a standard internal call.</p></div><footer class="theme-doc-footer docusaurus-mt-lg"><div class="row margin-top--sm theme-doc-footer-edit-meta-row"><div class="col noPrint_WFHX"><a href="https://github.com/NethServer/nethvoice-docs/blob/main/docs/administrator-manual/advanced/recallonbusy.md" target="_blank" rel="noopener noreferrer" class="theme-edit-this-page"><svg fill="currentColor" height="20" width="20" viewBox="0 0 40 40" class="iconEdit_Z9Sw" aria-hidden="true"><g><path d="m34.5 11.7l-3 3.1-6.3-6.3 3.1-3q0.5-0.5 1.2-0.5t1.1 0.5l3.9 3.9q0.5 0.4 0.5 1.1t-0.5 1.2z m-29.5 17.1l18.4-18.5 6.3 6.3-18.4 18.4h-6.3v-6.2z"></path></g></svg>Edit this page</a></div><div class="col lastUpdated_JAkA"></div></div></footer><div class="versionFooter_GEsS"><span class="versionText_BSdA">NethVoice <span class="versionNumber_jKi7">8.0</span></span></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/pr-preview/pr-70/docs/administrator-manual/advanced/nethvoice_proxy"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">NethVoice Proxy</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/pr-preview/pr-70/docs/administrator-manual/advanced/cqr"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Call Query Routing (CQR)</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#overview" class="table-of-contents__link toc-highlight">Overview</a></li><li><a href="#requisites" class="table-of-contents__link toc-highlight">Requirements and configuration</a></li><li><a href="#function" class="table-of-contents__link toc-highlight">How it works</a></li></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Docs</div><ul class="footer__items clean-list"><li class="footer__item"><a class="footer__link-item" href="/pr-preview/pr-70/docs/administrator-manual">Administrator manual</a></li><li class="footer__item"><a class="footer__link-item" href="/pr-preview/pr-70/docs/user-manual">User manual</a></li><li class="footer__item"><a class="footer__link-item" href="/pr-preview/pr-70/docs/tutorial">Tutorial</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Community</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://community.nethserver.org/" target="_blank" rel="noopener noreferrer" class="footer__link-item">NethServer Community (English)<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://partner.nethesis.it" target="_blank" rel="noopener noreferrer" class="footer__link-item">Partner Community (Italian)<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">Developers</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://bump.sh/nethesis/doc/nethcti-middleware/" target="_blank" rel="noopener noreferrer" class="footer__link-item">Middleware API reference<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://documenter.getpostman.com/view/15699632/TzRRC88p" target="_blank" rel="noopener noreferrer" class="footer__link-item">CTI Server API reference<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a class="footer__link-item" href="/pr-preview/pr-70/migration-status">API Migration Status</a></li></ul></div><div class="theme-layout-footer-column col footer__col"><div class="footer__title">More</div><ul class="footer__items clean-list"><li class="footer__item"><a href="https://github.com/NethServer/nethvoice-docs" target="_blank" rel="noopener noreferrer" class="footer__link-item">GitHub<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://ns8.nethserver.org" target="_blank" rel="noopener noreferrer" class="footer__link-item">NethServer documentations<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://www.nethserver.org" target="_blank" rel="noopener noreferrer" class="footer__link-item">NethServer website<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li><li class="footer__item"><a href="https://www.nethesis.it" target="_blank" rel="noopener noreferrer" class="footer__link-item">Nethesis website<svg width="13.5" height="13.5" aria-label="(opens in new tab)" class="iconExternalLink_nPIU"><use href="#theme-svg-external-link"></use></svg></a></li></ul></div></div><div class="footer__bottom text--center"><div class="footer__copyright">Copyright © 2026 Nethesis</div></div></div></footer></div>
