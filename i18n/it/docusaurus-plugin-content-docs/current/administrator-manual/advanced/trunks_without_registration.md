@@ -1,6 +1,6 @@
 ---
 title: Trunk senza registrazione
-sidebar_position: 6
+sidebar_position: 7
 ---
 
 Questa procedura è necessaria solo per un trunk VoIP non registrato (ad esempio, un trunk basato su IP senza credenziali di registrazione SIP).
