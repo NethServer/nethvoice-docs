@@ -1,7 +1,7 @@
 ---
 id: integration-index
 title: Integrations
-sidebar_position: 8
+sidebar_position: 7
 ---
 
 # Integration Tutorials

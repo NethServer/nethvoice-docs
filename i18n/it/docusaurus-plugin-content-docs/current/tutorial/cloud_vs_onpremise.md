@@ -1,6 +1,6 @@
 ---
 title: Scenari tipici di installazione
-sidebar_position: 7
+sidebar_position: 2
 ---
 
 La decisione tra un'installazione **Cloud (IaaS/SaaS)** e **On-Premise** (locale) di NethVoice su NethServer dipende principalmente dai requisiti aziendali, dalle risorse IT disponibili, e dalle esigenze specifiche riguardanti il controllo, la sicurezza e la scalabilità.

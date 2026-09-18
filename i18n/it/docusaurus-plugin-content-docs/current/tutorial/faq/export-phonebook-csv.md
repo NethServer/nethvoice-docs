@@ -1,6 +1,6 @@
 ---
 title: Esportare la rubrica come CSV da NethVoice
-sidebar_position: 3
+sidebar_position: 2
 ---
 
 # Esportare la rubrica come CSV da NethVoice {#esportare-rubrica-csv}
