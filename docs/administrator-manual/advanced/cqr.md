@@ -30,7 +30,26 @@ The key requirements for CQR are:
 
 ### Prerequisites {#prerequisites}
 
-For MSSQL database connections, you must first configure the ODBC connection. Refer to the centralized phonebook documentation for ODBC configuration details.
+The database must be reachable from NethVoice, and the database user must have permission to execute the configured queries.
+
+MSSQL support is already included in NethVoice. Configure the connection using the CQR fields described below.
+
+### MSSQL Connection Settings {#mssql-connection-settings}
+
+These settings apply to both the main query and the optional customer code lookup:
+
+- **DB Type**: select `MSSQL`.
+- **DB URL**: enter the server hostname or IP address, optionally followed by a colon and the TCP port, for example `sql.example.com:1433`. If the port is omitted, CQR uses `1433`.
+- **DB Name**: enter the database name, for example `customers`.
+- **Username** and **Password**: enter the database credentials.
+
+Enable TCP/IP on SQL Server and allow connections from NethVoice to the instance's listening port. For SQL Server Express, use the actual TCP port configured for the instance.
+
+:::note SQL Server Express: colon and comma syntax
+In some SQL Server Express versions, the server endpoint requires a comma between host and port (`sql.example.com,1433`) instead of a colon (`sql.example.com:1433`).
+
+If your database administrator provides an address such as `sql.example.com,1433`, enter it as `sql.example.com:1433` in **DB URL**. CQR handles the required format automatically.
+:::
 
 ### Basic Settings {#basic-settings}
 
@@ -47,8 +66,8 @@ Enable customer code lookup if you want CQR to resolve the customer code from th
 |-------|-------------|
 | **Use Customer Code** | Enable to activate customer code lookup from caller's phone number |
 | **DB Type** | Type of database (MySQL or MSSQL) |
-| **DB URL** | Connection URL (use `localhost` for NethVoice internal database) |
-| **DB Name** | Database name or ODBC DSN name for MSSQL |
+| **DB URL** | Database server address; for MSSQL, see [MSSQL Connection Settings](#mssql-connection-settings) |
+| **DB Name** | Database name |
 | **Username** | Database user with query permissions |
 | **Password** | Database user password |
 | **Query** | SQL query to retrieve customer code from caller ID; use `%CID%` placeholder for caller number |
@@ -77,8 +96,8 @@ SELECT `customer_code` FROM `phonebook` WHERE `customer_code` = '%CODCLI%'
 |-------|-------------|
 | **Announcement** | Message played to caller while CQR processes. Duration should match query execution time |
 | **DB Type** | Type of database (MySQL or MSSQL) for main query |
-| **DB URL** | Connection URL for main query |
-| **DB Name** | Database name or ODBC DSN name for MSSQL |
+| **DB URL** | Database server address for the main query; for MSSQL, see [MSSQL Connection Settings](#mssql-connection-settings) |
+| **DB Name** | Database name |
 | **Username** | Database user with query permissions |
 | **Password** | Database user password |
 | **Query** | SQL query for routing decision; use `%CID%` for caller ID or `%CUSTOMERCODE%` if using customer code lookup |
@@ -124,4 +143,4 @@ Define conditions and their corresponding destinations. Each rule is evaluated i
 - **Query placeholders**: Always use `%CID%` or `%CUSTOMERCODE%` placeholders; never hardcode values
 - **Error handling**: Always define a default destination for error scenarios
 - **Testing**: Test database connectivity and query accuracy before deploying to production
-- **ODBC configuration**: For MSSQL, verify ODBC configuration is properly set up on the NethVoice host
+- **MSSQL connectivity**: Check the server address, TCP port, database name and credentials configured in CQR, and verify that SQL Server accepts connections from NethVoice
