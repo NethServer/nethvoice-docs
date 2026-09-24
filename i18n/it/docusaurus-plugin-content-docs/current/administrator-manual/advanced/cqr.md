@@ -30,7 +30,26 @@ I requisiti chiave per CQR sono:
 
 ### Prerequisiti {#prerequisites}
 
-Per le connessioni a database MSSQL, devi prima configurare la connessione ODBC. Fai riferimento alla documentazione della rubrica centralizzata per i dettagli sulla configurazione ODBC.
+Il database deve essere raggiungibile da NethVoice e l'utente del database deve avere i permessi per eseguire le query configurate.
+
+Il supporto MSSQL è già incluso in NethVoice. Configura la connessione usando i campi CQR descritti di seguito.
+
+### Impostazioni di connessione MSSQL {#mssql-connection-settings}
+
+Queste impostazioni si applicano sia alla query principale sia alla ricerca opzionale del codice cliente:
+
+- **Tipo DB**: seleziona `MSSQL`.
+- **URL DB**: inserisci il nome host o l'indirizzo IP del server, eventualmente seguito da due punti e dalla porta TCP, ad esempio `sql.example.com:1433`. Se la porta è omessa, CQR usa `1433`.
+- **Nome DB**: inserisci il nome del database, ad esempio `customers`.
+- **Utente** e **Password**: inserisci le credenziali del database.
+
+Abilita TCP/IP su SQL Server e consenti le connessioni da NethVoice alla porta di ascolto dell'istanza. Per SQL Server Express, usa la porta TCP effettivamente configurata per l'istanza.
+
+:::note SQL Server Express: sintassi con due punti e virgola
+In alcune versioni di SQL Server Express, l'indirizzo del server richiede una virgola tra host e porta (`sql.example.com,1433`) anziché i due punti (`sql.example.com:1433`).
+
+Se l'amministratore del database fornisce un indirizzo come `sql.example.com,1433`, inseriscilo come `sql.example.com:1433` nel campo **URL DB**. CQR gestisce automaticamente il formato richiesto.
+:::
 
 ### Impostazioni di base {#basic-settings}
 
@@ -47,8 +66,8 @@ Abilita la ricerca del codice cliente se desideri che CQR risolva il codice clie
 |-------|-------------|
 | **Usa codice cliente** | Abilita per attivare la ricerca del codice cliente dal numero del chiamante |
 | **Tipo DB** | Tipo di database (MySQL o MSSQL) |
-| **URL DB** | URL di connessione (usa `localhost` per il database interno di NethVoice) |
-| **Nome DB** | Nome del database o nome DSN ODBC per MSSQL |
+| **URL DB** | Indirizzo del server database; per MSSQL, vedi [Impostazioni di connessione MSSQL](#mssql-connection-settings) |
+| **Nome DB** | Nome del database |
 | **Utente** | Utente del database con permessi di query |
 | **Password** | Password dell'utente del database |
 | **Query** | Query SQL per recuperare il codice cliente dall'ID del chiamante; usa il placeholder `%CID%` per il numero del chiamante |
@@ -77,8 +96,8 @@ SELECT `customer_code` FROM `phonebook` WHERE `customer_code` = '%CODCLI%'
 |-------|-------------|
 | **Annuncio** | Messaggio riprodotto al chiamante mentre CQR elabora. La durata dovrebbe corrispondere al tempo di esecuzione della query |
 | **Tipo DB** | Tipo di database (MySQL o MSSQL) per la query principale |
-| **URL DB** | URL di connessione per la query principale |
-| **Nome DB** | Nome del database o nome DSN ODBC per MSSQL |
+| **URL DB** | Indirizzo del server database per la query principale; per MSSQL, vedi [Impostazioni di connessione MSSQL](#mssql-connection-settings) |
+| **Nome DB** | Nome del database |
 | **Utente** | Utente del database con permessi di query |
 | **Password** | Password dell'utente del database |
 | **Query** | Query SQL per la decisione di instradamento; usa `%CID%` per l'ID del chiamante o `%CUSTOMERCODE%` se usi la ricerca del codice cliente |
@@ -124,4 +143,4 @@ Definisci le condizioni e le loro destinazioni corrispondenti. Ogni regola viene
 - **Placeholder delle query**: Usa sempre i placeholder `%CID%` o `%CUSTOMERCODE%`; non codificare mai i valori
 - **Gestione degli errori**: Definisci sempre una destinazione predefinita per gli scenari di errore
 - **Test**: Testa la connettività del database e l'accuratezza della query prima di distribuire in produzione
-- **Configurazione ODBC**: Per MSSQL, verifica che la configurazione ODBC sia correttamente impostata sull'host NethVoice
+- **Connettività MSSQL**: Controlla l'indirizzo del server, la porta TCP, il nome del database e le credenziali configurate in CQR e verifica che SQL Server accetti connessioni da NethVoice
