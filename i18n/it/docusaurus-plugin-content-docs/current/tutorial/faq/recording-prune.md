@@ -1,3 +1,8 @@
+---
+title: Eliminare le vecchie registrazioni di chiamate
+sidebar_position: 3
+---
+
 # Eliminare le vecchie registrazioni di chiamate
 
 *Come eliminare automaticamente le registrazioni di chiamate più vecchie di un numero specificato di giorni su NethVoice*

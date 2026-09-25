@@ -1,3 +1,8 @@
+---
+title: Prune old call recordings
+sidebar_position: 3
+---
+
 # Prune old call recordings
 
 *How to automatically delete call recordings older than a specified number of days on NethVoice*

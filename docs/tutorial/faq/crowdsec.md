@@ -1,6 +1,6 @@
 ---
 title: Protect NethVoice from brute-force attacks (CrowdSec)
-sidebar_position: 10
+sidebar_position: 1
 ---
 
 # Protect NethVoice from brute-force attacks with CrowdSec
