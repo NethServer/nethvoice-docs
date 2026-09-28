@@ -1,19 +1,24 @@
-# Eliminare i vecchi messaggi di posta vocale
+---
+title: liminare i vecchi messaggi di casella vocale
+sidebar_position: 4
+---
 
-*Come eliminare automaticamente i messaggi di posta vocale più vecchi di un numero specificato di giorni su NethVoice*
+# Eliminare i vecchi messaggi di casella vocale
+
+*Come eliminare automaticamente i messaggi di casella vocale più vecchi di un numero specificato di giorni su NethVoice*
 
 ## Obiettivo della guida
 
-Lo scopo di questa guida è **spiegare come configurare l'eliminazione automatica della posta vocale** su NethVoice e **descrivere la configurazione, il funzionamento e le procedure di backup dei dati** per garantire un'eliminazione sicura dei vecchi messaggi.
+Lo scopo di questa guida è **spiegare come configurare l'eliminazione automatica della casella vocale** su NethVoice e **descrivere la configurazione, il funzionamento e le procedure di backup dei dati** per garantire un'eliminazione sicura dei vecchi messaggi.
 
 ## Introduzione
 
-NethVoice archivia i messaggi di posta vocale in un database MariaDB. Nel corso del tempo, questo database può crescere in modo significativo, consumando spazio su disco. La **funzionalità di eliminazione della posta vocale** consente di **eliminare automaticamente i messaggi di posta vocale più vecchi di un numero configurabile di giorni** (predefinito: 10 giorni) utilizzando i timer systemd e i servizi.
+NethVoice archivia i messaggi di casella vocale in un database MariaDB. Nel corso del tempo, questo database può crescere in modo significativo, consumando spazio su disco. La **funzionalità di eliminazione della casella vocale** consente di **eliminare automaticamente i messaggi di casella vocale più vecchi di un numero configurabile di giorni** (predefinito: 10 giorni) utilizzando i timer systemd e i servizi.
 
 ### Come funziona
 
 * Un timer systemd attiva un servizio ogni giorno a mezzanotte.
-* Il servizio esegue una query MariaDB che elimina i messaggi di posta vocale più vecchi del periodo di conservazione configurato.
+* Il servizio esegue una query MariaDB che elimina i messaggi di casella vocale più vecchi del periodo di conservazione configurato.
 * Il periodo di conservazione è **configurabile** (predefinito: 10 giorni).
 * I messaggi eliminati sono **rimossi permanentemente** dal database.
 
@@ -97,13 +102,13 @@ systemctl --user daemon-reload
 systemctl --user enable --now voicemail-prune.timer
 ```
 
-**Fatto!** Il servizio di eliminazione della posta vocale è ora configurato per l'esecuzione una volta al giorno.
+**Fatto!** Il servizio di eliminazione della casella vocale è ora configurato per l'esecuzione una volta al giorno.
 
 ---
 
 ## Procedure di backup e ripristino {#backup-and-restore}
 
-Prima di fare affidamento sull'eliminazione automatica in produzione, è **fortemente consigliato** creare un backup dei dati di posta vocale.
+Prima di fare affidamento sull'eliminazione automatica in produzione, è **fortemente consigliato** creare un backup dei dati di casella vocale.
 
 Prima di eseguire qualsiasi comando, assicurarsi di essere nell'ambiente applicativo NethVoice:
 ```bash
@@ -170,7 +175,7 @@ Per vedere l'output del servizio di eliminazione:
 api-server-logs logs --entity module --name nethvoice1
 ```
 
-Questo visualizza i log per il modulo NethVoice. Cercare le voci relative al servizio di eliminazione della posta vocale:
+Questo visualizza i log per il modulo NethVoice. Cercare le voci relative al servizio di eliminazione della casella vocale:
 
 ```
 2026-01-20T13:51:42Z [1:nethvoice1:systemd] Starting Prune old voicemail messages...

@@ -42,7 +42,3 @@ For each step, refer to the linked documentation for comprehensive, step-by-step
 ## Related tutorials {#related-tutorials}
 
 * [Common deployment scenarios](./cloud_vs_onpremise.md)
-* [Export phonebook as CSV from NethVoice](./export-phonebook-csv.md)
-* [Prune old Voicemail Messages](./voicemail-prune.md)
-* [Prune old Call Recordings](./recording-prune.md)
-* [Protect NethVoice from brute-force attacks (CrowdSec)](./crowdsec.md)

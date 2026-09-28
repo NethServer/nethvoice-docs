@@ -1,3 +1,8 @@
+---
+title: Prune old voicemail messages
+sidebar_position: 4
+---
+
 # Prune old voicemail messages
 
 *How to automatically delete voicemail messages older than a specified number of days on NethVoice*
