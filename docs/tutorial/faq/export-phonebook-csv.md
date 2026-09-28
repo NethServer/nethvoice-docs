@@ -79,4 +79,4 @@ This keeps the system tidy and protects sensitive data.
 
 ## See also {#see-also}
 
-To load a CSV file *into* a CTI user address book, use the `CSV (CTI phonebook)` source type described in [Phonebook sources](../administrator-manual/configuration/applications/phonebook_sources.md#phonebook-source).
+To load a CSV file *into* a CTI user address book, use the `CSV (CTI phonebook)` source type described in [Phonebook sources](../../administrator-manual/configuration/applications/phonebook_sources.md#phonebook-source).

@@ -146,5 +146,5 @@ rather than replaces — basic hardening of your telephony ports:
 
 ## Related tutorials {#related-tutorials}
 
-* [Troubleshooting NethVoice](./troubleshooting/index.md)
-* [Common deployment scenarios](./cloud_vs_onpremise.md)
+* [Troubleshooting NethVoice](../troubleshooting/index.md)
+* [Common deployment scenarios](../cloud_vs_onpremise.md)

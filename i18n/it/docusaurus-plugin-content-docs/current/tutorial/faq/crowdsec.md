@@ -161,5 +161,5 @@ completa — senza sostituire — l'hardening di base delle porte di telefonia:
 
 ## Tutorial correlati {#related-tutorials}
 
-* [Risoluzione dei problemi di NethVoice](./troubleshooting/index.md)
-* [Scenari comuni di distribuzione](./cloud_vs_onpremise.md)
+* [Risoluzione dei problemi di NethVoice](../troubleshooting/index.md)
+* [Scenari comuni di distribuzione](../cloud_vs_onpremise.md)
