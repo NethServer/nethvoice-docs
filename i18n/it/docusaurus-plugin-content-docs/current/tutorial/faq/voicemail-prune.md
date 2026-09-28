@@ -69,7 +69,7 @@ Persistent=true
 WantedBy=timers.target
 ```
 
-Questo file definisce un **timer quotidiano** che attiva il servizio di eliminazione ogni giorno. L'imcasellazione `Persistent=true` assicura che il timer venga eseguito anche se il sistema era spento all'ora pianificata.
+Questo file definisce un **timer quotidiano** che attiva il servizio di eliminazione ogni giorno. L'impostazione `Persistent=true` assicura che il timer venga eseguito anche se il sistema era spento all'ora pianificata.
 
 ### Passaggio 3: Creare il file del servizio
 
@@ -91,7 +91,7 @@ Environment=DAYS=10
 ExecStart=podman exec -i mariadb mysql -uroot -p"${MARIADB_ROOT_PASSWORD}" asteriskcdrdb -e "DELETE FROM voicemessages WHERE msgnum <> -1 AND CAST(origtime AS UNSIGNED) < (UNIX_TIMESTAMP() - ${DAYS}*24*60*60); OPTIMIZE TABLE voicemessages;"
 ```
 
-La riga `Environment=DAYS=10` imcasella il periodo di conservazione su 10 giorni. È possibile modificare questo valore per cambiare quanti giorni di casella vocale conservare.
+La riga `Environment=DAYS=10` imposta il periodo di conservazione su 10 giorni. È possibile modificare questo valore per cambiare quanti giorni di posta vocale conservare.
 
 ### Passaggio 4: Abilitare e avviare il timer
 

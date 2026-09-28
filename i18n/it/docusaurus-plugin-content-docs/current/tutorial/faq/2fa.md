@@ -118,7 +118,7 @@ rm -f codes status
 In alternativa, per rimuovere completamente la configurazione 2FA memorizzata, inclusa la chiave segreta, eliminare tutti i file presenti nella directory dell'utente:
 
 ```bash
-rm -f *
+rm - /home/nethvoice1/.local/share/containers/storage/volumes/nethcti-middleware-secrets/_data/<username>/*
 ```
 
 Dopo il reset:
@@ -126,35 +126,4 @@ Dopo il reset:
 * il 2FA non sarà più attivo per l'utente
 * l'utente potrà accedere al CTI senza inserire un codice OTP
 * l'utente potrà configurare nuovamente il 2FA dal proprio profilo CTI, se necessario
-
-## Riferimento rapido
-
-Visualizzare gli utenti con 2FA abilitato:
-
-```bash
-find /home/nethvoice1/.local/share/containers/storage/volumes/nethcti-middleware-secrets/_data/ \
-  -mindepth 2 -maxdepth 2 \
-  -type f -name status \
-  -exec grep -q '^1$' {} \; \
-  -print | sed 's|/status$||; s|.*/||'
-```
-
-Verificare uno specifico utente:
-
-```bash
-cd /home/nethvoice1/.local/share/containers/storage/volumes/nethcti-middleware-secrets/_data/<username>
-ls
-```
-
-Resettare il 2FA:
-
-```bash
-rm -f codes status
-```
-
-Rimuovere completamente la configurazione 2FA memorizzata per l'utente:
-
-```bash
-rm -f *
-```
 
