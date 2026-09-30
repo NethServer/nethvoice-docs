@@ -29,6 +29,9 @@ To use WSS, the extension must be configured within the **Advanced Interface** (
 1. Create a new **Custom Device** or modify an existing one.
 2. Access the **Advanced Interface**.
 
+## Advanced Settings
+Check that in the advanced interface, under `Settings` → `Advanced Settings` → `Asterisk Builtin mini-HTTP server` → `HTTPS Bind Address`, the value is set to 0.0.0.0.
+
 ### Transport Settings {#transport-settings}
 
 Modify the `Advanced` settings of the extension with the following parameters to enable secure WebSocket transport:
