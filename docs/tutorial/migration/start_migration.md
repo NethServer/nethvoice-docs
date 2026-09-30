@@ -326,6 +326,13 @@ When you finish migration, the system performs these actions:
 | **NS7 Service Stop** | NethVoice is stopped and disabled on NS7 |
 | **Redirect Page** | NS7 displays HTML redirect to new FQDNs |
 | **Account Provider** | Temporary external domain maintains access (if applicable) |
+| **Provisioning configuration change** | The phones are assigned the new FQDN (see information below) |
+
+
+:::info PHONE PROVISIONING
+Finalizing the migration sets the NethVoice FQDN on NS8 as the provisioning FQDN for the phones and forces provisioning so that they receive the change (provisioning can only be forced for phones that are online and registered).
+To have the phones working with the new NethVoice instance, simply reboot them.
+:::
 
 :::info Redirect Page
 Users accessing the old NethVoice URLs on NS7 will see a redirect page with links to the new NS8 FQDNs. This helps users find the new location.
