@@ -52,12 +52,14 @@ For phones not listed as supported, it is possible to create custom provisioning
 **FIRMWARE Version 8.7.5 or higher**
 
 - D120, D140, D150
-- D305, D315, D345, D375, D385
+- D305, D315, D335, D345, D375, D385
 - D710, D712, D713, D715, D717, D725, D735, D745, D765, D785
-- D812, D815, D862, D865
+- D810, D812, D815, D862, D865, D892
 
 :::note
-The Snom D862 and D865 phones do not support HTTP commands, so it is not possible to use click-to-call.
+The Snom D862, D865 and D892 phones do not support HTTP commands: click-to-call works in manual mode only, meaning the
+phone rings first and the call is placed to the destination as soon as you answer. Answering, holding, muting a call or
+sending DTMF tones remotely from the client is not available on these models.
 :::
 
 ## Gigaset {#gigaset}
