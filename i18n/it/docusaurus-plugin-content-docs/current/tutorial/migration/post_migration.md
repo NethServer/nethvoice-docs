@@ -43,7 +43,7 @@ Dopo aver completato la migrazione di NethVoice da NethServer 7 a NethServer 8, 
 3. **Registrazione dei telefoni**
    - Aggiornare l'opzione DHCP 66 se necessario per il nuovo server di provisioning
    - Riavviare i telefoni e verificare la registrazione
-   - Se il nome host di NethVoice è stato modificato, reimpostare i telefoni alle impostazioni di fabbrica. Recupereranno automaticamente la nuova configurazione dal server
+   - Se il nome host di NethVoice è stato modificato, i telefoni hanno come server di provisioning il nuovo nome host, vanno riavviati per scaricare le nuove configurazioni che li faranno registrare sul nuovo NethVoice.
 
 ## Test della telefonia
 
