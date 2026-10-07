@@ -54,7 +54,7 @@ Per i telefoni non elencati come supportati, è possibile creare modelli di prov
 - D120, D140, D150
 - D305, D315, D335, D345, D375, D385
 - D710, D712, D713, D715, D717, D725, D735, D745, D765, D785
-- D810, D812, D815, D862, D865, D892
+- D810, D812, D815, D862, D865, D892, D895
 
 :::note
 I telefoni Snom D862, D865 e D892 non supportano i comandi HTTP: il click-to-call funziona solo in modalità manuale,
