@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-10-05T16:21:18.091302+00:00",
+  "generated_at": "2026-10-09T10:23:58.991884+00:00",
   "sources": {
     "nethcti_server": {
       "repo": "nethesis/nethcti-server",
       "branch": "ns8",
-      "commit": "1bf66a1bcdaf942accca3f936457dd645c4c7131"
+      "commit": "8583cbf093d2f19ffddc0058f4a28c675038f404"
     },
     "nethcti_middleware": {
       "repo": "nethesis/nethcti-middleware",
       "branch": "main",
-      "commit": "d06523ca0c598c2145818588e37b540a9ce1c4d4"
+      "commit": "d02b1d66770ee70443288a048a1953f2dbf1f06e"
     }
   },
   "stats": {
-    "total_legacy": 167,
-    "migrated": 11,
+    "total_legacy": 168,
+    "migrated": 12,
     "legacy_only": 156,
-    "migration_percentage": 6.6,
+    "migration_percentage": 7.1,
     "middleware_by_class": {
-      "native": 32,
+      "native": 34,
       "deprecated": 3
     },
-    "new_in_middleware": 21
+    "new_in_middleware": 22
   },
   "endpoints": {
     "server": [
@@ -627,6 +627,12 @@
       },
       {
         "method": "GET",
+        "path": "/historycall/queues/:type/:target",
+        "plugin": "com_history_rest",
+        "status": "legacy-only"
+      },
+      {
+        "method": "GET",
         "path": "/historycall/interval/:type/:target/:from/:to",
         "plugin": "com_history_rest",
         "status": "legacy-only"
@@ -954,7 +960,8 @@
         "method": "POST",
         "path": "/user/nethlink",
         "plugin": "com_user_rest",
-        "status": "legacy-only"
+        "status": "migrated",
+        "migrated_to": "/user/nethlink"
       },
       {
         "method": "DELETE",
@@ -1046,6 +1053,11 @@
       {
         "method": "POST",
         "path": "/login",
+        "class": "native"
+      },
+      {
+        "method": "POST",
+        "path": "/api/sso-login",
         "class": "native"
       },
       {
@@ -1253,6 +1265,14 @@
         "class": "native",
         "migrated_from": [
           "/voicemail/list/:type"
+        ]
+      },
+      {
+        "method": "POST",
+        "path": "/user/nethlink",
+        "class": "native",
+        "migrated_from": [
+          "/user/nethlink"
         ]
       },
       {
