@@ -57,7 +57,7 @@ Per i telefoni non elencati come supportati, è possibile creare modelli di prov
 - D810, D812, D815, D862, D865, D892, D895
 
 :::note
-I telefoni Snom D862, D865 e D892 non supportano i comandi HTTP: il click-to-call funziona solo in modalità manuale,
+I telefoni Snom D86X e D89X non supportano i comandi HTTP: il click-to-call funziona solo in modalità manuale,
 cioè il telefono squilla per primo e la chiamata parte verso il destinatario non appena si risponde. Su questi modelli
 non sono disponibili risposta, messa in attesa, muto e invio di toni DTMF comandati da remoto dal client.
 :::
