@@ -57,7 +57,7 @@ For phones not listed as supported, it is possible to create custom provisioning
 - D810, D812, D815, D862, D865, D892
 
 :::note
-The Snom D862, D865 and D892 phones do not support HTTP commands: click-to-call works in manual mode only, meaning the
+The Snom D86X and D89X phones do not support HTTP commands: click-to-call works in manual mode only, meaning the
 phone rings first and the call is placed to the destination as soon as you answer. Answering, holding, muting a call or
 sending DTMF tones remotely from the client is not available on these models.
 :::
