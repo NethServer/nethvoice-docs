@@ -327,11 +327,6 @@ Tutti i percorsi in uscita configurati in NethVoice vengono visualizzati e puoi 
 - L'autorizzazione generale abilita l'accesso alla sezione QManager in NethVoice CTI.
 - Per ogni coda configurata in NethVoice, puoi abilitare/disabilitare la visibilità dello stato e dei dati.
 
-##### Stazione operatore
-
-- L'autorizzazione generale concede l'accesso alla sezione della stazione dell'operatore in NethVoice CTI.
-- È necessario abilitare solo una coda configurata in NethVoice per servire come fonte di chiamate da gestire.
-
 ## Utenti
 
 La pagina Utenti ti consente di configurare le impostazioni per utente e gestire i dispositivi associati a ogni account.
