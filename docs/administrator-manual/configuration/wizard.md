@@ -331,11 +331,6 @@ All configured outbound routes in NethVoice are displayed, and you can enable/di
 - The general permission enables access to the QManager section in NethVoice CTI.
 - For each configured queue in NethVoice, you can enable/disable the visibility of the status and data.
 
-##### Operator Station {#operator-station}
-
-- The general permission grants access to the operator station section in NethVoice CTI.
-- Only one configured queue in NethVoice needs to be enabled to serve as the source of calls to manage.
-
 ## Users {#users}
 
 The Users page lets you configure per-user settings and manage devices associated with each account.
