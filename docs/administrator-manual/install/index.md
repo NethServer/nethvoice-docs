@@ -174,6 +174,25 @@ After initial installation, NethServer 8 supports:
 
 See the [NethServer 8 documentation](https://docs.nethserver.org/projects/ns8/) for clustering details.
 
+## NethVoice scalability limits {#nethvoice-limits}
+
+**NethVoice** has the following technical limits:
+
+- **Maximum of 22 NethVoice instances** per NethServer 8 node.
+- **Maximum of 250 concurrent calls** (internal and/or external) per **NethVoice** instance.
+
+These limits are determined by the availability of UDP ports used to handle RTP traffic.
+
+The maximum number of instances that can be installed on a single node and the maximum number of concurrent calls per instance are therefore technical constraints, regardless of the available hardware resources.
+
+:::info
+Reaching these technical limits does not guarantee that the system can handle the maximum load. The actual capacity also depends on the available hardware resources, instance configuration, and features in use.
+:::
+
+For deployments requiring more instances, the load must be distributed across multiple nodes in the NethServer 8 cluster.
+
+For deployments requiring more than 250 concurrent calls per instance, please contact technical support.
+
 ## Troubleshooting {#troubleshooting}
 
 ### Common Issues {#common-issues}
