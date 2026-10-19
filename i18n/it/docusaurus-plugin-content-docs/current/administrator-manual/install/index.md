@@ -174,6 +174,24 @@ Dopo l'installazione iniziale, NethServer 8 supporta:
 
 Vedi la [documentazione di NethServer 8](https://docs.nethserver.org/projects/ns8/) per i dettagli del clustering.
 
+## Limiti di scalabilità di NethVoice {#nethvoice-limits}
+
+**NethVoice** prevede i seguenti limiti tecnici:
+
+- **Massimo 22 istanze NethVoice** per nodo NethServer 8.
+- **Massimo 250 chiamate contemporanee** (interne e/o esterne) per istanza **NethVoice**.
+
+Questi limiti sono determinati dalla disponibilità delle porte UDP utilizzate per la gestione del traffico RTP.
+Il numero massimo di istanze installabili su un singolo nodo e il numero massimo di chiamate contemporanee per istanza sono quindi vincoli tecnici, indipendenti dalle risorse hardware disponibili.
+
+:::info
+Il raggiungimento dei limiti tecnici non garantisce che il sistema sia in grado di gestire il carico massimo. La capacità effettiva dipende anche dalle risorse hardware disponibili, dalla configurazione delle istanze e dalle funzionalità utilizzate.
+:::
+
+Per installazioni che richiedono un numero maggiore di istanze, è necessario distribuire il carico su più nodi del cluster NethServer 8.
+
+Per installazioni che richiedono un numero di chiamate contemporaneo maggiore di 250 rivolgersi al supporto tecnico.
+
 ## Risoluzione dei problemi {#troubleshooting}
 
 ### Problemi comuni {#common-issues}

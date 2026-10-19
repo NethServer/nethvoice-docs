@@ -20,6 +20,8 @@ If you want a ready-to-use NethVoice installation, please consider:
 3. **Click "Install"** next to NethVoice.
 4. **Wait for installation** to complete (this may take a few minutes).
 
+For the limits of the **Nethvoice** application, please refer to [NethVoice scalability limits](/docs/administrator-manual/install#nethvoice-limits).
+
 ## First-time setup wizard {#setup-wizard}
 
 Open the NethVoice application from the **Applications** page or the **Application Launcher** (the 9-dot icon in the top-right corner, or press **Ctrl + Shift + A**) in NethServer 8. A first-time configuration wizard will appear and guide you through:
