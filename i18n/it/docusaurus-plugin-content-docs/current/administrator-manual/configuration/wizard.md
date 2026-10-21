@@ -228,7 +228,7 @@ Per creare un gruppo, fai clic su **Crea nuovo gruppo**, specifica un nome (e un
 
 Fai clic su **Avanti** per procedere alla sezione Profili.
 
-### Profili
+### Profili {#profiles}
 
 I profili definiscono un set riutilizzabile di [autorizzazioni](#autorizzazioni) che agiscono come modelli di ruolo. Applica un profilo a un utente per concedere una combinazione predefinita di funzionalità CTI, accesso di instradamento, visibilità CDR, funzioni telefoniche e altre funzionalità di NethVoice.
 
@@ -250,6 +250,10 @@ Best practice:
 - Ricordati di abilitare l'accesso ai gruppi di utenti precedentemente creati nei profili dove necessario.
 
 Quindi fai clic su **Avanti** per procedere alla sezione Utenti.
+
+:::info Inoltro con FreePBX 17
+L'inoltro usa le rotte in uscita consentite dal profilo del proprietario dell'inoltro. Il permesso **Inoltro di chiamata** non aggira le restrizioni sulle rotte. Prima di aggiornare un'installazione esistente, verificare le regole di [inoltro di chiamata](../advanced/call_forwarding.md).
+:::
 
 #### Autorizzazioni
 
