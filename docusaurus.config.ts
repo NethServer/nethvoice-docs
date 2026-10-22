@@ -34,20 +34,6 @@ const config: Config = {
     './plugins/docusaurus-plugin-generate-migration-status',
   ],
 
-  scripts: [
-    {
-      src: "https://widget.kapa.ai/kapa-widget.bundle.js",
-      "data-website-id": "54bcf336-8574-4f4e-b02d-27916cc99e46",
-      "data-project-name": "NethVoice Documentation",
-      "data-project-color": "#059669",
-      "data-modal-header-bg-color": "#059669",
-      "data-modal-title-color": "#ffffff",
-      "data-project-logo": "https://docs.nethvoice.com/img/favicon_white.ico",
-      "data-source-group-ids-include": "e92a7b49-112e-479c-8813-0b8562b9e652",
-      async: true,
-    },
-  ],
-
   // Set the production url of your site here
   // Production: https://docs.nethvoice.com with empty baseUrl
   // Development: GitHub pages deployment
