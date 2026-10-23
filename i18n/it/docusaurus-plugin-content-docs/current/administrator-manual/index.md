@@ -109,7 +109,7 @@ Prima di distribuire NethVoice, assicuratevi di avere:
 | **[Installazione](./install/index.md)** | Setup di sistema e distribuzione | NethServer, installazione NethVoice, prerequisiti |
 | **[Provisioning](./provisioning/index.md)** | Gestione dispositivi telefonici | Dispositivi supportati, metodi di provisioning, configurazione |
 | **[Manuale Amministratore](./index.md)** | Amministrazione di sistema | Utenti, interni, trunk, gateway, instradamento |
-| **[Manuale Utente](../user-manual/index.md)** | Funzionalità per l'utente finale | Client CTI, NethCTI, NethLink, funzionalità di chiamata |
+| **[Manuale Utente](../user-manual/index.md)** | Funzionalità per l'utente finale | Client CTI, NethVoice CTI, NethLink, funzionalità di chiamata |
 
 :::tip Distribuzioni Multi-Istanza
 Potete installare più istanze di NethVoice sullo stesso nodo NethServer 8 dal Software Center. Ogni istanza richiede una configurazione separata ed esegue in modo indipendente. Questo è utile per distribuzioni multi-tenant o unità di business separate.

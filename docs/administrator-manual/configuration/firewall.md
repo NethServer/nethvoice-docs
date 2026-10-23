@@ -27,11 +27,11 @@ To identify all required ports for any specific instance, access the NethServer 
 
 Here there is a list of commonly used ports:
 
-- CTI TLS Port (TCP), eg `20107`: this port is reserved for NethCTI TLS communication (currently not actively used but available for future use).
+- CTI TLS Port (TCP), eg `20107`: this port is reserved for NethVoice CTI TLS communication (currently not actively used but available for future use).
 - Phonebook LDAP Port (TCP), eg `20092`: used for LDAP directory services integration with the phonebook. Phones that need to access the LDAP phonebook must be able to reach this port.
 - SFTP Port (TCP), eg `20149`: used for SFTP access by specific services (e.g., recording upload/download).
 - IAX Port (UDP), eg `20110`: single UDP port for IAX (Inter-Asterisk eXchange) protocol.
-- RTP and Janus Ports (UDP): used for audio streaming in NethCTI, it's a range of port, usually around 1000 ports.
+- RTP and Janus Ports (UDP): used for audio streaming in NethVoice CTI, it's a range of port, usually around 1000 ports.
 
 ### Generic Ports
 
@@ -48,20 +48,34 @@ Here there is a list of commonly used ports:
 
 ### Port Summary Table {#port-summary}
 
-| Service | Port(s) | Protocol | Purpose |
-|---------|---------|----------|---------|
-| SIP Proxy | 5060-5061 | TCP/UDP | SIP signaling |
-| RTP | 10000-20000 | UDP | Media streaming (proxy) |
-| Janus RTP | Variable range* | UDP | CTI audio streaming |
-| IAX | Variable* | UDP | Inter-Asterisk Exchange |
-| CTI TLS | Variable* | TCP | CTI secure communication |
-| LDAP | Variable* | TCP | Directory services |
-| SFTP | Variable* | TCP | Recording management |
-| WireGuard VPN | 55820 | UDP | VPN access |
-| HTTPS | 443 | TCP | Web services |
-| SSH | 22 | TCP | Remote management |
+| Service | Port(s) | Protocol | Purpose | Use |
+|---------|---------|----------|---------|-----|
+| SIP Proxy | 5060-5061 | TCP/UDP | SIP signaling | Phone and Mobile App registration |
+| RTP | 10000-20000 | UDP | Media streaming (proxy) | Phone and Mobile App audio |
+| Janus RTP | Variable range* | UDP | CTI audio streaming | WebPhone and Desktop Phone audio |
+| IAX | Variable* | UDP | Inter-Asterisk Exchange | OBSOLETE see [trunk between two system](/docs/tutorial/faq/trunk-iax) |
+| CTI TLS | Variable* | TCP | CTI secure communication | NethVoice CTI TLS communication (not used) |
+| LDAP | Variable* | TCP | Directory services | LDAP phonebook for phones |
+| SFTP | Variable* | TCP | Recording management | Call Registration download |
+| WSS | Variable* | TCP | Asterisk Web Socket Secure | WSS client registration port |
+| Asterisk RTP | Variable* | UDP | Audio for WSS client | WSS client audio ports |
+| WireGuard VPN | 55820 | UDP | VPN access | Required to have a multi-node NethServer |
+| HTTPS | 443 | TCP | Web services | Web interface access (NethVoice, NethVoice CTI) and provisioning (phones and mobile apps) |
+| SSH | 22 | TCP | Remote management | Command-line access |
 
 *Variable ports are instance-specific. Use the environment variable inspection method described above to determine exact port numbers for your deployment.
+
+:::info
+To ensure proper operation of telephony services (SIP signaling and RTP audio traffic) on a NethServer 8 node configured to host the maximum supported number of NethVoice instances, traffic must be allowed on the following ports:
+
+- **443 TCP**
+- **5060 TCP/UDP**
+- **5061 TCP**
+- **10000-45000 UDP**
+
+For more information about the maximum number of supported instances, see [NethVoice scalability limits](/docs/administrator-manual/install#nethvoice-limits).
+:::
+
 
 ## Firewall Best Practices
 
