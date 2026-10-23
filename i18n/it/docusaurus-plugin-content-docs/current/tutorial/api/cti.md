@@ -10,8 +10,8 @@ I metodi legacy sono documentati per riferimento, ma è fortemente consigliato e
 Le nuove funzionalità e i miglioramenti sono disponibili solo nella nuova API.
 
 La specifica completa dell'API è disponibile su:  
-- [NethCTI Server full reference](https://documenter.getpostman.com/view/15699632/TzRRC88p#41f9b8cc-bea8-4917-a293-84eaedcaed08)  
-- [NethCTI Middleware reference](https://bump.sh/nethesis/doc/nethcti-middleware/)  
+- [NethVoice CTI Server full reference](https://documenter.getpostman.com/view/15699632/TzRRC88p#41f9b8cc-bea8-4917-a293-84eaedcaed08)  
+- [NethVoice CTI Middleware reference](https://bump.sh/nethesis/doc/nethcti-middleware/)  
 - consulta anche [API Migration Status dashboard](/migration-status) per una panoramica degli endpoint già migrati e di quelli ancora inoltrati al server legacy.
 
 ---

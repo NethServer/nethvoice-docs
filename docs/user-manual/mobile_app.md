@@ -7,7 +7,7 @@ sidebar_position: 3
 
 ![Nethvoiceapp](/img/nethvoiceapp/nethvoiceapp_presentazione.png)
 
-The **NethVoice Mobile App** (NethCTI) brings enterprise VoIP capabilities to your smartphone or tablet, allowing you to make and receive calls using your business phone number from anywhere with an internet connection.
+The **NethVoice Mobile App** (NethVoice CTI) brings enterprise VoIP capabilities to your smartphone or tablet, allowing you to make and receive calls using your business phone number from anywhere with an internet connection.
 
 :::warning Enterprise Subscription Required
 The mobile app is **only available with an Enterprise subscription**. While the app itself is free to download, access to the provisioning service required to configure and enable it on your device is exclusive to Enterprise subscribers.
@@ -53,7 +53,7 @@ Download the NethVoice mobile app from your device's app store:
 Configuration is simple and requires only a QR code:
 
 1. Open the NethVoice mobile app
-2. Scan the QR code displayed in your NethVoice web client (NethCTI):
+2. Scan the QR code displayed in your NethVoice web client (NethVoice CTI):
    - Click on the Settings icon in the left sidebar
    - Access the Mobile App section
    - Click on the **Generate QR Code** button
