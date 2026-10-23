@@ -7,7 +7,7 @@
 
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7"><link rel="stylesheet" href="/it/assets/css/styles.74857691.css">
-<script src="/it/assets/js/runtime~main.82fa1858.js" defer="defer"></script>
+<script src="/it/assets/js/runtime~main.35e97f49.js" defer="defer"></script>
 <script src="/it/assets/js/main.042fe792.js" defer="defer"></script>
 </head>
 <body>
@@ -31,14 +31,14 @@
 <p>Ogni istanza di NethVoice ha una porta SIP univoca per le connessioni non crittografate. Collegati all&#x27;host NethVoice ed esegui:</p>
 <div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">runagent -m nethvoice1</span><br></div></code></pre></div></div>
 <p>Sostituisci <code>nethvoice1</code> con il nome del modulo appropriato per la tua istanza.</p>
-<p>Quindi controlla la variabile di ambiente <code>ASTERISK_SIP_PORT</code>:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">env | grep ASTERISK_SIP_PORT</span><br></div></code></pre></div></div>
+<p>Quindi controlla la variabile di ambiente <code>ASTERISK_SIP_UDP_PORT</code>:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">env | grep ASTERISK_SIP_UDP_PORT</span><br></div></code></pre></div></div>
 <p>Esempio di output:</p>
-<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">ASTERISK_SIP_PORT=20098</span><br></div></code></pre></div></div>
-<p>In questo esempio, la porta SIP in chiaro è <code>20098</code>.</p>
+<div class="language-text codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">ASTERISK_SIP_UDP_PORT=20999</span><br></div></code></pre></div></div>
+<p>In questo esempio, la porta SIP in chiaro è <code>20999</code>.</p>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="open-firewall">2. Aprire il firewall per il dispositivo<a href="#open-firewall" class="hash-link" aria-label="Link diretto a 2. Aprire il firewall per il dispositivo" title="Link diretto a 2. Aprire il firewall per il dispositivo" translate="no">​</a></h4>
-<p>Usa una regola del firewall per consentire <strong>solo</strong> all&#x27;indirizzo IP del dispositivo di accedere alla porta SIP di Asterisk. Sostituisci <code>1.2.3.4</code> con l&#x27;indirizzo IP effettivo del dispositivo legacy e <code>20098</code> con la porta identificata nel passaggio 1:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">firewall-cmd --permanent --add-rich-rule=&#x27;rule family=&quot;ipv4&quot; source address=1.2.3.4 port port=20098 protocol=&quot;udp&quot; accept&#x27;</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">firewall-cmd --reload</span><br></div></code></pre></div></div>
+<p>Usa una regola del firewall per consentire <strong>solo</strong> all&#x27;indirizzo IP del dispositivo di accedere alla porta SIP di Asterisk. Sostituisci <code>1.2.3.4</code> con l&#x27;indirizzo IP effettivo del dispositivo legacy e <code>20999</code> con la porta identificata nel passaggio 1:</p>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">firewall-cmd --permanent --add-rich-rule=&#x27;rule family=&quot;ipv4&quot; source address=1.2.3.4 port port=20999 protocol=&quot;udp&quot; accept&#x27;</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">firewall-cmd --reload</span><br></div></code></pre></div></div>
 <p>Questa regola garantisce che:</p>
 <ul>
 <li class="">Solo l&#x27;indirizzo IP del dispositivo specificato possa accedere alla porta</li>
@@ -46,12 +46,12 @@
 <li class="">La regola persista nei riavvii del firewall</li>
 </ul>
 <p>Per rimuovere la regola in seguito, usa:</p>
-<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">firewall-cmd --permanent --remove-rich-rule=&#x27;rule family=&quot;ipv4&quot; source address=1.2.3.4 port port=20098 protocol=&quot;udp&quot; accept&#x27;</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">firewall-cmd --reload</span><br></div></code></pre></div></div>
+<div class="language-bash codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#393A34;--prism-background-color:#f6f8fa"><div class="codeBlockContent_QJqH"><pre tabindex="0" class="prism-code language-bash codeBlock_bY9V thin-scrollbar" style="color:#393A34;background-color:#f6f8fa"><code class="codeBlockLines_e6Vv"><div class="token-line" style="color:#393A34"><span class="token plain">firewall-cmd --permanent --remove-rich-rule=&#x27;rule family=&quot;ipv4&quot; source address=1.2.3.4 port port=20999 protocol=&quot;udp&quot; accept&#x27;</span><br></div><div class="token-line" style="color:#393A34"><span class="token plain">firewall-cmd --reload</span><br></div></code></pre></div></div>
 <h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="configure-device">3. Configurare il dispositivo<a href="#configure-device" class="hash-link" aria-label="Link diretto a 3. Configurare il dispositivo" title="Link diretto a 3. Configurare il dispositivo" translate="no">​</a></h4>
 <p>Configura il dispositivo legacy con le seguenti impostazioni:</p>
 <ul>
 <li class=""><strong>Server SIP</strong>: Il nome host o l&#x27;indirizzo IP dell&#x27;host NethVoice</li>
-<li class=""><strong>Porta SIP</strong>: La porta SIP in chiaro identificata nel passaggio 1 (es. <code>20098</code>)</li>
+<li class=""><strong>Porta SIP</strong>: La porta SIP in chiaro identificata nel passaggio 1 (es. <code>20999</code>)</li>
 <li class=""><strong>Trasporto</strong>: <code>UDP</code> (non TLS)</li>
 </ul>
 <p>Fai riferimento alla documentazione del tuo dispositivo per i passaggi di configurazione specifici.</p>
