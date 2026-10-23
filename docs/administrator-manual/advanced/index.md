@@ -21,3 +21,5 @@ This section covers:
 - [**Call event scripts**](./call_event_scripts_it.md) - Configuration of script execution during calls
 
 
+
+- [**Call forwarding**](./call_forwarding.md) - Profile routing permissions and upgrade checks

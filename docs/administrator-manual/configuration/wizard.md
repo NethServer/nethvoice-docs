@@ -253,6 +253,10 @@ Best practices:
 - Test profile changes on a sample user before broad rollout.  
 - Remember to enable access to the user groups previously created on the profiles where necessary.
 
+:::info Forwarding with FreePBX 17
+Forwarding uses the outbound routes allowed by the forwarding owner's profile. The **Call Forwarding** permission does not bypass route restrictions. Review [call forwarding](../advanced/call_forwarding.md) before upgrading an existing installation.
+:::
+
 Then click **Next** to proceed to the Users section.
 
 #### Permissions {#permissions}
