@@ -7,7 +7,7 @@
 
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7"><link rel="stylesheet" href="/it/assets/css/styles.74857691.css">
-<script src="/it/assets/js/runtime~main.8dc16362.js" defer="defer"></script>
+<script src="/it/assets/js/runtime~main.42cab6cf.js" defer="defer"></script>
 <script src="/it/assets/js/main.042fe792.js" defer="defer"></script>
 </head>
 <body>
@@ -30,11 +30,11 @@
 Per identificare tutte le porte richieste per una determinata istanza, accedi alla pagina di amministrazione del cluster NethServer e vai alle impostazioni del firewall in <strong>Impostazioni &gt; Firewall</strong>.</p>
 <p>Ecco un elenco delle porte comunemente utilizzate:</p>
 <ul>
-<li class="">Porta CTI TLS (TCP), ad es. <code>20107</code>: questa porta è riservata per la comunicazione TLS di NethCTI (attualmente non utilizzata attivamente ma disponibile per uso futuro).</li>
+<li class="">Porta CTI TLS (TCP), ad es. <code>20107</code>: questa porta è riservata per la comunicazione TLS di NethVoice CTI (attualmente non utilizzata attivamente ma disponibile per uso futuro).</li>
 <li class="">Porta LDAP della Rubrica (TCP), ad es. <code>20092</code>: utilizzata per l&#x27;integrazione dei servizi di directory LDAP con la rubrica. I telefoni che devono accedere alla rubrica LDAP devono essere in grado di raggiungere questa porta.</li>
 <li class="">Porta SFTP (TCP), ad es. <code>20149</code>: utilizzata per l&#x27;accesso SFTP da parte di servizi specifici (ad es. caricamento/download di registrazioni).</li>
 <li class="">Porta IAX (UDP), ad es. <code>20110</code>: singola porta UDP per il protocollo IAX (Inter-Asterisk eXchange).</li>
-<li class="">Porte RTP e Janus (UDP): utilizzate per lo streaming audio in NethCTI, è un intervallo di porte, di solito intorno a 1000 porte.</li>
+<li class="">Porte RTP e Janus (UDP): utilizzate per lo streaming audio in NethVoice CTI, è un intervallo di porte, di solito intorno a 1000 porte.</li>
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="porte-generiche">Porte Generiche<a href="#porte-generiche" class="hash-link" aria-label="Link diretto a Porte Generiche" title="Link diretto a Porte Generiche" translate="no">​</a></h3>
 <p><strong>WireGuard VPN</strong></p>
@@ -52,8 +52,14 @@ Per identificare tutte le porte richieste per una determinata istanza, accedi al
 <li class="">Protocollo: TCP</li>
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="port-summary">Tabella di Riepilogo delle Porte<a href="#port-summary" class="hash-link" aria-label="Link diretto a Tabella di Riepilogo delle Porte" title="Link diretto a Tabella di Riepilogo delle Porte" translate="no">​</a></h3>
-<table><thead><tr><th>Servizio</th><th>Porta/e</th><th>Protocollo</th><th>Scopo</th></tr></thead><tbody><tr><td>Proxy SIP</td><td>5060-5061</td><td>TCP/UDP</td><td>Segnalazione SIP</td></tr><tr><td>RTP</td><td>10000-20000</td><td>UDP</td><td>Streaming media (proxy)</td></tr><tr><td>Janus RTP</td><td>Intervallo variabile*</td><td>UDP</td><td>Streaming audio CTI</td></tr><tr><td>IAX</td><td>Variabile*</td><td>UDP</td><td>Inter-Asterisk Exchange</td></tr><tr><td>CTI TLS</td><td>Variabile*</td><td>TCP</td><td>Comunicazione sicura CTI</td></tr><tr><td>LDAP</td><td>Variabile*</td><td>TCP</td><td>Servizi di directory</td></tr><tr><td>SFTP</td><td>Variabile*</td><td>TCP</td><td>Gestione registrazioni</td></tr><tr><td>WireGuard VPN</td><td>55820</td><td>UDP</td><td>Accesso VPN</td></tr><tr><td>HTTPS</td><td>443</td><td>TCP</td><td>Servizi web</td></tr><tr><td>SSH</td><td>22</td><td>TCP</td><td>Gestione remota</td></tr></tbody></table>
+<table><thead><tr><th>Servizio</th><th>Porta/e</th><th>Protocollo</th><th>Scopo</th><th>Uso</th></tr></thead><tbody><tr><td>Proxy SIP</td><td>5060-5061</td><td>TCP/UDP</td><td>Segnalazione SIP</td><td>Registrazione Telefoni e App Mobile</td></tr><tr><td>RTP</td><td>10000-20000</td><td>UDP</td><td>Streaming media (proxy)</td><td>Audio Telefoni e App Mobile</td></tr><tr><td>Janus RTP</td><td>Intervallo variabile*</td><td>UDP</td><td>Streaming audio CTI</td><td>Audio WebPhone e Desktop Phone</td></tr><tr><td>IAX</td><td>Variabile*</td><td>UDP</td><td>Inter-Asterisk Exchange</td><td>OBSOLETO vedi <a class="" href="/it/docs/tutorial/faq/trunk-iax">trunk tra due sistemi</a></td></tr><tr><td>CTI TLS</td><td>Variabile*</td><td>TCP</td><td>Comunicazione sicura CTI</td><td>Comunicazione TLS di NethVoice CTI (non usata)</td></tr><tr><td>LDAP</td><td>Variabile*</td><td>TCP</td><td>Servizi di directory</td><td>Rubrica LDAP per i Telefoni</td></tr><tr><td>SFTP</td><td>Variabile*</td><td>TCP</td><td>Gestione registrazioni</td><td>Download Registrazioni chiamate</td></tr><tr><td>WSS</td><td>Variabile*</td><td>TCP</td><td>Asterisk Web Socket Sicuro</td><td>Porta per il collegamento di client ad Asterisk con protocollo WSS</td></tr><tr><td>Asterisk RTP</td><td>Variabile*</td><td>UDP</td><td>Audio per client WSS</td><td>Porte per il traffico audio dei client WSS collegati direttamente ad Asterisk</td></tr><tr><td>WireGuard VPN</td><td>55820</td><td>UDP</td><td>Accesso VPN</td><td>Necessaria per avere un NethServer multinodo</td></tr><tr><td>HTTPS</td><td>443</td><td>TCP</td><td>Servizi web</td><td>Accesso interfaccia web (NethVoice, NethVoice CTI) e Provisioning (Telefoni e App Mobile)</td></tr><tr><td>SSH</td><td>22</td><td>TCP</td><td>Gestione remota</td><td>Accesso riga di comando</td></tr></tbody></table>
 <p>*Le porte variabili sono specifiche dell&#x27;istanza. Utilizza il metodo di ispezione delle variabili di ambiente descritto sopra per determinare i numeri di porta esatti per la tua distribuzione.</p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>informazioni</div><div class="admonitionContent_BuS1"><p>Per consentire il funzionamento dei servizi telefonici (segnalazione SIP e traffico audio RTP) su un nodo NethServer 8 configurato per ospitare il numero massimo di istanze NethVoice supportate, è necessario consentire il traffico sulle seguenti porte:</p><ul>
+<li class=""><strong>443 TCP</strong></li>
+<li class=""><strong>5060 TCP/UDP</strong></li>
+<li class=""><strong>5061 TCP</strong></li>
+<li class=""><strong>10000-45000 UDP</strong></li>
+</ul><p>Per maggiori informazioni sul numero massimo di istanze supportate, consultare <a class="" href="/it/docs/administrator-manual/install#nethvoice-limits">Limiti di scalabilità NethVoice</a>.</p></div></div>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="best-practice-del-firewall">Best Practice del Firewall<a href="#best-practice-del-firewall" class="hash-link" aria-label="Link diretto a Best Practice del Firewall" title="Link diretto a Best Practice del Firewall" translate="no">​</a></h2>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="nat-helper">NAT Helper<a href="#nat-helper" class="hash-link" aria-label="Link diretto a NAT Helper" title="Link diretto a NAT Helper" translate="no">​</a></h3>
 <p>Le funzioni di NAT helper sui firewall dovrebbero essere <strong>disabilitate</strong> quando possibile. Queste funzionalità sono spesso implementate male e possono causare comportamenti inaspettati con i protocolli di comunicazione di NethVoice.</p>
