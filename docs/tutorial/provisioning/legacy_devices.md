@@ -35,25 +35,25 @@ runagent -m nethvoice1
 
 Replace `nethvoice1` with the appropriate module name for your instance.
 
-Then check the `ASTERISK_SIP_PORT` environment variable:
+Then check the `ASTERISK_SIP_UDP_PORT` environment variable:
 
 ```bash
-env | grep ASTERISK_SIP_PORT
+env | grep ASTERISK_SIP_UDP_PORT
 ```
 
 Example output:
 ```
-ASTERISK_SIP_PORT=20098
+ASTERISK_SIP_UDP_PORT=20999
 ```
 
-In this example, the plain-text SIP port is `20098`.
+In this example, the plain-text SIP port is `20999`.
 
 #### 2. Open the Firewall for the Device {#open-firewall}
 
-Use a firewall rule to allow **only** the device's IP address to access the Asterisk SIP port. Replace `1.2.3.4` with the actual IP address of the legacy device, and `20098` with the port identified in step 1:
+Use a firewall rule to allow **only** the device's IP address to access the Asterisk SIP port. Replace `1.2.3.4` with the actual IP address of the legacy device, and `20999` with the port identified in step 1:
 
 ```bash
-firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address=1.2.3.4 port port=20098 protocol="udp" accept'
+firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address=1.2.3.4 port port=20999 protocol="udp" accept'
 firewall-cmd --reload
 ```
 
@@ -65,7 +65,7 @@ This rule ensures that:
 To remove the rule later, use:
 
 ```bash
-firewall-cmd --permanent --remove-rich-rule='rule family="ipv4" source address=1.2.3.4 port port=20098 protocol="udp" accept'
+firewall-cmd --permanent --remove-rich-rule='rule family="ipv4" source address=1.2.3.4 port port=20999 protocol="udp" accept'
 firewall-cmd --reload
 ```
 
@@ -74,7 +74,7 @@ firewall-cmd --reload
 Configure the legacy device with the following settings:
 
 - **SIP Server**: The hostname or IP address of the NethVoice host
-- **SIP Port**: The plain-text SIP port identified in step 1 (e.g., `20098`)
+- **SIP Port**: The plain-text SIP port identified in step 1 (e.g., `20999`)
 - **Transport**: `UDP` (not TLS)
 
 Refer to your device's documentation for the specific configuration steps.
