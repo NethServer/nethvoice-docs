@@ -69,23 +69,23 @@ Use with care!
 
 ### Example firewall commands (udp 5060 only)
 
-Export a variable with the Asterisk SIP port:
+Export a variable with the Asterisk SIP UDP port:
 
 ```bash
-export $(runagent -m nethvoice1 grep ASTERISK_SIP_PORT environment)
+export $(runagent -m nethvoice1 grep ASTERISK_SIP_UDP_PORT environment)
 ```
 
 Add a global forward rule:
 
 ```bash
-firewall-cmd --permanent --add-rich-rule="rule family=ipv4 forward-port port=5060 protocol=udp to-port=$ASTERISK_SIP_PORT"
+firewall-cmd --permanent --add-rich-rule="rule family=ipv4 forward-port port=5060 protocol=udp to-port=$ASTERISK_SIP_UDP_PORT"
 firewall-cmd --reload
 ```
 
 Limit forward to a single IP (example 1.2.3.4):
 
 ```bash
-firewall-cmd --permanent --add-rich-rule="rule family=ipv4 forward-port port=5060 protocol=udp to-port=$ASTERISK_SIP_PORT source address=1.2.3.4"
+firewall-cmd --permanent --add-rich-rule="rule family=ipv4 forward-port port=5060 protocol=udp to-port=$ASTERISK_SIP_UDP_PORT source address=1.2.3.4"
 firewall-cmd --reload
 ```
 
@@ -100,13 +100,13 @@ firewall-cmd --list-rich-rules
 Remove the global rule:
 
 ```bash
-firewall-cmd --permanent --remove-rich-rule="rule family=ipv4 forward-port port=5060 protocol=udp to-port=$ASTERISK_SIP_PORT"
+firewall-cmd --permanent --remove-rich-rule="rule family=ipv4 forward-port port=5060 protocol=udp to-port=$ASTERISK_SIP_UDP_PORT"
 ```
 
 Remove the IP‑limited rule:
 
 ```bash
-firewall-cmd --permanent --remove-rich-rule="rule family=ipv4 forward-port port=5060 protocol=udp to-port=$ASTERISK_SIP_PORT source address=1.2.3.4"
+firewall-cmd --permanent --remove-rich-rule="rule family=ipv4 forward-port port=5060 protocol=udp to-port=$ASTERISK_SIP_UDP_PORT source address=1.2.3.4"
 ```
 
 Apply changes:
