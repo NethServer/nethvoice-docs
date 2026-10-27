@@ -19,3 +19,5 @@ Questa sezione copre:
 - [**Trunk senza registrazione**](./trunks_without_registration.md) - Procedura per configurare un trunk VoIP non registrato
 - [**Trasporto WSS**](./wss_transport.md) - Configurazione di client utilizzanti i trasporto WebSocket Sicuro
 - [**Script sugli eventi di chiamata**](./call_event_scripts_it.md) - Configurazione esecuzione di script durante la chiamata
+
+- [**Inoltro di chiamata**](./call_forwarding.md) - Permessi di instradamento dei profili e verifiche per l’aggiornamento

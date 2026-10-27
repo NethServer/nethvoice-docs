@@ -58,3 +58,9 @@ Quando ricevi una chiamata in arrivo, visualizzerai:
 - Informazioni sulla durata della chiamata
 
 Clicca il pulsante di accettazione per rispondere alla chiamata e apparirà la Phone Island.
+
+## Inoltro di chiamata {#call-forwarding}
+
+Sulle istanze NethVoice aggiornate a FreePBX 17, le chiamate inoltrate rispettano i permessi di chiamata in uscita dell'interno su cui è attivo l'inoltro. Per esempio, l'inoltro verso un cellulare fallisce se il profilo di quell'interno non consente chiamate verso i cellulari.
+
+Se una destinazione di inoltro smette di funzionare dopo l'aggiornamento, chiedere all'amministratore di controllare il profilo e la configurazione dell'interno. Il permesso di configurare l'inoltro non consente automaticamente di chiamare qualsiasi destinazione. La [guida all'inoltro di chiamata](../../administrator-manual/advanced/call_forwarding.md) per l'amministratore descrive le verifiche per l'aggiornamento e gli interni supportati.

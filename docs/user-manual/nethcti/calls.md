@@ -58,3 +58,9 @@ When you receive an incoming call, you will see:
 - Call timing information
 
 Click the accept button to answer the call and the Phone Island will appear.
+
+## Call forwarding {#call-forwarding}
+
+On NethVoice instances upgraded to FreePBX 17, forwarded calls follow the outgoing call permissions of the extension whose forwarding setting is enabled. For example, forwarding to a mobile number fails if that extension's profile does not allow calls to mobile numbers.
+
+If a forwarding destination stops working after the upgrade, ask your administrator to check your profile and extension configuration. The permission to configure forwarding does not automatically allow calls to every destination. See the administrator's [call forwarding guide](../../administrator-manual/advanced/call_forwarding.md) for the upgrade checks and supported extensions.
