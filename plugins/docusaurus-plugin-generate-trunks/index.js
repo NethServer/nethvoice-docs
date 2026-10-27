@@ -5,8 +5,8 @@
 //
 // Behavior:
 // - During loadContent(), it fetches the remote SQL file.
-// - It parses INSERT statements for a providers table and extracts the first
-//   quoted column from each VALUES tuple (common pattern: ('name', ...), ...).
+// - It parses the INSERT statement for the rest_pjsip_providers table and extracts the
+//   description column from each VALUES tuple.
 // - It writes docs/generated/trunks.md (creating directories as needed).
 //
 // Notes:
@@ -19,12 +19,17 @@ const path = require('path');
 const https = require('https');
 
 const PROVIDERS_SQL_URL =
-  'https://raw.githubusercontent.com/nethesis/ns8-nethvoice/main/mariadb/docker-entrypoint-initdb.d/50_asterisk.providers.sql';
+  'https://raw.githubusercontent.com/nethesis/ns8-nethvoice/main/mariadb/docker-entrypoint-initdb.d/50_asterisk.rest_pjsip_providers.sql';
+
+const FETCH_TIMEOUT_MS = 30000;
 
 function fetchText(url) {
   return new Promise((resolve, reject) => {
     const req = https.get(url, (res) => {
       if (res.statusCode && res.statusCode >= 400) {
+        // Drain the response: an unread body keeps the socket open and
+        // prevents Node from exiting after the build is done
+        res.resume();
         reject(new Error(`HTTP ${res.statusCode} when fetching ${url}`));
         return;
       }
@@ -32,6 +37,9 @@ function fetchText(url) {
       res.setEncoding('utf8');
       res.on('data', (chunk) => (data += chunk));
       res.on('end', () => resolve(data));
+    });
+    req.setTimeout(FETCH_TIMEOUT_MS, () => {
+      req.destroy(new Error(`Timeout after ${FETCH_TIMEOUT_MS} ms when fetching ${url}`));
     });
     req.on('error', (err) => reject(err));
     req.end();
@@ -41,23 +49,22 @@ function fetchText(url) {
 function extractProviderNamesFromSQL(sql) {
   const providers = [];
 
-  // The SQL file has format: INSERT INTO `providers` (...) VALUES ("id1","Description1",...),("id2","Description2",...);
-  // We want to extract the description (second field), not the ID (first field)
-  
+  // The SQL file has format:
+  // INSERT INTO `rest_pjsip_providers` (`id`,`provider`,`description`) VALUES (1,"name1","Description1"),(2,"name2","Description2");
+  // We want to extract the description (third field)
+
   // Match the entire VALUES clause
-  const valuesRegex = /INSERT\s+INTO\s+`providers`.*?VALUES\s*(.+);/is;
+  const valuesRegex = /INSERT\s+INTO\s+`rest_pjsip_providers`.*?VALUES\s*(.+);/is;
   const match = valuesRegex.exec(sql);
-  
+
   if (match && match[1]) {
     const valuesContent = match[1];
-    
-    // Match each tuple with two double-quoted strings: ("id","description",...)
-    // We capture both the ID and description
-    const tupleRegex = /\("([^"]+)","([^"]+)"/g;
+
+    // Match each tuple: (id,"provider","description")
+    const tupleRegex = /\(\s*\d+\s*,\s*"([^"]+)"\s*,\s*"([^"]+)"/g;
     let tupleMatch;
-    
+
     while ((tupleMatch = tupleRegex.exec(valuesContent)) !== null) {
-      const id = tupleMatch[1].trim();
       const description = tupleMatch[2].trim();
       if (description.length > 0) {
         providers.push(description);

@@ -5,25 +5,31 @@ sidebar_position: 5
 ---
 
 - `Active Network`
-- `Cheapnet`
 - `Clouditalia`
+- `Digitalia ICT`
+- `eis (sip.teameis.it)`
 - `ElevenLabs`
 - `Enegan`
+- `Fibering s.p.a.`
 - `MessageNet`
 - `MultiWire (singola numerazione)`
 - `MultiWire Multinumero`
 - `MyNet (cloud1b.voicer.it)`
 - `Neomedia`
 - `NetoIP`
+- `New Assistent`
+- `Opensolution GNR`
 - `Opensolution Sip`
 - `Opensolution Voip`
 - `OVAL`
-- `Six Comm Group - Fibering S.p.A.`
+- `Plink`
+- `Six Comm Group`
 - `Talkho`
 - `Terrecablate`
 - `Timenet`
 - `TWT`
 - `Vianova (una sola linea x nodo)`
+- `Viatek`
 - `VivaVox`
 - `VoipEasy`
 - `VoipTel`
@@ -31,8 +37,10 @@ sidebar_position: 5
 - `VoipVoice (sip.voipvoice.it)`
 - `VoipVoice (trunk.voipvoice.it)`
 - `VoipVoice (user.voipvoice.it)`
+- `WiC SIP`
+- `WiC VoIP`
+- `WiC VoIP GNR`
 - `WiCity`
-- `Xera`
-- `XSTREAM`
+- `XStream`
 
-This document was automatically generated from [source code](https://raw.githubusercontent.com/nethesis/ns8-nethvoice/main/mariadb/docker-entrypoint-initdb.d/50_asterisk.providers.sql).
+This document was automatically generated from [source code](https://raw.githubusercontent.com/nethesis/ns8-nethvoice/main/mariadb/docker-entrypoint-initdb.d/50_asterisk.rest_pjsip_providers.sql).
