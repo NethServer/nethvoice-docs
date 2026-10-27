@@ -167,6 +167,6 @@ Utenti/Trunk esterni
 Il proxy agisce come gateway tra il traffico VoIP esterno e le istanze interne di NethVoice.
 :::
 
-## Avvisi {#alerts}
+## Allarmi {#alerts}
 
-NethVoice Proxy può generare avvisi quando uno dei suoi servizi si ferma o quando un trunk che inoltra non riesce a raggiungere il provider. Gli avvisi sono disabilitati per impostazione predefinita: abilitali dalla scheda **Avvisi** della pagina **Impostazioni** del proxy. Consulta [Avvisi di NethVoice](../install/nethvoice_install.md#alerts) per i requisiti e l'elenco degli avvisi.
+NethVoice Proxy può generare allarmi quando uno dei suoi servizi si ferma o quando un trunk che inoltra non riesce a raggiungere il provider. Gli allarmi sono disabilitati per impostazione predefinita: abilitali dalla scheda **Allarmi** della pagina **Impostazioni** del proxy. Consulta [Allarmi di NethVoice](../install/nethvoice_install.md#alerts) per l'elenco degli allarmi.
