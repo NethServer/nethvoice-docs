@@ -193,3 +193,37 @@ Nella pagina **Hotel** puoi configurare il modulo Hotel; è richiesto un abbonam
 - **Porta server FIAS Hotel**: Specifica il numero di porta per la connessione al server FIAS dell'hotel.  
 
 Consulta la [documentazione del modulo Hotel di NethVoice](/docs/administrator-manual/nethhotel/) per maggiori dettagli.
+
+### Avvisi {#alerts}
+
+NethVoice e [NethVoice Proxy](../advanced/nethvoice_proxy.md) dispongono di avvisi integrati che segnalano quando qualcosa smette di funzionare: un servizio fermo, un trunk che non raggiunge il provider, un problema DNS o una chiave AI non più valida. I controlli vengono eseguiti ogni 5 minuti.
+
+Gli avvisi richiedono il core di NethServer 8 versione 3.24.0 o successiva e l'applicazione Metrics versione 1.7.0 o successiva.
+
+Gli avvisi sono disabilitati per impostazione predefinita. Per abilitarli:
+
+1. Apri l'applicazione NethVoice e vai alla pagina **Impostazioni**.
+2. Nella scheda **Avvisi**, attiva l'interruttore e fai clic su **Salva**.
+3. Ripeti gli stessi passaggi nella pagina **Impostazioni** dell'applicazione NethVoice Proxy.
+
+Gli avvisi attivi sono visibili nella pagina **Nodi** dell'amministrazione del cluster e, se il cluster ha una sottoscrizione, su [my.nethesis.it](https://my.nethesis.it/).
+
+NethVoice genera questi avvisi:
+
+| Avviso | Gravità | Quando scatta |
+|--------|---------|---------------|
+| `ServiceDown` | critical | Un servizio di NethVoice (ad esempio Asterisk, MariaDB, NethVoice CTI o Janus) è fermo da 10 minuti, oppure è stato riavviato almeno 3 volte in 10 minuti. I servizi disabilitati e quelli mai avviati non vengono controllati. |
+| `NethVoiceTrunkUnreachable` | critical | Per 10 minuti un trunk che non usa il proxy non è registrato, il lato remoto di un trunk che si registra su NethVoice non è registrato, oppure il provider di un trunk IP che non usa il proxy non risponde. |
+| `NethVoiceDnsFailure` | warning | Per 15 minuti il nome di NethVoice, di NethVoice CTI o del proxy non viene risolto dal server DNS del nodo, oppure il nome del proxy non punta all'indirizzo IP pubblico o privato del proxy. |
+| `NethVoiceDnsSlow` | warning | Per 15 minuti il server DNS del nodo impiega più di 3 secondi a risolvere uno di questi nomi, oppure non risponde. |
+| `NethVoiceAiKeyInvalid` | critical | Con la trascrizione abilitata, Deepgram o OpenAI rifiuta la chiave API da 10 minuti. |
+| `NethVoiceAiCreditExhausted` | critical | Un provider AI ha rifiutato una richiesta perché l'account ha esaurito il credito. L'avviso si chiude dopo la successiva richiesta riuscita. |
+
+NethVoice Proxy genera questi avvisi:
+
+| Avviso | Gravità | Quando scatta |
+|--------|---------|---------------|
+| `ServiceDown` | critical | Un servizio del proxy (Kamailio, rtpengine, PostgreSQL o Redis) è fermo da 10 minuti, oppure è stato riavviato almeno 3 volte in 10 minuti. |
+| `NethVoiceTrunkUnreachable` | critical | Per 10 minuti, su un trunk UDP che passa dal proxy, il provider rifiuta la registrazione, non risponde alla registrazione, oppure non risponde ai controlli di keep-alive di un trunk IP. I trunk su TCP o TLS non vengono ancora controllati. |
+
+I controlli DNS usano il server DNS configurato sul nodo, non i server DNS pubblici: assicurati che risolva i nomi di NethVoice, NethVoice CTI e del proxy.
