@@ -195,3 +195,37 @@ On the **Hotel** page you can configure the Hotel module; an active subscription
 - **Hotel FIAS server port**: Specify the port number for the Hotel FIAS server connection.
 
 See [NethVoice Hotel Module Documentation](/docs/administrator-manual/nethhotel/) for more details.
+
+### Alerts {#alerts}
+
+NethVoice and [NethVoice Proxy](../advanced/nethvoice_proxy.md) have built-in alerts that warn you when something stops working: a stopped service, a trunk that cannot reach its provider, a DNS problem, or an AI key that no longer works. The checks run every 5 minutes.
+
+The alerts require NethServer 8 core 3.24.0 or later and the Metrics application 1.7.0 or later.
+
+The alerts are disabled by default. To enable them:
+
+1. Open the NethVoice application and go to the **Settings** page.
+2. In the **Alerts** card, turn the switch on and click **Save**.
+3. Repeat the same steps in the **Settings** page of the NethVoice Proxy application.
+
+Active alerts are shown in the **Nodes** page of the cluster administration and, if the cluster has a subscription, on [my.nethesis.it](https://my.nethesis.it/).
+
+NethVoice raises these alerts:
+
+| Alert | Severity | When it fires |
+|-------|----------|---------------|
+| `ServiceDown` | critical | A NethVoice service (for example Asterisk, MariaDB, NethVoice CTI or Janus) has been stopped for 10 minutes, or restarted at least 3 times in 10 minutes. Disabled services and services that were never started are not checked. |
+| `NethVoiceTrunkUnreachable` | critical | For 10 minutes a trunk that does not use the proxy is not registered, the remote side of a trunk that registers to NethVoice is not registered, or the provider of an IP trunk that does not use the proxy does not answer. |
+| `NethVoiceDnsFailure` | warning | For 15 minutes the NethVoice, NethVoice CTI or proxy name does not resolve on the DNS server of the node, or the proxy name does not point to the public or private IP address of the proxy. |
+| `NethVoiceDnsSlow` | warning | For 15 minutes the DNS server of the node takes more than 3 seconds to resolve one of those names, or does not answer. |
+| `NethVoiceAiKeyInvalid` | critical | With transcription enabled, Deepgram or OpenAI has rejected the API key for 10 minutes. |
+| `NethVoiceAiCreditExhausted` | critical | An AI provider refused a request because the account has no credit left. The alert clears after the next successful request. |
+
+NethVoice Proxy raises these alerts:
+
+| Alert | Severity | When it fires |
+|-------|----------|---------------|
+| `ServiceDown` | critical | A proxy service (Kamailio, rtpengine, PostgreSQL or Redis) has been stopped for 10 minutes, or restarted at least 3 times in 10 minutes. |
+| `NethVoiceTrunkUnreachable` | critical | For 10 minutes, on a UDP trunk that goes through the proxy, the provider rejects the registration, does not answer the registration, or does not answer the keep-alive checks of an IP trunk. Trunks over TCP or TLS are not checked yet. |
+
+The DNS checks use the DNS server configured on the node, not public DNS servers: make sure it resolves the NethVoice, NethVoice CTI and proxy names.
