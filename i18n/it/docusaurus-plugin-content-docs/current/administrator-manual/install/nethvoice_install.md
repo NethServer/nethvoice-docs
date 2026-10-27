@@ -215,8 +215,8 @@ NethVoice genera questi allarmi:
 | `NethVoiceTrunkNotMonitored` | warning | Per 10 minuti, un trunk IP, o un trunk in cui il lato remoto si registra su NethVoice, ha un nome con uno spazio (o un altro carattere non ammesso in un indirizzo SIP) e nessun From User. Le chiamate funzionano, ma NethVoice non invia al trunk i controlli di keep-alive, quindi un guasto del provider passa inosservato. I trunk che si registrano presso il provider non sono interessati. |
 | `NethVoiceDnsFailure` | warning | Lo stesso problema DNS si presenta in 3 controlli consecutivi (15 minuti). Motivo `not_resolved`: il nome di NethVoice, di NethVoice CTI o del proxy non esiste sul server DNS del nodo. Motivo `ip_mismatch`: il nome del proxy non punta né all'indirizzo IPv4 pubblico né a quello privato del proxy, ad esempio dopo che il proxy è passato a un nuovo IP pubblico e nessuno ha aggiornato il record DNS. L'allarme mostra l'indirizzo restituito dal DNS e quelli attesi. Motivo `no_answer`: il server DNS del nodo non risponde entro 5 secondi. |
 | `NethVoiceDnsSlow` | warning | In 3 controlli consecutivi (15 minuti), il server DNS del nodo impiega più di 3 secondi a risolvere uno di questi nomi. Non viene mai generato insieme a `NethVoiceDnsFailure` per lo stesso nome. |
-| `NethVoiceAiKeyInvalid` | critical | Con la trascrizione abilitata, Deepgram o OpenAI rifiuta la chiave API da 10 minuti. |
-| `NethVoiceAiCreditExhausted` | critical | Un provider AI ha rifiutato una richiesta perché l'account ha esaurito il credito. L'allarme si chiude dopo la successiva richiesta riuscita. |
+| `NethVoiceAIKeyInvalid` | critical | Con la trascrizione abilitata, Deepgram o OpenAI rifiuta la chiave API da 10 minuti. |
+| `NethVoiceAICreditExhausted` | critical | Un provider AI ha rifiutato una richiesta perché l'account ha esaurito il credito. L'allarme si chiude dopo la successiva richiesta riuscita. |
 
 NethVoice Proxy genera questi allarmi:
 

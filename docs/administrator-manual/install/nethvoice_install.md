@@ -217,8 +217,8 @@ NethVoice raises these alerts:
 | `NethVoiceTrunkNotMonitored` | warning | For 10 minutes, an IP trunk, or a trunk where the remote side registers to NethVoice, has a name with a space (or another character not allowed in a SIP address) and no From User. Calls still work, but NethVoice sends no keep-alive checks to it, so an outage of its provider goes unnoticed. Trunks that register to the provider are not affected. |
 | `NethVoiceDnsFailure` | warning | The same DNS problem shows up in 3 checks in a row (15 minutes). Reason `not_resolved`: the NethVoice, NethVoice CTI or proxy name does not exist on the DNS server of the node. Reason `ip_mismatch`: the proxy name points to neither the public nor the private IPv4 address of the proxy, for example after the proxy moved to a new public IP and nobody updated the DNS record. The alert shows the address returned by DNS and the expected ones. Reason `no_answer`: the DNS server of the node does not answer within 5 seconds. |
 | `NethVoiceDnsSlow` | warning | In 3 checks in a row (15 minutes), the DNS server of the node takes more than 3 seconds to resolve one of those names. It is never raised together with `NethVoiceDnsFailure` for the same name. |
-| `NethVoiceAiKeyInvalid` | critical | With transcription enabled, Deepgram or OpenAI has rejected the API key for 10 minutes. |
-| `NethVoiceAiCreditExhausted` | critical | An AI provider refused a request because the account has no credit left. The alert clears after the next successful request. |
+| `NethVoiceAIKeyInvalid` | critical | With transcription enabled, Deepgram or OpenAI has rejected the API key for 10 minutes. |
+| `NethVoiceAICreditExhausted` | critical | An AI provider refused a request because the account has no credit left. The alert clears after the next successful request. |
 
 NethVoice Proxy raises these alerts:
 
