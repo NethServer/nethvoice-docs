@@ -69,7 +69,7 @@ NETHCTI_ALERTS_CHECK_INTERVAL=20
 After modifying the environment variables, **restart the `nethcti-server` service** for the changes to take effect.
 
 ```bash
-runagent -m nethvoiceX systemctl --user restart nethcti-server 
+runagent -m nethvoiceX systemctl --user restart nethcti-server
 ```
 
 :::info
