@@ -53,7 +53,7 @@ Ad esempio, per impostare:
 - Un intervallo di verifica di 20 secondi.
 
 ```bash
-runagent -m nethvoiceX vim environment 
+runagent -m nethvoiceX vim environment
 ```
 
 Configurare i seguenti valori:
