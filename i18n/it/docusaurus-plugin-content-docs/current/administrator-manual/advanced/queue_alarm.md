@@ -70,8 +70,8 @@ Dopo aver modificato le variabili d'ambiente, è necessario **riavviare il servi
 runagent -m nethvoiceX systemctl --user restart nethcti-server
 ```
 
-:::warning
-Il riavvio del servizio `nethcti-server` può interrompere temporaneamente le sessioni CTI attive. Si consiglia di effettuare l'operazione durante una finestra di manutenzione.
+:::info
+Il riavvio del servizio `nethcti-server` disconnette i client CTI per qualche secondo, poi si riconnettono automaticamente.
 :::
 
 ### Disabilitazione degli allarmi
