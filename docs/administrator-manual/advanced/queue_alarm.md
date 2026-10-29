@@ -72,8 +72,8 @@ After modifying the environment variables, **restart the `nethcti-server` servic
 runagent -m nethvoiceX systemctl --user restart nethcti-server 
 ```
 
-:::warning
-Restarting the `nethcti-server` service may temporarily interrupt active CTI sessions. It is recommended to perform this operation during a maintenance window.
+:::info
+Restarting the `nethcti-server` service disconnects CTI clients for a few seconds, then they reconnect automatically.
 :::
 
 ### Disabling Alerts
