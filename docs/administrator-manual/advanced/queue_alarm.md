@@ -22,6 +22,10 @@ The system provides four types of alerts:
 
 :::info
 Alert conditions are evaluated periodically. For alerts with multiple conditions, all conditions must be met simultaneously.
+
+The average waiting time is computed by Asterisk on answered calls only.
+
+Users see only the alerts of the queues enabled in the Queue Manager permissions of their profile.
 :::
 
 ### Alert Examples
