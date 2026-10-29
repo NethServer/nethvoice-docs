@@ -55,7 +55,7 @@ For example, to configure:
 - An alert check interval of 20 seconds.
 
 ```bash
-runagent -m nethvoiceX vim environment 
+runagent -m nethvoiceX vim environment
 ```
 
 Set the following values:
