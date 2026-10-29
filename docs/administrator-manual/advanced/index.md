@@ -19,5 +19,6 @@ This section covers:
 - [**Trunk without registration**](./trunks_without_registration.md) - Procedure for configuring a VoIP trunk without registration
 - [**WSS trasport**](./wss_transport.md) - Configuration of clients using Secure WebSocket transport
 - [**Call event scripts**](./call_event_scripts_it.md) - Configuration of script execution during calls
+- [**Queues alarm configuration**](./queue_alarm.md) - Configuration of queues alarm in NethVoice CTI Queues Manager
 
 
