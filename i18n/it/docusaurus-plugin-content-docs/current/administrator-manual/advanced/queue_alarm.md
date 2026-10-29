@@ -20,7 +20,13 @@ Il sistema prevede quattro tipologie di allarme:
 | `queuefewop` | **Operatori disponibili insufficienti** | Il numero di chiamate in attesa supera il numero di operatori disponibili moltiplicato per MAX_CALLS_PER_OP. |
 | `queueholdtime` | **Tempo medio di attesa elevato** | Il tempo medio di attesa della coda supera MAX_HOLDTIME. |
 
-> **Nota:** le condizioni vengono valutate periodicamente. Per gli allarmi che prevedono più condizioni, queste devono verificarsi contemporaneamente.
+:::info
+Le condizioni vengono valutate periodicamente. Per gli allarmi che prevedono più condizioni, queste devono verificarsi contemporaneamente.
+
+Il tempo medio di attesa è calcolato da Asterisk solo sulle chiamate risposte.
+
+Ogni utente vede solo gli allarmi delle code abilitate nei permessi Gestore Code del proprio profilo.
+:::
 
 ### Esempi di attivazione
 
