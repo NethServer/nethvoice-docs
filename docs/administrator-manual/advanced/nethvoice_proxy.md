@@ -166,3 +166,7 @@ External Users/Trunks
 
 The proxy acts as a gateway between external VoIP traffic and internal NethVoice instances.
 :::
+
+## Alerts {#alerts}
+
+NethVoice Proxy can raise alerts when one of its services stops or when a trunk it relays cannot reach the provider. The alerts are disabled by default: enable them from the **Alerts** card of the proxy **Settings** page. See [NethVoice alerts](../install/nethvoice_install.md#alerts) for the list of alerts.

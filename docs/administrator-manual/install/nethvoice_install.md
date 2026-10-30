@@ -195,3 +195,38 @@ On the **Hotel** page you can configure the Hotel module; an active subscription
 - **Hotel FIAS server port**: Specify the port number for the Hotel FIAS server connection.
 
 See [NethVoice Hotel Module Documentation](/docs/administrator-manual/nethhotel/) for more details.
+
+### Alerts {#alerts}
+
+NethVoice and [NethVoice Proxy](../advanced/nethvoice_proxy.md) have built-in alerts that warn you when something stops working: a stopped service, a trunk that cannot reach its provider, a DNS problem, or an AI key that no longer works. The checks run every 5 minutes.
+
+The alerts are disabled by default. To enable them:
+
+1. Open the NethVoice application and go to the **Settings** page.
+2. In the **Alerts** card, turn the switch on and click **Save**.
+3. Repeat the same steps in the **Settings** page of the NethVoice Proxy application.
+
+Active alerts are shown in the **Nodes** page of the cluster administration and, if the cluster has a subscription, on [my.nethesis.it](https://my.nethesis.it/).
+
+NethVoice raises these alerts:
+
+| Alert | Severity | When it fires |
+|-------|----------|---------------|
+| `ServiceDown` | critical | A NethVoice service (for example Asterisk, MariaDB, NethVoice CTI or Janus) has been stopped for 10 minutes, or restarted at least 3 times in 10 minutes. Disabled services and services that were never started are not checked. |
+| `NethVoiceTrunkUnreachable` | critical | The same alert raised by NethVoice Proxy, for trunks that bypass the proxy. Trunks normally go through the proxy, so this alert covers only custom setups. It fires when one of these trunks stays in error for 10 minutes: NethVoice cannot register to the provider, the remote side that registers to NethVoice is not registered, or the provider of an IP trunk does not answer. |
+| `NethVoiceTrunkNotMonitored` | warning | For 10 minutes, an IP trunk, or a trunk where the remote side registers to NethVoice, has a name with a space (or another character not allowed in a SIP address) and no From User. Calls still work, but NethVoice sends no keep-alive checks to it, so an outage of its provider goes unnoticed. Trunks that register to the provider are not affected. |
+| `NethVoiceDnsFailure` | warning | The same DNS problem shows up in 3 checks in a row (15 minutes). Reason `not_resolved`: the NethVoice, NethVoice CTI or proxy name does not exist on the DNS server of the node. Reason `ip_mismatch`: the proxy name points to neither the public nor the private IPv4 address of the proxy, for example after the proxy moved to a new public IP and nobody updated the DNS record. The alert shows the address returned by DNS and the expected ones. Reason `no_answer`: the DNS server of the node does not answer within 5 seconds. |
+| `NethVoiceDnsSlow` | warning | In 3 checks in a row (15 minutes), the DNS server of the node takes more than 3 seconds to resolve one of those names. It is never raised together with `NethVoiceDnsFailure` for the same name. |
+| `NethVoiceAIKeyInvalid` | critical | With transcription enabled, Deepgram or OpenAI has rejected the API key for 10 minutes. |
+| `NethVoiceAICreditExhausted` | critical | An AI provider refused a request because the account has no credit left. The alert clears after the next successful request. |
+
+NethVoice Proxy raises these alerts:
+
+| Alert | Severity | When it fires |
+|-------|----------|---------------|
+| `ServiceDown` | critical | A proxy service (Kamailio, rtpengine, PostgreSQL or Redis) has been stopped for 10 minutes, or restarted at least 3 times in 10 minutes. |
+| `NethVoiceTrunkUnreachable` | critical | For 10 minutes, on a UDP trunk that goes through the proxy, the provider rejects the registration, does not answer the registration, or does not answer the keep-alive checks of an IP trunk. Trunks over TCP or TLS are not checked yet. |
+
+The DNS checks use the DNS server configured on the node, not public DNS servers: make sure it resolves the NethVoice, NethVoice CTI and proxy names. The proxy name can point to either the public or the private IP address of the proxy. This allows split DNS setups, where users inside the office get the private IP and users outside get the public one. If the answer has more than one address, one match is enough. Only IPv4 addresses are checked. If NethVoice cannot find the proxy addresses, it skips the IP check without any warning.
+
+The `NethVoiceTrunkNotMonitored` alert usually shows up on trunks created from the FreePBX page, migrated from NethServer 7 or imported, because trunks created from the NethVoice wizard always have a From User. To fix it, rename the trunk without spaces in the FreePBX interface (**Connectivity -> Trunks**) and apply the configuration. Then update any custom dialplan or custom trunk that dials `PJSIP/...@<old name>`: from then on, call history and reports show the trunk under its new name. Do not fill in From User to work around the alert, because it replaces the caller ID in the From header of every outgoing call. The NethVoice wizard warns you while a new trunk name holds a space, but NethVoice never renames a trunk by itself.
