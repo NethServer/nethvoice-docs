@@ -62,6 +62,16 @@ Quando il riassunto chiamata è abilitato per il tuo utente, NethLink può anche
 - NethLink non fornisce un visualizzatore dedicato per il riassunto: riassunti e trascrizioni post-chiamata si consultano in CTI.
 - Se le notifiche sono disabilitate, i contenuti generati restano disponibili successivamente dalla Cronologia CTI.
 
+## Chat {#chat}
+
+Quando la chat è abilitata su NethVoice e il tuo profilo ha il permesso **Chat**, NethLink mostra la sezione **Chat** con le tue conversazioni, i messaggi non letti e le stesse opzioni di NethVoice CTI per eliminare una chat o uscire da un gruppo.
+
+- Le chat si aprono in una finestra in basso a destra dello schermo; puoi trascinarla ovunque, anche su un altro monitor.
+- Nella barra di ricerca, l'icona della chat accanto a un collega apre una chat con lui; Ctrl+Invio (Cmd+Invio su macOS) fa lo stesso da tastiera.
+- Mentre NethLink è in esecuzione, **Chat** in NethVoice CTI apre la conversazione in NethLink.
+
+Tutto ciò che puoi fare in una chat, compresi i gruppi e le chat con persone esterne all'azienda, è descritto nella [chat di NethVoice CTI](../nethcti/chat.md).
+
 ## Funzioni avanzate
 
 ### Scorciatoie da tastiera

@@ -169,6 +169,14 @@ Nella pagina **Integrazioni** puoi configurare i servizi speech-to-text e AI:
 
 I riassunti delle chiamate generati dall'AI usano i dati della trascrizione post-chiamata e richiedono sia una configurazione Deepgram funzionante che una API Key OpenAI configurata.
 
+Nella sezione **Chat** della stessa pagina puoi abilitare la chat per gli utenti NethVoice:
+- **Abilita la chat**: attiva la chat in NethVoice CTI, NethLink e nell'app mobile.
+- **Conserva messaggi e allegati della chat per (giorni)**: messaggi e allegati più vecchi vengono cancellati.
+- **Spazio allegati per utente (MB)**: se un utente lo supera, i suoi allegati più vecchi vengono cancellati.
+- **Dimensione massima di un allegato (MB)**: limite di dimensione di un singolo file.
+
+Consulta [Chat](../configuration/chat.md) per tutti i dettagli, comprese le chat con persone esterne al centralino.
+
 Con una API Key Deepgram configurata, è disponibile anche la sintesi vocale (text-to-speech) durante l'aggiunta di una registrazione per Annunci, IVR o Code di chiamata: inserisci il testo del messaggio, scegli lingua e voce, ascolta l'anteprima e salvala come registrazione di sistema.
 
 :::info Trascrizioni e riassunti  

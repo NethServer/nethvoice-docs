@@ -151,6 +151,15 @@ Dalla sezione Tastierino, tocca l’icona dell’ingranaggio in alto a destra pe
 * Disconnettersi: disconnetti l’account dall’app senza rimuoverne la configurazione.
 * Reimposta applicazione: reimposta completamente l’app e cancella tutti i dati associati. Per accedere nuovamente, segui le istruzioni nella sezione Access.
 
+### Messaggi {#messages}
+
+Quando la chat è abilitata su NethVoice e il tuo profilo ha il permesso **Chat**, la sezione **Messaggi** dell'app mostra le tue conversazioni con colleghi e gruppi, le stesse di NethVoice CTI e NethLink.
+
+- L'app riceve la configurazione della chat in automatico quando accedi con il codice QR o con nome utente e password. Con l'autenticazione a due fattori attiva, usa il codice QR.
+- Puoi inviare e ricevere messaggi, allegati e messaggi vocali, nelle chat uno a uno e nei gruppi.
+- I nuovi messaggi arrivano come notifiche push, anche con l'app in background o chiusa.
+- Una risposta inviata da NethVoice CTI o NethLink mostra in alto il messaggio citato, con ogni riga che inizia con ┃, e sotto la risposta.
+
 ### Notifiche
 
 Dopo 7 giorni di inattività nell’app NethVoice, potrebbe apparire un popup che informa che la sessione sta per scadere. Per continuare a ricevere chiamate, devi toccare la notifica o aprire l’app NethVoice.
