@@ -159,6 +159,15 @@ From the Keypad section, tap the gear icon in the top right corner to open Setti
 * Reset Application: completely reset the app and clear all associated data. To log in again, follow the instructions in the Access section.
 
 
+### Messages {#messages}
+
+When the chat is enabled on NethVoice and your profile has the **Chat** permission, the **Messages** section of the app shows your conversations with colleagues and groups, the same as in NethVoice CTI and NethLink.
+
+- The app gets the chat configuration automatically when you log in with the QR code or with username and password. With two-factor authentication enabled, use the QR code.
+- You can send and receive messages, attachments and voice notes, in one-to-one chats and in groups.
+- New messages arrive as push notifications, also with the app in the background or closed.
+- A reply sent from NethVoice CTI or NethLink shows the quoted message on top, each line starting with ┃, and the answer below.
+
 ### Notifications
 
 After 7 days of inactivity in the NethVoice app, a popup may appear informing you that your session is about to expire. To continue receiving calls, you must tap the notification or open the NethVoice app.
