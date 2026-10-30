@@ -17,6 +17,7 @@ Questa sezione copre:
 - [**Call Query Routing (CQR)**](./cqr.md) - Interrogazione di database per instradamento intelligente delle chiamate basato sui dati del chiamante
 - [**Custom VoIP trunk**](./custom_trunk.md) - Configurazione custom VoIP trunks
 - [**Trunk senza registrazione**](./trunks_without_registration.md) - Procedura per configurare un trunk VoIP non registrato
+- [**Contesto di ingresso dei trunk**](./trunk_inbound_context.md) - Contesto del dialplan di un trunk ed estrazione del numero chiamato dagli header SIP
 - [**Trasporto WSS**](./wss_transport.md) - Configurazione di client utilizzanti i trasporto WebSocket Sicuro
 - [**Script sugli eventi di chiamata**](./call_event_scripts_it.md) - Configurazione esecuzione di script durante la chiamata
 - [**Configurazione allarmi code**](./queue_alarm.md) - Configurazione allarmi in NethVoice CTI Gestore Code
