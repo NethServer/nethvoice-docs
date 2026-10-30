@@ -96,15 +96,23 @@ The setup wizard detects automatically if there already is a proxy on the instal
 3. **Set the Network interface** that will handle VoIP traffic
 4. **Configure Public IP address** if different from the interface IP
 
-The above configuration will be the entrypoint for all external VoIP traffic.
+#### Network interface and client origin {#network-interface}
 
-Make sure that:
-- the configured FQDN resolves correctly to the public IP address
-- any DNS records are properly set up to point to the proxy
+:::info Single network interface
+NethVoice handles SIP and RTP traffic through **a single network interface** on the NethServer 8 node: the one selected in the NethVoice Proxy configuration. Receiving VoIP traffic on multiple interfaces simultaneously is not supported.
+:::
 
-These requirements are critical to obtain a valid SSL/TLS certificate for secure communications.
+Using a single interface does not mean that clients must originate from a single network. Clients can reach NethVoice from different networks and IP addresses, provided their traffic reaches the selected interface:
 
-See [NethVoice Proxy Documentation](../advanced/nethvoice_proxy.md) for more info.
+- **Local network** directly connected to the interface;
+- **Other local subnets** (VLANs, sites connected via VPN), routed to the interface by a router or firewall;
+- **Remote networks and Internet** (mobile apps, NethLink, remote sites), through port forwarding or 1:1 NAT of the public IP address.
+
+In all cases, clients must use the **configured FQDNs** (proxy, NethVoice, NethVoice CTI) rather than IP addresses.
+
+When the node is behind NAT, the NethVoice Proxy automatically uses the private IP address for clients on the network directly connected to the interface. Other local subnets must be explicitly declared, as described in [Additional local networks](../advanced/nethvoice_proxy.md#local-networks). Alternatively, local clients can reach the public IP address through Hairpin NAT on the firewall.
+
+See the [NethVoice Proxy documentation](../advanced/nethvoice_proxy.md) for more information.
 
 ### NethVoice application
 

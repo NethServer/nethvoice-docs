@@ -9,6 +9,9 @@ NethVoice non può essere accessibile utilizzando un indirizzo IP — i client (
 
 Questo è un cambiamento fondamentale rispetto alle versioni precedenti (ad es. NethVoice 14) ed è imposto dalle migliori pratiche moderne per la **Sicurezza** (abilitazione di certificati SSL/TLS validi) e la **Manutenibilità** (gestione centralizzata semplificata). Un FQDN pubblicamente risolvibile è un prerequisito non negoziabile.
 
+:::info Una sola interfaccia di rete
+In tutti gli scenari NethVoice gestisce il traffico VoIP su una sola interfaccia di rete del nodo, ma i client possono raggiungerla da reti diverse (rete locale, altre subnet, Internet). Vedi [Interfaccia di rete e provenienza dei client](../administrator-manual/install/nethvoice_install.md#network-interface).
+:::
 
 ### Opzione 1: Installazione Cloud (IaaS o SaaS)
 
@@ -45,7 +48,7 @@ In questo scenario di installazione l'accesso ai servizi è permesso sia dalla r
 * **Gestione Firewall**: Il cliente è responsabile della configurazione e della gestione del firewall (router/dispositivo perimetrale).
 * **Mandato FQDN / SSL**: Un FQDN pubblico è ancora obbligatorio. Funzionalità come NethLink e l'App Mobile richiedono FQDN pubblico, SSL, e raggiungibilità esterna su porte specifiche.
 * **Problemi di Rete e Audio**: I problemi di audio (ad es. audio unidirezionale) nei deployment on-premise sono spesso causati da problemi di configurazione NAT. Per i passaggi di troubleshooting, fate riferimento a [guida di troubleshooting](./troubleshooting/audio_problems.md).
-* **Configurazioni di Rete**: Richiede Split DNS(risoluzione degli FQDN con l'IP locale dalla rete locale e IP pubblico dalle reti pubbliche) o Hairpin NAT con la sola risoluzione pubblica degli FQDN.
+* **Configurazioni di Rete**: Richiede Split DNS (risoluzione degli FQDN con l'IP locale dalla rete locale e IP pubblico dalle reti pubbliche) o Hairpin NAT con la sola risoluzione pubblica degli FQDN. Se i client locali si trovano su più subnet (VLAN, sedi in VPN), dichiararle nel proxy come descritto in [Reti locali aggiuntive](../administrator-manual/advanced/nethvoice_proxy.md#local-networks).
 
 #### Cosa ti serve?
 
