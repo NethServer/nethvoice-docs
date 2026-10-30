@@ -39,16 +39,16 @@ A fresh installation creates a disabled, unpublished Receptionist. Save and publ
 
 ## Review routing permissions {#review-routing-permissions}
 
-Each agent has independent tool settings. Expand a tool's configuration to review which destinations it can find and use. A disabled tool cannot be used, even if the instructions ask for it.
+Each agent has independent tool settings. Turn on a tool to show its settings. For **Transfer calls**, select **Manage destinations** to choose the extensions and queues the agent can use. A disabled tool cannot be used, even if the instructions ask for it.
 
 For newly configured agents, the routing defaults are:
 
 | Category | Default | Administrator control |
 | --- | --- | --- |
-| Direct extensions | Disabled; no extension selected | Enable the category and explicitly select permitted extensions. |
-| Queues | Enabled; all queues eligible | Exclude queues that the agent must not use. |
+| Direct extensions | Disabled; no extension selected | In **Manage destinations**, select each permitted extension. |
+| Queues | Enabled; all queues eligible | In **Manage destinations**, clear the queues that the agent must not use. |
 | IVRs | Disabled | IVR activation is not exposed by the current editor. |
-| Recent internal callers | Enabled; seven-day window | Change the window from 1 to 90 days and exclude ineligible extensions. |
+| Recent contacts | Enabled; seven-day window | Set **Lookback period** from 1 to 90 days. To exclude extensions, choose **All extensions except the selected ones** and select them. |
 
 These category defaults still require the corresponding tool to be enabled. New queues become eligible unless excluded; new direct extensions remain unavailable until approved. Review permissions when the PBX inventory changes.
 
@@ -64,7 +64,7 @@ This is a routing convenience. Caller ID can be spoofed and does not authenticat
 
 ### Optional call ending {#optional-call-ending}
 
-**End the call** starts disabled. Enable it on the agent page, set **Maximum goodbye playback (seconds)** from 1 to 10 seconds, then save and publish. It allows the agent to end its own call after an explicit caller request or a completed conversation. The runtime bounds goodbye playback and verifies ownership of the caller channel. Successful termination appears as **Ended by agent**. An unsuccessful or unconfirmed operation is reported as a failure; it never transfers the caller to fallback after accepting an ending request.
+**End the call** starts disabled. Enable it on the agent page, set **Maximum goodbye duration** from 1 to 10 seconds, then save and publish. It allows the agent to end its own call after an explicit caller request or a completed conversation. The runtime bounds goodbye playback and verifies ownership of the caller channel. Successful termination appears as **Ended by agent**. An unsuccessful or unconfirmed operation is reported as a failure; it never transfers the caller to fallback after accepting an ending request.
 
 ## Add the agent to VisualPlan {#add-to-visualplan}
 
@@ -74,7 +74,7 @@ Configure fallback routing in VisualPlan. Publish the agent and check synchroniz
 
 ## Inspect calls and performance {#inspect-calls-performance}
 
-Open **Activity** to filter call history by date, agent, provider or outcome and inspect a run. Run details show lifecycle events, a parent-linked trace, available provider usage and transfer or fallback outcomes. Summaries include call counts, latency and tool measurements. Percentiles are approximate, and overlapping phase durations must not be added to estimate the call length.
+Open **Monitoring** to filter call history by period, agent, voice provider, adapter or outcome and inspect a run. Filters other than the period accept multiple values, and runs can also be searched by agent or run ID. Run details show lifecycle events, a parent-linked trace, available provider usage and transfer or fallback outcomes. Summaries include call counts, latency and tool measurements. Percentiles are approximate, and overlapping phase durations must not be added to estimate the call length.
 
 Check monitoring health and completeness alongside the call outcome. Missing measurements remain unavailable, rather than being reported as zero. A confirmed transfer can coexist with an incomplete trace. Interrupted collection or delivery recovery can leave measurements incomplete.
 

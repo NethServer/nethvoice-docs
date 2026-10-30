@@ -39,16 +39,16 @@ Una nuova installazione crea Receptionist disabilitato e non pubblicato. Salvare
 
 ## Verificare le autorizzazioni di instradamento {#review-routing-permissions}
 
-Ogni agente ha impostazioni indipendenti per gli strumenti. Espandere la configurazione di uno strumento per verificare quali destinazioni può trovare e utilizzare. Uno strumento disabilitato non può essere utilizzato, anche se le istruzioni lo richiedono.
+Ogni agente ha impostazioni indipendenti per gli strumenti. Attivare uno strumento per mostrarne le impostazioni. Per **Trasferisci chiamate**, selezionare **Gestisci destinazioni** per scegliere gli interni e le code che l'agente può usare. Uno strumento disabilitato non può essere utilizzato, anche se le istruzioni lo richiedono.
 
 Per gli agenti appena configurati, i valori predefiniti sono:
 
 | Categoria | Valore predefinito | Controllo dell'amministratore |
 | --- | --- | --- |
-| Interni diretti | Disabilitati; nessun interno selezionato | Abilitare la categoria e selezionare esplicitamente gli interni consentiti. |
-| Code | Abilitate; tutte le code ammesse | Escludere le code che l'agente non deve usare. |
+| Interni diretti | Disabilitati; nessun interno selezionato | In **Gestisci destinazioni**, selezionare ogni interno consentito. |
+| Code | Abilitate; tutte le code ammesse | In **Gestisci destinazioni**, deselezionare le code che l'agente non deve usare. |
 | IVR | Disabilitati | L’editor corrente non espone l’attivazione degli IVR. |
-| Chiamanti interni recenti | Abilitati; finestra di sette giorni | Impostare la finestra da 1 a 90 giorni ed escludere gli interni non ammessi. |
+| Contatti recenti | Abilitati; finestra di sette giorni | Impostare **Periodo considerato** da 1 a 90 giorni. Per escludere degli interni, scegliere **Tutti gli interni tranne quelli selezionati** e selezionarli. |
 
 Questi valori richiedono comunque che lo strumento corrispondente sia abilitato. Le nuove code diventano disponibili se non escluse; i nuovi interni diretti restano indisponibili finché non vengono autorizzati. Verificare i permessi quando cambia l'inventario PBX.
 
@@ -64,7 +64,7 @@ Questa funzione facilita l'instradamento. L'identificativo del chiamante può es
 
 ### Chiusura facoltativa della chiamata {#optional-call-ending}
 
-**Termina la chiamata** è inizialmente disabilitato. Abilitarlo nella pagina dell’agente, impostare **Attesa massima per il saluto finale (secondi)** da 1 a 10 secondi, quindi salvare e pubblicare. Consente all’agente di terminare la propria chiamata dopo una richiesta esplicita del chiamante o una conversazione completata. Il runtime limita la riproduzione del saluto e verifica la proprietà del canale del chiamante. La terminazione riuscita appare come **Terminata dall’agente**. Un’operazione fallita o non confermata è riportata come errore; dopo aver accettato la richiesta di chiusura, non trasferisce mai il chiamante al fallback.
+**Termina la chiamata** è inizialmente disabilitato. Abilitarlo nella pagina dell’agente, impostare **Durata massima del congedo** da 1 a 10 secondi, quindi salvare e pubblicare. Consente all’agente di terminare la propria chiamata dopo una richiesta esplicita del chiamante o una conversazione completata. Il runtime limita la riproduzione del saluto e verifica la proprietà del canale del chiamante. La terminazione riuscita appare come **Terminata dall’agente**. Un’operazione fallita o non confermata è riportata come errore; dopo aver accettato la richiesta di chiusura, non trasferisce mai il chiamante al fallback.
 
 ## Aggiungere l'agente a VisualPlan {#add-to-visualplan}
 
@@ -74,7 +74,7 @@ Configurare il fallback in VisualPlan. Pubblicare l'agente e verificare la sincr
 
 ## Consultare chiamate e prestazioni {#inspect-calls-performance}
 
-Aprire **Attività** per filtrare lo storico per data, agente, provider o esito e consultare un'esecuzione. I dettagli mostrano eventi del ciclo di vita, una traccia gerarchica, l'utilizzo disponibile del provider e gli esiti di trasferimento o fallback. I riepiloghi includono conteggi, latenze e misure degli strumenti. I percentili sono approssimativi e le durate delle fasi sovrapposte non devono essere sommate per stimare la durata della chiamata.
+Aprire **Monitoraggio** per filtrare lo storico per periodo, agente, provider vocale, adattatore o esito e consultare un'esecuzione. I filtri diversi dal periodo accettano più valori ed è possibile cercare le esecuzioni anche per agente o ID. I dettagli mostrano eventi del ciclo di vita, una traccia gerarchica, l'utilizzo disponibile del provider e gli esiti di trasferimento o fallback. I riepiloghi includono conteggi, latenze e misure degli strumenti. I percentili sono approssimativi e le durate delle fasi sovrapposte non devono essere sommate per stimare la durata della chiamata.
 
 Verificare lo stato e la completezza del monitoraggio insieme all'esito della chiamata. Le misure mancanti restano indisponibili, anziché essere riportate come zero. Un trasferimento confermato può avere una traccia incompleta. Interruzioni della raccolta o il recupero della consegna possono lasciare misure incomplete.
 
