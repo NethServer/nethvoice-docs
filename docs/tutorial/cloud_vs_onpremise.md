@@ -9,6 +9,9 @@ NethVoice cannot be accessed using an IP address — clients (IP phones, mobile 
 
 This is a fundamental change from previous versions (e.g., NethVoice 14) and is mandated by modern best practices for **Security** (enabling valid SSL/TLS certificates) and **Maintainability** (simplified centralized management). A publicly resolvable FQDN is a non-negotiable prerequisite.
 
+:::info Single network interface
+In all deployment scenarios, NethVoice handles VoIP traffic through a single network interface on the node. However, clients can reach it from different networks (local network, other subnets, Internet). See [Network interface and client origin](../administrator-manual/install/nethvoice_install.md#network-interface).
+:::
 
 ### Option 1: Cloud Deployment (IaaS or SaaS)
 
@@ -43,7 +46,7 @@ The On-Premise installation involves hosting NethServer and NethVoice on the com
 * **Firewall Management**: The client is responsible for configuring and managing the firewall (router/edge device).
 * **FQDN / SSL Mandate**: A public FQDN is still mandatory. Features like NethLink and the Mobile App require public FQDN, SSL, and external reachability on specific ports.
 * **Networking and Audio Issues**: Audio problems (e.g., one-way audio) in on-premise deployments are often caused by NAT configuration issues. For troubleshooting steps, refer to: [troubleshooting guide](./troubleshooting/audio_problems.md).
-* **Networking Complexity**: Requires Hairpin NAT and careful firewall configuration to allow local clients to access the server via its public FQDN. As an alternative, Split DNS can be configured to resolve the FQDN to a local IP address for internal clients.
+- **Network Configuration**: Requires Split DNS (FQDNs resolving to the private IP address from local networks and to the public IP address from external networks) or Hairpin NAT with FQDNs resolving only to the public IP address. If local clients are located on multiple subnets (VLANs, sites connected via VPN), declare them in the proxy as described in [Additional local networks](../administrator-manual/advanced/nethvoice_proxy.md#local-networks).
 
 #### What do you need?
 
