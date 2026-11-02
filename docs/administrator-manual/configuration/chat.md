@@ -80,10 +80,10 @@ Users can invite people without a NethVoice account into a chat. They receive a 
 
 ### Ways to start {#external-start}
 
-From the **New chat** window, users can select **External people** as if it were a colleague:
+From the **New chat** window, users press **Chat with external people**, give the chat a name and, if they want, add colleagues:
 
-- **External people alone**: a chat between the user and people outside, with a name chosen by the user.
-- **External people and one or more colleagues**: a group with those colleagues, shared with people outside as soon as it is created.
+- **Without colleagues**: a chat between the user and people outside.
+- **With one or more colleagues**: a group with those colleagues, shared with people outside as soon as it is created.
 
 An existing group can also be shared later from its settings, with **Share with external people**.
 
@@ -100,7 +100,7 @@ In every case the user gets an invite link to send by email, message or any othe
 
 - Up to **10 people outside** can be in the same chat at the same time.
 - Each one chooses their name when joining. A name already used by another person in that chat, or equal to the name or username of a NethVoice user, is refused.
-- People outside are marked **External** on their messages and in the list of members, so they cannot be mistaken for colleagues.
+- People outside are marked **External** on their messages and in the list of members, so they cannot be mistaken for colleagues; chats open to them are marked **External** in every client.
 - They see the whole history of the chat, including the messages written before they joined.
 - They can write, reply, react with emoji, send files and images, record voice notes, search the chat and delete their own messages.
 - Their page shows the names of the members. It follows the light or dark theme of the browser and can send browser notifications while it is open.

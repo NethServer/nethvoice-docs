@@ -23,7 +23,7 @@ Premi **Nuova chat** e scegli a chi scrivere:
 
 - **Un collega**: premi **Avvia chat**.
 - **Due o più colleghi**: aggiungi se vuoi un'immagine e un nome, poi premi **Crea gruppo**. Senza nome, il gruppo prende i nomi dei suoi membri.
-- **Persone esterne**: vedi [Chat con persone esterne all'azienda](#external-people).
+- **Persone esterne all'azienda**: vedi [Chat con persone esterne all'azienda](#external-people).
 
 Puoi anche iniziare una chat con un collega dalla sua scheda operatore, dal pannello dell'operatore (**Apri chat**) e dal menu di chiamata.
 
@@ -80,10 +80,11 @@ Puoi scrivere a clienti, fornitori e a chiunque non abbia un account NethVoice. 
 
 ### Creare una chat con persone esterne {#create-external}
 
-In **Nuova chat**, seleziona **Persone esterne** in cima all'elenco, come selezioneresti un collega:
+In **Nuova chat**, premi **Chat con persone esterne** in cima all'elenco:
 
-- **Solo Persone esterne**: scrivi il nome della chat e premi **Crea link**. La chat è tra te e le persone che inviti.
-- **Persone esterne e uno o più colleghi**: aggiungi se vuoi un'immagine e un nome, poi premi **Crea gruppo**. Il gruppo viene creato e condiviso subito.
+1. Scrivi il nome della chat.
+2. Se vuoi, aggiungi uno o più colleghi dall'elenco sotto; **Svuota** li toglie tutti.
+3. Premi **Crea link**. Senza colleghi la chat è tra te e le persone che inviti; con dei colleghi viene creato un gruppo con loro, condiviso subito.
 
 Compare il link d'invito: copialo con l'icona dentro il campo e invialo per email, messaggio o qualsiasi altro canale, poi premi **Apri chat**. Il link vale 30 giorni.
 
@@ -103,7 +104,7 @@ Nelle impostazioni del gruppo il proprietario può:
 
 Gli altri membri vedono le persone esterne nell'elenco dei membri ma non possono gestirle.
 
-Le persone esterne sono contrassegnate come **Esterno** accanto al nome e nell'elenco dei membri, e la chat è contrassegnata come **Esterna** nel titolo.
+Le persone esterne sono contrassegnate come **Esterno** accanto al nome e nell'elenco dei membri, e la chat è contrassegnata come **Esterna** nel titolo e nella pagina **Messaggi**.
 
 ### Cosa vedono le persone esterne {#guest-page}
 

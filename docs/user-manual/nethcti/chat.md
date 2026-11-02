@@ -23,7 +23,7 @@ Press **New chat** and choose who you want to write to:
 
 - **One colleague**: press **Start chat**.
 - **Two or more colleagues**: optionally add a picture and a name, then press **Create group**. Without a name, the group takes the first names of its members.
-- **External people**: see [Chat with people outside the company](#external-people).
+- **People outside the company**: see [Chat with people outside the company](#external-people).
 
 You can also start a chat with a colleague from their operator card, from the operator drawer (**Open chat**) and from the call menu.
 
@@ -80,10 +80,11 @@ You can chat with customers, suppliers and anyone without a NethVoice account. T
 
 ### Create a chat with people outside {#create-external}
 
-In **New chat**, select **External people** at the top of the list, as you would select a colleague:
+In **New chat**, press **Chat with external people** at the top of the list:
 
-- **External people alone**: write the name of the chat and press **Create link**. The chat is between you and the people you invite.
-- **External people and one or more colleagues**: add a picture and a name if you want, then press **Create group**. The group is created and shared at once.
+1. Write the name of the chat.
+2. If you want, add one or more colleagues from the list below; **Clear** removes them all.
+3. Press **Create link**. Without colleagues, the chat is between you and the people you invite; with colleagues, a group with them is created and shared at once.
 
 The invite link appears: copy it with the icon inside the field and send it by email, message or any other channel, then press **Open chat**. The link works for 30 days.
 
@@ -103,7 +104,7 @@ In the group settings, the owner can:
 
 The other members see the people outside in the list of members but cannot manage them.
 
-People outside are marked **External** next to their name and in the list of members, and the chat is marked **External** in its title.
+People outside are marked **External** next to their name and in the list of members, and the chat is marked **External** in its title and in the **Messages** page.
 
 ### What people outside see {#guest-page}
 

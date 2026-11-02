@@ -80,10 +80,10 @@ Gli utenti possono invitare in una chat persone senza un account NethVoice. Ques
 
 ### Come iniziare {#external-start}
 
-Dalla finestra **Nuova chat**, gli utenti possono selezionare **Persone esterne** come se fosse un collega:
+Dalla finestra **Nuova chat**, gli utenti premono **Chat con persone esterne**, danno un nome alla chat e, se vogliono, aggiungono dei colleghi:
 
-- **Solo Persone esterne**: una chat tra l'utente e le persone esterne, con un nome scelto dall'utente.
-- **Persone esterne e uno o più colleghi**: un gruppo con quei colleghi, condiviso con le persone esterne appena creato.
+- **Senza colleghi**: una chat tra l'utente e le persone esterne.
+- **Con uno o più colleghi**: un gruppo con quei colleghi, condiviso con le persone esterne appena creato.
 
 Un gruppo esistente si può condividere anche in seguito dalle sue impostazioni, con **Condividi con persone esterne**.
 
@@ -100,7 +100,7 @@ In ogni caso l'utente ottiene un link d'invito da inviare per email, messaggio o
 
 - In una stessa chat possono esserci fino a **10 persone esterne** contemporaneamente.
 - Ognuna sceglie il proprio nome entrando. Un nome già usato da un'altra persona nella chat, o uguale al nome o al nome utente di un utente NethVoice, viene rifiutato.
-- Le persone esterne sono contrassegnate come **Esterno** sui loro messaggi e nell'elenco dei membri, così non si possono scambiare per colleghi.
+- Le persone esterne sono contrassegnate come **Esterno** sui loro messaggi e nell'elenco dei membri, così non si possono scambiare per colleghi; le chat aperte a loro sono contrassegnate come **Esterna** in tutti i client.
 - Vedono tutta la cronologia della chat, compresi i messaggi scritti prima del loro ingresso.
 - Possono scrivere, rispondere, reagire con le emoji, inviare file e immagini, registrare messaggi vocali, cercare nella chat ed eliminare i propri messaggi.
 - La loro pagina mostra i nomi dei membri, segue il tema chiaro o scuro del browser e può mostrare notifiche del browser mentre è aperta.
