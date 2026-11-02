@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-30T12:04:47.995153+00:00",
+  "generated_at": "2026-11-02T10:01:36.595548+00:00",
   "sources": {
     "nethcti_server": {
       "repo": "nethesis/nethcti-server",
@@ -9,7 +9,7 @@
     "nethcti_middleware": {
       "repo": "nethesis/nethcti-middleware",
       "branch": "main",
-      "commit": "1b89f9c0265e1093ac7d4d0465c1aaee2de88f30"
+      "commit": "1f1dc010f6c444010773acd0c48327d52d06a579"
     }
   },
   "stats": {
