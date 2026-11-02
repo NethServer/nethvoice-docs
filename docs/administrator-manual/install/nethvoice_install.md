@@ -171,6 +171,14 @@ On the **Integrations** page you can configure speech-to-text and AI services:
 
 AI-generated call summaries use the post-call transcription data and require both a working Deepgram configuration and a configured OpenAI API Key.
 
+In the **Chat** section of the same page you can enable the chat for NethVoice users:
+- **Enable chat**: turns on the chat in NethVoice CTI, NethLink and the mobile app.
+- **Keep chat messages and attachments for (days)**: older messages and attachments are deleted.
+- **Attachments space per user (MB)**: when a user goes over it, their oldest attachments are deleted.
+- **Largest attachment (MB)**: size limit of a single file.
+
+See [Chat](../configuration/chat.md) for all the details, including chats with people outside the PBX.
+
 With a Deepgram API Key configured, text-to-speech is also available when adding a recording for Announcements, IVR, or Call Queues: enter the message text, pick a language and voice, preview it, and save it as a system recording.
 
 :::info Transcription and summaries
