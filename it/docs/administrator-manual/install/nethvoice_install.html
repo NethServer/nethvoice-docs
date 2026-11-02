@@ -7,7 +7,7 @@
 
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7"><link rel="stylesheet" href="/it/assets/css/styles.74857691.css">
-<script src="/it/assets/js/runtime~main.f7ff95f9.js" defer="defer"></script>
+<script src="/it/assets/js/runtime~main.89c47650.js" defer="defer"></script>
 <script src="/it/assets/js/main.5b1e9593.js" defer="defer"></script>
 </head>
 <body>
@@ -84,13 +84,16 @@
 <li class=""><strong>Imposta l&#x27;interfaccia di rete</strong> che gestirà il traffico VoIP</li>
 <li class=""><strong>Configura l&#x27;indirizzo IP pubblico</strong> se diverso dall&#x27;IP dell&#x27;interfaccia</li>
 </ol>
-<p>La configurazione sopra sarà il punto di ingresso per tutto il traffico VoIP esterno.</p>
-<p>Assicurati che:</p>
+<h4 class="anchor anchorTargetStickyNavbar_Vzrq" id="network-interface">Interfaccia di rete e provenienza dei client<a href="#network-interface" class="hash-link" aria-label="Link diretto a Interfaccia di rete e provenienza dei client" title="Link diretto a Interfaccia di rete e provenienza dei client" translate="no">​</a></h4>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"></path></svg></span>Una sola interfaccia di rete</div><div class="admonitionContent_BuS1"><p>NethVoice gestisce il traffico SIP e RTP su <strong>una sola interfaccia di rete</strong> del nodo NethServer 8: quella selezionata nella configurazione del NethVoice Proxy. Non è supportata la ricezione del traffico VoIP su più interfacce contemporaneamente.</p></div></div>
+<p>Una sola interfaccia non significa una sola rete di provenienza. I client possono raggiungere NethVoice da reti e indirizzi IP diversi, purché il loro traffico arrivi all&#x27;interfaccia selezionata:</p>
 <ul>
-<li class="">Il FQDN configurato risolva correttamente l&#x27;indirizzo IP pubblico</li>
-<li class="">Eventuali record DNS siano correttamente configurati per puntare al proxy</li>
+<li class=""><strong>rete locale</strong> direttamente collegata all&#x27;interfaccia;</li>
+<li class=""><strong>altre subnet locali</strong> (VLAN, sedi collegate in VPN), instradate verso l&#x27;interfaccia dal router o firewall;</li>
+<li class=""><strong>reti remote e Internet</strong> (App mobile, NethLink, sedi remote), tramite port-forwarding o NAT 1:1 dell&#x27;IP pubblico.</li>
 </ul>
-<p>Questi requisiti sono fondamentali per ottenere un certificato SSL/TLS valido per comunicazioni sicure.</p>
+<p>In tutti i casi i client devono usare gli <strong>FQDN configurati</strong> (proxy, NethVoice, NethVoice CTI) e non gli indirizzi IP.</p>
+<p>Quando il nodo si trova dietro NAT, il NethVoice Proxy usa automaticamente l&#x27;IP locale per i client della rete direttamente collegata all&#x27;interfaccia. Le altre subnet locali vanno dichiarate esplicitamente, come descritto in <a class="" href="/it/docs/administrator-manual/advanced/nethvoice_proxy#local-networks">Reti locali aggiuntive</a>. In alternativa, i client locali possono raggiungere l&#x27;IP pubblico tramite Hairpin NAT sul firewall.</p>
 <p>Consulta la <a class="" href="/it/docs/administrator-manual/advanced/nethvoice_proxy">documentazione del NethVoice Proxy</a> per maggiori informazioni.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="applicazione-nethvoice">Applicazione NethVoice<a href="#applicazione-nethvoice" class="hash-link" aria-label="Link diretto a Applicazione NethVoice" title="Link diretto a Applicazione NethVoice" translate="no">​</a></h3>
 <div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"></path></svg></span>Configurazione DNS</div><div class="admonitionContent_BuS1"><p>Per configurare NethVoice, è necessario disporre di due virtual host dedicati:</p><ul>
