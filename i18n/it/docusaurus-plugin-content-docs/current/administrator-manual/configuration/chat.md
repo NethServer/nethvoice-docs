@@ -94,15 +94,18 @@ In ogni caso l'utente ottiene un link d'invito da inviare per email, messaggio o
 - Il link vale **30 giorni**. Chi lo apre dopo non può entrare; chi è già entrato resta.
 - Il link viene mostrato una sola volta, quando viene creato. **Nuovo link** ne crea uno nuovo e quello precedente smette di funzionare.
 - **Rendi privato** disattiva il link: non entra più nessuno, chi è già entrato resta. Quando nel gruppo non resta nessuna persona esterna, torna un gruppo normale e si può condividere di nuovo.
-- Il proprietario può rimuovere in qualsiasi momento una persona esterna dalla chat: la sua pagina smette subito di funzionare.
+- Il proprietario può rimuovere in qualsiasi momento una persona esterna dalla chat: la sua pagina smette subito di funzionare. Le persone esterne possono anche uscire dalla chat dalla loro pagina.
+- Se il proprietario lascia l'azienda, il collega che eredita il gruppo ne gestisce il link e le persone esterne.
+- Quando la chat viene eliminata, vengono eliminati anche il suo link e le sue persone esterne.
 
 ### Le persone esterne nella chat {#external-guests}
 
 - In una stessa chat possono esserci fino a **10 persone esterne** contemporaneamente.
-- Ognuna sceglie il proprio nome entrando. Un nome già usato da un'altra persona nella chat, o uguale al nome o al nome utente di un utente NethVoice, viene rifiutato.
-- Le persone esterne sono contrassegnate come **Esterno** sui loro messaggi e nell'elenco dei membri, così non si possono scambiare per colleghi; le chat aperte a loro sono contrassegnate come **Esterna** in tutti i client.
+- Ognuna sceglie il proprio nome entrando. Un nome già usato da un'altra persona nella chat, o uguale o molto simile al nome o al nome utente di un utente NethVoice (non contano maiuscole, accenti, punteggiatura e lettere dall'aspetto simile), viene rifiutato.
+- Quando qualcuno entra, nella chat compare *Nome (esterno) è entrato*.
+- Le persone esterne sono contrassegnate come **Esterno** sui loro messaggi e nell'elenco dei membri, e con *(External)* dopo il nome nelle notifiche e nell'app mobile, così non si possono scambiare per colleghi; le chat aperte a loro sono contrassegnate come **Esterna** in tutti i client.
 - Vedono tutta la cronologia della chat, compresi i messaggi scritti prima del loro ingresso.
-- Possono scrivere, rispondere, reagire con le emoji, inviare file e immagini, registrare messaggi vocali, cercare nella chat ed eliminare i propri messaggi.
+- Possono scrivere, rispondere, reagire con le emoji, inviare immagini, documenti, audio e video, registrare messaggi vocali, cercare nella chat, eliminare i propri messaggi e uscire dalla chat.
 - La loro pagina mostra i nomi dei membri, segue il tema chiaro o scuro del browser e può mostrare notifiche del browser mentre è aperta.
 
 ### Sicurezza {#external-security}
@@ -111,7 +114,7 @@ La pagina per le persone esterne è pensata per essere esposta su Internet:
 
 - il link è un token casuale lungo: sul server ne viene salvata solo l'impronta;
 - ogni persona esterna ha un accesso proprio, valido solo per quella chat;
-- eseguibili e tipi di file sconosciuti inviati da persone esterne vengono rifiutati, e i file vengono serviti in modo che il browser non li esegua mai;
+- le persone esterne possono inviare solo immagini, PDF e documenti d'ufficio senza macro, testo, audio e video: programmi, script, archivi e ogni altro tipo di file vengono rifiutati, e i file vengono serviti in modo che il browser non li esegua mai;
 - ingressi, messaggi e caricamenti sono limitati nel numero, per indirizzo e per persona, per proteggere il server da abusi;
 - le persone esterne non possono vedere altre chat, l'elenco degli utenti NethVoice né la loro presenza.
 

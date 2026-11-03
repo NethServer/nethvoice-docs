@@ -102,9 +102,11 @@ In the group settings, the owner can:
 - **Make private**: disable the link. Nobody new can join and who already joined stays; when nobody from outside is left, the group goes back to a normal group.
 - **Remove** a person outside from the chat.
 
-The other members see the people outside in the list of members but cannot manage them.
+The other members see the people outside in the list of members but cannot manage them. If the owner leaves the company, the colleague who inherits the group manages its link and its people outside.
 
-People outside are marked **External** next to their name and in the list of members, and the chat is marked **External** in its title and in the **Messages** page.
+When someone joins by the link, the chat shows *Name (external) joined*.
+
+People outside are marked **External** next to their name and in the list of members, and the chat is marked **External** in its title and in the **Messages** page. Notifications and the mobile app show *(External)* after their name.
 
 ### What people outside see {#guest-page}
 
@@ -112,7 +114,10 @@ Whoever opens the link sees a page with the name of the chat:
 
 1. They write their name and press **Join**. The name is visible to everyone in the chat and must be different from the other people in it.
 2. They see all the history of the chat and the names of its members.
-3. They can write, reply, react, use emoji, send files and voice notes, search the chat and delete their own messages.
+3. They can write, reply, react, use emoji, send pictures, documents, audio, video and voice notes, search the chat and delete their own messages.
 4. While the page is open, they can receive browser notifications for new messages: the browser asks for the permission when they join.
+5. They can leave the chat with the icon at the top right, then **Leave**: their page stops working and they need a new link to come back.
+
+When the chat is deleted, or its owner removes them, their page shows that they are no longer in the chat.
 
 The page follows the light or dark theme of the browser.
