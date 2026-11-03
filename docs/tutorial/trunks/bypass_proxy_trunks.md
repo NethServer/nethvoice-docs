@@ -62,7 +62,7 @@ Use with care!
 
 ### Limitations and requirements
 
-- Cannot remap 5061 (would require certificate and provisioning changes for phones).
+- As an alternative to the port forward, the proxy SIP port can be moved (for example to 5070) to leave 5060 free: see [SIP ports](/docs/administrator-manual/advanced/nethvoice_proxy#sip-ports). Phones, gateways and the mobile app provisioned by NethVoice follow the new ports.
 - After enabling port forward, FreePBX NAT settings must be updated: set public IP, local networks and include the NethServer network in local nets.
 - Port forward is not visible in the proxy UI.
 - Port forward should be limited to a single source IP when possible.

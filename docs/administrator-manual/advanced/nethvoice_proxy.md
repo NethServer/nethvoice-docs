@@ -115,6 +115,7 @@ NethVoice Proxy is usually configured during the setup wizard of a NethVoice mod
    - Enter the public IPv4 or IPv6 address if different from the interface IP
    - This is necessary if your node is behind a router/NAT
    - Leave blank if the interface has a direct public IP address
+6. **SIP ports (optional)**: in the **Advanced** section, change the ports devices connect to. Keep the defaults unless you have a reason to change them: see [SIP ports](#sip-ports).
 
 ### Configuration Example {#configuration-example}
 
@@ -128,6 +129,40 @@ NethVoice Proxy is usually configured during the setup wizard of a NethVoice mod
 | Let's Encrypt | Enabled | Automatic certificate for `proxy.example.com` |
 
 **Result**: External devices connect to `proxy.example.com` (203.0.113.45), traffic routes internally to 192.168.1.10
+
+### SIP ports {#sip-ports}
+
+Devices connect to the proxy on two ports, which can be changed in the **Advanced** section of the proxy settings:
+
+| Setting | Default | Used by |
+|---------|---------|---------|
+| **SIP port** | `5060` | SIP over UDP and TCP: phones, gateways and trunks |
+| **SIPS port** | `5061` | SIP over TLS: phones, gateways and the mobile app |
+
+The two ports must be different, and they cannot be 6060 or 6061, which are used by the [local networks](#local-networks) listeners. The communication between the proxy and the NethVoice instances does not change.
+
+When you change the ports:
+
+- The proxy listens on the new ports and the firewall of the node is updated. The old ports are closed immediately.
+- The NethVoice instances on the same node receive the new ports automatically and provision them:
+  - **Phones** provisioned by NethVoice get the new port the next time they download their configuration (at reboot or at the scheduled provisioning check).
+  - **Gateways** configured from NethVoice get the new port in their regenerated configuration, which must be loaded on the device again.
+  - **Mobile app** gets the new port at its next provisioning, within one hour, or right away by scanning a new QR code.
+- **Trunk providers**, **devices configured manually** and any **firewall in front of the node** must be updated by hand.
+
+:::warning
+Devices that still use the old ports cannot register until they get the new configuration. Plan the change in a maintenance window.
+:::
+
+The ports can also be set from the command line, together with the current configuration (replace `nethvoice-proxy1` with the instance name and keep the current values of the other fields, as returned by `get-configuration`):
+
+```bash
+api-cli run module/nethvoice-proxy1/configure-module --data \
+  '{"fqdn": "proxy.example.com",
+    "addresses": {"address": "203.0.113.45"},
+    "sip_port": 5070,
+    "sips_port": 5071}'
+```
 
 ### Special Cases {#special-cases}
 
@@ -177,7 +212,7 @@ To avoid this, the proxy identifies clients on local networks and advertises the
 - The network **directly connected** to the selected interface is automatically detected from the routing table.
 - **Other local subnets** (VLANs, remote sites connected via VPN) must be explicitly declared using the `local_networks` parameter.
 
-Remote clients are not affected: they continue to use ports 5060/5061 with the public IP address.
+Remote clients are not affected: they continue to use the [SIP ports](#sip-ports) (5060/5061 by default) with the public IP address.
 
 To declare additional subnets (in this example, `192.168.5.0/24`), run the following command (replace `nethvoice-proxy1` with the instance name and preserve the current values of `fqdn`, `addresses`, and `public_address`):
 
