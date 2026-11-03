@@ -74,11 +74,11 @@ This preference is saved on your NethVoice account and is shared with the CTI we
 
 ### Change Password {#change-password}
 
-To change your password, open the profile menu and click **Open Webphone**: the account settings of NethVoice CTI open in the browser. See [NethVoice CTI password](../nethcti/access.md#password).
+To change your password, open the profile menu, click **Settings** and then **Change password**: enter the current password and the new one. The other sessions, NethVoice CTI included, are signed out, while NethLink stays signed in. See [NethVoice CTI password](../nethcti/access.md#password) for the password requirements.
 
-Starting 7 days before the expiration, NethLink shows a system notification once a day: click it to open the account settings. If your password is expired, the login asks you to choose a new one, then sign in with the new password.
+Starting 7 days before the expiration, NethLink shows a system notification once a day: click it to change the password. If your password is expired, the login asks you to choose a new one, then sign in with the new password.
 
-After a password change NethLink asks to sign in again with the new password.
+After a password change made from NethVoice CTI, NethLink asks to sign in again with the new password.
 
 ### Privacy Settings {#privacy-settings}
 
