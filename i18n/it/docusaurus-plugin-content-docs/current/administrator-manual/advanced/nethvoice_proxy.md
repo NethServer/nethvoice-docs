@@ -115,6 +115,7 @@ NethVoice Proxy viene solitamente configurato durante la procedura guidata di co
    - Inserire l'indirizzo IPv4 o IPv6 pubblico se diverso dall'IP dell'interfaccia  
    - Questo è necessario se il nodo si trova dietro un router/NAT  
    - Lasciare vuoto se l'interfaccia ha un IP pubblico diretto
+6. **Porte SIP (opzionale)**: nella sezione **Advanced** è possibile cambiare le porte a cui si collegano i dispositivi. Mantenere i valori predefiniti salvo necessità: vedi [Porte SIP](#sip-ports).
 
 ### Esempio di configurazione {#configuration-example}
 
@@ -128,6 +129,40 @@ NethVoice Proxy viene solitamente configurato durante la procedura guidata di co
 | Let's Encrypt | Abilitato | Certificato automatico per `proxy.example.com` |
 
 **Risultato**: I dispositivi esterni si connettono a `proxy.example.com` (203.0.113.45), il traffico si instrada internamente a 192.168.1.10
+
+### Porte SIP {#sip-ports}
+
+I dispositivi si collegano al proxy su due porte, modificabili nella sezione **Advanced** delle impostazioni del proxy:
+
+| Impostazione | Predefinita | Usata da |
+|---------|---------|---------|
+| **Porta SIP** | `5060` | SIP su UDP e TCP: telefoni, gateway e trunk |
+| **Porta SIPS** | `5061` | SIP su TLS: telefoni, gateway e app mobile |
+
+Le due porte devono essere diverse e non possono essere 6060 o 6061, usate dai listener delle [reti locali](#local-networks). La comunicazione tra il proxy e le istanze NethVoice non cambia.
+
+Quando si cambiano le porte:
+
+- Il proxy si mette in ascolto sulle nuove porte e il firewall del nodo viene aggiornato. Le porte precedenti vengono chiuse subito.
+- Le istanze NethVoice dello stesso nodo ricevono automaticamente le nuove porte e le usano nel provisioning:
+  - i **telefoni** con provisioning di NethVoice ricevono la nuova porta al successivo scaricamento della configurazione (al riavvio o al controllo periodico del provisioning);
+  - i **gateway** configurati da NethVoice ricevono la nuova porta nella configurazione rigenerata, che va caricata di nuovo sul dispositivo;
+  - l'**app mobile** riceve la nuova porta al successivo provisioning, entro un'ora, o subito scansionando un nuovo QR code.
+- I **provider dei trunk**, i **dispositivi configurati a mano** e l'eventuale **firewall davanti al nodo** vanno aggiornati manualmente.
+
+:::warning
+I dispositivi che usano ancora le porte precedenti non si registrano finché non ricevono la nuova configurazione. Pianificare la modifica in una finestra di manutenzione.
+:::
+
+Le porte si possono impostare anche da riga di comando, insieme alla configurazione attuale (sostituire `nethvoice-proxy1` con il nome dell'istanza e mantenere i valori attuali degli altri campi, restituiti da `get-configuration`):
+
+```bash
+api-cli run module/nethvoice-proxy1/configure-module --data \
+  '{"fqdn": "proxy.example.com",
+    "addresses": {"address": "203.0.113.45"},
+    "sip_port": 5070,
+    "sips_port": 5071}'
+```
 
 ### Casi speciali {#special-cases}
 
@@ -177,7 +212,7 @@ Per evitarlo, il proxy riconosce i client delle reti locali e comunica loro l'IP
 - la rete **direttamente collegata** all'interfaccia selezionata viene rilevata automaticamente dalla tabella di routing;
 - le **altre subnet locali** (VLAN, sedi in VPN) vanno dichiarate con il parametro `local_networks`.
 
-I client remoti non sono interessati: continuano a usare le porte 5060/5061 con l'IP pubblico.
+I client remoti non sono interessati: continuano a usare le [porte SIP](#sip-ports) (5060/5061 di default) con l'IP pubblico.
 
 Per dichiarare la subnet aggiuntive (nell'esempio "192.168.5.0/24"), eseguire da riga di comando (sostituire `nethvoice-proxy1` con il nome dell'istanza e riportare i valori attuali di `fqdn` e `addresses` e `public_address`):
 
