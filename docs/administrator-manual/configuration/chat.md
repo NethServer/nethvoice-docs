@@ -94,15 +94,18 @@ In every case the user gets an invite link to send by email, message or any othe
 - The link is valid for **30 days**. Whoever opens it after that cannot join; who already joined stays.
 - The link is shown once, when it is created. **New link** creates a new one and the previous one stops working.
 - **Make private** disables the link: nobody new can join, who already joined stays. When nobody from outside is left in the group, it goes back to a normal group and can be shared again.
-- The owner can remove any person outside from the chat at any time: their page stops working at once.
+- The owner can remove any person outside from the chat at any time: their page stops working at once. People outside can also leave the chat from their page.
+- If the owner leaves the company, the colleague who inherits the group manages its link and its people outside.
+- When the chat is deleted, its link and its people outside are deleted too.
 
 ### People outside in the chat {#external-guests}
 
 - Up to **10 people outside** can be in the same chat at the same time.
-- Each one chooses their name when joining. A name already used by another person in that chat, or equal to the name or username of a NethVoice user, is refused.
-- People outside are marked **External** on their messages and in the list of members, so they cannot be mistaken for colleagues; chats open to them are marked **External** in every client.
+- Each one chooses their name when joining. A name already used by another person in that chat, or equal or very similar to the name or username of a NethVoice user (case, accents, punctuation and letters that look alike do not count), is refused.
+- When someone joins, the chat shows *Name (external) joined*.
+- People outside are marked **External** on their messages and in the list of members, and *(External)* after their name in notifications and in the mobile app, so they cannot be mistaken for colleagues; chats open to them are marked **External** in every client.
 - They see the whole history of the chat, including the messages written before they joined.
-- They can write, reply, react with emoji, send files and images, record voice notes, search the chat and delete their own messages.
+- They can write, reply, react with emoji, send pictures, documents, audio and video, record voice notes, search the chat, delete their own messages and leave the chat.
 - Their page shows the names of the members. It follows the light or dark theme of the browser and can send browser notifications while it is open.
 
 ### Security {#external-security}
@@ -111,7 +114,7 @@ The page for people outside is designed to be exposed on the Internet:
 
 - the link is a long random token: only its fingerprint is stored on the server;
 - each person outside gets an access of their own, valid only for that chat;
-- executables and unknown file types sent by people outside are refused, and files are served so that the browser never runs them;
+- people outside can send only pictures, PDF and office documents without macros, text, audio and video: programs, scripts, archives and any other file type are refused, and files are served so that the browser never runs them;
 - joins, messages and uploads are rate limited, per address and per person, to protect the server from abuse;
 - people outside cannot see other chats, the list of NethVoice users or their presence.
 

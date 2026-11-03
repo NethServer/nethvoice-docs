@@ -102,9 +102,11 @@ Nelle impostazioni del gruppo il proprietario può:
 - **Rendi privato**: disattivare il link. Non entra più nessuno e chi è già entrato resta; quando non resta nessuna persona esterna, il gruppo torna un gruppo normale.
 - **Rimuovere** una persona esterna dalla chat.
 
-Gli altri membri vedono le persone esterne nell'elenco dei membri ma non possono gestirle.
+Gli altri membri vedono le persone esterne nell'elenco dei membri ma non possono gestirle. Se il proprietario lascia l'azienda, il collega che eredita il gruppo ne gestisce il link e le persone esterne.
 
-Le persone esterne sono contrassegnate come **Esterno** accanto al nome e nell'elenco dei membri, e la chat è contrassegnata come **Esterna** nel titolo e nella pagina **Messaggi**.
+Quando qualcuno entra con il link, nella chat compare *Nome (esterno) è entrato*.
+
+Le persone esterne sono contrassegnate come **Esterno** accanto al nome e nell'elenco dei membri, e la chat è contrassegnata come **Esterna** nel titolo e nella pagina **Messaggi**. Le notifiche e l'app mobile mostrano *(External)* dopo il loro nome.
 
 ### Cosa vedono le persone esterne {#guest-page}
 
@@ -112,7 +114,10 @@ Chi apre il link vede una pagina con il nome della chat:
 
 1. Scrive il proprio nome e preme **Entra**. Il nome è visibile a tutti nella chat e deve essere diverso da quello delle altre persone presenti.
 2. Vede tutta la cronologia della chat e i nomi dei membri.
-3. Può scrivere, rispondere, reagire, usare le emoji, inviare file e messaggi vocali, cercare nella chat ed eliminare i propri messaggi.
+3. Può scrivere, rispondere, reagire, usare le emoji, inviare immagini, documenti, audio, video e messaggi vocali, cercare nella chat ed eliminare i propri messaggi.
 4. Mentre la pagina è aperta può ricevere le notifiche del browser per i nuovi messaggi: il browser chiede il permesso al momento dell'ingresso.
+5. Può uscire dalla chat con l'icona in alto a destra, poi **Esci**: la sua pagina smette di funzionare e per rientrare serve un nuovo link.
+
+Quando la chat viene eliminata, o il proprietario la rimuove, la sua pagina mostra che non fa più parte della chat.
 
 La pagina segue il tema chiaro o scuro del browser.
