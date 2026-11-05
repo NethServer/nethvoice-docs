@@ -28,27 +28,26 @@ The connection link and login credentials are specific to your installation and 
 
 ## Password {#password}
 
-You can change your password and handle its expiration directly from NethVoice CTI, without accessing the NethServer 8 user portal.
+You can change your password and check its expiration directly from NethVoice CTI.
 
 ### Changing the password
 
-1. Go to **Settings** → **Account**
-2. In the **Change password** section, click **Change password**
-3. Enter your current password, the new password and its confirmation
-4. Click **Change password**
+1. Go to **Settings** → **Account** and click **Change password**
+2. Enter the current password and the new one twice, then click **Change password**
 
-The section also shows when your password expires. The new password must meet the password policy of the account provider: the minimum length, at least 3 of uppercase letters, lowercase letters, numbers and special characters, and it must differ from the previous passwords.
+The new password must follow the account provider policy: minimum length, at least 3 of uppercase letters, lowercase letters, numbers and special characters, not used before.
 
-After the change you are signed out from the other devices and browsers, including NethLink: sign in again with the new password. The mobile app linked with the QR code stays connected.
+After the change the other sessions, NethLink included, are signed out. The mobile app linked with the QR code and the integration tokens keep working.
 
 ### Password expiration
 
-- Starting 7 days before the expiration, a warning is shown once a day after the login.
-- If your password is expired, the login asks you to choose a new one. After the change, sign in with the new password.
+- From 7 days before the expiration, a warning is shown once a day after the login and **Settings** → **Account** shows the expiration date.
+- If the password expires while you are signed in, you can keep using NethVoice CTI until the session ends: **Settings** → **Account** shows until when.
+- If the password is expired at login, you must choose a new one, then sign in with it.
 
 :::note
 
-Password management requires OpenLDAP 2.7.0 or Samba 3.4.6 (or later) as account provider: with older versions the expiration is not handled. It is not available with an external account provider or when the login uses Single Sign-On (SSO).
+Requires OpenLDAP 2.7.0 or Samba 3.4.6 (or later) as account provider: older versions do not handle the expiration. Not available with an external account provider or with Single Sign-On (SSO).
 
 :::
 

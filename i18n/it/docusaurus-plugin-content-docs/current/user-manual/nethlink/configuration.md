@@ -72,11 +72,11 @@ Questa preferenza viene salvata sul tuo account NethVoice ed è condivisa con il
 
 ### Cambio password {#change-password}
 
-Per cambiare la password, apri il menu del profilo, clicca **Impostazioni** e poi **Cambia password**: inserisci la password attuale e quella nuova. Le altre sessioni, compreso NethVoice CTI, vengono disconnesse, mentre NethLink resta connesso. Vedi [Password di NethVoice CTI](../nethcti/access.md#password) per i requisiti della password.
+Apri il menu del profilo, clicca **Impostazioni** → **Cambia password**, poi inserisci la password attuale e quella nuova. Le altre sessioni, compreso NethVoice CTI, vengono disconnesse, mentre NethLink resta connesso. I requisiti della password sono gli stessi di [NethVoice CTI](../nethcti/access.md#password).
 
-A partire da 7 giorni prima della scadenza, NethLink mostra una notifica di sistema una volta al giorno: cliccala per cambiare la password. Se la password è scaduta, il login chiede di sceglierne una nuova, poi accedi con la nuova password.
-
-Dopo un cambio password fatto da NethVoice CTI, NethLink chiede di accedere di nuovo con la nuova password.
+- Da 7 giorni prima della scadenza, NethLink mostra una notifica di sistema una volta al giorno: cliccala per cambiare la password.
+- Se la password è scaduta al login, devi sceglierne una nuova, poi accedere con quella.
+- Dopo un cambio password fatto da NethVoice CTI, NethLink chiede di accedere di nuovo.
 
 ### Impostazioni della privacy
 

@@ -28,27 +28,26 @@ Il link di collegamento e le credenziali di accesso sono specifiche della tua in
 
 ## Password {#password}
 
-Puoi cambiare la tua password e gestirne la scadenza direttamente da NethVoice CTI, senza accedere al portale utenti di NethServer 8.
+Puoi cambiare la password e controllarne la scadenza direttamente da NethVoice CTI.
 
 ### Cambio della password
 
-1. Vai su **Impostazioni** → **Account**
-2. Nella sezione **Cambia password**, clicca **Cambia password**
-3. Inserisci la password attuale, la nuova password e la sua conferma
-4. Clicca **Cambia password**
+1. Vai su **Impostazioni** → **Account** e clicca **Cambia password**
+2. Inserisci la password attuale e due volte quella nuova, poi clicca **Cambia password**
 
-La sezione mostra anche quando scade la tua password. La nuova password deve rispettare la policy delle password del provider di account: la lunghezza minima, almeno 3 tra lettere maiuscole, lettere minuscole, numeri e caratteri speciali, e deve essere diversa dalle password precedenti.
+La nuova password deve rispettare la policy del provider di account: lunghezza minima, almeno 3 tra lettere maiuscole, lettere minuscole, numeri e caratteri speciali, non usata in precedenza.
 
-Dopo il cambio vieni disconnesso dagli altri dispositivi e browser, compreso NethLink: accedi di nuovo con la nuova password. L'app mobile collegata con il QR code resta connessa.
+Dopo il cambio le altre sessioni, compreso NethLink, vengono disconnesse. L'app mobile collegata con il QR code e i token di integrazione continuano a funzionare.
 
 ### Scadenza della password
 
-- A partire da 7 giorni prima della scadenza, dopo l'accesso viene mostrato un avviso una volta al giorno.
-- Se la password è scaduta, il login chiede di sceglierne una nuova. Dopo il cambio, accedi con la nuova password.
+- Da 7 giorni prima della scadenza, dopo l'accesso viene mostrato un avviso una volta al giorno e **Impostazioni** → **Account** mostra la data di scadenza.
+- Se la password scade mentre sei connesso, puoi continuare a usare NethVoice CTI fino alla fine della sessione: **Impostazioni** → **Account** mostra fino a quando.
+- Se la password è scaduta al login, devi sceglierne una nuova, poi accedere con quella.
 
 :::note
 
-La gestione della password richiede come provider di account OpenLDAP 2.7.0 o Samba 3.4.6 (o successivi): con versioni precedenti la scadenza non viene gestita. Non è disponibile con un provider di account esterno o quando l'accesso avviene tramite Single Sign-On (SSO).
+Richiede come provider di account OpenLDAP 2.7.0 o Samba 3.4.6 (o successivi): le versioni precedenti non gestiscono la scadenza. Non è disponibile con un provider di account esterno o con il Single Sign-On (SSO).
 
 :::
 
