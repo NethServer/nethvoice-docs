@@ -108,8 +108,9 @@ NethVoice Proxy viene solitamente configurato durante la procedura guidata di co
 3. **Richiedere il certificato SSL**:  
    - Abilitare Let's Encrypt per gestire automaticamente i certificati SSL per il dominio del proxy  
    - Questo richiede che il record DNS sia risolvibile pubblicamente  
-4. **Selezionare l'interfaccia di rete**: Scegliere l'interfaccia di rete che gestirà il traffico VoIP dal menu a tendina  
-   - Tipicamente questa è l'interfaccia connessa alla rete WAN/Internet
+4. **Selezionare l'interfaccia di rete**: Scegliere l'interfaccia di rete che gestirà il traffico VoIP dal menu a tendina
+  - Nelle installazioni cloud è tipicamente l'interfaccia con l'IP pubblico; nelle installazioni on-premise dietro NAT è l'interfaccia della rete locale
+  - NethVoice gestisce il traffico su una sola interfaccia: vedi [Interfaccia di rete e provenienza dei client](../install/nethvoice_install.md#network-interface)
 5. **Configurare l'indirizzo IP pubblico**:  
    - Inserire l'indirizzo IPv4 o IPv6 pubblico se diverso dall'IP dell'interfaccia  
    - Questo è necessario se il nodo si trova dietro un router/NAT  
@@ -165,4 +166,35 @@ Utenti/Trunk esterni
 ```
 
 Il proxy agisce come gateway tra il traffico VoIP esterno e le istanze interne di NethVoice.
+:::
+
+#### Reti locali aggiuntive (NAT senza Hairpin NAT) {#local-networks}
+
+Nelle installazioni on-premise in cui il nodo è dietro NAT (indirizzo pubblico diverso dall'indirizzo dell'interfaccia), il proxy annuncia normalmente l'IP pubblico ai client. I client locali dovrebbero quindi raggiungere NethVoice tramite l'IP pubblico, cosa che richiede l'Hairpin NAT sul firewall.
+
+Per evitarlo, il proxy riconosce i client delle reti locali e comunica loro l'IP privato:
+
+- la rete **direttamente collegata** all'interfaccia selezionata viene rilevata automaticamente dalla tabella di routing;
+- le **altre subnet locali** (VLAN, sedi in VPN) vanno dichiarate con il parametro `local_networks`.
+
+I client remoti non sono interessati: continuano a usare le porte 5060/5061 con l'IP pubblico.
+
+Per dichiarare la subnet aggiuntive (nell'esempio "192.168.5.0/24"), eseguire da riga di comando (sostituire `nethvoice-proxy1` con il nome dell'istanza e riportare i valori attuali di `fqdn` e `addresses` e `public_address`):
+
+```bash
+api-cli run module/nethvoice-proxy1/configure-module --data \
+  '{"fqdn": "proxy.example.com",
+    "addresses": {"address": "192.168.1.1", "public_address": "1.2.3.4"},
+    "local_networks": ["192.168.1.0/24", "192.168.5.0/24"]}'
+```
+Per avere la configurazione attuale usare il comando (sostituire `nethvoice-proxy1` con il nome dell'istanza):
+
+```bash
+api-cli run module/nethvoice-proxy1/get-configuration | jq
+```
+
+Il campo `local_networks` accetta un elenco di subnet IPv4 in notazione CIDR.
+
+:::tip
+Perché le comunicazioni restino interne, configurare anche lo **Split DNS**: gli FQDN devono risolvere l'IP locale dalla rete locale e l'IP pubblico dalle reti esterne.
 :::
