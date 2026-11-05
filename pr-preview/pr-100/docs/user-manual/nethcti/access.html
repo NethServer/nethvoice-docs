@@ -7,7 +7,7 @@
 
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7"><link rel="stylesheet" href="/pr-preview/pr-100/assets/css/styles.1a51bce8.css">
-<script src="/pr-preview/pr-100/assets/js/runtime~main.c1a324d9.js" defer="defer"></script>
+<script src="/pr-preview/pr-100/assets/js/runtime~main.ed5b1e3f.js" defer="defer"></script>
 <script src="/pr-preview/pr-100/assets/js/main.5ff0f111.js" defer="defer"></script>
 </head>
 <body>
@@ -34,22 +34,21 @@
 <li class="">You will be redirected to the main interface</li>
 </ol>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="password">Password<a href="#password" class="hash-link" aria-label="Direct link to Password" title="Direct link to Password" translate="no">​</a></h2>
-<p>You can change your password and handle its expiration directly from NethVoice CTI, without accessing the NethServer 8 user portal.</p>
+<p>You can change your password and check its expiration directly from NethVoice CTI.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="changing-the-password">Changing the password<a href="#changing-the-password" class="hash-link" aria-label="Direct link to Changing the password" title="Direct link to Changing the password" translate="no">​</a></h3>
 <ol>
-<li class="">Go to <strong>Settings</strong> → <strong>Account</strong></li>
-<li class="">In the <strong>Change password</strong> section, click <strong>Change password</strong></li>
-<li class="">Enter your current password, the new password and its confirmation</li>
-<li class="">Click <strong>Change password</strong></li>
+<li class="">Go to <strong>Settings</strong> → <strong>Account</strong> and click <strong>Change password</strong></li>
+<li class="">Enter the current password and the new one twice, then click <strong>Change password</strong></li>
 </ol>
-<p>The section also shows when your password expires. The new password must meet the password policy of the account provider: the minimum length, at least 3 of uppercase letters, lowercase letters, numbers and special characters, and it must differ from the previous passwords.</p>
-<p>After the change you are signed out from the other devices and browsers, including NethLink: sign in again with the new password. The mobile app linked with the QR code stays connected.</p>
+<p>The new password must follow the account provider policy: minimum length, at least 3 of uppercase letters, lowercase letters, numbers and special characters, not used before.</p>
+<p>After the change the other sessions, NethLink included, are signed out. The mobile app linked with the QR code and the integration tokens keep working.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="password-expiration">Password expiration<a href="#password-expiration" class="hash-link" aria-label="Direct link to Password expiration" title="Direct link to Password expiration" translate="no">​</a></h3>
 <ul>
-<li class="">Starting 7 days before the expiration, a warning is shown once a day after the login.</li>
-<li class="">If your password is expired, the login asks you to choose a new one. After the change, sign in with the new password.</li>
+<li class="">From 7 days before the expiration, a warning is shown once a day after the login and <strong>Settings</strong> → <strong>Account</strong> shows the expiration date.</li>
+<li class="">If the password expires while you are signed in, you can keep using NethVoice CTI until the session ends: <strong>Settings</strong> → <strong>Account</strong> shows until when.</li>
+<li class="">If the password is expired at login, you must choose a new one, then sign in with it.</li>
 </ul>
-<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>Password management requires OpenLDAP 2.7.0 or Samba 3.4.6 (or later) as account provider: with older versions the expiration is not handled. It is not available with an external account provider or when the login uses Single Sign-On (SSO).</p></div></div>
+<div class="theme-admonition theme-admonition-note admonition_xJq3 alert alert--secondary"><div class="admonitionHeading_Gvgb"><span class="admonitionIcon_Rf37"><svg viewBox="0 0 14 16"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 0 1-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 0 1-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg></span>note</div><div class="admonitionContent_BuS1"><p>Requires OpenLDAP 2.7.0 or Samba 3.4.6 (or later) as account provider: older versions do not handle the expiration. Not available with an external account provider or with Single Sign-On (SSO).</p></div></div>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="two-factor-authentication">Two-Factor Authentication (2FA)<a href="#two-factor-authentication" class="hash-link" aria-label="Direct link to Two-Factor Authentication (2FA)" title="Direct link to Two-Factor Authentication (2FA)" translate="no">​</a></h2>
 <p>Two-factor authentication (2FA) provides an additional layer of security for your NethVoice CTI account by requiring a second verification method during login.</p>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="enabling-2fa">Enabling 2FA<a href="#enabling-2fa" class="hash-link" aria-label="Direct link to Enabling 2FA" title="Direct link to Enabling 2FA" translate="no">​</a></h3>
