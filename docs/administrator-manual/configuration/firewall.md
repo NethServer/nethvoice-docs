@@ -20,6 +20,8 @@ The proxy service requires the following ports:
 - **TCP**: 5060-5061
 - **UDP**: 5060-5061, 10000-20000
 
+5060 and 5061 are the default SIP ports: if they were changed in the proxy settings, open the configured ones. See [SIP ports](/docs/administrator-manual/advanced/nethvoice_proxy#sip-ports).
+
 ### NethVoice Instance-Specific Ports
 
 Each NethVoice instance has specific service ports.
