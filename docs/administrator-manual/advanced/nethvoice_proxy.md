@@ -139,7 +139,7 @@ Devices connect to the proxy on two ports, which can be changed in the **Advance
 | **SIP port** | `5060` | SIP over UDP and TCP: phones, gateways and trunks |
 | **SIPS port** | `5061` | SIP over TLS: phones, gateways and the mobile app |
 
-The two ports must be different, and they cannot be 6060 or 6061, which are used by the [local networks](#local-networks) listeners. The communication between the proxy and the NethVoice instances does not change.
+The two ports must be between 1024 and 9999, below the RTP range 10000-20000. They must be different, and they cannot be 6060 or 6061, which are used by the [local networks](#local-networks) listeners. The communication between the proxy and the NethVoice instances does not change.
 
 When you change the ports:
 

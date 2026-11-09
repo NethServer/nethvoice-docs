@@ -139,7 +139,7 @@ I dispositivi si collegano al proxy su due porte, modificabili nella sezione **A
 | **Porta SIP** | `5060` | SIP su UDP e TCP: telefoni, gateway e trunk |
 | **Porta SIPS** | `5061` | SIP su TLS: telefoni, gateway e app mobile |
 
-Le due porte devono essere diverse e non possono essere 6060 o 6061, usate dai listener delle [reti locali](#local-networks). La comunicazione tra il proxy e le istanze NethVoice non cambia.
+Le due porte devono essere comprese tra 1024 e 9999, sotto l'intervallo RTP 10000-20000. Devono essere diverse e non possono essere 6060 o 6061, usate dai listener delle [reti locali](#local-networks). La comunicazione tra il proxy e le istanze NethVoice non cambia.
 
 Quando si cambiano le porte:
 
