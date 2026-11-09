@@ -200,3 +200,6 @@ The `local_networks` field accepts a list of IPv4 subnets in CIDR notation.
 To keep communications within the local network, also configure **Split DNS**: FQDNs must resolve to the private IP address from local networks and to the public IP address from external networks.
 :::
 
+## Alerts {#alerts}
+
+NethVoice Proxy can raise alerts when one of its services stops or when a trunk it relays cannot reach the provider. The alerts are disabled by default: enable them from the **Alerts** card of the proxy **Settings** page. See [NethVoice alerts](../install/nethvoice_install.md#alerts) for the list of alerts.

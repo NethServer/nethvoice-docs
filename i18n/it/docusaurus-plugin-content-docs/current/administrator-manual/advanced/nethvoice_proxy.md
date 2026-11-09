@@ -198,3 +198,7 @@ Il campo `local_networks` accetta un elenco di subnet IPv4 in notazione CIDR.
 :::tip
 Perché le comunicazioni restino interne, configurare anche lo **Split DNS**: gli FQDN devono risolvere l'IP locale dalla rete locale e l'IP pubblico dalle reti esterne.
 :::
+
+## Allarmi {#alerts}
+
+NethVoice Proxy può generare allarmi quando uno dei suoi servizi si ferma o quando un trunk che inoltra non riesce a raggiungere il provider. Gli allarmi sono disabilitati per impostazione predefinita: abilitali dalla scheda **Allarmi** della pagina **Impostazioni** del proxy. Consulta [Allarmi di NethVoice](../install/nethvoice_install.md#alerts) per l'elenco degli allarmi.
