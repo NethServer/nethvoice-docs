@@ -24,6 +24,7 @@ The currently supported browsers are:
 - **Address book integration**: Quick access to contacts
 - **Call history**: View recent calls and call logs
 - **Collaboration tools**: Built-in communication features
+- **Chat**: Write to colleagues, groups and people outside the company
 - **Address book search**: Find contacts quickly
 - **Speed dial**: Save frequently used numbers
 - **Call notifications**: Get alerts for incoming calls
@@ -42,4 +43,5 @@ For more information, refer to the specific sections:
 
 - [Access](./access.md) - How to access NethVoice CTI
 - [Calls](./calls.md) - How to manage calls
+- [Chat](./chat.md) - Chat with colleagues, groups and people outside the company
 - [Other Features](./other.md) - Additional features and options
