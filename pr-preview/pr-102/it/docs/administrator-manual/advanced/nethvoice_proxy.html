@@ -7,7 +7,7 @@
 
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7"><link rel="stylesheet" href="/pr-preview/pr-102/it/assets/css/styles.74857691.css">
-<script src="/pr-preview/pr-102/it/assets/js/runtime~main.b2bb0591.js" defer="defer"></script>
+<script src="/pr-preview/pr-102/it/assets/js/runtime~main.dc5e2ed1.js" defer="defer"></script>
 <script src="/pr-preview/pr-102/it/assets/js/main.91266c04.js" defer="defer"></script>
 </head>
 <body>
@@ -111,7 +111,7 @@
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="sip-ports">Porte SIP<a href="#sip-ports" class="hash-link" aria-label="Link diretto a Porte SIP" title="Link diretto a Porte SIP" translate="no">​</a></h3>
 <p>I dispositivi si collegano al proxy su due porte, modificabili nella sezione <strong>Advanced</strong> delle impostazioni del proxy:</p>
 <table><thead><tr><th>Impostazione</th><th>Predefinita</th><th>Usata da</th></tr></thead><tbody><tr><td><strong>Porta SIP</strong></td><td><code>5060</code></td><td>SIP su UDP e TCP: telefoni, gateway e trunk</td></tr><tr><td><strong>Porta SIPS</strong></td><td><code>5061</code></td><td>SIP su TLS: telefoni, gateway e app mobile</td></tr></tbody></table>
-<p>Le due porte devono essere diverse e non possono essere 6060 o 6061, usate dai listener delle <a href="#local-networks" class="">reti locali</a>. La comunicazione tra il proxy e le istanze NethVoice non cambia.</p>
+<p>Le due porte devono essere comprese tra 1024 e 9999, sotto l&#x27;intervallo RTP 10000-20000. Devono essere diverse e non possono essere 6060 o 6061, usate dai listener delle <a href="#local-networks" class="">reti locali</a>. La comunicazione tra il proxy e le istanze NethVoice non cambia.</p>
 <p>Quando si cambiano le porte:</p>
 <ul>
 <li class="">Il proxy si mette in ascolto sulle nuove porte e il firewall del nodo viene aggiornato. Le porte precedenti vengono chiuse subito.</li>

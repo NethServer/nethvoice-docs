@@ -7,7 +7,7 @@
 
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7"><link rel="stylesheet" href="/pr-preview/pr-102/assets/css/styles.1a51bce8.css">
-<script src="/pr-preview/pr-102/assets/js/runtime~main.fecff008.js" defer="defer"></script>
+<script src="/pr-preview/pr-102/assets/js/runtime~main.5b7ba53b.js" defer="defer"></script>
 <script src="/pr-preview/pr-102/assets/js/main.a9b7d40f.js" defer="defer"></script>
 </head>
 <body>
@@ -110,7 +110,7 @@
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="sip-ports">SIP ports<a href="#sip-ports" class="hash-link" aria-label="Direct link to SIP ports" title="Direct link to SIP ports" translate="no">​</a></h3>
 <p>Devices connect to the proxy on two ports, which can be changed in the <strong>Advanced</strong> section of the proxy settings:</p>
 <table><thead><tr><th>Setting</th><th>Default</th><th>Used by</th></tr></thead><tbody><tr><td><strong>SIP port</strong></td><td><code>5060</code></td><td>SIP over UDP and TCP: phones, gateways and trunks</td></tr><tr><td><strong>SIPS port</strong></td><td><code>5061</code></td><td>SIP over TLS: phones, gateways and the mobile app</td></tr></tbody></table>
-<p>The two ports must be different, and they cannot be 6060 or 6061, which are used by the <a href="#local-networks" class="">local networks</a> listeners. The communication between the proxy and the NethVoice instances does not change.</p>
+<p>The two ports must be between 1024 and 9999, below the RTP range 10000-20000. They must be different, and they cannot be 6060 or 6061, which are used by the <a href="#local-networks" class="">local networks</a> listeners. The communication between the proxy and the NethVoice instances does not change.</p>
 <p>When you change the ports:</p>
 <ul>
 <li class="">The proxy listens on the new ports and the firewall of the node is updated. The old ports are closed immediately.</li>
