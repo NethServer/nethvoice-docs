@@ -120,7 +120,7 @@ Ogni sorgente video crea un permesso con il nome della sorgente, nella sezione *
 - Il campo **Profilo** della sorgente abilita la sorgente nei profili selezionati.
 - Gli stessi permessi sono elencati in **Profili**, sezione **Sorgenti Video**, dove deve essere abilitato anche il permesso generale della sezione: senza di esso gli utenti del profilo non vedono alcuna sorgente video. Vedi [Permessi delle sorgenti video](../wizard.md#video-sources-permissions).
 - Quando una sorgente viene tolta da un profilo, gli utenti di quel profilo smettono di vederla: i video di quella sorgente che stanno guardando vengono chiusi quando la nuova configurazione viene applicata.
-- Le sorgenti create prima dell'aggiornamento mantengono il loro nome, e quindi il loro permesso e i profili in cui è abilitato. Il loro codice di apertura diventa un varco DTMF chiamato *Porta 1*: rinominalo se serve.
+- Le sorgenti create prima dell'aggiornamento mantengono il loro nome, e quindi il loro permesso e i profili in cui è abilitato. Il loro codice di apertura diventa un varco DTMF chiamato *Door 1*, che puoi rinominare.
 
 Le credenziali dei dispositivi sono salvate sul centralino e non vengono mai inviate a NethVoice CTI, a NethLink o ai browser: gli utenti ricevono il video tramite il gateway video, con token di accesso monouso e di breve durata, verificati in base ai loro permessi.
 
