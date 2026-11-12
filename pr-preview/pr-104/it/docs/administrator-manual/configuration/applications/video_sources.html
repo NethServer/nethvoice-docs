@@ -7,7 +7,7 @@
 
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7"><link rel="stylesheet" href="/pr-preview/pr-104/it/assets/css/styles.74857691.css">
-<script src="/pr-preview/pr-104/it/assets/js/runtime~main.ae25f8c6.js" defer="defer"></script>
+<script src="/pr-preview/pr-104/it/assets/js/runtime~main.3ad83390.js" defer="defer"></script>
 <script src="/pr-preview/pr-104/it/assets/js/main.60ed5679.js" defer="defer"></script>
 </head>
 <body>
@@ -77,7 +77,7 @@
 <ul>
 <li class="">la sorgente deve avere un <strong>Interno</strong>;</li>
 <li class="">quando il citofono sta chiamando un utente, l&#x27;utente deve rispondere alla chiamata prima di aprire: fino ad allora le porte DTMF non possono essere aperte, perché i toni andrebbero persi;</li>
-<li class="">quando non c&#x27;è alcuna chiamata in corso con il citofono, il centralino chiama l&#x27;interno del citofono e invia il codice quando il citofono risponde.</li>
+<li class="">quando non c&#x27;è alcuna chiamata in corso con il citofono, il centralino chiama l&#x27;interno del citofono e invia il codice quando il citofono risponde. Il citofono deve rispondere automaticamente: se non è registrato, è occupato o non risponde entro circa 30 secondi, la porta non viene aperta e l&#x27;utente vede <em>Invio del codice di apertura non riuscito</em>.</li>
 </ul>
 <p>I varchi <strong>URL</strong> vengono aperti con una richiesta HTTP che il centralino invia al citofono o al controller della porta:</p>
 <ul>
@@ -142,7 +142,7 @@
 <li class=""><em>Rispondi alla chiamata per aprire</em>: le porte DTMF si possono aprire solo dopo aver risposto alla chiamata del citofono.</li>
 <li class=""><em>Il dispositivo non è raggiungibile</em> o <em>Il dispositivo non ha risposto in tempo</em>: il centralino non raggiunge il dispositivo di un varco URL. Controlla l&#x27;URL, l&#x27;inoltro della porta e il firewall.</li>
 <li class=""><em>Il dispositivo ha risposto con un errore</em>: il dispositivo ha risposto alla richiesta di un varco URL con uno stato di errore. Controlla l&#x27;URL, il metodo e le credenziali del varco.</li>
-<li class=""><em>Invio del codice di apertura non riuscito</em>: il centralino non è riuscito a inviare il codice DTMF all&#x27;interno del citofono.</li>
+<li class=""><em>Invio del codice di apertura non riuscito</em>: il centralino non è riuscito a inviare il codice DTMF all&#x27;interno del citofono. Senza una chiamata in corso il centralino chiama prima il citofono: verifica che l&#x27;interno del citofono sia registrato e risponda automaticamente alle chiamate.</li>
 <li class="">Compare <em>Comando inviato</em> ma la porta resta chiusa: controlla il codice DTMF, oppure l&#x27;URL e il metodo, sul manuale del citofono.</li>
 </ul>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="security-notes">Note sulla sicurezza<a href="#security-notes" class="hash-link" aria-label="Link diretto a Note sulla sicurezza" title="Link diretto a Note sulla sicurezza" translate="no">​</a></h2>

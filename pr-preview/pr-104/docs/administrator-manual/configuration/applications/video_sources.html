@@ -7,7 +7,7 @@
 
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7"><link rel="stylesheet" href="/pr-preview/pr-104/assets/css/styles.1a51bce8.css">
-<script src="/pr-preview/pr-104/assets/js/runtime~main.06f9e9ae.js" defer="defer"></script>
+<script src="/pr-preview/pr-104/assets/js/runtime~main.a9d0df44.js" defer="defer"></script>
 <script src="/pr-preview/pr-104/assets/js/main.bdbafdad.js" defer="defer"></script>
 </head>
 <body>
@@ -77,7 +77,7 @@
 <ul>
 <li class="">the source needs an <strong>Extension</strong>;</li>
 <li class="">when the intercom is calling a user, the user must answer the call before opening: until then the DTMF doors cannot be opened, because the tones would get lost;</li>
-<li class="">when there is no call in progress with the intercom, the PBX calls the intercom extension and sends the code when the intercom answers.</li>
+<li class="">when there is no call in progress with the intercom, the PBX calls the intercom extension and sends the code when the intercom answers. The intercom must answer automatically: if it is not registered, is busy or does not answer within about 30 seconds, the door is not opened and the user sees <em>Sending the opening code failed</em>.</li>
 </ul>
 <p><strong>URL</strong> gates are opened by an HTTP request that the PBX sends to the intercom or to the door controller:</p>
 <ul>
@@ -142,7 +142,7 @@
 <li class=""><em>Answer the call to open</em>: DTMF doors can be opened only after answering the call of the intercom.</li>
 <li class=""><em>The device is not reachable</em> or <em>The device did not respond in time</em>: the PBX cannot reach the device of a URL gate. Check the URL, the port-forward and the firewall.</li>
 <li class=""><em>The device responded with an error</em>: the device answered the request of a URL gate with an error status. Check the URL, the method and the credentials of the gate.</li>
-<li class=""><em>Sending the opening code failed</em>: the PBX could not send the DTMF code to the intercom extension.</li>
+<li class=""><em>Sending the opening code failed</em>: the PBX could not send the DTMF code to the intercom extension. Without a call in progress, the PBX calls the intercom first: check that the intercom extension is registered and answers incoming calls automatically.</li>
 <li class=""><em>Command sent</em> is shown but the door stays closed: check the DTMF code, or the URL and the method, against the manual of the intercom.</li>
 </ul>
 <h2 class="anchor anchorTargetStickyNavbar_Vzrq" id="security-notes">Security notes<a href="#security-notes" class="hash-link" aria-label="Direct link to Security notes" title="Direct link to Security notes" translate="no">​</a></h2>
