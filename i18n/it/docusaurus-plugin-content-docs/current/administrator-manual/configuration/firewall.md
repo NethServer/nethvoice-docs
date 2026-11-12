@@ -32,6 +32,7 @@ Ecco un elenco delle porte comunemente utilizzate:
 - Porta SFTP (TCP), ad es. `20149`: utilizzata per l'accesso SFTP da parte di servizi specifici (ad es. caricamento/download di registrazioni).
 - Porta IAX (UDP), ad es. `20110`: singola porta UDP per il protocollo IAX (Inter-Asterisk eXchange).
 - Porte RTP e Janus (UDP): utilizzate per lo streaming audio in NethVoice CTI, è un intervallo di porte, di solito intorno a 1000 porte.
+- Porte ICE del gateway video, una UDP e una TCP: utilizzate dai browser e da NethLink per ricevere il video dal vivo delle [sorgenti video](./applications/video_sources.md#network-requirements) (videocitofoni e telecamere IP). Per conoscerne i numeri, apri l'applicazione NethVoice nella pagina di amministrazione di NethServer, vai in **Stato** e cerca **Video gateway ICE (UDP)** e **Video gateway ICE (TCP)** nella tabella **Servizi interni**.
 
 ### Porte Generiche
 
@@ -59,6 +60,7 @@ Ecco un elenco delle porte comunemente utilizzate:
 | SFTP | Variabile* | TCP | Gestione registrazioni | Download Registrazioni chiamate |
 | WSS | Variabile* | TCP | Asterisk Web Socket Sicuro | Porta per il collegamento di client ad Asterisk con protocollo WSS |
 | Asterisk RTP | Variabile* | UDP | Audio per client WSS | Porte per il traffico audio dei client WSS collegati direttamente ad Asterisk |
+| Gateway video ICE | Variabile* | UDP e TCP | Sorgenti video (WebRTC) | Video dal vivo di videocitofoni e telecamere IP in NethVoice CTI e NethLink |
 | WireGuard VPN | 55820 | UDP | Accesso VPN | Necessaria per avere un NethServer multinodo |
 | HTTPS | 443 | TCP | Servizi web | Accesso interfaccia web (NethVoice, NethVoice CTI) e Provisioning (Telefoni e App Mobile) |
 | SSH | 22 | TCP | Gestione remota | Accesso riga di comando |

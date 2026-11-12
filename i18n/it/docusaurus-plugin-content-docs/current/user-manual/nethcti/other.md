@@ -226,7 +226,7 @@ Utilizza il menu Annunci per caricare o registrare nuovi annunci. Puoi anche asc
 
 ### Sorgenti Video
 
-Gestione avanzata videocitofoni. Gestisci e controlla i tuoi videocitofoni (soggetto a autorizzazioni specifiche).
+Guarda i tuoi videocitofoni e le telecamere IP, dal vivo o come immagini, e apri porte e cancelli (soggetto ad autorizzazioni specifiche). Vedi [Sorgenti video](./video_sources.md).
 
 ### PBX Report
 

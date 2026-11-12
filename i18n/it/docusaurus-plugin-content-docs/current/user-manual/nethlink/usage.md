@@ -25,12 +25,14 @@ In alternativa è possibile:
 - Selezionare un numero di telefono nel sistema operativo e utilizzare la scorciatoia
 - Utilizzare il menu contestuale nel campo di composizione per incollare un numero
 
-## Ricevere una chiamata
+## Ricevere una chiamata {#receiving-a-call}
 
 1. All'arrivo di una chiamata, apparirà una notifica
 2. Cliccare su **Rispondi** per accettare la chiamata
 3. Cliccare su **Rifiuta** per declinare la chiamata
 4. Utilizzare i controlli durante la chiamata
+
+Quando la chiamata arriva da un videocitofono configurato come sorgente video, NethLink mostra il video del citofono prima della risposta e durante la chiamata, con i pulsanti per aprire la porta, come NethVoice CTI. Vedi [Chiamate da un citofono](../nethcti/video_sources.md#intercom-calls).
 
 ## Gestione della rubrica
 
