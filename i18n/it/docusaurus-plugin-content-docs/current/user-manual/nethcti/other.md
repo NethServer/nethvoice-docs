@@ -226,7 +226,7 @@ Utilizza il menu Annunci per caricare o registrare nuovi annunci. Puoi anche asc
 
 ### Sorgenti Video
 
-Guarda i tuoi videocitofoni e le telecamere IP, dal vivo o come immagini, e apri porte e cancelli (soggetto ad autorizzazioni specifiche). Vedi [Sorgenti video](./video_sources.md).
+Guarda i tuoi videocitofoni e le telecamere IP, dal vivo o come immagini, e apri le porte (soggetto ad autorizzazioni specifiche). Vedi [Sorgenti video](./video_sources.md).
 
 ### PBX Report
 

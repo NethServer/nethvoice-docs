@@ -20,7 +20,7 @@ The scheme of the URL sets the type of the source:
 | URL | Type shown in the wizard | What users see |
 |-----|--------------------------|----------------|
 | `rtsp://` or `rtsps://` | **Video stream (RTSP)** | Live video (and audio, if the device sends it), played through the video gateway built into NethVoice |
-| `http://` or `https://` | **Image (HTTP)** | A JPEG snapshot of the device, refreshed periodically |
+| `http://` or `https://` | **Image (HTTP)** | A JPEG snapshot of the device, refreshed about every second |
 
 For video streams:
 
@@ -77,7 +77,7 @@ When you modify a source, the password fields show *Unchanged*: leave them empty
 
 Every source can have up to 10 gates (door openers). Click **Add gate** to add one. Each gate has:
 
-- a name, shown to users in the button **Open** *name* (for example **Open Door 1**). New gates are named *Door 1*, *Door 2* and so on: give them meaningful names, like *Main entrance* or *Garage*;
+- a name, shown to users in the list of doors and in the tooltip **Open** *name* (for example **Open Door 1**). New gates are named *Door 1*, *Door 2* and so on: give them meaningful names, like *Main entrance* or *Garage*;
 - a type, **DTMF** or **URL**.
 
 Use the arrows to change the order of the gates and the trash icon to remove one.
@@ -109,9 +109,9 @@ For these devices, enable **Skip TLS certificate verification**. The option appl
 
 - when the source is saved, the PBX reads the certificate that each device presents and **pins** it: from then on it trusts only that certificate. Its SHA-256 fingerprint is shown as **Pinned certificate**, for the source and for each URL gate;
 - the source cannot be saved if the certificate of one of its devices cannot be read: check that the device is reachable, or disable the option;
-- if a device certificate changes later (renewal, factory reset, replacement of the device), the PBX refuses to connect to the device: the video stops working and its doors answer *The device certificate has changed: contact the administrator*. The connection check shows *The device certificate changed: the PBX refuses the device until the source is saved again*. Make sure that the device is really yours, then open the source, click **Check** and **Save** to pin the new certificate.
+- if a device certificate changes later (renewal, factory reset, replacement of the device), the PBX refuses to connect to the device: the live video stops (users see *The video source is not reachable, retrying...*), the snapshots stop updating and the URL gates answer *The device certificate has changed: contact the administrator*. The card of the source shows *The device certificate changed: modify the source, type the password again and save it*. Make sure that the device is really yours, then open the source with **Modify**, type the password again (the stored password is never sent to a device whose certificate changed: without it the check fails), click **Check**, which shows *The device certificate changed: the PBX refuses the device until the source is saved again*, and **Save** to pin the new certificate.
 
-Sources saved before NethVoice pinned the certificates are marked **Certificate not pinned** in the list of sources: their devices are contacted without any certificate check. Open each of them with **Modify** and save it again to pin the certificates.
+Sources with **Skip TLS certificate verification** saved by an older version of NethVoice, which did not pin the certificates, are marked **Certificate not pinned** in the list of sources: their devices are contacted without any certificate check. Sources without this option are not affected. Open each of them with **Modify** and save it again to pin the certificates.
 
 ## Permissions {#permissions}
 
@@ -120,6 +120,7 @@ Every video source creates a permission named after the source, in the **Streami
 - The **Profile** field of the source enables the source in the selected profiles.
 - The same permissions are listed in **Profiles**, section **Streaming**, where the general permission of the section must be enabled too: without it the users of the profile do not see any video source. See [Video sources permissions](../wizard.md#video-sources-permissions).
 - When a source is removed from a profile, the users of that profile stop seeing it: the videos of that source they are watching are closed when the new configuration is applied.
+- Sources created before the update keep their name, and so their permission and the profiles where it is enabled. Their opening code becomes a DTMF gate named *Porta 1*: rename it if needed.
 
 The credentials of the devices are stored on the PBX and are never sent to NethVoice CTI, NethLink or the browsers: users receive the video through the video gateway, with short-lived, single-use access tokens checked against their permissions.
 
@@ -127,7 +128,7 @@ The credentials of the devices are stored on the PBX and are never sent to NethV
 
 | From | To | Port | Purpose |
 |------|----|------|---------|
-| PBX | Device | RTSP port of the device (usually `554`), TCP | Video stream |
+| PBX | Device | RTSP port of the device (usually `554`; without a port in the URL, `554` for `rtsp://` and `322` for `rtsps://`), TCP | Video stream |
 | PBX | Device | HTTP or HTTPS port of the device | Snapshots, URL gates, certificate pinning |
 | Browsers and NethLink | NethVoice CTI host name | `443` TCP | Setup of the video (HTTPS) |
 | Browsers and NethLink | NethVoice node | Video gateway ICE ports, one UDP and one TCP | Video (WebRTC) |
@@ -163,24 +164,24 @@ Keep in mind that:
 
 ### Certificate not pinned or certificate changed {#certificate-problems}
 
-- **Certificate not pinned**: the source was saved by an older version of NethVoice. Open it with **Modify**, click **Check** and **Save**.
-- *The device certificate changed: the PBX refuses the device until the source is saved again*: the device presents a certificate different from the pinned one. Make sure that the device has not been replaced by somebody else, then open the source, click **Check** and **Save**.
+- **Certificate not pinned**: the source skips the TLS verification and was saved by an older version of NethVoice. Open it with **Modify**, click **Check** and **Save**.
+- *The device certificate changed: the PBX refuses the device until the source is saved again*: the device presents a certificate different from the pinned one. Make sure that the device has not been replaced by somebody else, then open the source with **Modify**, type the password again, click **Check** and **Save**.
 
 ### The video does not start {#video-not-starting}
 
 If the connection check succeeds but users do not see the video:
 
 - *Your browser cannot play the video format of this source*: the device sends H.265 or another codec the browser cannot play. Configure the device to send H.264.
-- *The video source is not reachable, retrying...*: the PBX cannot read the stream from the device. Click **Check** on the source in the wizard.
+- *The video source is not reachable, retrying...*: the PBX cannot read the stream from the device, or the client cannot reach the video gateway. Open the list of sources in the wizard: if the check of the source fails, fix the connection to the device; if it succeeds, see the last item.
 - *You are not allowed to watch this source*: the source is not enabled in the profile of the user (see [Permissions](#permissions)).
 - *Too many open videos: close one to watch this*: the user reached the [limits](#limits). Close other videos, for example in another browser tab or on another computer.
-- The video keeps loading and never starts: the client probably cannot reach the video gateway ICE ports. Check that both ports are allowed by every firewall between the clients and the PBX, and forwarded if the PBX is behind NAT (see [Network requirements](#network-requirements)).
+- The video keeps loading, then shows *The video source is not reachable, retrying...*, while the check of the source succeeds: the client probably cannot reach the video gateway ICE ports. Check that both ports are allowed by every firewall between the clients and the PBX, and forwarded if the PBX is behind NAT (see [Network requirements](#network-requirements)).
 
 ### A door does not open {#door-not-opening}
 
 - *Answer the call to open*: DTMF doors can be opened only after answering the call of the intercom.
-- *The device is not reachable* or *The device did not respond in time*: the PBX cannot reach the device of a URL gate. Check the URL, the port-forward and the firewall.
-- *The device responded with an error*: the device answered the request of a URL gate with an error status. Check the URL, the method and the credentials of the gate.
+- *The device is not reachable* (*The device is unreachable* in the Phone Island) or *The device did not respond in time*: the PBX cannot reach the device of a URL gate. Check the URL, the port-forward and the firewall.
+- *The device responded with an error* (*Unable to open the door* in the Phone Island): the device answered the request of a URL gate with an error status. Check the URL, the method and the credentials of the gate.
 - *Sending the opening code failed*: the PBX could not send the DTMF code to the intercom extension. Without a call in progress, the PBX calls the intercom first: check that the intercom extension is registered and answers incoming calls automatically.
 - *Command sent* is shown but the door stays closed: check the DTMF code, or the URL and the method, against the manual of the intercom.
 
