@@ -110,23 +110,27 @@ sngrep -f ~/.sngrephep2rc -d any
 
 ### 4. (Facoltativo) Abilitare il debug di Kamailio {#4-optional-enable-kamailio-debug-logging}
 
-Per abilitare il logging di debug:
+Per abilitare il debug del proxy Kamailio, esegui entrambi i comandi:
 
 ```bash
+runagent -m nethvoice-proxy1 kamcmd corex.debug 3
 runagent -m nethvoice-proxy1 kamcmd pv.shvSet debug int 1
 ```
 
-#### Disabilitalo al termine {#disable-it-when-finished}
+Il debug genera un volume elevato di messaggi di log. Abilitalo solo per il tempo strettamente necessario all'analisi.
+
+#### Disabilitare il debug al termine dell'assistenza {#disable-it-when-finished}
+
+Al termine dell'analisi, disabilita il debug e ripristina il livello di logging predefinito:
 
 ```bash
 runagent -m nethvoice-proxy1 kamcmd pv.shvSet debug int 0
+runagent -m nethvoice-proxy1 kamcmd corex.debug 0
 ```
 
-#### Verificare lo stato corrente del debug {#check-current-debug-status}
+Le impostazioni applicate con questi comandi sono temporanee e vengono azzerate al riavvio del modulo.
 
-```bash
-runagent -m nethvoice-proxy1 kamcmd pv.shvGet debug
-```
+Per ulteriori dettagli, consulta la sezione [Debug](https://github.com/Nethesis/ns8-nethvoice-proxy#debug) della documentazione ufficiale di **ns8-nethvoice-proxy**.
 
 
 ## Esempi di schermate {#example-screens}
