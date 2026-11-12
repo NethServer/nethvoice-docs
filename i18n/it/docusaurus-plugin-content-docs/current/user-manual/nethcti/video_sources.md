@@ -51,7 +51,7 @@ Dopo averlo premuto compare **Comando inviato**: il comando è arrivato al citof
 Alcune porte si aprono inviando un codice nella chiamata con il citofono. Per queste porte:
 
 - quando il citofono ti sta chiamando, rispondi prima alla chiamata: fino ad allora la Phone Island mostra queste porte come disabilitate, con il suggerimento **Rispondi alla chiamata per aprire**;
-- quando non c'è alcuna chiamata con il citofono, premendo il pulsante il centralino chiama il citofono e invia il codice.
+- quando non c'è alcuna chiamata con il citofono, premendo il pulsante il centralino chiama il citofono e invia il codice quando il citofono risponde. Se il citofono non risponde, la porta non viene aperta e compare un errore (possono servire fino a circa 30 secondi).
 
 Le altre porte vengono aperte direttamente dal centralino e funzionano in qualsiasi momento, anche senza chiamata.
 

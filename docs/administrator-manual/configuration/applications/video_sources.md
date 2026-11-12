@@ -86,7 +86,7 @@ Use the arrows to change the order of the gates and the trash icon to remove one
 
 - the source needs an **Extension**;
 - when the intercom is calling a user, the user must answer the call before opening: until then the DTMF doors cannot be opened, because the tones would get lost;
-- when there is no call in progress with the intercom, the PBX calls the intercom extension and sends the code when the intercom answers.
+- when there is no call in progress with the intercom, the PBX calls the intercom extension and sends the code when the intercom answers. The intercom must answer automatically: if it is not registered, is busy or does not answer within about 30 seconds, the door is not opened and the user sees *Sending the opening code failed*.
 
 **URL** gates are opened by an HTTP request that the PBX sends to the intercom or to the door controller:
 
@@ -181,7 +181,7 @@ If the connection check succeeds but users do not see the video:
 - *Answer the call to open*: DTMF doors can be opened only after answering the call of the intercom.
 - *The device is not reachable* or *The device did not respond in time*: the PBX cannot reach the device of a URL gate. Check the URL, the port-forward and the firewall.
 - *The device responded with an error*: the device answered the request of a URL gate with an error status. Check the URL, the method and the credentials of the gate.
-- *Sending the opening code failed*: the PBX could not send the DTMF code to the intercom extension.
+- *Sending the opening code failed*: the PBX could not send the DTMF code to the intercom extension. Without a call in progress, the PBX calls the intercom first: check that the intercom extension is registered and answers incoming calls automatically.
 - *Command sent* is shown but the door stays closed: check the DTMF code, or the URL and the method, against the manual of the intercom.
 
 ## Security notes {#security-notes}
