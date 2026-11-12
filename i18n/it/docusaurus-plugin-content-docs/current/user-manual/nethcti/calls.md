@@ -58,3 +58,5 @@ Quando ricevi una chiamata in arrivo, visualizzerai:
 - Informazioni sulla durata della chiamata
 
 Clicca il pulsante di accettazione per rispondere alla chiamata e apparirà la Phone Island.
+
+Quando la chiamata arriva da un videocitofono configurato come sorgente video, la Phone Island mostra anche il video del citofono, prima e dopo la risposta, e i pulsanti per aprire la porta. Vedi [Chiamate da un citofono](./video_sources.md#intercom-calls).

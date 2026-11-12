@@ -326,6 +326,13 @@ All configured outbound routes in NethVoice are displayed, and you can enable/di
 - `Advanced After Hours`: Allows modifying the call path for incoming calls for the user and generic incoming routes.
 - `Complete After Hours`: Allows modification of all call paths for incoming calls.
 
+##### Video sources {#video-sources-permissions}
+
+The section is labeled `Streaming` in the profile.
+
+- The general permission enables the **Video sources** page in NethVoice CTI and the video of the intercoms in the call preview.
+- For each [video source](./applications/video_sources.md) configured in NethVoice, you can enable/disable its visibility and the opening of its doors. The same setting is available in the **Profile** field of each video source.
+
 ##### Queue Manager {#queue-manager}
 
 - The general permission enables access to the QManager section in NethVoice CTI.

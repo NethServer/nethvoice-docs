@@ -58,3 +58,5 @@ When you receive an incoming call, you will see:
 - Call timing information
 
 Click the accept button to answer the call and the Phone Island will appear.
+
+When the call comes from a door intercom configured as a video source, the Phone Island also shows the video of the intercom, before and after you answer, and the buttons to open the door. See [Calls from an intercom](./video_sources.md#intercom-calls).

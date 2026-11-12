@@ -16,6 +16,6 @@ Le seguenti applicazioni sono disponibili nella sezione *Applicazioni*:
 - **Schede cliente**: Visualizza le informazioni dai database esterni durante le chiamate.
 - **Fonti della rubrica**: Integra le rubriche esterne per la risoluzione dei contatti.
 - **URL parametrizzati**: Attiva gli URL personalizzati con parametri relativi alle chiamate durante gli eventi di chiamata.
-- **Sorgenti Video**: Configura telecamere IP e sorgenti video per l'integrazione con NethVoice.
+- **[Sorgenti Video](./video_sources.md)**: Collega videocitofoni e telecamere IP: video dal vivo in NethVoice CTI e NethLink, porte aperte dal CTI.
 - **Gestione massiva**: Gestisci e modifica simultaneamente più interni e telefoni.
 - **Casella vocale**: Configura le notifiche email della casella vocale.

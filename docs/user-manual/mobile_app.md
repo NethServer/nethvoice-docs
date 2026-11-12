@@ -142,6 +142,13 @@ By selecting an existing contact you can edit it, make a call, or start a video 
 To start a video call, simply select a user in the Contacts section and tap the camera icon. Alternatively, during a voice call, you can switch to a video call by tapping the camera icon.
 
 
+### Door Intercoms {#door-intercoms}
+
+Calls from a door intercom arrive in the app like any other call. The app does not show the video of the intercom before you answer: if the intercom sends video in the call, you see it once the call is answered, as in a video call.
+
+To open the door, tap Keypad during the call and type the opening code of the door. Ask your administrator for the code. Doors that NethVoice opens without a code (configured by the administrator as URL gates) cannot be opened from the app: use NethVoice CTI or NethLink. See [Video sources](./nethcti/video_sources.md).
+
+
 ### Settings
 
 From the Keypad section, tap the gear icon in the top right corner to open Settings, where you can manage:
