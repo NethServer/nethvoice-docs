@@ -51,7 +51,7 @@ After you press it, **Command sent** is shown: the command reached the intercom,
 Some doors are opened by sending a code into the call with the intercom. For these doors:
 
 - when the intercom is calling you, answer the call first: until then the Phone Island shows these doors as disabled, with the hint **Answer the call to open**;
-- when there is no call with the intercom, pressing the button makes the PBX call the intercom and send the code.
+- when there is no call with the intercom, pressing the button makes the PBX call the intercom and send the code when the intercom answers. If the intercom does not answer, the door is not opened and an error is shown (it can take up to about 30 seconds).
 
 Other doors are opened directly by the PBX and work at any time, even without a call.
 

@@ -86,7 +86,7 @@ I varchi **DTMF** inviano un codice DTMF (fino a 30 caratteri tra `0-9`, `A-D`, 
 
 - la sorgente deve avere un **Interno**;
 - quando il citofono sta chiamando un utente, l'utente deve rispondere alla chiamata prima di aprire: fino ad allora le porte DTMF non possono essere aperte, perché i toni andrebbero persi;
-- quando non c'è alcuna chiamata in corso con il citofono, il centralino chiama l'interno del citofono e invia il codice quando il citofono risponde.
+- quando non c'è alcuna chiamata in corso con il citofono, il centralino chiama l'interno del citofono e invia il codice quando il citofono risponde. Il citofono deve rispondere automaticamente: se non è registrato, è occupato o non risponde entro circa 30 secondi, la porta non viene aperta e l'utente vede *Invio del codice di apertura non riuscito*.
 
 I varchi **URL** vengono aperti con una richiesta HTTP che il centralino invia al citofono o al controller della porta:
 
@@ -181,7 +181,7 @@ Se la verifica della connessione riesce ma gli utenti non vedono il video:
 - *Rispondi alla chiamata per aprire*: le porte DTMF si possono aprire solo dopo aver risposto alla chiamata del citofono.
 - *Il dispositivo non è raggiungibile* o *Il dispositivo non ha risposto in tempo*: il centralino non raggiunge il dispositivo di un varco URL. Controlla l'URL, l'inoltro della porta e il firewall.
 - *Il dispositivo ha risposto con un errore*: il dispositivo ha risposto alla richiesta di un varco URL con uno stato di errore. Controlla l'URL, il metodo e le credenziali del varco.
-- *Invio del codice di apertura non riuscito*: il centralino non è riuscito a inviare il codice DTMF all'interno del citofono.
+- *Invio del codice di apertura non riuscito*: il centralino non è riuscito a inviare il codice DTMF all'interno del citofono. Senza una chiamata in corso il centralino chiama prima il citofono: verifica che l'interno del citofono sia registrato e risponda automaticamente alle chiamate.
 - Compare *Comando inviato* ma la porta resta chiusa: controlla il codice DTMF, oppure l'URL e il metodo, sul manuale del citofono.
 
 ## Note sulla sicurezza {#security-notes}
