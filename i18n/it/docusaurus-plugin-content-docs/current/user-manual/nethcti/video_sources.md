@@ -9,7 +9,7 @@ Le sorgenti video sono i videocitofoni e le telecamere IP collegati a NethVoice.
 
 - guardare telecamere e citofoni nella pagina **Sorgenti video** di NethVoice CTI;
 - vedere chi c'è alla porta quando un citofono ti chiama, prima di rispondere e durante la chiamata;
-- aprire porte e cancelli con i pulsanti **Apri**.
+- aprire le porte con i pulsanti **Apri**.
 
 Vedi solo le sorgenti video che l'amministratore ha abilitato per il tuo profilo. Se non vedi una sorgente che ti serve, chiedi al tuo amministratore. Gli amministratori configurano le sorgenti come descritto in [Sorgenti video](../../administrator-manual/configuration/applications/video_sources.md).
 
@@ -18,7 +18,7 @@ Vedi solo le sorgenti video che l'amministratore ha abilitato per il tuo profilo
 Apri **Applicazioni** in NethVoice CTI e clicca su **Vai a Sorgenti video**. La pagina mostra una scheda per ogni sorgente che puoi vedere:
 
 - i citofoni e le telecamere che inviano un flusso video mostrano il **video dal vivo**. Il video viene riprodotto mentre la scheda è visibile sullo schermo e si ferma quando la scorri fuori dalla vista o passi a un'altra scheda del browser;
-- le altre sorgenti mostrano un'**immagine** della telecamera, aggiornata periodicamente.
+- le altre sorgenti mostrano un'**immagine** della telecamera, aggiornata circa ogni secondo.
 
 Usa **Filtra sorgenti** per cercare una sorgente per nome e il pulsante di ordinamento per ordinare le sorgenti alfabeticamente.
 
@@ -26,14 +26,14 @@ Passa il mouse su una scheda per mostrarne i pulsanti:
 
 - **Chiama** (icona della cornetta): chiama il citofono dal tuo telefono. Presente solo quando la sorgente ha un interno;
 - **Cattura schermata** (icona della fotocamera): salva l'immagine corrente in un file JPEG;
-- **Apri porta** (icona del lucchetto): apre una porta o un cancello. Vedi [Aprire una porta](#opening-a-door);
+- **Apri porta** (icona del lucchetto): apre una porta. Presente solo quando la sorgente ha delle porte. Vedi [Aprire una porta](#opening-a-door);
 - **Espandi** / **Riduci**: mostra la sorgente in una finestra più grande, con gli stessi pulsanti. Premi `Esc` o clicca fuori dalla finestra per chiuderla.
 
 Se la sorgente invia anche l'audio, sul video compare un pulsante con l'altoparlante: l'audio è disattivato all'inizio, clicca su **Attiva audio** per ascoltarlo.
 
 ## Chiamate da un citofono {#intercom-calls}
 
-Quando un citofono collegato a una sorgente video ti chiama, la Phone Island mostra il suo video nell'anteprima della chiamata, così puoi vedere chi c'è alla porta **prima di rispondere**. Il video resta visibile dopo la risposta, insieme ai pulsanti della chiamata (microfono, riaggancia, cattura schermata) e ai pulsanti delle porte. Lo stesso accade quando sei tu a chiamare il citofono.
+Quando un citofono collegato a una sorgente video ti chiama, la Phone Island mostra il suo video nell'anteprima della chiamata, così puoi vedere chi c'è alla porta **prima di rispondere**. Il video resta visibile dopo la risposta, insieme ai pulsanti della chiamata (microfono, riaggancia, cattura schermata) e ai pulsanti delle porte. Lo stesso accade quando sei tu a chiamare il citofono. Nella Phone Island il video non ha audio: senti il citofono attraverso la chiamata.
 
 Il video compare solo per le sorgenti abilitate per il tuo profilo: le chiamate degli altri citofoni appaiono come chiamate normali.
 
@@ -41,7 +41,7 @@ L'anteprima funziona in NethVoice CTI e in [NethLink](../nethlink/usage.md#recei
 
 ## Aprire una porta {#opening-a-door}
 
-Ogni sorgente può avere una o più porte o cancelli. Il pulsante con il lucchetto li apre:
+Ogni sorgente può avere una o più porte. Il pulsante con il lucchetto le apre:
 
 - con una sola porta, il pulsante la apre direttamente. Il suo suggerimento indica quale, per esempio **Apri Ingresso principale**;
 - con più porte, il pulsante mostra l'elenco delle porte (**Scegli cosa aprire**): clicca su quella da aprire.
@@ -67,11 +67,10 @@ Le altre porte vengono aperte direttamente dal centralino e funzionano in qualsi
 | *Rispondi alla chiamata per aprire* | La porta si apre con un codice inviato nella chiamata: rispondi prima al citofono. |
 | *Il certificato del dispositivo è cambiato: contatta l'amministratore* | Per motivi di sicurezza NethVoice non si fida più del citofono: l'amministratore deve verificarlo. |
 
+La Phone Island mostra gli stessi messaggi con parole leggermente diverse, per esempio *Non hai i permessi per vedere questa sorgente video* o *Impossibile aprire la porta*.
+
 ## App mobile NethVoice {#mobile-app}
 
-L'app mobile NethVoice non ha una pagina Sorgenti video e non mostra l'anteprima video prima della risposta. Quando un citofono ti chiama:
-
-- se il citofono invia il video nella chiamata, lo vedi come in una normale videochiamata;
-- per aprire la porta, digita il codice di apertura sul tastierino durante la chiamata. Chiedi il codice al tuo amministratore. Le porte aperte dal centralino senza codice non possono essere aperte dall'app.
+L'app mobile NethVoice non ha una pagina Sorgenti video e non mostra il video delle sorgenti video. Le chiamate da un citofono arrivano nell'app come qualsiasi altra chiamata. Per aprire la porta, digita il codice di apertura sul tastierino durante la chiamata: chiedi il codice al tuo amministratore. Le porte aperte dal centralino senza codice non possono essere aperte dall'app.
 
 Vedi anche [App mobile NethVoice](../mobile_app.md#door-intercoms).

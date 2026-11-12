@@ -137,9 +137,9 @@ Per avviare una videochiamata, seleziona un utente nella sezione Contatti e tocc
 
 ### Videocitofoni {#door-intercoms}
 
-Le chiamate da un videocitofono arrivano nell'app come qualsiasi altra chiamata. L'app non mostra il video del citofono prima della risposta: se il citofono invia il video nella chiamata, lo vedi dopo aver risposto, come in una videochiamata.
+Le chiamate da un videocitofono arrivano nell'app come qualsiasi altra chiamata. L'app non ha una pagina per le sorgenti video di NethVoice e non ne mostra il video.
 
-Per aprire la porta, tocca Tastierino durante la chiamata e digita il codice di apertura della porta. Chiedi il codice al tuo amministratore. Le porte che NethVoice apre senza codice (configurate dall'amministratore come varchi URL) non possono essere aperte dall'app: usa NethVoice CTI o NethLink. Vedi [Sorgenti video](./nethcti/video_sources.md).
+Per aprire la porta, apri il tastierino durante la chiamata e digita il codice di apertura della porta. Chiedi il codice al tuo amministratore. Le porte che NethVoice apre senza codice non possono essere aperte dall'app: usa NethVoice CTI o NethLink. Vedi [Sorgenti video](./nethcti/video_sources.md).
 
 ### Impostazioni
 

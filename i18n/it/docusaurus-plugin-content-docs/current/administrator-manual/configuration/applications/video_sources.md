@@ -20,7 +20,7 @@ Lo schema dell'URL determina il tipo di sorgente:
 | URL | Tipo mostrato nel wizard | Cosa vedono gli utenti |
 |-----|--------------------------|------------------------|
 | `rtsp://` o `rtsps://` | **Flusso video (RTSP)** | Video dal vivo (e audio, se il dispositivo lo invia), riprodotto tramite il gateway video integrato in NethVoice |
-| `http://` o `https://` | **Immagine (HTTP)** | Un'immagine JPEG del dispositivo, aggiornata periodicamente |
+| `http://` o `https://` | **Immagine (HTTP)** | Un'immagine JPEG del dispositivo, aggiornata circa ogni secondo |
 
 Per i flussi video:
 
@@ -77,7 +77,7 @@ Quando modifichi una sorgente, i campi password mostrano *Invariata*: lasciali v
 
 Ogni sorgente può avere fino a 10 varchi (apriporta). Clicca su **Aggiungi varco** per aggiungerne uno. Ogni varco ha:
 
-- un nome, mostrato agli utenti nel pulsante **Apri** *nome* (per esempio **Apri Porta 1**). I nuovi varchi si chiamano *Porta 1*, *Porta 2* e così via: dai loro nomi significativi, come *Ingresso principale* o *Garage*;
+- un nome, mostrato agli utenti nell'elenco delle porte e nel suggerimento **Apri** *nome* (per esempio **Apri Porta 1**). I nuovi varchi si chiamano *Porta 1*, *Porta 2* e così via: dai loro nomi significativi, come *Ingresso principale* o *Garage*;
 - un tipo, **DTMF** o **URL**.
 
 Usa le frecce per cambiare l'ordine dei varchi e l'icona del cestino per rimuoverne uno.
@@ -109,9 +109,9 @@ Per questi dispositivi abilita **Salta la verifica del certificato TLS**. L'opzi
 
 - al salvataggio della sorgente il centralino legge il certificato presentato da ogni dispositivo e lo **fissa**: da quel momento si fida solo di quel certificato. La sua impronta SHA-256 è mostrata come **Certificato fissato**, per la sorgente e per ogni varco URL;
 - la sorgente non può essere salvata se non è possibile leggere il certificato di uno dei suoi dispositivi: verifica che il dispositivo sia raggiungibile, oppure disabilita l'opzione;
-- se in seguito il certificato di un dispositivo cambia (rinnovo, ripristino di fabbrica, sostituzione del dispositivo), il centralino rifiuta di collegarsi al dispositivo: il video smette di funzionare e le sue porte rispondono *Il certificato del dispositivo è cambiato: contatta l'amministratore*. La verifica della connessione mostra *Il certificato del dispositivo è cambiato: il PBX rifiuta il dispositivo finché la sorgente non viene salvata di nuovo*. Assicurati che il dispositivo sia davvero il tuo, poi apri la sorgente, clicca su **Verifica** e su **Salva** per fissare il nuovo certificato.
+- se in seguito il certificato di un dispositivo cambia (rinnovo, ripristino di fabbrica, sostituzione del dispositivo), il centralino rifiuta di collegarsi al dispositivo: il video dal vivo si ferma (gli utenti vedono *La sorgente video non è raggiungibile, nuovo tentativo in corso...*), le immagini non si aggiornano più e i varchi URL rispondono *Il certificato del dispositivo è cambiato: contatta l'amministratore*. La scheda della sorgente mostra *Il certificato del dispositivo è cambiato: modifica la sorgente, inserisci di nuovo la password e salvala*. Assicurati che il dispositivo sia davvero il tuo, poi apri la sorgente con **Modifica**, inserisci di nuovo la password (la password salvata non viene mai inviata a un dispositivo il cui certificato è cambiato: senza di essa la verifica fallisce), clicca su **Verifica**, che mostra *Il certificato del dispositivo è cambiato: il PBX rifiuta il dispositivo finché la sorgente non viene salvata di nuovo*, e su **Salva** per fissare il nuovo certificato.
 
-Le sorgenti salvate prima che NethVoice fissasse i certificati sono contrassegnate come **Certificato non fissato** nell'elenco delle sorgenti: i loro dispositivi vengono contattati senza alcun controllo del certificato. Apri ognuna di esse con **Modifica** e salvala di nuovo per fissarne i certificati.
+Le sorgenti con **Salta la verifica del certificato TLS** salvate da una versione precedente di NethVoice, che non fissava i certificati, sono contrassegnate come **Certificato non fissato** nell'elenco delle sorgenti: i loro dispositivi vengono contattati senza alcun controllo del certificato. Le sorgenti senza questa opzione non sono interessate. Apri ognuna di esse con **Modifica** e salvala di nuovo per fissarne i certificati.
 
 ## Permessi {#permissions}
 
@@ -120,6 +120,7 @@ Ogni sorgente video crea un permesso con il nome della sorgente, nella sezione *
 - Il campo **Profilo** della sorgente abilita la sorgente nei profili selezionati.
 - Gli stessi permessi sono elencati in **Profili**, sezione **Sorgenti Video**, dove deve essere abilitato anche il permesso generale della sezione: senza di esso gli utenti del profilo non vedono alcuna sorgente video. Vedi [Permessi delle sorgenti video](../wizard.md#video-sources-permissions).
 - Quando una sorgente viene tolta da un profilo, gli utenti di quel profilo smettono di vederla: i video di quella sorgente che stanno guardando vengono chiusi quando la nuova configurazione viene applicata.
+- Le sorgenti create prima dell'aggiornamento mantengono il loro nome, e quindi il loro permesso e i profili in cui è abilitato. Il loro codice di apertura diventa un varco DTMF chiamato *Porta 1*: rinominalo se serve.
 
 Le credenziali dei dispositivi sono salvate sul centralino e non vengono mai inviate a NethVoice CTI, a NethLink o ai browser: gli utenti ricevono il video tramite il gateway video, con token di accesso monouso e di breve durata, verificati in base ai loro permessi.
 
@@ -127,7 +128,7 @@ Le credenziali dei dispositivi sono salvate sul centralino e non vengono mai inv
 
 | Da | A | Porta | Scopo |
 |----|---|-------|-------|
-| Centralino | Dispositivo | Porta RTSP del dispositivo (di solito `554`), TCP | Flusso video |
+| Centralino | Dispositivo | Porta RTSP del dispositivo (di solito `554`; senza porta nell'URL, `554` per `rtsp://` e `322` per `rtsps://`), TCP | Flusso video |
 | Centralino | Dispositivo | Porta HTTP o HTTPS del dispositivo | Immagini, varchi URL, fissaggio dei certificati |
 | Browser e NethLink | Nome host di NethVoice CTI | `443` TCP | Avvio del video (HTTPS) |
 | Browser e NethLink | Nodo di NethVoice | Porte ICE del gateway video, una UDP e una TCP | Video (WebRTC) |
@@ -163,24 +164,24 @@ Tieni presente che:
 
 ### Certificato non fissato o certificato cambiato {#certificate-problems}
 
-- **Certificato non fissato**: la sorgente è stata salvata da una versione precedente di NethVoice. Aprila con **Modifica**, clicca su **Verifica** e su **Salva**.
-- *Il certificato del dispositivo è cambiato: il PBX rifiuta il dispositivo finché la sorgente non viene salvata di nuovo*: il dispositivo presenta un certificato diverso da quello fissato. Assicurati che il dispositivo non sia stato sostituito da qualcun altro, poi apri la sorgente, clicca su **Verifica** e su **Salva**.
+- **Certificato non fissato**: la sorgente salta la verifica TLS ed è stata salvata da una versione precedente di NethVoice. Aprila con **Modifica**, clicca su **Verifica** e su **Salva**.
+- *Il certificato del dispositivo è cambiato: il PBX rifiuta il dispositivo finché la sorgente non viene salvata di nuovo*: il dispositivo presenta un certificato diverso da quello fissato. Assicurati che il dispositivo non sia stato sostituito da qualcun altro, poi apri la sorgente con **Modifica**, inserisci di nuovo la password, clicca su **Verifica** e su **Salva**.
 
 ### Il video non parte {#video-not-starting}
 
 Se la verifica della connessione riesce ma gli utenti non vedono il video:
 
 - *Il browser non può riprodurre il formato video di questa sorgente*: il dispositivo invia H.265 o un altro codec che il browser non può riprodurre. Configura il dispositivo per inviare H.264.
-- *La sorgente video non è raggiungibile, nuovo tentativo in corso...*: il centralino non riesce a leggere il flusso dal dispositivo. Clicca su **Verifica** sulla sorgente nel wizard.
+- *La sorgente video non è raggiungibile, nuovo tentativo in corso...*: il centralino non riesce a leggere il flusso dal dispositivo, oppure il client non raggiunge il gateway video. Apri l'elenco delle sorgenti nel wizard: se la verifica della sorgente fallisce, correggi la connessione al dispositivo; se riesce, vedi l'ultimo punto.
 - *Non hai i permessi per vedere questa sorgente*: la sorgente non è abilitata nel profilo dell'utente (vedi [Permessi](#permissions)).
 - *Troppi video aperti: chiudine uno per vedere questo*: l'utente ha raggiunto i [limiti](#limits). Chiudi altri video, per esempio in un'altra scheda del browser o su un altro computer.
-- Il video resta in caricamento e non parte mai: probabilmente il client non raggiunge le porte ICE del gateway video. Verifica che entrambe le porte siano consentite da tutti i firewall tra i client e il centralino, e inoltrate se il centralino è dietro NAT (vedi [Requisiti di rete](#network-requirements)).
+- Il video resta in caricamento, poi mostra *La sorgente video non è raggiungibile, nuovo tentativo in corso...*, mentre la verifica della sorgente riesce: probabilmente il client non raggiunge le porte ICE del gateway video. Verifica che entrambe le porte siano consentite da tutti i firewall tra i client e il centralino, e inoltrate se il centralino è dietro NAT (vedi [Requisiti di rete](#network-requirements)).
 
 ### Una porta non si apre {#door-not-opening}
 
 - *Rispondi alla chiamata per aprire*: le porte DTMF si possono aprire solo dopo aver risposto alla chiamata del citofono.
 - *Il dispositivo non è raggiungibile* o *Il dispositivo non ha risposto in tempo*: il centralino non raggiunge il dispositivo di un varco URL. Controlla l'URL, l'inoltro della porta e il firewall.
-- *Il dispositivo ha risposto con un errore*: il dispositivo ha risposto alla richiesta di un varco URL con uno stato di errore. Controlla l'URL, il metodo e le credenziali del varco.
+- *Il dispositivo ha risposto con un errore* (*Impossibile aprire la porta* nella Phone Island): il dispositivo ha risposto alla richiesta di un varco URL con uno stato di errore. Controlla l'URL, il metodo e le credenziali del varco.
 - *Invio del codice di apertura non riuscito*: il centralino non è riuscito a inviare il codice DTMF all'interno del citofono. Senza una chiamata in corso il centralino chiama prima il citofono: verifica che l'interno del citofono sia registrato e risponda automaticamente alle chiamate.
 - Compare *Comando inviato* ma la porta resta chiusa: controlla il codice DTMF, oppure l'URL e il metodo, sul manuale del citofono.
 

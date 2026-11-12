@@ -144,9 +144,9 @@ To start a video call, simply select a user in the Contacts section and tap the 
 
 ### Door Intercoms {#door-intercoms}
 
-Calls from a door intercom arrive in the app like any other call. The app does not show the video of the intercom before you answer: if the intercom sends video in the call, you see it once the call is answered, as in a video call.
+Calls from a door intercom arrive in the app like any other call. The app has no page for the video sources of NethVoice and does not show their video.
 
-To open the door, tap Keypad during the call and type the opening code of the door. Ask your administrator for the code. Doors that NethVoice opens without a code (configured by the administrator as URL gates) cannot be opened from the app: use NethVoice CTI or NethLink. See [Video sources](./nethcti/video_sources.md).
+To open the door, open the keypad during the call and type the opening code of the door. Ask your administrator for the code. Doors that NethVoice opens without a code cannot be opened from the app: use NethVoice CTI or NethLink. See [Video sources](./nethcti/video_sources.md).
 
 
 ### Settings
