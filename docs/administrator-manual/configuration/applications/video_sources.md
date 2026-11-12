@@ -120,7 +120,7 @@ Every video source creates a permission named after the source, in the **Streami
 - The **Profile** field of the source enables the source in the selected profiles.
 - The same permissions are listed in **Profiles**, section **Streaming**, where the general permission of the section must be enabled too: without it the users of the profile do not see any video source. See [Video sources permissions](../wizard.md#video-sources-permissions).
 - When a source is removed from a profile, the users of that profile stop seeing it: the videos of that source they are watching are closed when the new configuration is applied.
-- Sources created before the update keep their name, and so their permission and the profiles where it is enabled. Their opening code becomes a DTMF gate named *Porta 1*: rename it if needed.
+- Sources created before the update keep their name, and so their permission and the profiles where it is enabled. Their opening code becomes a DTMF gate named *Door 1*, which you can rename.
 
 The credentials of the devices are stored on the PBX and are never sent to NethVoice CTI, NethLink or the browsers: users receive the video through the video gateway, with short-lived, single-use access tokens checked against their permissions.
 
