@@ -37,8 +37,29 @@ Before creating a video stream source, check that:
 
 1. **The PBX can reach the device.** The PBX connects to the device, not the other way round. If the device is in a customer LAN and the PBX is somewhere else (for example in the cloud), forward the RTSP port of the device (usually `554`) on the router of the site and allow it only from the public IP address of the PBX, or connect the PBX and the site with a VPN. NethVoice does not provide a relay to be installed at the customer site.
 2. **The users can reach the video gateway.** See [Network requirements](#network-requirements).
-3. **The device sends H.264 video**, if possible (see [Types of source](#source-types)).
+3. **The device sends H.264 video**, if possible (see [Types of source](#source-types)), with the [recommended stream settings](#stream-settings).
 4. **The intercom is an extension of NethVoice**, if users must see its video when it calls them or open doors with DTMF codes: create it in the Users section first, as any other extension.
+
+### Recommended stream settings {#stream-settings}
+
+Configure the stream of door intercoms and cameras with these settings:
+
+- **Codec**: H.264, Baseline or Main profile, without B-frames;
+- **Stream**: the secondary stream (sub stream) of the device, if it has one;
+- **Resolution**: VGA (640x480), up to 720p at most;
+- **Bitrate**: about 0.5–1 Mbit/s;
+- **Keyframe (I-frame) interval**: 1–2 seconds.
+
+The browser can start showing the video only from a complete keyframe: large or rare keyframes make the video start slowly and with a delay.
+
+:::note Fanvil i-series door phones
+Tested on a Fanvil i62 with firmware 2.12.51:
+
+- the stream paths are `/h264/stream.live0` for the main stream and `/h264/stream.live1` for the sub stream;
+- use the IP address of the device in the URL, not a host name: with a host name this firmware answers `400 Bad Request` to the connection check, even with the right credentials;
+- at 720p the firmware truncates the keyframes larger than about 100 KB, so the video starts only after a long wait and with a delay: use the sub stream, or lower the resolution or the bitrate of the main stream;
+- the sub stream can take a few seconds to start the first time it is opened.
+:::
 
 ## Creating a video source {#creating-video-source}
 
@@ -160,7 +181,7 @@ Keep in mind that:
 | *TLS certificate not valid* | The certificate of the device is not trusted. If the device has a self-signed certificate, enable **Skip TLS certificate verification**. |
 | *Unsupported URL or stream* | The URL is not a video stream or an image, or the stream contains no video. |
 | *Address not allowed: the PBX itself and link-local addresses cannot be video sources* | The address of the device is refused: see [Network requirements](#network-requirements). |
-| *Connection error* | Any other error: the details are shown below the message. |
+| *Connection error* | Any other error: the details are shown below the message. If the details show `400 Bad Request` although the credentials are right, use the IP address of the device in the URL instead of the host name (seen on Fanvil i62, see [Recommended stream settings](#stream-settings)). |
 
 ### Certificate not pinned or certificate changed {#certificate-problems}
 
@@ -175,7 +196,7 @@ If the connection check succeeds but users do not see the video:
 - *The video source is not reachable, retrying...*: the PBX cannot read the stream from the device, or the client cannot reach the video gateway. Open the list of sources in the wizard: if the check of the source fails, fix the connection to the device; if it succeeds, see the last item.
 - *You are not allowed to watch this source*: the source is not enabled in the profile of the user (see [Permissions](#permissions)).
 - *Too many open videos: close one to watch this*: the user reached the [limits](#limits). Close other videos, for example in another browser tab or on another computer.
-- The video keeps loading, then shows *The video source is not reachable, retrying...*, while the check of the source succeeds: the client probably cannot reach the video gateway ICE ports. Check that both ports are allowed by every firewall between the clients and the PBX, and forwarded if the PBX is behind NAT (see [Network requirements](#network-requirements)).
+- The video keeps loading, then shows *The video source is not reachable, retrying...*, while the check of the source succeeds: the client probably cannot reach the video gateway ICE ports. Check that both ports are allowed by every firewall between the clients and the PBX, and forwarded if the PBX is behind NAT (see [Network requirements](#network-requirements)). If the ports are fine, the device probably sends incomplete or too rare keyframes: lower the resolution or the bitrate, or use the sub stream (see [Recommended stream settings](#stream-settings)).
 
 ### A door does not open {#door-not-opening}
 
