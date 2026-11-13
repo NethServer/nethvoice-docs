@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-11-12T13:48:51.139163+00:00",
+  "generated_at": "2026-11-13T11:28:05.003391+00:00",
   "sources": {
     "nethcti_server": {
       "repo": "nethesis/nethcti-server",
       "branch": "ns8",
-      "commit": "62be5d93d6bdb5a6ede6081f453e4bfb6d664ec7"
+      "commit": "08c8bc374ab609e94db8f349ffbce62084b2f00d"
     },
     "nethcti_middleware": {
       "repo": "nethesis/nethcti-middleware",
       "branch": "main",
-      "commit": "9af5393b3527637df7da0d4a5aea96ecf70243ca"
+      "commit": "2735cd577239f6c0c2dbbd3263b65ca243952e65"
     }
   },
   "stats": {
