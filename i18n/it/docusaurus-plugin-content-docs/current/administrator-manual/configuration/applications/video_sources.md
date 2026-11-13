@@ -37,8 +37,29 @@ Prima di creare una sorgente di tipo flusso video, verifica che:
 
 1. **Il centralino possa raggiungere il dispositivo.** È il centralino che si collega al dispositivo, non il contrario. Se il dispositivo si trova nella LAN del cliente e il centralino altrove (per esempio in cloud), sul router della sede inoltra la porta RTSP del dispositivo (di solito `554`) consentendola solo dall'indirizzo IP pubblico del centralino, oppure collega centralino e sede con una VPN. NethVoice non prevede un relay da installare presso il cliente.
 2. **Gli utenti possano raggiungere il gateway video.** Vedi [Requisiti di rete](#network-requirements).
-3. **Il dispositivo invii video H.264**, se possibile (vedi [Tipi di sorgente](#source-types)).
+3. **Il dispositivo invii video H.264**, se possibile (vedi [Tipi di sorgente](#source-types)), con le [impostazioni del flusso consigliate](#stream-settings).
 4. **Il citofono sia un interno di NethVoice**, se gli utenti devono vederne il video quando li chiama o aprire le porte con i codici DTMF: crealo prima nella sezione Utenti, come qualsiasi altro interno.
+
+### Impostazioni del flusso consigliate {#stream-settings}
+
+Configura il flusso di videocitofoni e telecamere con queste impostazioni:
+
+- **Codec**: H.264, profilo Baseline o Main, senza B-frame;
+- **Flusso**: il flusso secondario (sub stream) del dispositivo, se presente;
+- **Risoluzione**: VGA (640x480), al massimo fino a 720p;
+- **Bitrate**: circa 0,5–1 Mbit/s;
+- **Intervallo tra i keyframe (I-frame)**: 1–2 secondi.
+
+Il browser può iniziare a mostrare il video solo a partire da un keyframe completo: keyframe grandi o rari fanno partire il video lentamente e con ritardo.
+
+:::note Videocitofoni Fanvil serie i
+Provato su un Fanvil i62 con firmware 2.12.51:
+
+- i percorsi dei flussi sono `/h264/stream.live0` per il flusso principale e `/h264/stream.live1` per il flusso secondario;
+- nell'URL usa l'indirizzo IP del dispositivo, non un nome host: con un nome host questo firmware risponde `400 Bad Request` alla verifica della connessione, anche con le credenziali corrette;
+- a 720p il firmware tronca i keyframe più grandi di circa 100 KB, quindi il video parte solo dopo una lunga attesa e con ritardo: usa il flusso secondario, oppure riduci la risoluzione o il bitrate del flusso principale;
+- il flusso secondario può impiegare alcuni secondi per partire la prima volta che viene aperto.
+:::
 
 ## Creazione di una sorgente video {#creating-video-source}
 
@@ -160,7 +181,7 @@ Tieni presente che:
 | *Certificato TLS non valido* | Il certificato del dispositivo non è attendibile. Se il dispositivo ha un certificato autofirmato, abilita **Salta la verifica del certificato TLS**. |
 | *URL o flusso non supportato* | L'URL non è un flusso video né un'immagine, oppure il flusso non contiene video. |
 | *Indirizzo non consentito: il PBX stesso e gli indirizzi link-local non possono essere sorgenti video* | L'indirizzo del dispositivo è rifiutato: vedi [Requisiti di rete](#network-requirements). |
-| *Errore di connessione* | Qualsiasi altro errore: i dettagli sono mostrati sotto il messaggio. |
+| *Errore di connessione* | Qualsiasi altro errore: i dettagli sono mostrati sotto il messaggio. Se i dettagli mostrano `400 Bad Request` anche con le credenziali corrette, nell'URL usa l'indirizzo IP del dispositivo invece del nome host (riscontrato su Fanvil i62, vedi [Impostazioni del flusso consigliate](#stream-settings)). |
 
 ### Certificato non fissato o certificato cambiato {#certificate-problems}
 
@@ -175,7 +196,7 @@ Se la verifica della connessione riesce ma gli utenti non vedono il video:
 - *La sorgente video non è raggiungibile, nuovo tentativo in corso...*: il centralino non riesce a leggere il flusso dal dispositivo, oppure il client non raggiunge il gateway video. Apri l'elenco delle sorgenti nel wizard: se la verifica della sorgente fallisce, correggi la connessione al dispositivo; se riesce, vedi l'ultimo punto.
 - *Non hai i permessi per vedere questa sorgente*: la sorgente non è abilitata nel profilo dell'utente (vedi [Permessi](#permissions)).
 - *Troppi video aperti: chiudine uno per vedere questo*: l'utente ha raggiunto i [limiti](#limits). Chiudi altri video, per esempio in un'altra scheda del browser o su un altro computer.
-- Il video resta in caricamento, poi mostra *La sorgente video non è raggiungibile, nuovo tentativo in corso...*, mentre la verifica della sorgente riesce: probabilmente il client non raggiunge le porte ICE del gateway video. Verifica che entrambe le porte siano consentite da tutti i firewall tra i client e il centralino, e inoltrate se il centralino è dietro NAT (vedi [Requisiti di rete](#network-requirements)).
+- Il video resta in caricamento, poi mostra *La sorgente video non è raggiungibile, nuovo tentativo in corso...*, mentre la verifica della sorgente riesce: probabilmente il client non raggiunge le porte ICE del gateway video. Verifica che entrambe le porte siano consentite da tutti i firewall tra i client e il centralino, e inoltrate se il centralino è dietro NAT (vedi [Requisiti di rete](#network-requirements)). Se le porte sono a posto, probabilmente il dispositivo invia keyframe incompleti o troppo rari: riduci la risoluzione o il bitrate, oppure usa il flusso secondario (vedi [Impostazioni del flusso consigliate](#stream-settings)).
 
 ### Una porta non si apre {#door-not-opening}
 
