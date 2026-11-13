@@ -327,6 +327,13 @@ Tutti i percorsi in uscita configurati in NethVoice vengono visualizzati e puoi 
 - L'autorizzazione generale abilita l'accesso alla sezione QManager in NethVoice CTI.
 - Per ogni coda configurata in NethVoice, puoi abilitare/disabilitare la visibilità dello stato e dei dati.
 
+##### Sorgenti video {#video-sources-permissions}
+
+La sezione si chiama `Sorgenti Video` nel profilo.
+
+- L'autorizzazione generale abilita la pagina **Sorgenti video** in NethVoice CTI e il video dei citofoni nell'anteprima della chiamata.
+- Per ogni [sorgente video](./applications/video_sources.md) configurata in NethVoice, puoi abilitare/disabilitare la sua visibilità e l'apertura delle sue porte. La stessa impostazione è disponibile nel campo **Profilo** di ogni sorgente video.
+
 ## Utenti
 
 La pagina Utenti ti consente di configurare le impostazioni per utente e gestire i dispositivi associati a ogni account.

@@ -29,6 +29,7 @@ The currently supported browsers are:
 - **Speed dial**: Save frequently used numbers
 - **Call notifications**: Get alerts for incoming calls
 - **Multi-tab support**: Use multiple tabs simultaneously
+- **Video sources**: Watch door intercoms and IP cameras, see who is calling from the door and open it
 
 ## Getting Started {#getting-started}
 
@@ -45,3 +46,4 @@ For more information, refer to the specific sections:
 - [Calls](./calls.md) - How to manage calls
 - [Chat](./chat.md) - Chat with colleagues, groups and people outside the company
 - [Other Features](./other.md) - Additional features and options
+- [Video sources](./video_sources.md) - Door intercoms and IP cameras, opening doors

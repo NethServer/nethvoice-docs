@@ -29,6 +29,7 @@ I Browser attualmente supportati sono:
 - **Numeri brevi**: Salva i numeri utilizzati frequentemente
 - **Notifiche di chiamata**: Ricevi avvisi per le chiamate in arrivo
 - **Supporto multi-scheda**: Utilizza più schede contemporaneamente
+- **Sorgenti video**: Guarda videocitofoni e telecamere IP, vedi chi chiama dalla porta e aprila
 
 ## Iniziare
 
@@ -45,3 +46,4 @@ Per ulteriori informazioni, consulta le sezioni specifiche:
 - [Chiamate](./calls.md) - Come gestire le chiamate
 - [Chat](./chat.md) - Chat con colleghi, gruppi e persone esterne all'azienda
 - [Altre funzionalità](./other.md) - Funzionalità aggiuntive e opzioni
+- [Sorgenti video](./video_sources.md) - Videocitofoni e telecamere IP, apertura delle porte

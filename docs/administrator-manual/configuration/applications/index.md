@@ -16,6 +16,6 @@ The following applications are available in the *Applications* section:
 - **Customer Cards**: Display information from external databases during calls.
 - **Phonebook Sources**: Integrate external address books for contact resolution.
 - **Parameterized URLs**: Trigger custom URLs with call-related parameters during call events.
-- **Video Sources**: Configure IP cameras and video sources for integration with NethVoice.
+- **[Video Sources](./video_sources.md)**: Connect door intercoms and IP cameras: live video in NethVoice CTI and NethLink, doors opened from the CTI.
 - **Bulk actions**: Manage and modify multiple extensions and phones simultaneously.
 - **Voicemail**: Configure voicemail email notifications.
