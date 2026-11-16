@@ -63,7 +63,7 @@ Provato su un Fanvil i62 con firmware 2.12.51:
 
 ## Creazione di una sorgente video {#creating-video-source}
 
-Apri **Applicazioni** > **Sorgenti video** nel wizard e clicca su **Crea nuova sorgente**. Compila il form:
+Apri **Applicazioni** > **Sorgenti video** nel wizard e clicca su **Crea nuova sorgente**, oppure su **Crea da un citofono** per un citofono configurato da NethVoice con il provisioning (vedi [Creazione di una sorgente da un citofono](#door-phone)). Compila il form:
 
 - **Nome**: il nome della sorgente, come la vedono gli utenti in NethVoice CTI. Deve contenere almeno una lettera o una cifra e deve essere diverso dai nomi delle altre sorgenti (nomi che differiscono solo per maiuscole o simboli sono considerati uguali).
 - **Interno**: l'interno del citofono, se presente. Quando questo interno chiama un utente che può vedere la sorgente, NethVoice CTI e NethLink ne mostrano il video nell'anteprima della chiamata. L'interno è anche la destinazione dei codici DTMF delle [porte](#gates). Lascialo vuoto per una telecamera che non effettua chiamate.
@@ -93,6 +93,33 @@ Clicca su **Salva**. La sorgente compare come scheda nell'elenco delle sorgenti,
 Usa **Modifica** per cambiare una sorgente ed **Elimina** per rimuoverla. Quando una sorgente viene eliminata, il suo permesso viene rimosso da tutti i profili e gli utenti che la stanno guardando vengono disconnessi.
 
 Quando modifichi una sorgente, i campi password mostrano *Invariata*: lasciali vuoti per mantenere la password salvata. Se cambi l'indirizzo o la porta del dispositivo, inserisci di nuovo la password: NethVoice non invia mai una password salvata a un dispositivo diverso.
+
+## Creazione di una sorgente da un citofono {#door-phone}
+
+Per i citofoni che NethVoice configura con il provisioning (vedi [Telefoni supportati](../../provisioning/supported_phones.md#fanvil)), il wizard compila per te il form della sorgente.
+
+1. Aggiungi il citofono all'inventario dei dispositivi con il suo indirizzo MAC, scegli il modello (per esempio *Fanvil i62*) e assegnalo a un interno, come per un telefono. Il citofono scarica la sua configurazione dal centralino come un telefono: tramite RPS, opzione DHCP 66 o l'URL di provisioning inserito nella sua interfaccia web (vedi [Provisioning dei telefoni](../../provisioning/phone_provisioning.md)).
+2. Apri **Applicazioni** > **Sorgenti video** e clicca su **Crea da un citofono**. L'elenco mostra i citofoni configurati con il provisioning e assegnati a un interno, con il loro indirizzo IP quando sono registrati e le sorgenti che già li usano.
+3. Clicca su **Usa** accanto al citofono. Si apre il form di una nuova sorgente con:
+   - **Nome**: il nome dell'interno;
+   - **Interno**: l'interno del citofono;
+   - **URL**: il flusso consigliato del dispositivo, per esempio `rtsp://192.0.2.10:554/h264/stream.live1` per il flusso secondario dei Fanvil i6x, con l'indirizzo del citofono;
+   - **Nome utente**: l'utente RTSP del citofono, mentre **Password** mostra *Generata dal centralino*;
+   - una porta DTMF, *Porta 1*, con il codice di apertura del citofono.
+4. Modifica quello che serve, seleziona i profili, clicca su **Verifica** e su **Salva**.
+
+**Credenziali.** La prima volta che un citofono viene usato, il centralino genera per lui una password RTSP casuale, la aggiunge alla configurazione di provisioning del dispositivo e chiede al citofono di scaricare di nuovo la configurazione. La password non viene mai mostrata e non esce mai dal centralino: lascia vuoto il campo **Password**. Il form segnala quando le credenziali sono appena state generate: se la verifica non riesce, attendi un minuto perché il citofono applichi la nuova configurazione, oppure riavvia il citofono. In seguito lo stesso citofono mantiene la stessa password.
+
+**Indirizzo.** L'indirizzo IP viene dalla registrazione SIP del citofono, quindi è l'indirizzo del dispositivo nella sua rete. Se il centralino raggiunge il citofono tramite un port forward o una VPN, sostituiscilo con l'indirizzo usato dal centralino, per esempio l'indirizzo pubblico della sede. Se il citofono non è registrato, l'URL è vuoto: inseriscilo.
+
+Le sorgenti create in questo modo sono sorgenti normali: **Modifica** ed **Elimina** funzionano come per tutte le altre. **Crea nuova sorgente** continua a funzionare per qualsiasi altro dispositivo.
+
+:::note Citofoni Fanvil i6x
+Il provisioning dei Fanvil i60/i60K, i61, i62, i63 e i64 modifica solo queste impostazioni del citofono: l'account SIP (con DTMF RFC 2833), la password dell'utente `admin` dell'interfaccia web, fuso orario, server dell'ora e lingua, il server di provisioning e il server RTSP (abilitato, con autenticazione e le credenziali generate dal centralino). Tutto il resto mantiene i valori impostati nell'interfaccia web del citofono. In particolare, configura sul citofono:
+
+- il codice di apertura della porta e le regole di accesso (**EGS Setting**): la porta proposta dal wizard usa il codice `*`, il codice di apertura remota predefinito dei citofoni Fanvil; se il citofono usa un codice diverso, inseriscilo nella porta;
+- i flussi della telecamera (**Intercom settings** > **Camera Settings**), seguendo le [impostazioni del flusso consigliate](#stream-settings): il wizard propone il flusso secondario, `/h264/stream.live1`.
+:::
 
 ## Porte e varchi {#gates}
 

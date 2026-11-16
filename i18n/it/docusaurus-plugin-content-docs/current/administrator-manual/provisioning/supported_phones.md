@@ -35,6 +35,12 @@ Per i telefoni non elencati come supportati, è possibile creare modelli di prov
 - H2U, H2U-V2, H5
 - W610W, W611W, W620W
 
+**Videocitofoni, FIRMWARE Versione 2.12 o superiore**
+
+- i60/i60K, i61, i62, i63, i64
+
+I videocitofoni si configurano con il provisioning come i telefoni: il centralino imposta l'account SIP, la password di amministrazione, ora e lingua, e le credenziali del server RTSP. Il loro video può poi diventare una sorgente video con **Crea da un citofono**, vedi [Sorgenti video](../configuration/applications/video_sources.md#door-phone).
+
 ## Yealink
 
 **FIRMWARE Versione 0.86 o superiore**

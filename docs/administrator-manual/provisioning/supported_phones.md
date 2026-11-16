@@ -35,6 +35,12 @@ For phones not listed as supported, it is possible to create custom provisioning
 - H2U, H2U-V2, H5
 - W610W, W611W, W620W
 
+**Video door phones, FIRMWARE Version 2.12 or higher**
+
+- i60/i60K, i61, i62, i63, i64
+
+The door phones are provisioned like the phones: the PBX configures their SIP account, the admin password, time and language, and the credentials of their RTSP server. Their video can then become a video source with **Create from a door phone**, see [Video sources](../configuration/applications/video_sources.md#door-phone).
+
 ## Yealink {#yealink}
 
 **FIRMWARE Version 0.86 or higher**
