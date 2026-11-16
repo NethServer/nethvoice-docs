@@ -118,7 +118,9 @@ Le sorgenti create in questo modo sono sorgenti normali: **Modifica** ed **Elimi
 Il provisioning dei Fanvil i60/i60K, i61, i62, i63 e i64 modifica solo queste impostazioni del citofono: l'account SIP (con DTMF RFC 2833), la password dell'utente `admin` dell'interfaccia web, fuso orario, server dell'ora e lingua, il server di provisioning e il server RTSP (abilitato, con autenticazione e le credenziali generate dal centralino). Tutto il resto mantiene i valori impostati nell'interfaccia web del citofono. In particolare, configura sul citofono:
 
 - il codice di apertura della porta e le regole di accesso (**EGS Setting**): la porta proposta dal wizard usa il codice `*`, il codice di apertura remota predefinito dei citofoni Fanvil; se il citofono usa un codice diverso, inseriscilo nella porta;
-- i flussi della telecamera (**Intercom settings** > **Camera Settings**), seguendo le [impostazioni del flusso consigliate](#stream-settings): il wizard propone il flusso secondario, `/h264/stream.live1`.
+- i flussi della telecamera (**Intercom settings** > **Camera Settings**), seguendo le [impostazioni del flusso consigliate](#stream-settings): il wizard propone il flusso secondario, `/h264/stream.live1`. Il provisioning riduce il bitrate del flusso principale a 1 Mbit/s e imposta un keyframe al secondo su entrambi i flussi.
+
+Sul Fanvil i62 con firmware 2.12.51 la password RTSP è sempre la password dell'utente `admin` dell'interfaccia web: il citofono ignora la password RTSP generata dal centralino. Finché il problema non è risolto, imposta nel centralino la password RTSP del citofono uguale alla sua password di amministrazione.
 :::
 
 ## Porte e varchi {#gates}
