@@ -45,7 +45,7 @@ Prima di creare una sorgente di tipo flusso video, verifica che:
 Configura il flusso di videocitofoni e telecamere con queste impostazioni:
 
 - **Codec**: H.264, profilo Baseline o Main, senza B-frame;
-- **Flusso**: il flusso secondario (sub stream) del dispositivo, se presente;
+- **Flusso**: il flusso principale, se il dispositivo mantiene piccoli i keyframe con le impostazioni qui sotto; altrimenti il flusso secondario (sub stream), che è anche la scelta per le connessioni lente;
 - **Risoluzione**: VGA (640x480), al massimo fino a 720p;
 - **Bitrate**: circa 0,5–1 Mbit/s;
 - **Intervallo tra i keyframe (I-frame)**: 1–2 secondi.
@@ -57,7 +57,7 @@ Provato su un Fanvil i62 con firmware 2.12.51:
 
 - i percorsi dei flussi sono `/h264/stream.live0` per il flusso principale e `/h264/stream.live1` per il flusso secondario;
 - nell'URL usa l'indirizzo IP del dispositivo, non un nome host: con un nome host questo firmware risponde `400 Bad Request` alla verifica della connessione, anche con le credenziali corrette;
-- a 720p il firmware tronca i keyframe più grandi di circa 100 KB, quindi il video parte solo dopo una lunga attesa e con ritardo: usa il flusso secondario, oppure riduci la risoluzione o il bitrate del flusso principale;
+- a 720p con il bitrate di fabbrica (3 Mbit/s) il firmware tronca i keyframe più grandi di circa 100 KB, quindi il video parte solo dopo una lunga attesa e con ritardo. Il provisioning di NethVoice riduce il flusso principale a 1 Mbit/s con un keyframe al secondo: con queste impostazioni il flusso principale parte subito e si vede meglio del flusso secondario. Senza provisioning, riduci il bitrate del flusso principale oppure usa il flusso secondario;
 - il flusso secondario può impiegare alcuni secondi per partire la prima volta che viene aperto.
 :::
 
@@ -67,6 +67,7 @@ Apri **Applicazioni** > **Sorgenti video** nel wizard e clicca su **Crea nuova s
 
 - **Nome**: il nome della sorgente, come la vedono gli utenti in NethVoice CTI. Deve contenere almeno una lettera o una cifra e deve essere diverso dai nomi delle altre sorgenti (nomi che differiscono solo per maiuscole o simboli sono considerati uguali).
 - **Interno**: l'interno del citofono, se presente. Quando questo interno chiama un utente che può vedere la sorgente, NethVoice CTI e NethLink ne mostrano il video nell'anteprima della chiamata. L'interno è anche la destinazione dei codici DTMF delle [porte](#gates). Lascialo vuoto per una telecamera che non effettua chiamate.
+- **Tipo di dispositivo**: *Altro*, oppure un dispositivo di cui NethVoice conosce i flussi (*Fanvil i-series*): con un dispositivo noto il form compila la porta e il percorso del flusso, mantiene l'indirizzo inserito e mostra la scelta **Qualità video**.
 - **URL**: l'indirizzo del flusso o dell'immagine, per esempio `rtsp://192.0.2.10:554/stream1` o `https://192.0.2.10/cgi-bin/snapshot.jpg`. Usa `rtsp://` o `rtsps://` per un flusso video, `http://` o `https://` per un'immagine JPEG. Per un flusso video il form ricorda di inoltrare la porta RTSP del dispositivo e mostra l'indirizzo IP pubblico del centralino da consentire. Quando inserisci l'URL, il form verifica se il centralino riesce ad aprire una connessione verso l'indirizzo e la porta del dispositivo (solo una connessione TCP, al dispositivo non viene inviato nulla; porte predefinite `554` per `rtsp://`, `322` per `rtsps://`, `80` per `http://` e `443` per `https://`). Quando il centralino non raggiunge il dispositivo, per esempio perché il centralino è nel cloud e l'indirizzo appartiene alla rete locale della sede, un avviso spiega cosa fare: inoltrare la porta del dispositivo sul suo router, consentirla solo dall'indirizzo IP pubblico del centralino e inserire nell'URL l'indirizzo pubblico del dispositivo. Puoi comunque salvare la sorgente, per esempio per prepararla prima che il port forward sia pronto.
 - **Nome utente** e **Password**: le credenziali del dispositivo, se richieste. Il campo **Password** si abilita dopo aver inserito il **Nome utente**. Se incolli un URL che contiene le credenziali (`rtsp://utente:password@host/...`), queste vengono spostate in questi campi al salvataggio della sorgente.
 - **Varchi**: le porte e i cancelli che gli utenti possono aprire da questa sorgente. Vedi [Porte e varchi](#gates).
@@ -103,7 +104,8 @@ Per i citofoni che NethVoice configura con il provisioning (vedi [Telefoni suppo
 3. Clicca su **Usa** accanto al citofono. Si apre il form di una nuova sorgente con:
    - **Nome**: il nome dell'interno;
    - **Interno**: l'interno del citofono;
-   - **URL**: il flusso consigliato del dispositivo, per esempio `rtsp://192.0.2.10:554/h264/stream.live1` per il flusso secondario dei Fanvil i6x, con l'indirizzo del citofono;
+   - **URL**: il flusso principale del dispositivo, per esempio `rtsp://192.0.2.10:554/h264/stream.live0` per i Fanvil i6x, con l'indirizzo del citofono;
+   - **Qualità video**: *Alta (flusso principale)*, la scelta predefinita, oppure *Standard (flusso secondario, per connessioni lente)*, per i citofoni con due flussi. La scelta cambia solo il percorso dell'URL; un percorso inserito a mano mostra *Percorso personalizzato*;
    - **Nome utente** e **Password**: gestiti dal centralino, mostrati come testo (vedi **Credenziali** più sotto);
    - una porta DTMF, *Porta 1*, con il codice di apertura del citofono.
 4. Modifica quello che serve, seleziona i profili, clicca su **Verifica** e su **Salva**.
@@ -118,7 +120,7 @@ Le sorgenti create in questo modo sono sorgenti normali: **Modifica** ed **Elimi
 Il provisioning dei Fanvil i60/i60K, i61, i62, i63 e i64 modifica solo queste impostazioni del citofono: l'account SIP (con DTMF RFC 2833), la password dell'utente `admin` dell'interfaccia web (generata dal centralino, vedi sopra), fuso orario, server dell'ora e lingua, il server di provisioning e il server RTSP (abilitato, con autenticazione). Tutto il resto mantiene i valori impostati nell'interfaccia web del citofono. In particolare, configura sul citofono:
 
 - il codice di apertura della porta e le regole di accesso (**EGS Setting**): la porta proposta dal wizard usa il codice `*`, il codice di apertura remota predefinito dei citofoni Fanvil; se il citofono usa un codice diverso, inseriscilo nella porta;
-- i flussi della telecamera (**Intercom settings** > **Camera Settings**), seguendo le [impostazioni del flusso consigliate](#stream-settings): il wizard propone il flusso secondario, `/h264/stream.live1`. Il provisioning riduce il bitrate del flusso principale a 1 Mbit/s e imposta un keyframe al secondo su entrambi i flussi.
+- i flussi della telecamera (**Intercom settings** > **Camera Settings**), seguendo le [impostazioni del flusso consigliate](#stream-settings): il provisioning riduce il bitrate del flusso principale a 1 Mbit/s e imposta un keyframe al secondo su entrambi i flussi, quindi il wizard propone il flusso principale, `/h264/stream.live0`, e offre il flusso secondario, `/h264/stream.live1`, come qualità *Standard*.
 
 Sul Fanvil i62 con firmware 2.12.51 la password RTSP è sempre la password dell'utente `admin` dell'interfaccia web: per questo il centralino usa la password di amministrazione del citofono come password RTSP.
 :::

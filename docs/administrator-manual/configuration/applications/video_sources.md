@@ -45,7 +45,7 @@ Before creating a video stream source, check that:
 Configure the stream of door intercoms and cameras with these settings:
 
 - **Codec**: H.264, Baseline or Main profile, without B-frames;
-- **Stream**: the secondary stream (sub stream) of the device, if it has one;
+- **Stream**: the main stream, if the device keeps its keyframes small at the settings below; otherwise the secondary stream (sub stream), which is also the choice for slow connections;
 - **Resolution**: VGA (640x480), up to 720p at most;
 - **Bitrate**: about 0.5–1 Mbit/s;
 - **Keyframe (I-frame) interval**: 1–2 seconds.
@@ -57,7 +57,7 @@ Tested on a Fanvil i62 with firmware 2.12.51:
 
 - the stream paths are `/h264/stream.live0` for the main stream and `/h264/stream.live1` for the sub stream;
 - use the IP address of the device in the URL, not a host name: with a host name this firmware answers `400 Bad Request` to the connection check, even with the right credentials;
-- at 720p the firmware truncates the keyframes larger than about 100 KB, so the video starts only after a long wait and with a delay: use the sub stream, or lower the resolution or the bitrate of the main stream;
+- at 720p with the factory bitrate (3 Mbit/s) the firmware truncates the keyframes larger than about 100 KB, so the video starts only after a long wait and with a delay. The NethVoice provisioning lowers the main stream to 1 Mbit/s with a keyframe every second: with these settings the main stream starts immediately and looks better than the sub stream. Without provisioning, lower the bitrate of the main stream, or use the sub stream;
 - the sub stream can take a few seconds to start the first time it is opened.
 :::
 
@@ -67,6 +67,7 @@ Open **Applications** > **Video sources** in the wizard and click **Create new s
 
 - **Name**: the name of the source, as users see it in NethVoice CTI. It must contain at least a letter or a digit and it must be different from the names of the other sources (names that differ only in case or symbols are considered the same).
 - **Extension**: the extension of the intercom, if any. When this extension calls a user who can see the source, NethVoice CTI and NethLink show its video in the call preview. The extension is also the destination of the DTMF codes of the [doors](#gates). Leave it empty for a camera that does not make calls.
+- **Device type**: *Other*, or a device whose streams NethVoice knows (*Fanvil i-series*): with a known device the form fills the port and the path of the stream, keeps the address you typed and shows the **Video quality** choice.
 - **URL**: the address of the stream or of the snapshot, for example `rtsp://192.0.2.10:554/stream1` or `https://192.0.2.10/cgi-bin/snapshot.jpg`. Use `rtsp://` or `rtsps://` for a video stream, `http://` or `https://` for a JPEG snapshot. For a video stream, the form reminds you to forward the RTSP port of the device and shows the public IP address of the PBX to be allowed. When you type the URL, the form checks whether the PBX can open a connection to the address and port of the device (only a TCP connection, nothing is sent to the device; default ports `554` for `rtsp://`, `322` for `rtsps://`, `80` for `http://` and `443` for `https://`). When the PBX cannot reach the device, for example because the PBX is in the cloud and the address belongs to the LAN of the site, a warning explains what to do: forward the port of the device on its router, allow it only from the public IP address of the PBX, and type the public address of the device in the URL. You can save the source anyway, for example to prepare it before the port-forward is ready.
 - **Username** and **Password**: the credentials of the device, if it requires them. The **Password** field is enabled after typing the **Username**. If you paste a URL that contains the credentials (`rtsp://user:password@host/...`), they are moved to these fields when the source is saved.
 - **Gates**: the doors and gates that users can open from this source. See [Doors and gates](#gates).
@@ -103,7 +104,8 @@ For the door phones that NethVoice configures through provisioning (see [Support
 3. Click **Use** next to the door phone. The form of a new source opens with:
    - **Name**: the name of the extension;
    - **Extension**: the extension of the door phone;
-   - **URL**: the recommended stream of the device, for example `rtsp://192.0.2.10:554/h264/stream.live1` for the Fanvil i6x sub stream, with the address of the door phone;
+   - **URL**: the main stream of the device, for example `rtsp://192.0.2.10:554/h264/stream.live0` for the Fanvil i6x, with the address of the door phone;
+   - **Video quality**: *High (main stream)*, the default, or *Standard (sub stream, for slow connections)*, for door phones with two streams. The choice changes only the path of the URL; a path typed by hand shows *Custom path*;
    - **Username** and **Password**: managed by the PBX, shown as text (see **Credentials** below);
    - one DTMF gate, *Door 1*, with the door-open code of the door phone.
 4. Change what you need, select the profiles, click **Check** and **Save**.
@@ -118,7 +120,7 @@ Sources created this way are normal sources: **Modify** and **Delete** work as f
 The provisioning of the Fanvil i60/i60K, i61, i62, i63 and i64 changes only these settings of the door phone: the SIP account (with RFC 2833 DTMF), the password of the `admin` user of the web interface (generated by the PBX, see above), time zone, time server and language, the provisioning server, and the RTSP server (enabled, with authentication). Everything else keeps the values set on the web interface of the door phone. In particular, configure on the door phone:
 
 - the door-open code and the access rules (**EGS Setting**): the gate proposed by the wizard uses the code `*`, the default remote opening code of Fanvil door phones; if the door phone uses a different code, type it in the gate;
-- the camera streams (**Intercom settings** > **Camera Settings**), following the [recommended stream settings](#stream-settings): the wizard proposes the sub stream, `/h264/stream.live1`. The provisioning lowers the bitrate of the main stream to 1 Mbit/s and sets a keyframe every second on both streams.
+- the camera streams (**Intercom settings** > **Camera Settings**), following the [recommended stream settings](#stream-settings): the provisioning lowers the bitrate of the main stream to 1 Mbit/s and sets a keyframe every second on both streams, so the wizard proposes the main stream, `/h264/stream.live0`, and offers the sub stream, `/h264/stream.live1`, as *Standard* quality.
 
 On the Fanvil i62 with firmware 2.12.51 the RTSP password is always the password of the `admin` user of the web interface: for this reason the PBX uses the admin password of the door phone as RTSP password.
 :::
