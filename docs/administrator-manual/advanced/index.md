@@ -23,3 +23,5 @@ This section covers:
 - [**Queues alarm configuration**](./queue_alarm.md) - Configuration of queues alarm in NethVoice CTI Queues Manager
 
 
+
+- [**Call forwarding**](./call_forwarding.md) - Profile routing permissions and upgrade checks
