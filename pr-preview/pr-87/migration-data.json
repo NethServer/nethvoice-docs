@@ -1,15 +1,15 @@
 {
-  "generated_at": "2026-10-21T13:45:10.544855+00:00",
+  "generated_at": "2026-11-17T16:02:47.317026+00:00",
   "sources": {
     "nethcti_server": {
       "repo": "nethesis/nethcti-server",
       "branch": "ns8",
-      "commit": "071e7b9b89b1a1ed9ab85672bf27a9f8fdd826f2"
+      "commit": "08c8bc374ab609e94db8f349ffbce62084b2f00d"
     },
     "nethcti_middleware": {
       "repo": "nethesis/nethcti-middleware",
       "branch": "main",
-      "commit": "d02b1d66770ee70443288a048a1953f2dbf1f06e"
+      "commit": "de4bff0e2ae79f4b41a57603dcdd38c503048ee6"
     }
   },
   "stats": {
@@ -18,10 +18,10 @@
     "legacy_only": 156,
     "migration_percentage": 7.1,
     "middleware_by_class": {
-      "native": 34,
+      "native": 37,
       "deprecated": 3
     },
-    "new_in_middleware": 22
+    "new_in_middleware": 25
   },
   "endpoints": {
     "server": [
@@ -1061,6 +1061,11 @@
         "class": "native"
       },
       {
+        "method": "POST",
+        "path": "/password/change",
+        "class": "native"
+      },
+      {
         "method": "GET",
         "path": "/transcripts/:uniqueid",
         "class": "native"
@@ -1108,6 +1113,16 @@
       {
         "method": "GET",
         "path": "/2fa/qr-code",
+        "class": "native"
+      },
+      {
+        "method": "GET",
+        "path": "/password/info",
+        "class": "native"
+      },
+      {
+        "method": "POST",
+        "path": "/user/password",
         "class": "native"
       },
       {
