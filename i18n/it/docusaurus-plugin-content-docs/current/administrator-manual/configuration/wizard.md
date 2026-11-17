@@ -251,7 +251,7 @@ Best practice:
 
 Quindi fai clic su **Avanti** per procedere alla sezione Utenti.
 
-:::info Inoltro con FreePBX 17
+:::info Inoltro con NethVoice 1.8.x
 L'inoltro usa le rotte in uscita consentite dal profilo del proprietario dell'inoltro. Il permesso **Inoltro di chiamata** non aggira le restrizioni sulle rotte. Prima di aggiornare un'installazione esistente, verificare le regole di [inoltro di chiamata](../advanced/call_forwarding.md).
 :::
 

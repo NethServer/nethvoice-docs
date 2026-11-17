@@ -4,8 +4,8 @@ title: Call forwarding
 
 # Call forwarding
 
-:::info FreePBX 17 upgrade
-These rules apply to NethVoice instances upgraded to FreePBX 17 and Asterisk 22. Check them before upgrading an existing installation.
+:::info NethVoice 1.8.x upgrade
+These rules apply to installations upgraded to NethVoice 1.8.x. Check them before upgrading an existing installation.
 :::
 
 ## Outbound permissions {#outbound-permissions}
@@ -14,7 +14,7 @@ A forwarded call uses the routing permissions of the extension that owns the for
 
 For example, if a user's profile does not allow calls to mobile numbers, forwarding that user's calls to a mobile number also fails. Enabling the **Call Forwarding** permission allows the user to configure forwarding; it does not grant access to additional outbound routes.
 
-This changes the behavior of the previous FreePBX 16 integration, where forwarding used the general internal routing context. The new behavior prevents forwarding from bypassing outbound call restrictions.
+This changes the behavior in NethVoice 1.7, where forwarding used the general internal routing context. The new behavior prevents forwarding from bypassing outbound call restrictions.
 
 The rule applies to unconditional forwarding and forwarding on busy or no answer, including forwarding settings on individual ring-group members. Each member uses its own routing permissions. An external number configured directly as a ring-group destination retains the routing of that destination; review it separately.
 

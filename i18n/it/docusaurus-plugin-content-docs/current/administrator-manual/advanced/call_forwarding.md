@@ -4,8 +4,8 @@ title: Inoltro di chiamata
 
 # Inoltro di chiamata
 
-:::info Aggiornamento a FreePBX 17
-Queste regole si applicano alle istanze NethVoice aggiornate a FreePBX 17 e Asterisk 22. Verificarle prima di aggiornare un'installazione esistente.
+:::info Aggiornamento a NethVoice 1.8.x
+Queste regole si applicano alle installazioni aggiornate a NethVoice 1.8.x. Verificarle prima di aggiornare un'installazione esistente.
 :::
 
 ## Permessi sulle chiamate in uscita {#outbound-permissions}
@@ -14,7 +14,7 @@ Una chiamata inoltrata usa i permessi di instradamento dell'interno a cui appart
 
 Per esempio, se il profilo di un utente non consente chiamate verso i cellulari, anche l'inoltro delle sue chiamate verso un cellulare fallisce. Il permesso **Inoltro di chiamata** consente all'utente di configurare l'inoltro, ma non concede l'accesso ad altre rotte in uscita.
 
-Questo modifica il comportamento della precedente integrazione con FreePBX 16, in cui l'inoltro usava il contesto di instradamento interno generale. Il nuovo comportamento impedisce di aggirare le restrizioni sulle chiamate in uscita tramite l'inoltro.
+Questo modifica il comportamento di NethVoice 1.7, in cui l'inoltro usava il contesto di instradamento interno generale. Il nuovo comportamento impedisce di aggirare le restrizioni sulle chiamate in uscita tramite l'inoltro.
 
 La regola si applica all'inoltro incondizionato, su occupato e su mancata risposta, comprese le impostazioni di inoltro dei singoli membri di un gruppo di chiamata. Ogni membro usa i propri permessi di instradamento. Un numero esterno configurato direttamente come destinazione di un gruppo di chiamata mantiene l'instradamento di quella destinazione e va verificato separatamente.
 
