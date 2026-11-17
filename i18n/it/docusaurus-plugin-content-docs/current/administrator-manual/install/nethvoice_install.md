@@ -94,13 +94,21 @@ La procedura guidata rileva automaticamente se esiste già un proxy sul nodo di 
 3. **Imposta l'interfaccia di rete** che gestirà il traffico VoIP  
 4. **Configura l'indirizzo IP pubblico** se diverso dall'IP dell'interfaccia  
 
-La configurazione sopra sarà il punto di ingresso per tutto il traffico VoIP esterno.  
+#### Interfaccia di rete e provenienza dei client {#network-interface}
 
-Assicurati che:  
-- Il FQDN configurato risolva correttamente l'indirizzo IP pubblico  
-- Eventuali record DNS siano correttamente configurati per puntare al proxy  
+:::info Una sola interfaccia di rete
+NethVoice gestisce il traffico SIP e RTP su **una sola interfaccia di rete** del nodo NethServer 8: quella selezionata nella configurazione del NethVoice Proxy. Non è supportata la ricezione del traffico VoIP su più interfacce contemporaneamente.
+:::
 
-Questi requisiti sono fondamentali per ottenere un certificato SSL/TLS valido per comunicazioni sicure.  
+Una sola interfaccia non significa una sola rete di provenienza. I client possono raggiungere NethVoice da reti e indirizzi IP diversi, purché il loro traffico arrivi all'interfaccia selezionata:
+
+- **rete locale** direttamente collegata all'interfaccia;
+- **altre subnet locali** (VLAN, sedi collegate in VPN), instradate verso l'interfaccia dal router o firewall;
+- **reti remote e Internet** (App mobile, NethLink, sedi remote), tramite port-forwarding o NAT 1:1 dell'IP pubblico.
+
+In tutti i casi i client devono usare gli **FQDN configurati** (proxy, NethVoice, NethVoice CTI) e non gli indirizzi IP.
+
+Quando il nodo si trova dietro NAT, il NethVoice Proxy usa automaticamente l'IP locale per i client della rete direttamente collegata all'interfaccia. Le altre subnet locali vanno dichiarate esplicitamente, come descritto in [Reti locali aggiuntive](../advanced/nethvoice_proxy.md#local-networks). In alternativa, i client locali possono raggiungere l'IP pubblico tramite Hairpin NAT sul firewall.
 
 Consulta la [documentazione del NethVoice Proxy](../advanced/nethvoice_proxy.md) per maggiori informazioni.  
 
@@ -169,6 +177,14 @@ Nella pagina **Integrazioni** puoi configurare i servizi speech-to-text e AI:
 
 I riassunti delle chiamate generati dall'AI usano i dati della trascrizione post-chiamata e richiedono sia una configurazione Deepgram funzionante che una API Key OpenAI configurata.
 
+Nella sezione **Chat** della stessa pagina puoi abilitare la chat per gli utenti NethVoice:
+- **Abilita la chat**: attiva la chat in NethVoice CTI, NethLink e nell'app mobile.
+- **Conserva messaggi e allegati della chat per (giorni)**: messaggi e allegati più vecchi vengono cancellati.
+- **Spazio allegati per utente (MB)**: se un utente lo supera, i suoi allegati più vecchi vengono cancellati.
+- **Dimensione massima di un allegato (MB)**: limite di dimensione di un singolo file.
+
+Consulta [Chat](../configuration/chat.md) per tutti i dettagli, comprese le chat con persone esterne al centralino.
+
 Con una API Key Deepgram configurata, è disponibile anche la sintesi vocale (text-to-speech) durante l'aggiunta di una registrazione per Annunci, IVR o Code di chiamata: inserisci il testo del messaggio, scegli lingua e voce, ascolta l'anteprima e salvala come registrazione di sistema.
 
 :::info Trascrizioni e riassunti  
@@ -193,3 +209,38 @@ Nella pagina **Hotel** puoi configurare il modulo Hotel; è richiesto un abbonam
 - **Porta server FIAS Hotel**: Specifica il numero di porta per la connessione al server FIAS dell'hotel.  
 
 Consulta la [documentazione del modulo Hotel di NethVoice](/docs/administrator-manual/nethhotel/) per maggiori dettagli.
+
+### Allarmi {#alerts}
+
+NethVoice e [NethVoice Proxy](../advanced/nethvoice_proxy.md) dispongono di allarmi integrati che segnalano quando qualcosa smette di funzionare: un servizio fermo, un trunk che non raggiunge il provider, un problema DNS o una chiave AI non più valida. I controlli vengono eseguiti ogni 5 minuti.
+
+Gli allarmi sono disabilitati per impostazione predefinita. Per abilitarli:
+
+1. Apri l'applicazione NethVoice e vai alla pagina **Impostazioni**.
+2. Nella scheda **Allarmi**, attiva l'interruttore e fai clic su **Salva**.
+3. Ripeti gli stessi passaggi nella pagina **Impostazioni** dell'applicazione NethVoice Proxy.
+
+Gli allarmi attivi sono visibili nella pagina **Nodi** dell'amministrazione del cluster e, se il cluster ha una sottoscrizione, su [my.nethesis.it](https://my.nethesis.it/).
+
+NethVoice genera questi allarmi:
+
+| Allarme | Gravità | Quando scatta |
+|--------|---------|---------------|
+| `ServiceDown` | critical | Un servizio di NethVoice (ad esempio Asterisk, MariaDB, NethVoice CTI o Janus) è fermo da 10 minuti, oppure è stato riavviato almeno 3 volte in 10 minuti. I servizi disabilitati e quelli mai avviati non vengono controllati. |
+| `NethVoiceTrunkUnreachable` | critical | Lo stesso allarme generato da NethVoice Proxy, per i trunk che non passano dal proxy. Di norma i trunk passano dal proxy, quindi questo allarme riguarda solo configurazioni personalizzate. Scatta quando uno di questi trunk resta in errore per 10 minuti: NethVoice non riesce a registrarsi presso il provider, il lato remoto che si registra su NethVoice non è registrato, oppure il provider di un trunk IP non risponde. |
+| `NethVoiceTrunkNotMonitored` | warning | Per 10 minuti, un trunk IP, o un trunk in cui il lato remoto si registra su NethVoice, ha un nome con uno spazio (o un altro carattere non ammesso in un indirizzo SIP) e nessun From User. Le chiamate funzionano, ma NethVoice non invia al trunk i controlli di keep-alive, quindi un guasto del provider passa inosservato. I trunk che si registrano presso il provider non sono interessati. |
+| `NethVoiceDnsFailure` | warning | Lo stesso problema DNS si presenta in 3 controlli consecutivi (15 minuti). Motivo `not_resolved`: il nome di NethVoice, di NethVoice CTI o del proxy non esiste sul server DNS del nodo. Motivo `ip_mismatch`: il nome del proxy non punta né all'indirizzo IPv4 pubblico né a quello privato del proxy, ad esempio dopo che il proxy è passato a un nuovo IP pubblico e nessuno ha aggiornato il record DNS. L'allarme mostra l'indirizzo restituito dal DNS e quelli attesi. Motivo `no_answer`: il server DNS del nodo non risponde entro 5 secondi. |
+| `NethVoiceDnsSlow` | warning | In 3 controlli consecutivi (15 minuti), il server DNS del nodo impiega più di 3 secondi a risolvere uno di questi nomi. Non viene mai generato insieme a `NethVoiceDnsFailure` per lo stesso nome. |
+| `NethVoiceAIKeyInvalid` | critical | Con la trascrizione abilitata, Deepgram o OpenAI rifiuta la chiave API da 10 minuti. |
+| `NethVoiceAICreditExhausted` | critical | Un provider AI ha rifiutato una richiesta perché l'account ha esaurito il credito. L'allarme si chiude dopo la successiva richiesta riuscita. |
+
+NethVoice Proxy genera questi allarmi:
+
+| Allarme | Gravità | Quando scatta |
+|--------|---------|---------------|
+| `ServiceDown` | critical | Un servizio del proxy (Kamailio, rtpengine, PostgreSQL o Redis) è fermo da 10 minuti, oppure è stato riavviato almeno 3 volte in 10 minuti. |
+| `NethVoiceTrunkUnreachable` | critical | Per 10 minuti, su un trunk UDP che passa dal proxy, il provider rifiuta la registrazione, non risponde alla registrazione, oppure non risponde ai controlli di keep-alive di un trunk IP. I trunk su TCP o TLS non vengono ancora controllati. |
+
+I controlli DNS usano il server DNS configurato sul nodo, non i server DNS pubblici: assicurati che risolva i nomi di NethVoice, NethVoice CTI e del proxy. Il nome del proxy può puntare all'indirizzo IP pubblico o a quello privato del proxy. Questo permette configurazioni split DNS, in cui gli utenti interni all'ufficio ottengono l'IP privato e quelli esterni l'IP pubblico. Se la risposta contiene più indirizzi, ne basta uno corrispondente. Vengono controllati solo gli indirizzi IPv4. Se NethVoice non riesce a determinare gli indirizzi del proxy, salta il controllo dell'IP senza alcun avviso.
+
+L'allarme `NethVoiceTrunkNotMonitored` compare di solito sui trunk creati dalla pagina di FreePBX, migrati da NethServer 7 o importati, perché i trunk creati dal wizard di NethVoice hanno sempre un From User. Per risolvere, rinomina il trunk senza spazi nell'interfaccia di FreePBX (**Connettività -> Trunk**) e applica la configurazione. Poi aggiorna eventuali dialplan o trunk personalizzati che chiamano `PJSIP/...@<vecchio nome>`: da quel momento la cronologia chiamate e i report mostrano il trunk con il nuovo nome. Non compilare il campo From User per aggirare l'allarme, perché sostituisce l'ID chiamante nell'header From di tutte le chiamate in uscita. Il wizard di NethVoice mostra un avviso quando il nome di un nuovo trunk contiene uno spazio, ma NethVoice non rinomina mai un trunk da solo.

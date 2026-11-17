@@ -32,6 +32,7 @@ The agent ensures that:
    - Suggest corrections, reorganizations, or merges of related pages.
 
 3. **Translation Consistency**
+   - There is no translation bot: whenever you add or change an English page, update the matching Italian page under `/i18n/it/` in the same change (and vice versa). Never leave the Italian version for later.
    - Verify that each English page has a corresponding Italian page under `/i18n/it/`.
    - Report missing or untranslated pages.
    - Ensure both versions contain equivalent structure and meaning.

@@ -62,6 +62,16 @@ When call summary is enabled for your user, NethLink can also show an operating 
 - NethLink does not provide a dedicated summary viewer: summaries and post-call transcriptions are reviewed in CTI.
 - If notifications are disabled, generated content remains available later from CTI History.
 
+## Chat {#chat}
+
+When the chat is enabled on NethVoice and your profile has the **Chat** permission, NethLink shows the **Chat** section with your conversations, their unread messages and the same options of NethVoice CTI to delete a chat or leave a group.
+
+- Chats open in a window at the bottom right of the screen; drag it anywhere, also to another monitor.
+- In the search bar, the chat icon next to a colleague opens a chat with them; Ctrl+Enter (Cmd+Enter on macOS) does the same from the keyboard.
+- While NethLink is running, **Chat** in NethVoice CTI opens the conversation in NethLink.
+
+Everything you can do in a chat, including groups and chats with people outside the company, is described in the [NethVoice CTI chat](../nethcti/chat.md).
+
 ## Advanced Features {#advanced-features}
 
 ### Keyboard Shortcuts {#keyboard-shortcuts}

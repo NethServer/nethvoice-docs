@@ -7,7 +7,7 @@ sidebar_position: 3
 
 ![Nethvoiceapp](/img/nethvoiceapp/nethvoiceapp_presentazione.png)
 
-L'**app mobile NethVoice** (NethCTI) porta le capacità enterprise VoIP sul tuo smartphone o tablet, permettendoti di effettuare e ricevere chiamate utilizzando il tuo numero aziendale da qualsiasi luogo con una connessione internet.
+L'**app mobile NethVoice** (NethVoice CTI) porta le capacità enterprise VoIP sul tuo smartphone o tablet, permettendoti di effettuare e ricevere chiamate utilizzando il tuo numero aziendale da qualsiasi luogo con una connessione internet.
 
 :::warning È richiesta una subscription Enterprise
 L'app mobile è **disponibile solo con una subscription Enterprise**. Sebbene l'app stessa sia gratuita da scaricare, l'accesso al servizio di provisioning richiesto per configurarla e abilitarla sul tuo dispositivo è esclusivo per i sottoscrittori Enterprise.
@@ -53,7 +53,7 @@ Scarica l'app mobile NethVoice dall'app store del tuo dispositivo:
 La configurazione è semplice e richiede solo un codice QR:
 
 1. Apri l'app mobile NethVoice
-2. Scansiona il codice QR visualizzato nel tuo client web NethVoice (NethCTI)
+2. Scansiona il codice QR visualizzato nel tuo client web NethVoice (NethVoice CTI)
    - Clicca sull'icona Impostazioni nella barra laterale sinistra
    - Accedi alla sezione App Mobile
    - Clicca sul pulsante **Genera codice QR**
@@ -150,6 +150,15 @@ Dalla sezione Tastierino, tocca l’icona dell’ingranaggio in alto a destra pe
 * Registri: accedi ai registri diagnostici per la risoluzione dei problemi e la raccolta dei log, utili anche per richieste di supporto.
 * Disconnettersi: disconnetti l’account dall’app senza rimuoverne la configurazione.
 * Reimposta applicazione: reimposta completamente l’app e cancella tutti i dati associati. Per accedere nuovamente, segui le istruzioni nella sezione Access.
+
+### Messaggi {#messages}
+
+Quando la chat è abilitata su NethVoice e il tuo profilo ha il permesso **Chat**, la sezione **Messaggi** dell'app mostra le tue conversazioni con colleghi e gruppi, le stesse di NethVoice CTI e NethLink.
+
+- L'app riceve la configurazione della chat in automatico quando accedi con il codice QR o con nome utente e password. Con l'autenticazione a due fattori attiva, usa il codice QR.
+- Puoi inviare e ricevere messaggi, allegati e messaggi vocali, nelle chat uno a uno e nei gruppi.
+- I nuovi messaggi arrivano come notifiche push, anche con l'app in background o chiusa.
+- Una risposta inviata da NethVoice CTI o NethLink mostra in alto il messaggio citato, con ogni riga che inizia con ┃, e sotto la risposta.
 
 ### Notifiche
 

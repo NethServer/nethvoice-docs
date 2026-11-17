@@ -109,7 +109,7 @@ Before deploying NethVoice, ensure you have:
 | **[Installation](./install/index.md)** | System setup and deployment | NethServer, NethVoice installation, prerequisites |
 | **[Provisioning](./provisioning/index.md)** | Phone device management | Supported devices, provisioning methods, configuration |
 | **[Administrator Manual](./index.md)** | System administration | Users, extensions, trunks, gateways, routing |
-| **[User Manual](../user-manual/index.md)** | End-user features | CTI client, NethCTI, NethLink, calling features |
+| **[User Manual](../user-manual/index.md)** | End-user features | CTI client, NethVoice CTI, NethLink, calling features |
 
 :::tip Multi-Instance Deployments
 You can install multiple NethVoice instances on the same NethServer 8 node from the Software Center. Each instance requires separate configuration and runs independently. This is useful for multi-tenant deployments or separate business units.

@@ -7,7 +7,7 @@ sidebar_position: 3
 
 ![Nethvoiceapp](/img/nethvoiceapp/nethvoiceapp_presentazione.png)
 
-The **NethVoice Mobile App** (NethCTI) brings enterprise VoIP capabilities to your smartphone or tablet, allowing you to make and receive calls using your business phone number from anywhere with an internet connection.
+The **NethVoice Mobile App** (NethVoice CTI) brings enterprise VoIP capabilities to your smartphone or tablet, allowing you to make and receive calls using your business phone number from anywhere with an internet connection.
 
 :::warning Enterprise Subscription Required
 The mobile app is **only available with an Enterprise subscription**. While the app itself is free to download, access to the provisioning service required to configure and enable it on your device is exclusive to Enterprise subscribers.
@@ -53,7 +53,7 @@ Download the NethVoice mobile app from your device's app store:
 Configuration is simple and requires only a QR code:
 
 1. Open the NethVoice mobile app
-2. Scan the QR code displayed in your NethVoice web client (NethCTI):
+2. Scan the QR code displayed in your NethVoice web client (NethVoice CTI):
    - Click on the Settings icon in the left sidebar
    - Access the Mobile App section
    - Click on the **Generate QR Code** button
@@ -158,6 +158,15 @@ From the Keypad section, tap the gear icon in the top right corner to open Setti
 * Disconnect: sign out of the app without removing its configuration.
 * Reset Application: completely reset the app and clear all associated data. To log in again, follow the instructions in the Access section.
 
+
+### Messages {#messages}
+
+When the chat is enabled on NethVoice and your profile has the **Chat** permission, the **Messages** section of the app shows your conversations with colleagues and groups, the same as in NethVoice CTI and NethLink.
+
+- The app gets the chat configuration automatically when you log in with the QR code or with username and password. With two-factor authentication enabled, use the QR code.
+- You can send and receive messages, attachments and voice notes, in one-to-one chats and in groups.
+- New messages arrive as push notifications, also with the app in the background or closed.
+- A reply sent from NethVoice CTI or NethLink shows the quoted message on top, each line starting with ┃, and the answer below.
 
 ### Notifications
 

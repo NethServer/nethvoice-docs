@@ -15,8 +15,8 @@ Tutorials and guides for using these APIs can be found in the following sections
 
 API references and documentation for NethVoice-related services:
 
-- [CTI APIs full reference](https://documenter.getpostman.com/view/15699632/TzRRC88p#41f9b8cc-bea8-4917-a293-84eaedcaed08) interaction with the NethCTI Server that manages web-based telephony features.
-- [NethCTI Middleware reference](https://bump.sh/nethesis/doc/nethcti-middleware/) for the NethCTI Middleware, which provides a simplified interface to the CTI Server and additional features.
+- [CTI APIs full reference](https://documenter.getpostman.com/view/15699632/TzRRC88p#41f9b8cc-bea8-4917-a293-84eaedcaed08) interaction with the NethVoice CTI Server that manages web-based telephony features.
+- [NethVoice CTI Middleware reference](https://bump.sh/nethesis/doc/nethcti-middleware/) for the NethVoice CTI Middleware, which provides a simplified interface to the CTI Server and additional features.
 - [API Migration Status dashboard](/migration-status) for an overview of which endpoints have already been migrated and which are still proxied to the legacy server.
 - [Tancredi provisioning](https://nethesis.github.io/tancredi/API)
   - Tancredi server is available for all NethVoice installations, the URL is:

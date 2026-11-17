@@ -24,6 +24,7 @@ I Browser attualmente supportati sono:
 - **Integrazione rubrica**: Accesso rapido ai contatti
 - **Cronologia chiamate**: Visualizza le chiamate recenti e i registri
 - **Strumenti di collaborazione**: Funzionalità di comunicazione integrate
+- **Chat**: Scrivi a colleghi, gruppi e persone esterne all'azienda
 - **Ricerca in rubrica**: Trova i contatti rapidamente
 - **Numeri brevi**: Salva i numeri utilizzati frequentemente
 - **Notifiche di chiamata**: Ricevi avvisi per le chiamate in arrivo
@@ -42,4 +43,5 @@ Per ulteriori informazioni, consulta le sezioni specifiche:
 
 - [Accesso](./access.md) - Come accedere a NethVoice CTI
 - [Chiamate](./calls.md) - Come gestire le chiamate
+- [Chat](./chat.md) - Chat con colleghi, gruppi e persone esterne all'azienda
 - [Altre funzionalità](./other.md) - Funzionalità aggiuntive e opzioni

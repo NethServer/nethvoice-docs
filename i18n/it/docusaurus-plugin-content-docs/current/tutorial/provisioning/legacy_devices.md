@@ -35,25 +35,25 @@ runagent -m nethvoice1
 
 Sostituisci `nethvoice1` con il nome del modulo appropriato per la tua istanza.
 
-Quindi controlla la variabile di ambiente `ASTERISK_SIP_PORT`:
+Quindi controlla la variabile di ambiente `ASTERISK_SIP_UDP_PORT`:
 
 ```bash
-env | grep ASTERISK_SIP_PORT
+env | grep ASTERISK_SIP_UDP_PORT
 ```
 
 Esempio di output:
 ```
-ASTERISK_SIP_PORT=20098
+ASTERISK_SIP_UDP_PORT=20999
 ```
 
-In questo esempio, la porta SIP in chiaro è `20098`.
+In questo esempio, la porta SIP in chiaro è `20999`.
 
 #### 2. Aprire il firewall per il dispositivo {#open-firewall}
 
-Usa una regola del firewall per consentire **solo** all'indirizzo IP del dispositivo di accedere alla porta SIP di Asterisk. Sostituisci `1.2.3.4` con l'indirizzo IP effettivo del dispositivo legacy e `20098` con la porta identificata nel passaggio 1:
+Usa una regola del firewall per consentire **solo** all'indirizzo IP del dispositivo di accedere alla porta SIP di Asterisk. Sostituisci `1.2.3.4` con l'indirizzo IP effettivo del dispositivo legacy e `20999` con la porta identificata nel passaggio 1:
 
 ```bash
-firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address=1.2.3.4 port port=20098 protocol="udp" accept'
+firewall-cmd --permanent --add-rich-rule='rule family="ipv4" source address=1.2.3.4 port port=20999 protocol="udp" accept'
 firewall-cmd --reload
 ```
 
@@ -65,7 +65,7 @@ Questa regola garantisce che:
 Per rimuovere la regola in seguito, usa:
 
 ```bash
-firewall-cmd --permanent --remove-rich-rule='rule family="ipv4" source address=1.2.3.4 port port=20098 protocol="udp" accept'
+firewall-cmd --permanent --remove-rich-rule='rule family="ipv4" source address=1.2.3.4 port port=20999 protocol="udp" accept'
 firewall-cmd --reload
 ```
 
@@ -74,7 +74,7 @@ firewall-cmd --reload
 Configura il dispositivo legacy con le seguenti impostazioni:
 
 - **Server SIP**: Il nome host o l'indirizzo IP dell'host NethVoice
-- **Porta SIP**: La porta SIP in chiaro identificata nel passaggio 1 (es. `20098`)
+- **Porta SIP**: La porta SIP in chiaro identificata nel passaggio 1 (es. `20999`)
 - **Trasporto**: `UDP` (non TLS)
 
 Fai riferimento alla documentazione del tuo dispositivo per i passaggi di configurazione specifici.

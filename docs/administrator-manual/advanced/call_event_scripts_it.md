@@ -1,6 +1,6 @@
 ---
 title: Call event scripts
-sidebar_position: 9
+sidebar_position: 10
 ---
 
 # Call event scripts {#call-event-scripts}
