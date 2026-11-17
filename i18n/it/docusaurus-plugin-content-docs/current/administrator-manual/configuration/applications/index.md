@@ -19,3 +19,4 @@ Le seguenti applicazioni sono disponibili nella sezione *Applicazioni*:
 - **Sorgenti Video**: Configura telecamere IP e sorgenti video per l'integrazione con NethVoice.
 - **Gestione massiva**: Gestisci e modifica simultaneamente più interni e telefoni.
 - **Casella vocale**: Configura le notifiche email della casella vocale.
+- **[Agenti vocali](voice_agents.md)**: Configura la gestione conversazionale delle chiamate, i trasferimenti autorizzati e il monitoraggio (richiede una versione che includa la funzionalità).

@@ -19,3 +19,4 @@ The following applications are available in the *Applications* section:
 - **Video Sources**: Configure IP cameras and video sources for integration with NethVoice.
 - **Bulk actions**: Manage and modify multiple extensions and phones simultaneously.
 - **Voicemail**: Configure voicemail email notifications.
+- **[Voice agents](voice_agents.md)**: Configure conversational call handling, permitted transfers and call monitoring (requires a version containing the feature).
