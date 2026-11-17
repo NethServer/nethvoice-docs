@@ -26,13 +26,38 @@ Il link di collegamento e le credenziali di accesso sono specifiche della tua in
 4. Clicca il pulsante di accesso
 5. Verrai reindirizzato all'interfaccia principale
 
+## Password {#password}
+
+Puoi cambiare la password e controllarne la scadenza direttamente da NethVoice CTI.
+
+### Cambio della password
+
+1. Vai su **Impostazioni** → **Account** e clicca **Cambia password**
+2. Inserisci la password attuale e due volte quella nuova, poi clicca **Cambia password**
+
+La nuova password deve rispettare la policy del provider di account: lunghezza minima, almeno 3 tra lettere maiuscole, lettere minuscole, numeri e caratteri speciali, non usata in precedenza.
+
+Dopo il cambio le altre sessioni, compreso NethLink, vengono disconnesse. L'app mobile collegata con il QR code e i token di integrazione continuano a funzionare.
+
+### Scadenza della password
+
+- Da 7 giorni prima della scadenza, dopo l'accesso viene mostrato un avviso una volta al giorno e **Impostazioni** → **Account** mostra la data di scadenza.
+- Se la password scade mentre sei connesso, puoi continuare a usare NethVoice CTI fino alla fine della sessione: **Impostazioni** → **Account** mostra fino a quando.
+- Se la password è scaduta al login, devi sceglierne una nuova, poi accedere con quella.
+
+:::note
+
+Richiede come provider di account OpenLDAP 2.7.0 o Samba 3.4.6 (o successivi): le versioni precedenti non gestiscono la scadenza. Non è disponibile con un provider di account esterno o con il Single Sign-On (SSO).
+
+:::
+
 ## Autenticazione a due fattori (2FA) {#two-factor-authentication}
 
 L'autenticazione a due fattori (2FA) fornisce un livello di sicurezza aggiuntivo per il tuo account NethVoice CTI richiedendo un secondo metodo di verifica durante l'accesso.
 
 ### Attivazione della 2FA
 
-1. Vai a **Impostazioni** → **Autenticazione**
+1. Vai a **Impostazioni** → **Account**
 2. Cerca la sezione "Autenticazione a due fattori" che mostra lo stato attuale (abilitato o disabilitato)
 3. Fai clic sul pulsante di configurazione per iniziare l'installazione
 4. Scegli il tuo metodo di configurazione:
@@ -63,7 +88,7 @@ Quando la 2FA è abilitata:
 
 Per disattivare l'autenticazione a due fattori:
 
-1. Vai a **Impostazioni** → **Autenticazione**
+1. Vai a **Impostazioni** → **Account**
 2. Fai clic sul pulsante di configurazione
 3. Inserisci la tua password per confermare
 4. La 2FA sarà disabilitata

@@ -70,6 +70,14 @@ Quando il riassunto chiamata è abilitato per il tuo utente, NethLink mostra una
 
 Questa preferenza viene salvata sul tuo account NethVoice ed è condivisa con il web phone CTI.
 
+### Cambio password {#change-password}
+
+Apri il menu del profilo, clicca **Impostazioni** → **Cambia password**, poi inserisci la password attuale e quella nuova. Le altre sessioni, compreso NethVoice CTI, vengono disconnesse, mentre NethLink resta connesso. I requisiti della password sono gli stessi di [NethVoice CTI](../nethcti/access.md#password).
+
+- Da 7 giorni prima della scadenza, NethLink mostra una notifica di sistema una volta al giorno: cliccala per cambiare la password.
+- Se la password è scaduta al login, devi sceglierne una nuova, poi accedere con quella.
+- Dopo un cambio password fatto da NethVoice CTI, NethLink chiede di accedere di nuovo.
+
 ### Impostazioni della privacy
 
 - Periodo di conservazione della cronologia delle chiamate

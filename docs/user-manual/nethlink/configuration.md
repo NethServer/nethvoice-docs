@@ -72,6 +72,14 @@ When call summary is enabled for your user, NethLink shows a **Notifications** s
 
 This preference is saved on your NethVoice account and is shared with the CTI web phone.
 
+### Change Password {#change-password}
+
+Open the profile menu, click **Settings** → **Change password**, then enter the current password and the new one. The other sessions, NethVoice CTI included, are signed out, while NethLink stays signed in. The password requirements are the same as in [NethVoice CTI](../nethcti/access.md#password).
+
+- From 7 days before the expiration, NethLink shows a system notification once a day: click it to change the password.
+- If the password is expired at login, you must choose a new one, then sign in with it.
+- After a password change made from NethVoice CTI, NethLink asks to sign in again.
+
 ### Privacy Settings {#privacy-settings}
 
 - Call history retention period
