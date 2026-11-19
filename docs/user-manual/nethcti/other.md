@@ -226,7 +226,7 @@ Use the Announcements menu to upload or record new announcements. You can also l
 
 ### Video Sources {#video-sources}
 
-Advanced video intercom management. Manage and control your video intercoms (subject to specific permissions).
+Watch your door intercoms and IP cameras, live or as pictures, and open doors (subject to specific permissions). See [Video sources](./video_sources.md).
 
 ### PBX Report {#pbx-report}
 

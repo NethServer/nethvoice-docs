@@ -32,6 +32,8 @@ Alternatively, you can:
 3. Click **Reject** to decline the call
 4. Use the controls during the call
 
+When the call comes from a door intercom configured as a video source, NethLink shows the video of the intercom before you answer and during the call, with the buttons to open the door, as NethVoice CTI does. See [Calls from an intercom](../nethcti/video_sources.md#intercom-calls).
+
 ## Address Book Management {#address-book-management}
 
 - Add new contacts

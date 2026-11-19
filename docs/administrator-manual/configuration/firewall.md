@@ -32,6 +32,7 @@ Here there is a list of commonly used ports:
 - SFTP Port (TCP), eg `20149`: used for SFTP access by specific services (e.g., recording upload/download).
 - IAX Port (UDP), eg `20110`: single UDP port for IAX (Inter-Asterisk eXchange) protocol.
 - RTP and Janus Ports (UDP): used for audio streaming in NethVoice CTI, it's a range of port, usually around 1000 ports.
+- Video gateway ICE Ports, one UDP and one TCP: used by browsers and NethLink to receive the live video of the [video sources](./applications/video_sources.md#network-requirements) (door intercoms and IP cameras). To see their numbers, open the NethVoice application in the NethServer administration page, go to **Status** and look for **Video gateway ICE (UDP)** and **Video gateway ICE (TCP)** in the **Internal service details** table.
 
 ### Generic Ports
 
@@ -59,6 +60,7 @@ Here there is a list of commonly used ports:
 | SFTP | Variable* | TCP | Recording management | Call Registration download |
 | WSS | Variable* | TCP | Asterisk Web Socket Secure | WSS client registration port |
 | Asterisk RTP | Variable* | UDP | Audio for WSS client | WSS client audio ports |
+| Video gateway ICE | Variable* | UDP and TCP | Video sources (WebRTC) | Live video of door intercoms and IP cameras in NethVoice CTI and NethLink |
 | WireGuard VPN | 55820 | UDP | VPN access | Required to have a multi-node NethServer |
 | HTTPS | 443 | TCP | Web services | Web interface access (NethVoice, NethVoice CTI) and provisioning (phones and mobile apps) |
 | SSH | 22 | TCP | Remote management | Command-line access |
