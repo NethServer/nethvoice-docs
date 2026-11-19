@@ -57,10 +57,9 @@ Here there is a list of commonly used ports:
 | CTI TLS | Variable* | TCP | CTI secure communication | NethVoice CTI TLS communication (not used) |
 | LDAP | Variable* | TCP | Directory services | LDAP phonebook for phones |
 | SFTP | Variable* | TCP | Recording management | Call Registration download |
-| WSS | Variable* | TCP | Asterisk Web Socket Secure | WSS client registration port |
 | Asterisk RTP | Variable* | UDP | Audio for WSS client | WSS client audio ports |
 | WireGuard VPN | 55820 | UDP | VPN access | Required to have a multi-node NethServer |
-| HTTPS | 443 | TCP | Web services | Web interface access (NethVoice, NethVoice CTI) and provisioning (phones and mobile apps) |
+| HTTPS | 443 | TCP | Web services | Web interface access (NethVoice, NethVoice CTI), provisioning (phones and mobile apps) and WSS client registration (`wss://<NethVoice host>/ws`) |
 | SSH | 22 | TCP | Remote management | Command-line access |
 
 *Variable ports are instance-specific. Use the environment variable inspection method described above to determine exact port numbers for your deployment.
