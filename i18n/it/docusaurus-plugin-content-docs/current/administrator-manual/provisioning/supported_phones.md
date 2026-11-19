@@ -39,7 +39,7 @@ Per i telefoni non elencati come supportati, è possibile creare modelli di prov
 
 - i60/i60K, i61, i62, i63, i64
 
-I videocitofoni si configurano con il provisioning come i telefoni: il centralino imposta l'account SIP, fuso orario e server dell'ora, i flussi della telecamera e la password RTSP del flusso video, generata dal centralino per ogni citofono; la loro interfaccia web mantiene la password di amministrazione dei telefoni. Il loro video può poi diventare una sorgente video con **Crea da un citofono**, vedi [Sorgenti video](../configuration/applications/video_sources.md#door-phone).
+I videocitofoni si configurano con il provisioning come i telefoni: il centralino imposta l'account SIP, fuso orario e server dell'ora, i flussi della telecamera, la password RTSP del flusso video, generata dal centralino per ogni citofono, i pulsanti di chiamata (speed dial), i relè (codice DTMF e tempo di apertura) e la password dell'interfaccia web, che è la password di amministrazione dei telefoni. Il loro video può poi diventare una sorgente video con **Crea da un citofono**, vedi [Sorgenti video](../configuration/applications/video_sources.md#door-phone).
 
 ## Yealink
 

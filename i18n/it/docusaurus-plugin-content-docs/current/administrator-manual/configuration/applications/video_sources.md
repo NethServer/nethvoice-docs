@@ -107,19 +107,24 @@ Per i citofoni che NethVoice configura con il provisioning (vedi [Telefoni suppo
    - **URL**: il flusso principale del dispositivo, per esempio `rtsp://192.0.2.10:554/h264/stream.live0` per i Fanvil i6x, con l'indirizzo del citofono;
    - **Qualità video**: *Alta (flusso principale)*, la scelta predefinita, oppure *Standard (flusso secondario, per connessioni lente)*, per i citofoni con due flussi. La scelta cambia solo il percorso dell'URL; un percorso inserito a mano mostra *Percorso personalizzato*;
    - **Profilo**: il profilo dell'utente dell'interno del citofono;
-   - una porta DTMF, *Porta 1*, con il codice di apertura del citofono.
+   - una porta DTMF per ogni relè del citofono: *Porta 1* con il codice del relè 1 (`*` come predefinito) e, per i citofoni con due relè, *Porta 2* con il codice del relè 2 (`#` come predefinito). Vedi [Porte e varchi](#gates).
 4. Modifica quello che serve, seleziona i profili, clicca su **Verifica** e su **Salva**.
 
-**Credenziali.** La prima volta che un citofono viene usato, il centralino genera per lui una password RTSP casuale, la aggiunge alla configurazione di provisioning del dispositivo e chiede al citofono di scaricare di nuovo la configurazione. Questa password protegge solo il flusso video (RTSP) del citofono: l'interfaccia web del citofono mantiene la password di amministrazione dei telefoni. La password non viene mai mostrata nelle sorgenti video e il form non ha i campi nome utente e password per una sorgente collegata a un citofono, anche quando la modifichi. Per leggere o cambiare la password, apri **Utenti**, l'utente del citofono, clicca sulla matita accanto al modello del dispositivo tra i suoi dispositivi associati e apri **Preferenze**: il campo è **Password RTSP (flusso video)**, con il pulsante a forma di occhio per mostrarla. Quando la salvi lì, il citofono riceve la nuova password con il provisioning successivo e le sorgenti create dal citofono prendono la nuova password. Per usare altre credenziali per il video di un citofono, crea invece la sorgente con **Crea nuova sorgente**. Il form segnala quando la password è appena stata generata: se la verifica non riesce, attendi un minuto perché il citofono applichi la nuova configurazione, oppure riavvia il citofono. In seguito lo stesso citofono mantiene la stessa password.
+**Tasti di chiamata e relè.** I tasti di chiamata e i relè del citofono si impostano nelle impostazioni del telefono, come i tasti di un telefono: apri **Utenti**, l'utente del citofono, clicca sulla matita accanto al modello del dispositivo tra i suoi dispositivi associati.
+
+- **Line key**: un tasto per ogni pulsante di chiamata del citofono (cinque sull'i63, uno sugli altri modelli). L'unico tipo è **Speed Dial**: inserisci il numero che il pulsante chiama, per esempio l'interno della reception o un gruppo di chiamata. Un tasto senza numero non viene scritto, quindi il citofono mantiene il pulsante impostato nella sua interfaccia web.
+- **Relè**: per ogni relè, **Relè 1: codice DTMF di apertura** e **Relè 1: tempo di apertura (secondi)**, e lo stesso per il relè 2 sui citofoni con due relè (l'i60 ne ha uno). I codici predefiniti sono `*` per il relè 1 e `#` per il relè 2. Il citofono apre il relè quando riceve il suo codice durante una chiamata; i varchi delle sorgenti create dal citofono inviano questi codici.
+
+**Credenziali.** La prima volta che un citofono viene usato, il centralino genera per lui una password RTSP casuale, la aggiunge alla configurazione di provisioning del dispositivo e chiede al citofono di scaricare di nuovo la configurazione. Questa password protegge solo il flusso video (RTSP) del citofono: l'interfaccia web del citofono riceve la [password di amministrazione dei telefoni](../../provisioning/phone_provisioning.md#password-amministratore), con l'utente `admin`. La password non viene mai mostrata nelle sorgenti video e il form non ha i campi nome utente e password per una sorgente collegata a un citofono, anche quando la modifichi. Per leggere o cambiare la password, apri **Utenti**, l'utente del citofono, clicca sulla matita accanto al modello del dispositivo tra i suoi dispositivi associati e apri **Preferenze**: il campo è **Password RTSP (flusso video)**, con il pulsante a forma di occhio per mostrarla. Quando la salvi lì, il citofono riceve la nuova password con il provisioning successivo e le sorgenti create dal citofono prendono la nuova password. Per usare altre credenziali per il video di un citofono, crea invece la sorgente con **Crea nuova sorgente**. Il form segnala quando la password è appena stata generata: se la verifica non riesce, attendi un minuto perché il citofono applichi la nuova configurazione, oppure riavvia il citofono. In seguito lo stesso citofono mantiene la stessa password.
 
 **Indirizzo.** L'indirizzo IP viene dalla registrazione SIP del citofono, quindi è l'indirizzo del dispositivo nella sua rete: il form verifica se il centralino lo raggiunge, come per qualsiasi sorgente (vedi [Creazione di una sorgente video](#creating-video-source)). Se il citofono si registra da un indirizzo pubblico che il centralino raggiunge sulla stessa porta, l'avviso propone anche **Usa l'indirizzo pubblico**. Se il citofono non è registrato, l'URL è vuoto: inseriscilo.
 
 Le sorgenti create in questo modo sono sorgenti normali: **Modifica** ed **Elimina** funzionano come per tutte le altre. **Crea nuova sorgente** continua a funzionare per qualsiasi altro dispositivo.
 
 :::note Citofoni Fanvil i6x
-Il provisioning dei Fanvil i60/i60K, i61, i62, i63 e i64 modifica solo queste impostazioni del citofono: l'account SIP (con DTMF RFC 2833), fuso orario e server dell'ora, il server di provisioning, i flussi della telecamera e il server RTSP (abilitato, con autenticazione e la password RTSP generata dal centralino, vedi sopra). L'interfaccia web mantiene la password di amministrazione dei telefoni. Tutto il resto mantiene i valori impostati nell'interfaccia web del citofono. In particolare, configura sul citofono:
+Il provisioning dei Fanvil i60/i60K, i61, i62, i63 e i64 modifica solo queste impostazioni del citofono: l'account SIP (con DTMF RFC 2833), fuso orario e server dell'ora, il server di provisioning, i flussi della telecamera, il server RTSP (abilitato, con autenticazione e la password RTSP generata dal centralino, vedi sopra), i pulsanti di chiamata con un numero (speed dial), i relè con un codice DTMF (aperti tramite DTMF, con il loro codice e tempo di apertura) e la password dell'utente web `admin`, che è la password di amministrazione dei telefoni. Tutto il resto mantiene i valori impostati nell'interfaccia web del citofono. In particolare, configura sul citofono:
 
-- il codice di apertura della porta e le regole di accesso (**EGS Setting**): la porta proposta dal wizard usa il codice `*`, il codice di apertura remota predefinito dei citofoni Fanvil; se il citofono usa un codice diverso, inseriscilo nella porta;
+- le regole di accesso e le password di apertura della porta (**EGS Setting**), e le uscite che il provisioning non scrive;
 - i flussi della telecamera (**Intercom settings** > **Camera Settings**), seguendo le [impostazioni del flusso consigliate](#stream-settings): il provisioning riduce il bitrate del flusso principale a 1 Mbit/s e imposta un keyframe al secondo su entrambi i flussi, quindi il wizard propone il flusso principale, `/h264/stream.live0`, e offre il flusso secondario, `/h264/stream.live1`, come qualità *Standard*.
 :::
 
@@ -141,9 +146,16 @@ I varchi **DTMF** inviano un codice DTMF (fino a 30 caratteri tra `0-9`, `A-D`, 
 I varchi **URL** vengono aperti con una richiesta HTTP che il centralino invia al citofono o al controller della porta:
 
 - scegli il metodo, **GET** o **POST**, e inserisci l'URL, che deve iniziare con `http://` o `https://`, per esempio `http://192.0.2.10/cgi-bin/open?door=1`;
-- inserisci **Nome utente** e **Password** se il dispositivo li richiede (autenticazione HTTP Basic o Digest);
+- inserisci **Nome utente** e **Password** se il dispositivo li richiede (autenticazione HTTP Basic o Digest). Con un URL `http://` il form avvisa che nome utente e password viaggiano in chiaro (vedi [Note sulla sicurezza](#security-notes));
 - il dispositivo deve essere raggiungibile dal centralino, come la sorgente stessa;
 - i varchi URL possono essere aperti in qualsiasi momento, con o senza chiamata.
+
+Per una sorgente creata da un citofono (vedi [Creazione di una sorgente da un citofono](#door-phone)), ogni varco apre un relè del citofono: il primo varco il relè 1, il secondo varco il relè 2. Una sorgente può avere al massimo un varco per relè (**Un varco per ogni relè del citofono**), quindi due varchi per i Fanvil i61, i62, i63 e i64 e uno per l'i60.
+
+- Un varco DTMF invia il codice del suo relè, impostato nella sezione [Relè](#door-phone) delle impostazioni del telefono: il codice è mostrato in sola lettura (**Codice del relè del citofono** 1, **impostato dal provisioning del citofono**). Per cambiarlo, cambia il codice del relè nelle impostazioni del telefono.
+- Quando imposti un varco su **URL**, il form propone l'URL che apre il relè, `http://<citofono>/cgi-bin/ConfigManApp.com?egs&outputN=OUTN_SOS` (`N` è il relè), con il metodo **GET** e il nome utente `admin`: inserisci a mano la password dell'interfaccia web del citofono, cioè la password di amministrazione dei telefoni. L'URL può essere modificato.
+
+Per i citofoni preferisci i varchi DTMF: il codice viaggia dentro la chiamata e il varco non ha bisogno di credenziali. Un varco URL serve per aprire la porta senza una chiamata.
 
 Dopo che un utente ha premuto un pulsante **Apri**, l'interfaccia mostra *Comando inviato*: il centralino sa solo che il comando è stato consegnato (per i varchi URL, che il dispositivo ha risposto con uno stato di successo), non se la porta si è davvero aperta.
 
@@ -196,6 +208,7 @@ Tieni presente che:
 - Fino a 10 varchi per ogni sorgente.
 - Ogni utente può guardare la stessa sorgente al massimo 3 volte contemporaneamente (per esempio in NethVoice CTI e in NethLink su due computer) e al massimo 30 video in totale. Oltre il limite l'utente vede *Troppi video aperti: chiudine uno per vedere questo*.
 - Ogni sorgente può essere guardata al massimo da 100 spettatori contemporaneamente, considerando tutti gli utenti.
+- Citofoni Fanvil i6x: al massimo un varco per relè. Dopo aver aperto un relè il citofono chiude la chiamata dopo alcuni secondi (riscontrato sull'i64), quindi si può aprire un solo relè per chiamata: per aprire l'altro relè, chiama di nuovo il citofono.
 
 ## Risoluzione dei problemi {#troubleshooting}
 
@@ -239,4 +252,5 @@ Se la verifica della connessione riesce ma gli utenti non vedono il video:
 
 - Consenti le porte RTSP e HTTP(S) dei dispositivi solo dall'indirizzo IP pubblico del centralino: non esporle mai a tutta Internet.
 - Quando il dispositivo lo permette, leggi il flusso con un utente dedicato che abbia solo i diritti necessari per vedere il video.
+- I varchi URL con un URL `http://` inviano nome utente e password in chiaro. Usali solo quando il centralino e il dispositivo sono nella stessa rete fidata o collegati tramite una VPN. Per i citofoni preferisci i varchi DTMF, che viaggiano dentro la chiamata e non hanno bisogno di credenziali; usa `https://` quando il dispositivo lo supporta.
 - Abilita **Salta la verifica del certificato TLS** solo per i dispositivi con un certificato autofirmato, dopo aver verificato che l'indirizzo appartenga davvero al tuo dispositivo: il certificato presentato al salvataggio della sorgente è considerato attendibile da quel momento in poi.

@@ -107,19 +107,24 @@ For the door phones that NethVoice configures through provisioning (see [Support
    - **URL**: the main stream of the device, for example `rtsp://192.0.2.10:554/h264/stream.live0` for the Fanvil i6x, with the address of the door phone;
    - **Video quality**: *High (main stream)*, the default, or *Standard (sub stream, for slow connections)*, for door phones with two streams. The choice changes only the path of the URL; a path typed by hand shows *Custom path*;
    - **Profile**: the profile of the user of the door phone extension;
-   - one DTMF gate, *Door 1*, with the door-open code of the door phone.
+   - one DTMF gate for each relay of the door phone: *Door 1* with the code of relay 1 (`*` by default) and, for door phones with two relays, *Door 2* with the code of relay 2 (`#` by default). See [Doors and gates](#gates).
 4. Change what you need, select the profiles, click **Check** and **Save**.
 
-**Credentials.** The first time a door phone is used, the PBX generates a random RTSP password for it, adds it to the provisioning configuration of the device and asks the door phone to download its configuration again. This password protects only the video stream (RTSP) of the door phone: the web interface of the door phone keeps the admin password of the phones. The password is never shown in the video sources and the form has no username and password fields for a source linked to a door phone, also when you modify it. To read or change the password, open **Users**, the user of the door phone, click the pencil next to the model of the device in its linked devices and open **Preferences**: the field is **RTSP password (video stream)**, with the eye button to show it. When you save it there, the door phone gets the new password with its next provisioning and the sources created from it take the new password. To give a door phone video other credentials, create the source with **Create new source** instead. The form says when the password has just been generated: if the check fails, wait a minute so that the door phone applies the new configuration, or restart the door phone. Later, the same door phone keeps the same password.
+**Call buttons and relays.** The call buttons and the relays of the door phone are set in the phone settings, like the keys of a phone: open **Users**, the user of the door phone, click the pencil next to the model of the device in its linked devices.
+
+- **Line keys**: one key for each call button of the door phone (five on the i63, one on the other models). The only type is **Speed Dial**: type the number that the button calls, for example the extension of the reception or a ring group. A key without a number is not written, so the door phone keeps the button set on its web interface.
+- **Relays**: for each relay, **Relay 1: DTMF code to open** and **Relay 1: open time (seconds)**, and the same for relay 2 on the door phones with two relays (the i60 has one). The default codes are `*` for relay 1 and `#` for relay 2. The door phone opens the relay when it receives its code during a call; the gates of the sources created from the door phone send these codes.
+
+**Credentials.** The first time a door phone is used, the PBX generates a random RTSP password for it, adds it to the provisioning configuration of the device and asks the door phone to download its configuration again. This password protects only the video stream (RTSP) of the door phone: the web interface of the door phone gets the [admin password of the phones](../../provisioning/phone_provisioning.md#admin-password), with the user `admin`. The password is never shown in the video sources and the form has no username and password fields for a source linked to a door phone, also when you modify it. To read or change the password, open **Users**, the user of the door phone, click the pencil next to the model of the device in its linked devices and open **Preferences**: the field is **RTSP password (video stream)**, with the eye button to show it. When you save it there, the door phone gets the new password with its next provisioning and the sources created from it take the new password. To give a door phone video other credentials, create the source with **Create new source** instead. The form says when the password has just been generated: if the check fails, wait a minute so that the door phone applies the new configuration, or restart the door phone. Later, the same door phone keeps the same password.
 
 **Address.** The IP address comes from the SIP registration of the door phone, so it is the address of the device in its own network: the form checks whether the PBX reaches it, like for any source (see [Creating a video source](#creating-video-source)). If the door phone registers from a public address that the PBX reaches on the same port, the warning also offers **Use public address**. If the door phone is not registered, the URL is empty: type it.
 
 Sources created this way are normal sources: **Modify** and **Delete** work as for any other source. **Create new source** still works for every other device.
 
 :::note Fanvil i6x door phones
-The provisioning of the Fanvil i60/i60K, i61, i62, i63 and i64 changes only these settings of the door phone: the SIP account (with RFC 2833 DTMF), time zone and time server, the provisioning server, the camera streams and the RTSP server (enabled, with authentication and the RTSP password generated by the PBX, see above). The web interface keeps the admin password of the phones. Everything else keeps the values set on the web interface of the door phone. In particular, configure on the door phone:
+The provisioning of the Fanvil i60/i60K, i61, i62, i63 and i64 changes only these settings of the door phone: the SIP account (with RFC 2833 DTMF), time zone and time server, the provisioning server, the camera streams, the RTSP server (enabled, with authentication and the RTSP password generated by the PBX, see above), the call buttons with a number (speed dial), the relays with a DTMF code (opened by DTMF, with their code and open time) and the password of the web user `admin`, which is the admin password of the phones. Everything else keeps the values set on the web interface of the door phone. In particular, configure on the door phone:
 
-- the door-open code and the access rules (**EGS Setting**): the gate proposed by the wizard uses the code `*`, the default remote opening code of Fanvil door phones; if the door phone uses a different code, type it in the gate;
+- the access rules and the door-open passwords (**EGS Setting**), and the outputs that the provisioning does not write;
 - the camera streams (**Intercom settings** > **Camera Settings**), following the [recommended stream settings](#stream-settings): the provisioning lowers the bitrate of the main stream to 1 Mbit/s and sets a keyframe every second on both streams, so the wizard proposes the main stream, `/h264/stream.live0`, and offers the sub stream, `/h264/stream.live1`, as *Standard* quality.
 :::
 
@@ -141,9 +146,16 @@ Use the arrows to change the order of the gates and the trash icon to remove one
 **URL** gates are opened by an HTTP request that the PBX sends to the intercom or to the door controller:
 
 - choose the method, **GET** or **POST**, and type the URL, which must start with `http://` or `https://`, for example `http://192.0.2.10/cgi-bin/open?door=1`;
-- type the **Username** and the **Password** if the device requires them (HTTP Basic or Digest authentication);
+- type the **Username** and the **Password** if the device requires them (HTTP Basic or Digest authentication). With an `http://` URL the form warns that the username and the password are sent in clear text (see [Security notes](#security-notes));
 - the device must be reachable from the PBX, like the source itself;
 - URL gates can be opened at any time, with or without a call.
+
+For a source created from a door phone (see [Creating a source from a door phone](#door-phone)), each gate opens one relay of the door phone: the first gate relay 1, the second gate relay 2. A source can have at most one gate per relay (**One gate per relay of the door phone**), so two gates for the Fanvil i61, i62, i63 and i64 and one for the i60.
+
+- A DTMF gate sends the code of its relay, set in the [Relays](#door-phone) section of the phone settings: the code is shown read-only (**Code of the door phone relay** 1, **set in the door phone provisioning**). To change it, change the relay code in the phone settings.
+- When you switch a gate to **URL**, the form proposes the URL that opens the relay, `http://<door phone>/cgi-bin/ConfigManApp.com?egs&outputN=OUTN_SOS` (`N` is the relay), with the method **GET** and the username `admin`: type the password of the web interface of the door phone, that is the admin password of the phones, by hand. The URL can be changed.
+
+Prefer DTMF gates for door phones: the code travels inside the call and the gate needs no credentials. A URL gate is useful to open the door without a call.
 
 After a user presses an **Open** button, the user interface shows *Command sent*: the PBX knows only that the command was delivered (for URL gates, that the device answered with a success status), not whether the door really opened.
 
@@ -196,6 +208,7 @@ Keep in mind that:
 - Up to 10 gates for each source.
 - Each user can watch the same source at most 3 times at the same time (for example in NethVoice CTI and in NethLink on two computers) and at most 30 videos in total. Over the limit the user sees *Too many open videos: close one to watch this*.
 - Each source can be watched by at most 100 viewers at the same time, all users together.
+- Fanvil i6x door phones: at most one gate per relay. After opening a relay the door phone ends the call after a few seconds (seen on the i64), so only one relay can be opened in each call: to open the other relay, call the door phone again.
 
 ## Troubleshooting {#troubleshooting}
 
@@ -239,4 +252,5 @@ If the connection check succeeds but users do not see the video:
 
 - Allow the RTSP and HTTP(S) ports of the devices only from the public IP address of the PBX: never expose them to the whole Internet.
 - When the device allows it, read the stream with a dedicated user that has only the rights needed to watch the video.
+- URL gates with an `http://` URL send the username and the password in clear text. Use them only when the PBX and the device are in the same trusted network or connected through a VPN. For door phones prefer DTMF gates, which travel inside the call and need no credentials; use `https://` when the device supports it.
 - Enable **Skip TLS certificate verification** only for devices with a self-signed certificate, after checking that the address really belongs to your device: the certificate presented when the source is saved is trusted from then on.
