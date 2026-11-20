@@ -25,6 +25,7 @@ L'applicazione è disponibile per i seguenti sistemi operativi:
 - **Notifiche di sistema integrate**: Avvisi immediati
 - **Ricerca in rubrica**: Trova rapidamente i contatti
 - **Gestione numeri brevi**: Accesso veloce ai numeri frequenti
+- **Accesso e uscita dalle code**: Entra ed esci dalle code senza aprire NethVoice CTI
 - **Visualizzazione chiamate perse**: Storico completo delle attività
 - **Integrazione con la barra delle applicazioni**: Accesso rapido dal sistema
 - **Utilizzo contemporaneo con NethVoice CTI**: Massima flessibilità

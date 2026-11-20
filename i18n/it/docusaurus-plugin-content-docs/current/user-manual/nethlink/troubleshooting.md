@@ -45,6 +45,7 @@ sidebar_position: 4
 - Le chiamate in arrivo verranno ricevute solo sul dispositivo impostato come principale
 - NethLink utilizza le notifiche di sistema per gli avvisi (ad es. chiamata in arrivo)
 - L'applicazione rimane sempre accessibile dalla barra delle applicazioni del sistema operativo
+- Su macOS, NethLink compare nel Dock e in Cmd+Tab solo mentre una delle sue finestre è aperta
 
 ## Ottenere aiuto
 
