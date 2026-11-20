@@ -20,6 +20,8 @@ Il servizio proxy richiede le seguenti porte:
 - **TCP**: 5060-5061
 - **UDP**: 5060-5061, 10000-20000
 
+5060 e 5061 sono le porte SIP predefinite: se sono state cambiate nelle impostazioni del proxy, aprire quelle configurate. Vedi [Porte SIP](/docs/administrator-manual/advanced/nethvoice_proxy#sip-ports).
+
 ### Porte Specifiche dell'Istanza NethVoice
 
 Ogni istanza di NethVoice ha porte di servizio specifiche.
