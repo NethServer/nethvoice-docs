@@ -149,6 +149,7 @@ Quando si cambiano le porte:
   - i **gateway** configurati da NethVoice ricevono la nuova porta nella configurazione rigenerata, che va caricata di nuovo sul dispositivo;
   - l'**app mobile** riceve la nuova porta al successivo provisioning, entro un'ora, o subito scansionando un nuovo QR code.
 - I **provider dei trunk**, i **dispositivi configurati a mano** e l'eventuale **firewall davanti al nodo** vanno aggiornati manualmente.
+- I **port forward aggiunti a mano**, come quello per il [bypass del proxy](/docs/tutorial/trunks/bypass_proxy_trunks), non vengono modificati: mantengono la loro porta in ingresso (per esempio 5060). Se necessario, vanno aggiornati o rimossi manualmente.
 
 :::warning
 I dispositivi che usano ancora le porte precedenti non si registrano finché non ricevono la nuova configurazione. Pianificare la modifica in una finestra di manutenzione.

@@ -149,6 +149,7 @@ When you change the ports:
   - **Gateways** configured from NethVoice get the new port in their regenerated configuration, which must be loaded on the device again.
   - **Mobile app** gets the new port at its next provisioning, within one hour, or right away by scanning a new QR code.
 - **Trunk providers**, **devices configured manually** and any **firewall in front of the node** must be updated by hand.
+- **Port forwards added by hand**, such as the one used to [bypass the proxy](/docs/tutorial/trunks/bypass_proxy_trunks), are not changed: they keep their incoming port (for example 5060). Update or remove them by hand if needed.
 
 :::warning
 Devices that still use the old ports cannot register until they get the new configuration. Plan the change in a maintenance window.
