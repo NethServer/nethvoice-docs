@@ -72,6 +72,34 @@ When the chat is enabled on NethVoice and your profile has the **Chat** permissi
 
 Everything you can do in a chat, including groups and chats with people outside the company, is described in the [NethVoice CTI chat](../nethcti/chat.md).
 
+## Queues {#queues}
+
+When your profile has the [Queue Agent Panel](../../administrator-manual/configuration/wizard.md#queue-agent-panel) permission, NethLink shows the **Queues** section with the queues you are a member of.
+
+- Click **Sign in** or **Sign out** next to a queue, or **Sign in to all queues** / **Sign out of all queues** at the top of the section.
+- Each queue shows your status: **Signed in**, **On a break** or **Signed out**. Expand a queue to see the waiting calls, the active operators, the longest wait and the operators signed in.
+- As a static member of a queue you are always signed in, so NethLink does not show the button for that queue.
+- Pauses, statistics and the calls of each queue are in [NethVoice CTI](../nethcti/other.md#queues-management): **Open NethVoice CTI** at the bottom of the section opens it.
+
+## Tray Menu {#tray-menu}
+
+The NethLink icon in the system tray (the menu bar on macOS) opens a menu with:
+
+- the NethLink version;
+- **Show NethLink** or **Hide NethLink**;
+- **Theme**: **System**, **Light** or **Dark**;
+- **Check for updates**, or **Download version** followed by the version number when a newer version is available;
+- **Quit NethLink**.
+
+On macOS, NethLink appears in the Dock and in Cmd+Tab while its window or the sign-in window is open.
+
+## Updates {#updates}
+
+When a newer version is available, a red dot appears on the **Information** icon of the sidebar, and the **Information** page and the tray menu link to the download page of that version.
+
+- With a stable version, NethLink reports only newer stable versions.
+- With a testing version, NethLink reports newer testing versions and the stable version that follows.
+
 ## Advanced Features {#advanced-features}
 
 ### Keyboard Shortcuts {#keyboard-shortcuts}

@@ -45,6 +45,7 @@ sidebar_position: 4
 - Incoming calls will only be received on the device set as primary
 - NethLink uses system notifications for alerts (e.g., incoming call)
 - The application remains always accessible from the operating system's system tray
+- On macOS, NethLink appears in the Dock and in Cmd+Tab only while one of its windows is open
 
 ## Getting Help {#getting-help}
 
