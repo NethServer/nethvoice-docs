@@ -6,7 +6,7 @@ sidebar_position: 2
 # API CTI quickstart 
 
 L'API CTI fornisce accesso programmatico alle funzionalità CTI (Computer Telephony Integration) di NethVoice. Questa guida copre l'autenticazione, la connessione WebSocket e l'autenticazione a due fattori.
-I metodi legacy sono documentati per riferimento, ma è fortemente consigliato eseguire la migrazione ai nuovi metodi.
+I percorsi delle API legacy `/webrest` e `/socket.io` sono stati rimossi in NethVoice 1.9: vedete [Rimozione delle API legacy](#legacy-api-removal).
 Le nuove funzionalità e i miglioramenti sono disponibili solo nella nuova API.
 
 La specifica completa dell'API è disponibile su:  
@@ -239,60 +239,21 @@ curl https://nethcti.example.com/api/user/me \
 
 ---
 
-## Metodo legacy (Deprecato)
+## Rimozione delle API legacy {#legacy-api-removal}
 
-:::warning Avviso di deprecazione
-Il metodo di autenticazione legacy che utilizza token HMAC-SHA1 non sarà più disponibile dopo il **1° giugno 2026**. 
-Eseguite la migrazione al nuovo metodo di autenticazione basato su JWT il prima possibile.
+:::danger Rimosso in NethVoice 1.9
+A partire da NethVoice 1.9, il server CTI legacy non è più pubblicato su `/webrest` e `/socket.io`: le richieste a questi percorsi falliscono.
+L'autenticazione legacy con token HMAC-SHA1 (`POST /webrest/authentication/login`) non è più disponibile.
+Le integrazioni e gli script che li usano ancora devono passare alle nuove API descritte sopra, seguendo la [guida alla migrazione](#migration-guide-legacy-to-new-method).
 :::
 
-### Login legacy
+Gli endpoint del server CTI legacy non ancora migrati restano disponibili tramite il middleware: chiamateli su `/api` con un token JWT, ad esempio `/api/user/me` invece di `/webrest/user/me`.
 
-Il metodo legacy richiedeva un processo challenge-response con HMAC-SHA1:
-
-**Endpoint:** `POST /webrest/authentication/login`
-
-```bash
-# Passaggio 1: Richiesta di accesso per ottenere il nonce
-curl -i -X POST https://nethcti.example.com/webrest/authentication/login \
-  -H "Content-Type: application/json" \
-  -d '{"username":"user","password":"pass"}'
-
-# Risposta: HTTP 401 Unauthorized
-# Header: Www-Authenticate: Digest <nonce_value>
-
-# Passaggio 2: Calcolare il token lato client
-# message = username:password:nonce
-# token = HMAC-SHA1(message, password)
-# auth_token = username:token_hex (es: "user:abc123def456...")
-
-# Passaggio 3: Utilizzare il token calcolato per tutte le richieste successive
-curl https://nethcti.example.com/webrest/user/me \
-  -H "Authorization: user:calculated_token_here"
-```
-
-### Utilizzo del token legacy
-
-Includete il token nell'header `Authorization` per le richieste autenticate:
-
-```bash
-curl https://nethcti.example.com/webrest/user/me \
-  -H "Authorization: username:abc123def456..."
-```
-
-### WebSocket legacy
-
-**Endpoint:** `/socket.io/`
-
-```javascript
-const socket = io('https://nethcti.example.com', {
-  path: '/socket.io'
-});
-```
+NethLink e Phone Island vanno aggiornati alle ultime versioni, che usano le nuove API.
 
 ---
 
-## Guida alla migrazione: Dal metodo legacy al nuovo metodo
+## Guida alla migrazione: Dal metodo legacy al nuovo metodo {#migration-guide-legacy-to-new-method}
 
 Per eseguire la migrazione dall'autenticazione legacy al nuovo metodo basato su JWT:
 
@@ -301,3 +262,4 @@ Per eseguire la migrazione dall'autenticazione legacy al nuovo metodo basato su 
 3. **Aggiornare il percorso WebSocket**: Cambiare da `/socket.io/` a `/api/ws/`
 4. **Adattare gli header**: Utilizzare `Authorization: Bearer <jwt-token>` invece di `Authorization: username:token`
 5. **Gestire la scadenza JWT**: Monitorare il campo `expire` del token e aggiornare secondo necessità
+6. **Aggiornare gli altri percorsi**: Sostituire il prefisso `/webrest` con `/api` (ad esempio `/webrest/user/me` diventa `/api/user/me`)
