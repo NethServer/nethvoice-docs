@@ -57,10 +57,9 @@ Ecco un elenco delle porte comunemente utilizzate:
 | CTI TLS | Variabile* | TCP | Comunicazione sicura CTI | Comunicazione TLS di NethVoice CTI (non usata) |
 | LDAP | Variabile* | TCP | Servizi di directory | Rubrica LDAP per i Telefoni |
 | SFTP | Variabile* | TCP | Gestione registrazioni | Download Registrazioni chiamate |
-| WSS | Variabile* | TCP | Asterisk Web Socket Sicuro | Porta per il collegamento di client ad Asterisk con protocollo WSS |
 | Asterisk RTP | Variabile* | UDP | Audio per client WSS | Porte per il traffico audio dei client WSS collegati direttamente ad Asterisk |
 | WireGuard VPN | 55820 | UDP | Accesso VPN | Necessaria per avere un NethServer multinodo |
-| HTTPS | 443 | TCP | Servizi web | Accesso interfaccia web (NethVoice, NethVoice CTI) e Provisioning (Telefoni e App Mobile) |
+| HTTPS | 443 | TCP | Servizi web | Accesso interfaccia web (NethVoice, NethVoice CTI), Provisioning (Telefoni e App Mobile) e registrazione dei client WSS (`wss://<host NethVoice>/ws`) |
 | SSH | 22 | TCP | Gestione remota | Accesso riga di comando |
 
 *Le porte variabili sono specifiche dell'istanza. Utilizza il metodo di ispezione delle variabili di ambiente descritto sopra per determinare i numeri di porta esatti per la tua distribuzione.
