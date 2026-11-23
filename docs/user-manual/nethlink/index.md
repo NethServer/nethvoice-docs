@@ -25,7 +25,7 @@ The application is available for the following operating systems:
 - Integrated system notifications
 - Address book search functionality
 - Speed dial management
-- Queue sign in and sign out
+- Queue log in, log out and pause
 - Missed calls display
 - System tray integration
 - Concurrent use with NethVoice CTI

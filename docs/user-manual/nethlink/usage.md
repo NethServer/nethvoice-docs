@@ -76,10 +76,13 @@ Everything you can do in a chat, including groups and chats with people outside 
 
 When your profile has the [Queue Agent Panel](../../administrator-manual/configuration/wizard.md#queue-agent-panel) permission, NethLink shows the **Queues** section with the queues you are a member of.
 
-- Click **Sign in** or **Sign out** next to a queue, or **Sign in to all queues** / **Sign out of all queues** at the top of the section.
-- Each queue shows your status: **Signed in**, **On a break** or **Signed out**. Expand a queue to see the waiting calls, the active operators, the longest wait and the operators signed in.
-- As a static member of a queue you are always signed in, so NethLink does not show the button for that queue.
-- Pauses, statistics and the calls of each queue are in [NethVoice CTI](../nethcti/other.md#queues-management): **Open NethVoice CTI** at the bottom of the section opens it.
+- Click **Log in** next to a queue to log in to it. The button next to **Pause** logs you out.
+- Click **Pause** and choose the reason: **Break**, **Lunch break**, **Emergency** or **Backend**. Click **End pause** to go back to the queue.
+- **All queues** at the top of the section logs you in to or out of all queues, pauses all queues with a reason, or ends the pause on all queues.
+- Each queue shows your status: **Logged in**, **On a break** or **Logged out**. During a pause the status shows the icon of the reason. Only you see the reason, in the NethLink where you chose it: the other operators and NethVoice CTI show only **On a break**.
+- Expand a queue to see the waiting calls, the active operators, the longest wait and the logged-in operators.
+- As a static member of a queue you are always logged in, so NethLink does not show the log in and log out buttons for that queue, but you can pause it.
+- Statistics and the calls of each queue are in [NethVoice CTI](../nethcti/other.md#queues-management): **Open NethVoice CTI** at the bottom of the section opens it.
 
 ## Tray Menu {#tray-menu}
 

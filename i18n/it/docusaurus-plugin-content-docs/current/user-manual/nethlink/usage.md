@@ -76,10 +76,13 @@ Tutto ciò che puoi fare in una chat, compresi i gruppi e le chat con persone es
 
 Quando il tuo profilo ha il permesso [Pannello agente coda](../../administrator-manual/configuration/wizard.md#pannello-agente-coda), NethLink mostra la sezione **Code** con le code di cui fai parte.
 
-- Fai clic su **Accedi** o **Esci** accanto a una coda, oppure su **Accedi a tutte le code** / **Esci da tutte le code** in alto nella sezione.
-- Ogni coda mostra il tuo stato: **Connesso**, **In pausa** o **Non connesso**. Espandi una coda per vedere le chiamate in attesa, gli operatori attivi, l'attesa più lunga e gli operatori connessi.
-- Se sei un membro statico di una coda sei sempre connesso, quindi NethLink non mostra il pulsante per quella coda.
-- Pause, statistiche e chiamate di ogni coda sono in [NethVoice CTI](../nethcti/other.md#gestione-code): **Apri NethVoice CTI** in fondo alla sezione lo apre.
+- Fai clic su **Accedi** accanto a una coda per accedervi. Il pulsante accanto a **Pausa** ti fa uscire dalla coda.
+- Fai clic su **Pausa** e scegli il motivo: **Pausa**, **Pausa pranzo**, **Emergenza** o **Backend**. Fai clic su **Termina pausa** per tornare in coda.
+- **Tutte le code** in alto nella sezione ti fa accedere o uscire da tutte le code, mette in pausa tutte le code con un motivo o termina la pausa su tutte le code.
+- Ogni coda mostra il tuo stato: **Connesso**, **In pausa** o **Non connesso**. Durante una pausa lo stato mostra l'icona del motivo. Il motivo lo vedi solo tu, nel NethLink in cui l'hai scelto: gli altri operatori e NethVoice CTI mostrano solo **In pausa**.
+- Espandi una coda per vedere le chiamate in attesa, gli operatori attivi, l'attesa più lunga e gli operatori connessi.
+- Se sei un membro statico di una coda sei sempre connesso, quindi NethLink non mostra i pulsanti per accedere e uscire da quella coda, ma puoi metterla in pausa.
+- Statistiche e chiamate di ogni coda sono in [NethVoice CTI](../nethcti/other.md#gestione-code): **Apri NethVoice CTI** in fondo alla sezione lo apre.
 
 ## Menu della barra delle applicazioni {#tray-menu}
 
