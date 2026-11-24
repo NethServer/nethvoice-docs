@@ -7,7 +7,7 @@
 
 
 <meta name="algolia-site-verification" content="E9DE13B70D9B7BA7"><link rel="stylesheet" href="/pr-preview/pr-108/it/assets/css/styles.74857691.css">
-<script src="/pr-preview/pr-108/it/assets/js/runtime~main.2d549c25.js" defer="defer"></script>
+<script src="/pr-preview/pr-108/it/assets/js/runtime~main.bec91424.js" defer="defer"></script>
 <script src="/pr-preview/pr-108/it/assets/js/main.d40db96e.js" defer="defer"></script>
 </head>
 <body>
@@ -73,7 +73,8 @@
 </ul>
 <h3 class="anchor anchorTargetStickyNavbar_Vzrq" id="limitazioni-e-prerequisiti">Limitazioni e prerequisiti<a href="#limitazioni-e-prerequisiti" class="hash-link" aria-label="Link diretto a Limitazioni e prerequisiti" title="Link diretto a Limitazioni e prerequisiti" translate="no">​</a></h3>
 <ul>
-<li class="">Non è possibile rimappare 5061 (richiederebbe certificati e modifiche alla provisioning dei telefoni).</li>
+<li class="">In alternativa al port forward, la porta SIP del proxy può essere spostata (per esempio su 5070) per lasciare libera la 5060: vedi <a class="" href="/pr-preview/pr-108/it/docs/administrator-manual/advanced/nethvoice_proxy#sip-ports">Porte SIP</a>. Telefoni, gateway e app mobile con provisioning di NethVoice seguono le nuove porte.</li>
+<li class="">Il port forward non segue le porte SIP del proxy: quando cambiano, mantiene la sua porta in ingresso (per esempio 5060) e va aggiornato o rimosso manualmente.</li>
 <li class="">Dopo aver abilitato il port forward, i settaggi NAT di FreePBX devono essere aggiornati: impostare l&#x27;IP pubblico, i network locali e includere la rete di NethServer tra le local nets.</li>
 <li class="">Il port forward non è visibile nell&#x27;interfaccia del proxy.</li>
 <li class="">Limitare il port forward a un singolo IP sorgente quando possibile.</li>
