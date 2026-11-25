@@ -5,7 +5,7 @@ sidebar_position: 6
 
 ## Introduction — proxy bypass overview
 
-This page explains why and how to bypass the SIP proxy for unsupported trunks. It collects practical notes, common failure modes and a small proof‑of‑concept for a port‑forwarding approach aimed at on‑premise installations where the proxy causes connectivity issues.
+This page explains why and how to bypass the SIP proxy for unsupported trunks. It collects practical notes, common failure modes and the proxy bypass setting, aimed at on‑premise installations where the proxy causes connectivity issues.
 
 ## When to consider bypassing the proxy
 
@@ -19,7 +19,7 @@ This page explains why and how to bypass the SIP proxy for unsupported trunks. I
 - Bypassing the proxy can be required to restore service for problematic trunks or to support operator‑specific configurations that the proxy cannot handle.
 - The decision to bypass should be taken after assessing operational constraints (firewall/NAT, port usage, certificate management and provider requirements).
 
-## Trunks with registration
+## Trunks with registration {#trunks-with-registration}
 
 - Default behaviour: the wizard sets the proxy as the outbound proxy for registered trunks.
 - To bypass for a registered trunk, remove the **Outbound proxy** value in the [FreePBX advanced](/docs/administrator-manual/advanced/freepbx) for that trunk.
@@ -49,75 +49,65 @@ This page explains why and how to bypass the SIP proxy for unsupported trunks. I
 - The proxy requires hairpin NAT in some topologies; many PBX installers cannot or will not modify their firewall.
 
 
-## Port‑forwarding for port 5060
+## Proxy bypass for a device {#proxy-bypass}
 
-Purpose: allow a complete bypass of the incoming SIP proxy for extreme cases (typical: on‑prem Mediant TIM expecting 5060).
+Purpose: let a single device skip the incoming SIP proxy and talk directly to NethVoice, for extreme cases (typical: on‑prem Mediant TIM expecting 5060).
 
 Use with care!
 
-### Typical scenario
+### Typical scenario {#proxy-bypass-scenario}
 
-- On‑prem installation where the Mediant must be reachable on UDP 5060.
-- Constraint: 5060 must be reserved for trunks; phones should continue using 5061.
+- On‑prem installation where the Mediant must reach NethVoice on UDP 5060.
+- The proxy keeps serving phones and the other trunks on the same ports.
 
-### Limitations and requirements
+### Configuration {#proxy-bypass-configuration}
 
-- As an alternative to the port forward, the proxy SIP port can be moved (for example to 5070) to leave 5060 free: see [SIP ports](/docs/administrator-manual/advanced/nethvoice_proxy#sip-ports). Phones, gateways and the mobile app provisioned by NethVoice follow the new ports.
-- The port forward does not follow the proxy SIP ports: when they change, it keeps its incoming port (for example 5060) and must be updated or removed by hand.
-- After enabling port forward, FreePBX NAT settings must be updated: set public IP, local networks and include the NethServer network in local nets.
-- Port forward is not visible in the proxy UI.
-- Port forward should be limited to a single source IP when possible.
+The bypass is configured in the settings of the NethVoice Proxy application running on the same node as NethVoice:
 
-### Example firewall commands (udp 5060 only)
+1. Open the **Settings** page of the NethVoice Proxy application and expand **Advanced**.
+2. Under **Proxy bypass**, click **Add IP address**.
+3. Enter the IP address of the device, for example `192.168.1.245`.
+4. Select the NethVoice instance that receives its calls. Only the instances running on the node of the proxy are listed.
+5. Click **Save**.
 
-Export a variable with the Asterisk SIP UDP port:
+If the **Proxy bypass** list is missing, update the NethVoice Proxy application.
 
-```bash
-export $(runagent -m nethvoice1 grep ASTERISK_SIP_UDP_PORT environment)
-```
+For each address the proxy creates the firewall rules by itself:
 
-Add a global forward rule:
+- SIP traffic over UDP sent by the device to the SIP port of the proxy is redirected to the NethVoice instance. The rule takes precedence over the ones of the [local networks](/docs/administrator-manual/advanced/nethvoice_proxy#local-networks), so a device inside a local network is bypassed too.
+- The SIP port of the NethVoice instance is opened for the device. Without it, incoming calls are closed after about 30 seconds.
+- The rules follow the [SIP port](/docs/administrator-manual/advanced/nethvoice_proxy#sip-ports) of the proxy, and they are removed when the address is removed from the list.
 
-```bash
-firewall-cmd --permanent --add-rich-rule="rule family=ipv4 forward-port port=5060 protocol=udp to-port=$ASTERISK_SIP_UDP_PORT"
-firewall-cmd --reload
-```
+On the NethVoice side, configure the trunk of the device as described in [Trunks with registration](#trunks-with-registration): no **Outbound proxy**, and the `Custom-` suffix in the trunk name.
 
-Limit forward to a single IP (example 1.2.3.4):
+### Limitations and requirements {#proxy-bypass-limitations}
 
-```bash
-firewall-cmd --permanent --add-rich-rule="rule family=ipv4 forward-port port=5060 protocol=udp to-port=$ASTERISK_SIP_UDP_PORT source address=1.2.3.4"
-firewall-cmd --reload
-```
+- Only SIP over UDP is bypassed.
+- The NethVoice instance must run on the same node as the proxy.
+- A device that is already sending SIP traffic to the proxy keeps reaching it until it stays silent for about two minutes. To apply a change at once, stop the device for that time or restart the node.
+- FreePBX NAT settings must be updated: set public IP, local networks and include the NethServer network in local nets. See the [audio problems troubleshooting guide](../troubleshooting/audio_problems.md#nat-settings).
+- As an alternative to the bypass, the proxy SIP port can be moved (for example to 5070) to leave 5060 free: see [SIP ports](/docs/administrator-manual/advanced/nethvoice_proxy#sip-ports). Phones, gateways and the mobile app provisioned by NethVoice follow the new ports.
 
-### Verification and removal
+### Verification {#proxy-bypass-verification}
 
-List rules:
+List the firewall rules on the node:
 
 ```bash
 firewall-cmd --list-rich-rules
 ```
 
-Remove the global rule:
+Two rules with `priority="-10"` are listed for each address: one with `forward-port` and one with `accept`.
+
+### Rules added by hand {#proxy-bypass-manual-rules}
+
+Earlier versions of this page added the port forward with `firewall-cmd` commands. Those rules are not managed by the proxy: they do not follow its SIP ports, they are ignored when the device belongs to a local network of the proxy, and they do not open the SIP port of NethVoice.
+
+Before adding a device to the **Proxy bypass** list, remove the rules added by hand for it. List them, then remove each one by passing its text as printed:
 
 ```bash
-firewall-cmd --permanent --remove-rich-rule="rule family=ipv4 forward-port port=5060 protocol=udp to-port=$ASTERISK_SIP_UDP_PORT"
-```
-
-Remove the IP‑limited rule:
-
-```bash
-firewall-cmd --permanent --remove-rich-rule="rule family=ipv4 forward-port port=5060 protocol=udp to-port=$ASTERISK_SIP_UDP_PORT source address=1.2.3.4"
-```
-
-Apply changes:
-
-```bash
+firewall-cmd --list-rich-rules
+firewall-cmd --permanent --remove-rich-rule='<rule text>'
 firewall-cmd --reload
 ```
 
-### Notes
-
-- IPv6 and TCP variants require equivalent rules.
-- This is an experimental mitigation and should be used only for constrained cases where provider/device fixes are not available.
-
+Do not remove the rules created by the proxy, such as the ones with `priority="-10"` and the ones of the local networks.

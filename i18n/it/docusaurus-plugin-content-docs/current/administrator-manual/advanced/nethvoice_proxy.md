@@ -149,7 +149,7 @@ Quando si cambiano le porte:
   - i **gateway** configurati da NethVoice ricevono la nuova porta nella configurazione rigenerata, che va caricata di nuovo sul dispositivo;
   - l'**app mobile** riceve la nuova porta al successivo provisioning, entro un'ora, o subito scansionando un nuovo QR code.
 - I **provider dei trunk**, i **dispositivi configurati a mano** e l'eventuale **firewall davanti al nodo** vanno aggiornati manualmente.
-- I **port forward aggiunti a mano**, come quello per il [bypass del proxy](/docs/tutorial/trunks/bypass_proxy_trunks), non vengono modificati: mantengono la loro porta in ingresso (per esempio 5060). Se necessario, vanno aggiornati o rimossi manualmente.
+- **Bypass del proxy**: i dispositivi della lista [Proxy bypass](#proxy-bypass) seguono la nuova porta SIP. I port forward aggiunti a mano con `firewall-cmd` non vengono modificati: mantengono la loro porta in ingresso (per esempio 5060). Se necessario, vanno aggiornati o rimossi manualmente.
 
 :::warning
 I dispositivi che usano ancora le porte precedenti non si registrano finché non ricevono la nuova configurazione. Pianificare la modifica in una finestra di manutenzione.
@@ -164,6 +164,14 @@ api-cli run module/nethvoice-proxy1/configure-module --data \
     "sip_port": 5070,
     "sips_port": 5071}'
 ```
+
+### Bypass del proxy {#proxy-bypass}
+
+Alcuni gateway e trunk locali non funzionano attraverso il proxy. La lista **Proxy bypass**, nella sezione **Advanced** delle impostazioni del proxy, invia il traffico SIP di un dispositivo direttamente a un'istanza NethVoice in esecuzione sullo stesso nodo del proxy.
+
+Ogni voce ha l'indirizzo IP del dispositivo e l'istanza NethVoice che riceve le sue chiamate. Il proxy crea le regole del firewall al salvataggio delle impostazioni e le rimuove quando la voce viene rimossa.
+
+Usarlo solo quando il trunk o il dispositivo non possono essere corretti: vedi [Bypass del proxy per trunk non supportati](/docs/tutorial/trunks/bypass_proxy_trunks#proxy-bypass) per la procedura e le limitazioni.
 
 ### Casi speciali {#special-cases}
 
