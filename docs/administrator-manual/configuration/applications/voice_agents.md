@@ -5,33 +5,56 @@ sidebar_position: 7
 
 # Voice agents
 
-Voice agents answer calls conversationally and can transfer callers to permitted PBX destinations. **Receptionist** is the built-in agent; administrators can also create custom **Basic Voice** agents. Queue and IVR routing are capabilities of an agent, rather than separate conversational agents.
+Voice agents answer calls conversationally and transfer callers to permitted PBX destinations. Start with the built-in **Receptionist** or create a **Basic Voice** agent.
 
 :::info Availability
-This page describes the voice-agent feature under development. It requires matching NethVoice and Satellite versions containing the feature; it is not available in installations that do not show **Agent** in Wizard. This alpha supports fresh installations of the current configuration format (v8) only. Earlier development databases are rejected; there is no automatic upgrade or reset. Back up an earlier test installation and use a fresh instance or an explicitly reviewed reset before installing the matching image pair.
+The opt-in preview supports OpenAI GPT-Live over WebSocket. SIP transports, including OpenAI Realtime, Grok and external CleverAI, require the separate lab switch and fresh media acceptance tests. The preview requires a fresh Agents installation. See [Recover an alpha installation](#recover-alpha) for earlier development databases.
 :::
 
 ## Before you start {#before-you-start}
 
-Use a NethVoice administrator account and a supported OpenAI or Grok account. Provider usage may incur charges. For SIP transports, the provider must be able to reach the HTTPS webhook address displayed by the interface. Configure a test route and a safe fallback before exposing an agent to normal calls.
+1. Sign in to the NS8 NethVoice application as an administrator. Under **Integrations**, enable **Voice agents preview**. The switch defaults to off.
+2. Enter an OpenAI project key here if agents will share the module credential. Agents can use this key with both transcription features disabled. Provider usage may incur charges.
+3. Save and check the Satellite apply status. If calls or transcription are in progress, Satellite waits for them to finish before applying new settings. A pending change still uses the previous configuration. For a failed apply, inspect the module task or service log and retry after correcting the cause.
+4. Open **Voice agents** in the NethVoice Wizard's applications menu. The editor uses your existing administrator sign-in. Set up a test route and a native fallback destination before routing normal calls.
 
-Agents share the Satellite service with transcription, but do not require call or voicemail transcription to be enabled. Plan service restarts in a maintenance window because they can affect both features.
+Disabling the preview preserves its drafts, publications and credentials for the next time you enable it. A clone starts with the preview disabled. Before enabling a clone, verify its hostname, credentials and routing independently of the source.
 
 ## Configure a provider trunk {#configure-provider-trunk}
 
-1. Open **Agent** from Wizard's applications menu. The Agents interface opens in a separate tab using the existing administrator sign-in.
-2. Open **Provider trunks** and create an OpenAI or Grok trunk.
-3. Enter the required provider credentials and webhook verification settings. Configure the corresponding provider webhook using the address displayed by the interface. Saving a trunk does not configure the provider account.
-4. Save the trunk. Credentials are write-only: leaving an existing credential blank during an edit preserves it.
+1. Open **Provider trunks**, create an OpenAI trunk, and enter the explicit **OpenAI project ID** for your project.
+2. Choose **NethVoice integrations key** to inherit the module credential, or **Dedicated key** and enter a project key for this trunk. On edit, leaving a dedicated key blank preserves it. Select inheritance explicitly to clear the dedicated override.
+3. Save the trunk and use **Test credential**. Correct an invalid key in its selected location. If access is denied, check the project permissions for model discovery. If OpenAI is unavailable, retry later.
+4. Select the conversation model and voice on the agent's page. Choose GPT-Live for the preview. It uses an outbound WebSocket and needs no provider signing secret or public webhook.
 
-A provider API key configured in the NethVoice module's integrations can supply the default credential when no explicit trunk key is stored. Explicit trunk credentials take precedence. Choose the conversation model and voice on each agent's page; available choices depend on the provider and transport. Grok SIP uses a provider-managed model.
+Before removing a shared key in **Integrations**, review the list of published agents that inherit it. Once the removal takes effect their new calls take native fallback until a valid key is available.
+
+### Automatic OpenAI SIP webhook setup in the lab {#automatic-openai-webhook}
+
+After saving an OpenAI trunk for local Realtime SIP calls, select **Configure webhook** in its row. NethVoice checks the project's existing endpoints, creates a recognizable `NethVoice <trunk ID> <hostname>` endpoint if needed, and encrypts the returned signing secret in the existing server-side credential store. The endpoint ID and its association are retained privately; the browser receives only setup status. The URL comes from NethVoice's configured public hostname and ends in `/satellite-webhooks/openai`; the subscribed event is `realtime.call.incoming`.
+
+Setup targets **the API key's project**. Check that the entered project ID belongs to that same project. NethVoice does not verify this association, and does not require an Admin API key. The project key needs permission to list and create webhook endpoints. Check public HTTPS reachability before placing calls.
+
+The **Webhook** column reports automatic setup, a manually stored secret, changed configuration or required recovery. Repeated setup reuses a matching endpoint when an associated signing secret is stored locally, including shared-project trunks using the same key and project ID. An unrelated or conflicting endpoint is never changed. Changing the API key, project ID or public hostname requires reviewing the setup again. Endpoint discovery does not verify webhook delivery or call readiness.
+
+If an endpoint exists but its signing secret is unavailable, recover the secret you retained or explicitly rotate it in the OpenAI dashboard, then edit the trunk and save that secret manually. After the action has identified the endpoint, **Configure webhook** can associate the manually supplied secret with it. NethVoice never rotates or deletes provider secrets automatically. The provider returns the full secret only at creation or rotation.
+
+If OpenAI times out, returns an incomplete creation response, or local persistence fails, retry **Configure webhook** to inspect the existing endpoints. An unresolved creation remains blocked even if it is not yet visible in the list, to avoid duplicates; inspect the API key's project and complete manual recovery. Check database availability and the encryption key for local save errors. Credentials and provider response bodies are not included in errors.
+
+This action is unavailable for Grok, CleverAI and trunks used only by GPT-Live. A shared OpenAI trunk can still configure the webhook for its Realtime SIP agents. GPT-Live uses WebSockets and does not need this webhook. Setup does not publish agents or change routes.
+
+### Manual webhook setup in the lab {#manual-webhook}
+
+For OpenAI Realtime SIP, create or select an endpoint in the correct OpenAI project using the **Provider webhook endpoint** displayed in the trunk editor and subscribe to `realtime.call.incoming`. Retain the signing secret when OpenAI returns it, enter it in **Webhook signing secret**, and save the trunk. The manual signing secret remains unverified until a signed, correlated test call connects media. Test a non-production route and check the trunk status again. SIP agents require a signing secret before publishing.
+
+For Grok, continue registering the displayed Grok endpoint and signing secret manually; both the API credential and signing secret are required when saving. For CleverAI, configure the OpenAI incoming-call webhook externally to point to CleverAI, and enter only the name and project ID in NethVoice.
 
 ## Configure and publish an agent {#configure-publish-agent}
 
 1. Open **Agents** and select **Receptionist**, or create a custom agent.
 2. Select the provider trunk, model, language and voice. Configure the greeting, instructions and maximum call duration.
 3. Review the agent's tools and their destination permissions as described below.
-4. Select **Save draft**, then **Publish**. Publishing activates the agent; there is no separate enable switch.
+4. Select **Save draft**, review **Required for publication**, then select **Publish**. A failed publish leaves the draft available for correction. If another administrator saved changes, compare the saved revision with your edits before retrying.
 
 Saving a draft does not change the published configuration. New calls use the published version; calls already in progress keep the version selected when they started. Publish later changes explicitly. Receptionist cannot be deleted.
 
@@ -46,17 +69,15 @@ For newly configured agents, the routing defaults are:
 | Category | Default | Administrator control |
 | --- | --- | --- |
 | Direct extensions | Disabled; no extension selected | In **Manage destinations**, select each permitted extension. |
-| Queues | Enabled; all queues eligible | In **Manage destinations**, clear the queues that the agent must not use. |
+| Queues | Enabled; no queue selected | In **Manage destinations**, select each queue the agent may find and transfer to. |
 | IVRs | Disabled | IVR activation is not exposed by the current editor. |
 | Recent contacts | Enabled; seven-day window | Set **Lookback period** from 1 to 90 days. To exclude extensions, choose **All extensions except the selected ones** and select them. |
 
-These category defaults still require the corresponding tool to be enabled. New queues become eligible unless excluded; new direct extensions remain unavailable until approved. Review permissions when the PBX inventory changes.
-
-An allowed IVR follows its native options, including destinations configured inside that IVR. Allowing the IVR is therefore a decision to allow its configured call flow, not just its first announcement.
+Publish the grants for the agent. Newly created queues and extensions stay unavailable until explicitly granted and published. The agent asks the caller to confirm the destination before requesting a transfer. **Monitoring** records a successful transfer after the native PBX confirms the handoff. IVRs can be native fallback destinations.
 
 ### Return a recent call {#return-recent-call}
 
-Recent-caller lookup uses the actual incoming caller number and PBX call history to find internal contacts that recently called that number. Answered and missed outbound calls can qualify. Its extension exclusions are independent of the direct-extension permissions.
+Recent-caller lookup uses the actual incoming caller number and PBX call history to find internal contacts that recently called that number. Answered and missed outbound calls can qualify. The target must be on the published extension allowlist and outside the recent-caller exclusions. The direct-extension toggle can remain off.
 
 The default Receptionist instructions name a single matching contact and ask for confirmation. If several contacts match, the agent names them and asks which one the caller wants to reach. Unknown or anonymous caller numbers, deleted extensions and missing matches must not be treated as a verified contact. A contact found for one call cannot be reused as authorization in another call.
 
@@ -72,11 +93,23 @@ Use the native **Agent** object in VisualPlan and select an enabled, published a
 
 Configure fallback routing in VisualPlan. Publish the agent and check synchronization before sending calls to it. A synchronization error requires resolution or an explicit retry; a saved draft alone does not make an agent destination available.
 
+An extension using a CTI profile reaches the agent through a supported VisualPlan route. A number created only in FreePBX **Misc Applications** is outside that extension's dialing context. Test using an extension with the same CTI profile as the intended callers.
+
+### Capacity, duration and fallback {#capacity-and-fallback}
+
+The preview defaults to two concurrent GPT-Live calls per instance. A private GPT-Live consultation with a colleague also uses a slot. An excess caller takes the configured PBX fallback and **Monitoring** records the capacity reason. When the maximum call duration approaches, the agent requests a brief notice in the configured language. Fallback starts at the deadline even if the notice cannot play.
+
+If the Asterisk control connection drops, Satellite attempts native fallback for active calls. A recovered connection accepts new calls. Test the configured fallback by calling the route, and place a second test call after reconnection.
+
 ## Inspect calls and performance {#inspect-calls-performance}
 
-Open **Monitoring** to filter call history by period, agent, voice provider, adapter or outcome and inspect a run. Filters other than the period accept multiple values, and runs can also be searched by agent or run ID. Run details show lifecycle events, a parent-linked trace, available provider usage and transfer or fallback outcomes. Summaries include call counts, latency and tool measurements. Percentiles are approximate, and overlapping phase durations must not be added to estimate the call length.
+Open **Monitoring** to filter call history by period, agent, voice provider, adapter or outcome and inspect a run. Filters other than the period accept multiple values. You can also search by agent or run ID.
 
-Check monitoring health and completeness alongside the call outcome. Missing measurements remain unavailable, rather than being reported as zero. A confirmed transfer can coexist with an incomplete trace. Interrupted collection or delivery recovery can leave measurements incomplete.
+Run details show local times, the administrator who published that version, lifecycle events, failure reasons, a parent-linked trace, available provider usage, and transfer or fallback outcomes. Use **Open native call record** to look up caller and called numbers under your existing call-record permissions and retention.
+
+Summaries include call counts, latency and tool measurements. Percentiles are approximate. Use the call duration to measure the length of a call, since phases can overlap.
+
+Open **Diagnostics** to check monitoring health, delivery and invalid webhook signatures counted since Satellite started. A failed signature check cannot identify a caller. Missing measurements remain unavailable, rather than being reported as zero. A confirmed transfer can coexist with an incomplete trace. Interrupted collection or delivery recovery can leave measurements incomplete.
 
 Metadata retention defaults to 90 days. Administrators can override it through the module environment variable `VOICE_AGENT_MONITORING_RETENTION_DAYS` (1–3650 days), followed by normal module configuration and a planned service restart. There is no retention control for metadata in the agent editor. Reducing the window removes older data during scheduled cleanup; increasing it does not recover deleted history. Native PBX call-history retention is separate.
 
@@ -91,4 +124,11 @@ Under **Debug**, **Call transcription** starts disabled. When enabled and publis
 - If a call ends or takes fallback during connection, inspect the run's provider, phase and fixed error category, then check provider credentials and webhook reachability.
 - If monitoring is incomplete or stale, inspect delivery health before interpreting latency or usage summaries.
 
-A provider connection or media-bridge event does not prove that the caller heard speech. During an authorized test call, verify audio in both directions and the actual transfer destination. GPT-Live uses a primary provider WebSocket and a private Asterisk media WebSocket; OpenAI Realtime and Grok retain their separate SIP transports. There is no transport selector or automatic SIP fallback. Protocol and media measurements are separate from human listening; conversational quality, long calls and behavior under transcription load still require live acceptance.
+A provider connection or media-bridge event does not prove that the caller heard speech. During an authorized test call, verify audio in both directions and the actual transfer destination. GPT-Live uses a primary provider WebSocket and a private Asterisk media WebSocket. SIP media testing requires the lab switch. There is no transport selector or automatic SIP fallback. Protocol and media measurements are separate from human listening; conversational quality, long calls and behavior under transcription load still require live acceptance.
+
+## Recover an alpha installation {#recover-alpha}
+
+1. Leave the preview disabled if setup reports an unsupported development database, including alpha-v8. Preserve the original instance. Do not drop Agents tables or run setup repeatedly against the alpha data.
+2. Make a protected NS8 backup of the complete NethVoice application. Retain the module, FreePBX and Satellite image versions or digests used to write the data, and verify that the backup includes the MariaDB data, module secret file with the original `SATELLITE_AGENT_CONFIG_KEY`, and voice-agent event volume. The original key is needed to decrypt dedicated trunk credentials.
+3. To recover the alpha, restore the backup to an isolated instance with the matching alpha images. Keep it isolated from production routing and provider webhooks while verifying the drafts, publications and credentials. Retain the original backup until recovery has been tested.
+4. To try the preview, install matching preview images on a fresh Agents instance and configure it there. An ordinary NethVoice upgrade can leave the preview off and continue serving PBX calls, chat and transcription.
