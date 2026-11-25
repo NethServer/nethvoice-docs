@@ -41,6 +41,8 @@ Per i telefoni non elencati come supportati, è possibile creare modelli di prov
 
 I videocitofoni si configurano con il provisioning come i telefoni: il centralino imposta l'account SIP, fuso orario e server dell'ora, i flussi della telecamera, la password RTSP del flusso video, generata dal centralino per ogni citofono, i pulsanti di chiamata (speed dial), i relè (codice DTMF e tempo di apertura) e la password dell'interfaccia web, che è la password di amministrazione dei telefoni. Il loro video può poi diventare una sorgente video con **Crea da un citofono**, vedi [Sorgenti video](../configuration/applications/video_sources.md#door-phone).
 
+Un citofono riceve la sua configurazione tramite RPS oppure tramite l'URL di provisioning con il codice segreto, inserito nella sua interfaccia web: l'indirizzo di provisioning senza codice segreto, per esempio quello dell'opzione DHCP 66, dà ai citofoni solo una configurazione senza segreti e senza URL di provisioning. Aggiungi un citofono all'inventario solo quando lo stai installando (vedi [Note sulla sicurezza](../configuration/applications/video_sources.md#security-notes)).
+
 ## Yealink
 
 **FIRMWARE Versione 0.86 o superiore**
