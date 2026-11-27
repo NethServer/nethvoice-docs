@@ -39,8 +39,8 @@ Per garantire una qualità ottimale delle chiamate:
 
 NethLink permette di personalizzare le scorciatoie da tastiera per le operazioni più comuni:
 
-1. Accedere a **Profilo → Impostazioni → Scorciatoie** (Command bar o Per Chiamare)
-2. Selezionare l'operazione da configurare
+1. Aprire il menu del profilo e fare clic su **Impostazioni**
+2. Selezionare **Scorciatoia per chiamare** o **Scorciatoia per la barra dei comandi**
 3. Premere la combinazione di tasti desiderata
 4. Salvare le impostazioni
 

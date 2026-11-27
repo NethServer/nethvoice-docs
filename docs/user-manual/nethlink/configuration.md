@@ -41,8 +41,8 @@ To ensure optimal call quality:
 
 NethLink allows you to customize keyboard shortcuts for common operations:
 
-1. Go to **Profile → Settings → Shortcuts**
-2. Select the operation to configure (Command bar or Call shortcut) 
+1. Open the profile menu and click **Settings**
+2. Select **Shortcut to call** or **Shortcut for the command bar**
 3. Press the desired key combination
 4. Save the settings
 

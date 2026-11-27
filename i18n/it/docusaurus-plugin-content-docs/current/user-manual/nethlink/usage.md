@@ -72,6 +72,37 @@ Quando la chat è abilitata su NethVoice e il tuo profilo ha il permesso **Chat*
 
 Tutto ciò che puoi fare in una chat, compresi i gruppi e le chat con persone esterne all'azienda, è descritto nella [chat di NethVoice CTI](../nethcti/chat.md).
 
+## Code {#queues}
+
+Quando il tuo profilo ha il permesso [Pannello agente coda](../../administrator-manual/configuration/wizard.md#pannello-agente-coda), NethLink mostra la sezione **Code** con le code di cui fai parte.
+
+- Fai clic su **Accedi** accanto a una coda per accedervi. Il pulsante accanto a **Pausa** ti fa uscire dalla coda.
+- Fai clic su **Pausa** e scegli il motivo: **Pausa**, **Pausa pranzo**, **Emergenza** o **Backend**. Fai clic su **Termina pausa** per tornare in coda.
+- **Tutte le code** in alto nella sezione ti fa accedere o uscire da tutte le code, mette in pausa tutte le code con un motivo o termina la pausa su tutte le code.
+- Ogni coda mostra il tuo stato: **Connesso**, **In pausa** o **Non connesso**. Durante una pausa lo stato mostra l'icona del motivo. Il motivo lo vedi solo tu, nel NethLink in cui l'hai scelto: gli altri operatori e NethVoice CTI mostrano solo **In pausa**.
+- Espandi una coda per vedere le chiamate in attesa, gli operatori attivi, l'attesa più lunga e gli operatori connessi.
+- Se sei un membro statico di una coda sei sempre connesso, quindi NethLink non mostra i pulsanti per accedere e uscire da quella coda, ma puoi metterla in pausa.
+- Statistiche e chiamate di ogni coda sono in [NethVoice CTI](../nethcti/other.md#gestione-code): **Apri NethVoice CTI** in fondo alla sezione lo apre.
+
+## Menu della barra delle applicazioni {#tray-menu}
+
+L'icona di NethLink nella barra delle applicazioni (la barra dei menu su macOS) apre un menu con:
+
+- la versione di NethLink;
+- **Mostra NethLink** o **Nascondi NethLink**;
+- **Tema**: **Sistema**, **Chiaro** o **Scuro**;
+- **Controlla aggiornamenti**, oppure **Scarica la versione** seguito dal numero di versione quando è disponibile una versione più recente;
+- **Esci da NethLink**.
+
+Su macOS, NethLink compare nel Dock e in Cmd+Tab mentre la sua finestra o quella di accesso è aperta.
+
+## Aggiornamenti {#updates}
+
+Quando è disponibile una versione più recente, sull'icona **Informazioni** della barra laterale compare un pallino rosso, e la pagina **Informazioni** e il menu della barra delle applicazioni portano alla pagina di download di quella versione.
+
+- Con una versione stable, NethLink segnala solo le versioni stable più recenti.
+- Con una versione testing, NethLink segnala le versioni testing più recenti e la versione stable successiva.
+
 ## Funzioni avanzate
 
 ### Scorciatoie da tastiera
