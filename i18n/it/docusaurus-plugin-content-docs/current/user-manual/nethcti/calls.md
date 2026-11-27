@@ -59,6 +59,8 @@ Quando ricevi una chiamata in arrivo, visualizzerai:
 
 Clicca il pulsante di accettazione per rispondere alla chiamata e apparirà la Phone Island.
 
+Quando la chiamata arriva da un videocitofono configurato come sorgente video, la Phone Island mostra anche il video del citofono, prima e dopo la risposta, e i pulsanti per aprire la porta. Vedi [Chiamate da un citofono](./video_sources.md#intercom-calls).
+
 ## Inoltro di chiamata {#call-forwarding}
 
 Sulle installazioni aggiornate a NethVoice 1.8.x, le chiamate inoltrate rispettano i permessi di chiamata in uscita dell'interno su cui è attivo l'inoltro. Per esempio, l'inoltro verso un cellulare fallisce se il profilo di quell'interno non consente chiamate verso i cellulari.

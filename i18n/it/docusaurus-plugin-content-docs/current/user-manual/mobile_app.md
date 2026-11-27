@@ -135,6 +135,12 @@ Selezionando un contatto esistente puoi modificarlo, effettuare una chiamata o a
 
 Per avviare una videochiamata, seleziona un utente nella sezione Contatti e tocca l’icona della videocamera. In alternativa, durante una chiamata vocale puoi passare alla videochiamata toccando l’icona della videocamera.
 
+### Videocitofoni {#door-intercoms}
+
+Le chiamate da un videocitofono arrivano nell'app come qualsiasi altra chiamata. L'app non ha una pagina per le sorgenti video di NethVoice e non ne mostra il video.
+
+Per aprire la porta, apri il tastierino durante la chiamata e digita il codice di apertura della porta. Chiedi il codice al tuo amministratore. Le porte che NethVoice apre senza codice non possono essere aperte dall'app: usa NethVoice CTI o NethLink. Vedi [Sorgenti video](./nethcti/video_sources.md).
+
 ### Impostazioni
 
 Dalla sezione Tastierino, tocca l’icona dell’ingranaggio in alto a destra per aprire le Impostazioni, dove puoi gestire:

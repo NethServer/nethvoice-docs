@@ -59,6 +59,8 @@ When you receive an incoming call, you will see:
 
 Click the accept button to answer the call and the Phone Island will appear.
 
+When the call comes from a door intercom configured as a video source, the Phone Island also shows the video of the intercom, before and after you answer, and the buttons to open the door. See [Calls from an intercom](./video_sources.md#intercom-calls).
+
 ## Call forwarding {#call-forwarding}
 
 On installations upgraded to NethVoice 1.8.x, forwarded calls follow the outgoing call permissions of the extension whose forwarding setting is enabled. For example, forwarding to a mobile number fails if that extension's profile does not allow calls to mobile numbers.
