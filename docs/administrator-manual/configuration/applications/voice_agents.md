@@ -22,9 +22,9 @@ Disabling the preview preserves its drafts, publications and credentials for the
 
 ## Configure a provider trunk {#configure-provider-trunk}
 
-1. Open **Provider trunks**, create an OpenAI trunk, and enter the explicit **OpenAI project ID** for your project.
+1. Open **Provider trunks**, create an OpenAI trunk, and enter the **OpenAI project ID** if the trunk will also support SIP calls.
 2. Choose **NethVoice integrations key** to inherit the module credential, or **Dedicated key** and enter a project key for this trunk. On edit, leaving a dedicated key blank preserves it. Select inheritance explicitly to clear the dedicated override.
-3. Save the trunk and use **Test credential**. Correct an invalid key in its selected location. If access is denied, check the project permissions for model discovery. If OpenAI is unavailable, retry later.
+3. Save the trunk. NethVoice checks the credential when the key or project changes. Correct a rejected key in its selected location. If access is restricted or the provider cannot be reached, retry the check or choose **Save without verification**.
 4. Select the conversation model and voice on the agent's page. Choose GPT-Live for the preview. It uses an outbound WebSocket and needs no provider signing secret or public webhook.
 
 Before removing a shared key in **Integrations**, review the list of published agents that inherit it. Once the removal takes effect their new calls take native fallback until a valid key is available.
@@ -51,14 +51,23 @@ For Grok, continue registering the displayed Grok endpoint and signing secret ma
 
 ## Configure and publish an agent {#configure-publish-agent}
 
-1. Open **Agents** and select **Receptionist**, or create a custom agent.
-2. Select the provider trunk, model, language and voice. Configure the greeting, instructions and maximum call duration.
-3. Review the agent's tools and their destination permissions as described below.
-4. Select **Save draft**, review **Required for publication**, then select **Publish**. A failed publish leaves the draft available for correction. If another administrator saved changes, compare the saved revision with your edits before retrying.
+1. Open **Agents**. Follow the setup notice to complete the next missing step. Open **Receptionist** to configure the built-in agent or select **Create agent** for a new agent.
+2. For a new basic voice agent, complete **General**, **Conversation** and **Tools**. Choose a provider trunk, voice model, voice and language. Add conversation instructions. The greeting is optional.
+3. To finish later, select **Cancel**, then **Save draft**. Give the draft a name before saving.
+4. Select **Publish**. After publication and synchronization, **Agents** opens. If validation fails, correct the fields in the saved draft. If another administrator saved settings while you were editing, choose **Save my changes** or **Discard my changes**.
+5. Open **Inbound routes** to route calls to the agent. The setup notice clears once a routable agent is used in a saved inbound route.
 
 Saving a draft does not change the published configuration. New calls use the published version; calls already in progress keep the version selected when they started. Publish later changes explicitly. Receptionist cannot be deleted.
 
 A fresh installation creates a disabled, unpublished Receptionist. Save and publish a complete configuration before assigning its native destination. Drafts and publications remain separate; repeating installation does not overwrite edits or credentials.
+
+### Compare voice models {#compare-voice-models}
+
+The standard preview uses [OpenAI GPT-Live](https://developers.openai.com/api/docs/models/gpt-live-1). It bills for active session time and uses a separate companion model for reasoning and tools. Under **Advanced**, the companion defaults to GPT-6 Luna. Choose GPT-6 Sol for more complex tasks. Reasoning effort defaults to Medium, response detail to Low, service tier to Default and maximum output to 2,048 tokens.
+
+The SIP lab adds [OpenAI Realtime models](https://developers.openai.com/api/docs/models/gpt-realtime-2.1), which bill by audio and text tokens. OpenAI positions [Realtime 2.1 Mini](https://developers.openai.com/api/docs/models/gpt-realtime-2.1-mini) as a faster, lower-cost model. Grok selects its own SIP model and publishes [speech-to-speech rates](https://docs.x.ai/developers/pricing). Configure CleverAI models and billing in CleverAI.
+
+Compare call quality and response speed using the same call script and PBX route. Check whether the agent recognizes names and numbers, handles interruptions and uses the correct tools. Compare provider usage for completed calls.
 
 ## Review routing permissions {#review-routing-permissions}
 
@@ -69,7 +78,7 @@ For newly configured agents, the routing defaults are:
 | Category | Default | Administrator control |
 | --- | --- | --- |
 | Direct extensions | Disabled; no extension selected | In **Manage destinations**, select each permitted extension. |
-| Queues | Enabled; no queue selected | In **Manage destinations**, select each queue the agent may find and transfer to. |
+| Queues | Disabled; no queue selected | In **Manage destinations**, select each queue the agent may find and transfer to. |
 | IVRs | Disabled | IVR activation is not exposed by the current editor. |
 | Recent contacts | Enabled; seven-day window | Set **Lookback period** from 1 to 90 days. To exclude extensions, choose **All extensions except the selected ones** and select them. |
 
@@ -89,7 +98,7 @@ This is a routing convenience. Caller ID can be spoofed and does not authenticat
 
 ## Add the agent to VisualPlan {#add-to-visualplan}
 
-Use the native **Agent** object in VisualPlan and select an enabled, published and synchronized agent. **New agent** opens the Agents editor in a new tab. Connect the object's **Fallback** output to an appropriate native destination; an unconnected fallback uses Hangup.
+Use the native **Agent** object in VisualPlan and select an enabled, published and synchronized agent. **New agent** opens agent creation in a new tab. Connect the object's **Fallback** output to an appropriate native destination; an unconnected fallback uses Hangup.
 
 Configure fallback routing in VisualPlan. Publish the agent and check synchronization before sending calls to it. A synchronization error requires resolution or an explicit retry; a saved draft alone does not make an agent destination available.
 
@@ -103,13 +112,9 @@ If the Asterisk control connection drops, Satellite attempts native fallback for
 
 ## Inspect calls and performance {#inspect-calls-performance}
 
-Open **Monitoring** to filter call history by period, agent, voice provider, adapter or outcome and inspect a run. Filters other than the period accept multiple values. You can also search by agent or run ID.
+Open **Monitoring** to filter call history by period, agent, provider, adapter or outcome. Search by caller number, called number, agent or run ID. The call list and details show local times, call durations, outcomes, and numbers when available. Daily totals use UTC.
 
-Run details show local times, the administrator who published that version, lifecycle events, failure reasons, a parent-linked trace, available provider usage, and transfer or fallback outcomes. Use **Open native call record** to look up caller and called numbers under your existing call-record permissions and retention.
-
-Summaries include call counts, latency and tool measurements. Percentiles are approximate. Use the call duration to measure the length of a call, since phases can overlap.
-
-Open **Diagnostics** to check monitoring health, delivery and invalid webhook signatures counted since Satellite started. A failed signature check cannot identify a caller. Missing measurements remain unavailable, rather than being reported as zero. A confirmed transfer can coexist with an incomplete trace. Interrupted collection or delivery recovery can leave measurements incomplete.
+Open **Diagnostics** for monitoring health and delivery. **Performance diagnostics** contains the latency and tool measurements. The call details have their own **Diagnostics** section with the run ID, provider adapter, trace, error codes and reported usage. Percentiles are approximate and some traces can be incomplete.
 
 Metadata retention defaults to 90 days. Administrators can override it through the module environment variable `VOICE_AGENT_MONITORING_RETENTION_DAYS` (1–3650 days), followed by normal module configuration and a planned service restart. There is no retention control for metadata in the agent editor. Reducing the window removes older data during scheduled cleanup; increasing it does not recover deleted history. Native PBX call-history retention is separate.
 

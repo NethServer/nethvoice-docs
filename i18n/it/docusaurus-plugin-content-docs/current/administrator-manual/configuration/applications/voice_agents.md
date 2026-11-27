@@ -22,9 +22,9 @@ Disattivando l’anteprima si conservano bozze, pubblicazioni e credenziali per 
 
 ## Configurare un trunk del provider {#configure-provider-trunk}
 
-1. Apri **Trunk dei provider**, crea un trunk OpenAI e inserisci l’**ID progetto OpenAI** del progetto.
+1. Apri **Trunk dei provider**, crea un trunk OpenAI e inserisci l’**ID progetto OpenAI** se il trunk deve supportare anche le chiamate SIP.
 2. Seleziona **Chiave delle integrazioni NethVoice** per usare la credenziale del modulo, oppure **Chiave dedicata** e inserisci una chiave di progetto per il trunk. In modifica, lascia vuoto il campo della chiave dedicata per conservare quella salvata. Per eliminare la chiave dedicata, seleziona esplicitamente la chiave delle integrazioni.
-3. Salva il trunk e seleziona **Verifica credenziale**. Se la chiave non è valida, correggila dove è stata impostata. Se l’accesso è negato, verifica i permessi del progetto per la lettura dei modelli. Se OpenAI non è disponibile, riprova più tardi.
+3. Salva il trunk. NethVoice verifica la credenziale quando cambia la chiave o il progetto. Se la chiave viene rifiutata, correggila dove è stata impostata. Se l’accesso è limitato o il provider è irraggiungibile, riprova oppure seleziona **Salva senza verifica**.
 4. Nella pagina dell’agente scegli il modello di conversazione e la voce. Per l’anteprima seleziona GPT-Live. La connessione WebSocket in uscita funziona senza segreto di firma o webhook pubblico.
 
 Prima di rimuovere la chiave condivisa in **Integrazioni**, controlla l’elenco degli agenti pubblicati che la utilizzano. Quando la modifica diventa effettiva, le nuove chiamate di questi agenti seguono il fallback nativo fino al ripristino di una chiave valida.
@@ -51,14 +51,23 @@ Per Grok, continua a registrare manualmente l'endpoint Grok visualizzato e il se
 
 ## Configurare e pubblicare un agente {#configure-publish-agent}
 
-1. Aprire **Agenti** e selezionare **Receptionist**, oppure creare un agente personalizzato.
-2. Selezionare trunk del provider, modello, lingua e voce. Configurare saluto, istruzioni e durata massima della chiamata.
-3. Verificare gli strumenti dell'agente e le autorizzazioni sulle destinazioni come descritto di seguito.
-4. Seleziona **Salva bozza**, verifica i **Requisiti per la pubblicazione** e seleziona **Pubblica**. Se la pubblicazione fallisce, puoi correggere la bozza salvata. Se un altro amministratore ha effettuato un salvataggio, confronta la revisione salvata con le tue modifiche prima di riprovare.
+1. Apri **Agenti** e segui l’avviso di configurazione per completare il passaggio successivo. Apri **Receptionist** per configurare l’agente integrato oppure seleziona **Crea agente**.
+2. Per un nuovo agente vocale di base, completa **Generale**, **Conversazione** e **Strumenti**. Scegli un trunk del provider, un modello vocale, una voce e la lingua. Inserisci le istruzioni per la conversazione. Il saluto iniziale è opzionale.
+3. Per continuare più tardi, seleziona **Annulla**, poi **Salva bozza**. Inserisci un nome prima di salvare.
+4. Seleziona **Pubblica**. Dopo la pubblicazione e la sincronizzazione si apre **Agenti**. Se la pubblicazione fallisce, correggi i campi nella bozza salvata. Se un altro amministratore ha salvato le impostazioni durante la modifica, seleziona **Salva le mie modifiche** oppure **Scarta le mie modifiche**.
+5. Apri **Rotte in entrata** per indirizzare le chiamate all’agente. L’avviso di configurazione scompare quando un agente disponibile per l’instradamento è usato in una rotta salvata.
 
 Salvare una bozza non modifica la configurazione pubblicata. Le nuove chiamate utilizzano la versione pubblicata; quelle già in corso mantengono la versione selezionata all'avvio. Pubblicare esplicitamente le modifiche successive. Receptionist non può essere eliminato.
 
 Una nuova installazione crea Receptionist disabilitato e non pubblicato. Salvare e pubblicare una configurazione completa prima di assegnare la destinazione nativa. Bozze e pubblicazioni rimangono separate; ripetere l’installazione non sovrascrive modifiche o credenziali.
+
+### Confrontare i modelli vocali {#compare-voice-models}
+
+L’anteprima standard usa [OpenAI GPT-Live](https://developers.openai.com/api/docs/models/gpt-live-1). Il costo dipende dal tempo di sessione attivo e il modello usa un modello di supporto per il ragionamento e gli strumenti. In **Avanzate**, il modello di supporto predefinito è GPT-6 Luna. Scegli GPT-6 Sol per attività più complesse. I valori predefiniti sono livello di ragionamento Medio, dettaglio della risposta Basso, livello di servizio Predefinito e un massimo di 2.048 token in uscita.
+
+La modalità sperimentale SIP aggiunge i [modelli OpenAI Realtime](https://developers.openai.com/api/docs/models/gpt-realtime-2.1), con costi basati sui token audio e di testo. OpenAI presenta [Realtime 2.1 Mini](https://developers.openai.com/api/docs/models/gpt-realtime-2.1-mini) come un modello più veloce e meno costoso. Grok seleziona il proprio modello SIP e pubblica le [tariffe per le conversazioni vocali](https://docs.x.ai/developers/pricing). Configura i modelli e la fatturazione CleverAI in CleverAI.
+
+Confronta qualità e tempi di risposta usando lo stesso copione e la stessa rotta PBX. Verifica che l’agente riconosca nomi e numeri, gestisca le interruzioni e usi gli strumenti corretti. Confronta il consumo riportato dal provider per le chiamate completate.
 
 ## Verificare le autorizzazioni di instradamento {#review-routing-permissions}
 
@@ -69,7 +78,7 @@ Per gli agenti appena configurati, i valori predefiniti sono:
 | Categoria | Valore predefinito | Controllo dell'amministratore |
 | --- | --- | --- |
 | Interni diretti | Disabilitati; nessun interno selezionato | In **Gestisci destinazioni**, selezionare ogni interno consentito. |
-| Code | Abilitate, nessuna coda selezionata | In **Gestisci destinazioni**, selezionare ogni coda che l’agente può cercare e usare per i trasferimenti. |
+| Code | Disabilitate, nessuna coda selezionata | In **Gestisci destinazioni**, selezionare ogni coda che l’agente può cercare e usare per i trasferimenti. |
 | IVR | Disabilitati | L’editor corrente non espone l’attivazione degli IVR. |
 | Contatti recenti | Abilitati; finestra di sette giorni | Impostare **Periodo considerato** da 1 a 90 giorni. Per escludere degli interni, scegliere **Tutti gli interni tranne quelli selezionati** e selezionarli. |
 
@@ -103,13 +112,9 @@ Se cade la connessione di controllo con Asterisk, Satellite tenta di inviare le 
 
 ## Consultare chiamate e prestazioni {#inspect-calls-performance}
 
-Aprire **Monitoraggio** per filtrare lo storico per periodo, agente, provider vocale, adattatore o esito e consultare un'esecuzione. I filtri diversi dal periodo accettano più valori. È anche possibile cercare per agente o ID dell’esecuzione.
+Apri **Monitoraggio** per filtrare lo storico per periodo, agente, provider, adattatore o esito. Cerca per numero chiamante, numero chiamato, agente o ID dell’esecuzione. L’elenco e i dettagli mostrano gli orari locali, la durata, l’esito e i numeri disponibili. I totali giornalieri usano il fuso orario UTC.
 
-I dettagli mostrano gli orari locali, l’amministratore che ha pubblicato la versione, gli eventi del ciclo di vita, i motivi di errore, una traccia gerarchica, i dati di utilizzo del provider disponibili e gli esiti di trasferimento o fallback. Selezionare **Apri il registro della chiamata** per cercare il numero chiamante e quello chiamato con i permessi e i tempi di conservazione previsti per lo storico PBX.
-
-I riepiloghi includono conteggi, latenze e misure degli strumenti. I percentili sono approssimativi. Per misurare la durata della chiamata, usare il valore della durata, poiché le fasi possono sovrapporsi.
-
-Apri **Diagnostica** per controllare lo stato del monitoraggio, la consegna degli eventi e il numero di firme webhook non valide dall’avvio di Satellite. Un errore nella verifica della firma non identifica il chiamante. Le misure mancanti restano indisponibili, anziché essere riportate come zero. Un trasferimento confermato può avere una traccia incompleta. Interruzioni della raccolta o il recupero della consegna possono lasciare misure incomplete.
+Apri **Diagnostica** per controllare lo stato del monitoraggio e la consegna degli eventi. La **Diagnostica delle prestazioni** contiene le misure di latenza e degli strumenti. La sezione **Diagnostica** dei dettagli della chiamata contiene ID dell’esecuzione, adattatore, traccia, codici di errore e consumo riportato dal provider. I percentili sono approssimativi e alcune tracce possono essere incomplete.
 
 La conservazione dei metadati è di 90 giorni per impostazione predefinita. Gli amministratori possono modificarla tramite la variabile d'ambiente del modulo `VOICE_AGENT_MONITORING_RETENTION_DAYS` (1–3650 giorni), seguita dalla normale configurazione del modulo e da un riavvio pianificato del servizio. L'editor dell'agente non offre un controllo per questa conservazione. Ridurre la finestra elimina i dati precedenti durante la pulizia programmata; aumentarla non recupera i dati eliminati. La conservazione dello storico nativo PBX è separata.
 
