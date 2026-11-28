@@ -8,3 +8,5 @@ Dopo aver creato un account **OpenAI** e ottenuto una chiave API per accedere a 
 
 Consulta [Configurazione del modulo NethVoice](../../administrator-manual/install/nethvoice_install#module-configuration).
 
+Le versioni che includono gli agenti vocali possono usare OpenAI anche per la gestione conversazionale delle chiamate. Configurare un trunk del provider, il webhook e i permessi di ciascun agente come descritto in [Agenti vocali](../../administrator-manual/configuration/applications/voice_agents.md). La chiave nelle integrazioni del modulo può fornire una credenziale predefinita, ma abilitare soltanto questa integrazione non pubblica un agente e non crea un percorso di chiamata.
+

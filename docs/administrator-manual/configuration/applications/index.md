@@ -19,3 +19,4 @@ The following applications are available in the *Applications* section:
 - **[Video Sources](./video_sources.md)**: Connect door intercoms and IP cameras: live video in NethVoice CTI and NethLink, doors opened from the CTI.
 - **Bulk actions**: Manage and modify multiple extensions and phones simultaneously.
 - **Voicemail**: Configure voicemail email notifications.
+- **[Voice agents](voice_agents.md)**: Configure conversational call handling, permitted transfers and call monitoring (requires a version containing the feature).

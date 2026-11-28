@@ -19,3 +19,4 @@ Le seguenti applicazioni sono disponibili nella sezione *Applicazioni*:
 - **[Sorgenti Video](./video_sources.md)**: Collega videocitofoni e telecamere IP: video dal vivo in NethVoice CTI e NethLink, porte aperte dal CTI.
 - **Gestione massiva**: Gestisci e modifica simultaneamente più interni e telefoni.
 - **Casella vocale**: Configura le notifiche email della casella vocale.
+- **[Agenti vocali](voice_agents.md)**: Configura la gestione conversazionale delle chiamate, i trasferimenti autorizzati e il monitoraggio (richiede una versione che includa la funzionalità).
