@@ -149,7 +149,7 @@ When you change the ports:
   - **Gateways** configured from NethVoice get the new port in their regenerated configuration, which must be loaded on the device again.
   - **Mobile app** gets the new port at its next provisioning, within one hour, or right away by scanning a new QR code.
 - **Trunk providers**, **devices configured manually** and any **firewall in front of the node** must be updated by hand.
-- **Port forwards added by hand**, such as the one used to [bypass the proxy](/docs/tutorial/trunks/bypass_proxy_trunks), are not changed: they keep their incoming port (for example 5060). Update or remove them by hand if needed.
+- **Proxy bypass**: the devices of the [Proxy bypass](#proxy-bypass) list follow the new SIP port. Port forwards added by hand with `firewall-cmd` are not changed: they keep their incoming port (for example 5060). Update or remove them by hand if needed.
 
 :::warning
 Devices that still use the old ports cannot register until they get the new configuration. Plan the change in a maintenance window.
@@ -164,6 +164,14 @@ api-cli run module/nethvoice-proxy1/configure-module --data \
     "sip_port": 5070,
     "sips_port": 5071}'
 ```
+
+### Proxy bypass {#proxy-bypass}
+
+Some local gateways and trunks do not work through the proxy. The **Proxy bypass** list, in the **Advanced** section of the proxy settings, sends the SIP traffic of a device directly to a NethVoice instance running on the same node as the proxy.
+
+Each item has the IP address of the device and the NethVoice instance that receives its calls. The proxy creates the firewall rules when the settings are saved and removes them when the item is removed.
+
+Use it only when the trunk or the device cannot be adjusted: see [Bypass proxy for unsupported trunks](/docs/tutorial/trunks/bypass_proxy_trunks#proxy-bypass) for the procedure and its limitations.
 
 ### Special Cases {#special-cases}
 
